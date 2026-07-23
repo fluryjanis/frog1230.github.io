@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frog1230 | Projects</title>
+  <title>Frog1230 | Developer Portfolio</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -25,7 +25,7 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1rem;
     }
 
     .container {
@@ -34,13 +34,13 @@
     }
 
     header {
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
+      padding-bottom: 2rem;
     }
 
     h1 {
-      font-size: 2.25rem;
+      font-size: 2.5rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--accent);
@@ -48,8 +48,53 @@
 
     p.subtitle {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      margin-top: 0.5rem;
+      font-size: 1.15rem;
+      margin-top: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .about-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      margin-bottom: 3rem;
+    }
+
+    .about-section h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .about-section p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
     }
 
     .grid {
@@ -74,7 +119,7 @@
       border-color: var(--accent);
     }
 
-    .card h2 {
+    .card h3 {
       font-size: 1.25rem;
       margin-bottom: 0.5rem;
     }
@@ -133,14 +178,34 @@
     <header>
       <h1>Frog1230</h1>
       <p class="subtitle">Local-first, privacy-focused apps & software utilities.</p>
+      
+      <!-- Socials & Profiles -->
+      <nav class="social-links">
+        <a href="https://github.com/fluryjanis" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://frog1230.itch.io/" target="_blank" rel="noopener">itch.io</a>
+        <a href="https://addons.mozilla.org/en-US/firefox/user/20036258/" target="_blank" rel="noopener">Firefox Add-ons</a>
+        <a href="https://bsky.app/profile/frog1230.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+        <a href="https://x.com/Frog1230taken" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://www.youtube.com/@frog1230-i1v/videos" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.reddit.com/user/A_Bias_Frog/" target="_blank" rel="noopener">Reddit</a>
+        <a href="https://sourceforge.net/u/frog1230/profile/" target="_blank" rel="noopener">SourceForge</a>
+      </nav>
     </header>
+
+    <!-- About Me Section -->
+    <section class="about-section">
+      <h2>About Me</h2>
+      <p>Here to solve problems with code. I build lightweight, local-first, privacy-focused applications and browser extensions. Check out my project source codes on GitHub, or test out live builds on itch.io and store platforms.</p>
+    </section>
+
+    <h2 class="section-title">Projects</h2>
 
     <main class="grid">
 
       <!-- Content Chef -->
       <article class="card">
         <div>
-          <h2>Content Chef</h2>
+          <h3>Content Chef</h3>
           <div class="tags">
             <span class="tag">Browser Extension</span>
             <span class="tag">Privacy</span>
@@ -157,7 +222,7 @@
       <!-- Remind Me -->
       <article class="card">
         <div>
-          <h2>Remind Me</h2>
+          <h3>Remind Me</h3>
           <div class="tags">
             <span class="tag">Desktop App</span>
             <span class="tag">Flutter</span>
@@ -172,7 +237,7 @@
       <!-- Your Pomodoro -->
       <article class="card">
         <div>
-          <h2>Your Pomodoro</h2>
+          <h3>Your Pomodoro</h3>
           <div class="tags">
             <span class="tag">Desktop App</span>
             <span class="tag">Productivity</span>
@@ -188,7 +253,7 @@
       <!-- MindShield -->
       <article class="card">
         <div>
-          <h2>MindShield</h2>
+          <h3>MindShield</h3>
           <div class="tags">
             <span class="tag">Browser Extension</span>
             <span class="tag">Local AI</span>
