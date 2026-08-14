@@ -24,6 +24,10 @@ A standalone, modular Pomodoro timer utility derived from the Remind Me planner 
 A local inference browser extension evaluating user reliance on AI tools inside the browser.
 * **Links:** [itch.io](https://frog1230.itch.io/mind-shield) | [GitHub Repo](https://github.com/fluryjanis/Mind-Shield)
 
+### [Research Wheel](https://frog1230.itch.io/researchwheel)
+A local-first radial research assistant extension for middle-click citations, web quotes, and workspace clipping.
+* **Links:** [itch.io](https://frog1230.itch.io/researchwheel) | [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/researchwheel/) | [GitHub Repo](https://github.com/fluryjanis/ResearchWheel)
+
 ---
 
 ##  Connect & Profiles
