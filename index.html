@@ -10,13 +10,29 @@
 
     gtag('config', 'G-VCBXQRCW9R');
   </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frog1230 | Developer Portfolio</title>
+
+  <meta
+    name="description"
+    content="Frog1230's developer portfolio featuring Research Wheel, MindShield, Content Chef, and other lightweight privacy-first software and browser extensions."
+  />
+
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://fluryjanis.github.io/frog1230.github.io/"
+  />
+
+  <title>Frog1230 | Privacy-First Software & Browser Extensions</title>
+
   <style>
     :root {
       --bg: #0f172a;
       --card-bg: #1e293b;
+      --card-hover: #263449;
       --text: #f8fafc;
       --text-muted: #94a3b8;
       --accent: #38bdf8;
@@ -30,7 +46,16 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        sans-serif;
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -106,6 +131,12 @@
       color: var(--text);
     }
 
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-top: -0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -120,7 +151,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
     }
 
     .card:hover {
@@ -160,6 +193,7 @@
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .links a {
@@ -173,134 +207,442 @@
       text-decoration: underline;
     }
 
+    .primary-link {
+      background: var(--accent);
+      color: #000 !important;
+      padding: 0.55rem 0.9rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+    }
+
+    .primary-link:hover {
+      text-decoration: none !important;
+      opacity: 0.9;
+    }
+
     footer {
       margin-top: 4rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.875rem;
     }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div class="container">
+
+    <!-- HEADER -->
+
     <header>
+
       <h1>Frog1230</h1>
-      <p class="subtitle">Local-first, privacy-focused apps & software utilities.</p>
-      
-      <!-- Socials & Profiles -->
-      <nav class="social-links">
-        <a href="https://github.com/fluryjanis" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://frog1230.itch.io/" target="_blank" rel="noopener">itch.io</a>
-        <a href="https://addons.mozilla.org/en-US/firefox/user/20036258/" target="_blank" rel="noopener">Firefox Add-ons</a>
-        <a href="https://bsky.app/profile/frog1230.bsky.social" target="_blank" rel="noopener">Bluesky</a>
-        <a href="https://x.com/Frog1230taken" target="_blank" rel="noopener">X / Twitter</a>
-        <a href="https://www.youtube.com/@frog1230-i1v/videos" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.reddit.com/user/A_Bias_Frog/" target="_blank" rel="noopener">Reddit</a>
-        <a href="https://sourceforge.net/u/frog1230/profile/" target="_blank" rel="noopener">SourceForge</a>
+
+      <p class="subtitle">
+        Lightweight, privacy-first software built around better ways to work.
+      </p>
+
+      <nav class="social-links" aria-label="Social and developer profiles">
+
+        <a
+          href="https://github.com/fluryjanis"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+
+        <a
+          href="https://frog1230.itch.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          itch.io
+        </a>
+
+        <a
+          href="https://addons.mozilla.org/en-US/firefox/user/20036258/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Firefox Add-ons
+        </a>
+
+        <a
+          href="https://bsky.app/profile/frog1230.bsky.social"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Bluesky
+        </a>
+
+        <a
+          href="https://x.com/Frog1230taken"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          X / Twitter
+        </a>
+
+        <a
+          href="https://www.youtube.com/@frog1230-i1v/videos"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          YouTube
+        </a>
+
+        <a
+          href="https://www.reddit.com/user/A_Bias_Frog/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Reddit
+        </a>
+
+        <a
+          href="https://sourceforge.net/u/frog1230/profile/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          SourceForge
+        </a>
+
       </nav>
+
     </header>
 
-    <!-- About Me Section -->
+
+    <!-- ABOUT -->
+
     <section class="about-section">
-      <h2>About Me</h2>
-      <p>Here to solve problems with code. I build lightweight, local-first, privacy-focused applications and browser extensions. Check out my project source codes on GitHub, or test out live builds on itch.io and store platforms.</p>
+
+      <h2>About</h2>
+
+      <p>
+        I build small software products that solve specific problems
+        without unnecessary complexity. My projects focus on privacy,
+        local-first software, productivity, research, and more
+        intentional use of technology.
+      </p>
+
+      <p style="margin-top: 0.75rem;">
+        Most projects are open source and available to try.
+      </p>
+
     </section>
 
-    <h2 class="section-title">Projects</h2>
+
+    <!-- FEATURED PROJECTS -->
+
+    <h2 class="section-title">Featured Projects</h2>
+
+    <p class="section-subtitle">
+      Current projects and tools you can try.
+    </p>
 
     <main class="grid">
 
-      <!-- Content Chef -->
+      <!-- Research Wheel -->
+
       <article class="card">
+
         <div>
+
+          <h3>Research Wheel</h3>
+
+          <div class="tags">
+            <span class="tag">Browser Extension</span>
+            <span class="tag">Research</span>
+            <span class="tag">Open Source</span>
+          </div>
+
+          <p>
+            Research the web without constantly switching tabs.
+            Save quotes, find research sources, generate citations,
+            and organize your findings.
+          </p>
+
+        </div>
+
+        <div class="links">
+
+          <a
+            class="primary-link"
+            href="https://fluryjanis.github.io/ResearchWheel/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try Research Wheel →
+          </a>
+
+          <a
+            href="https://addons.mozilla.org/en-US/firefox/addon/researchwheel/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Firefox
+          </a>
+
+          <a
+            href="https://github.com/fluryjanis/ResearchWheel/releases/tag/v2.0.0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chrome
+          </a>
+
+          <a
+            href="https://github.com/fluryjanis/ResearchWheel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- MindShield -->
+
+      <article class="card">
+
+        <div>
+
+          <h3>MindShield</h3>
+
+          <div class="tags">
+            <span class="tag">Browser Extension</span>
+            <span class="tag">Local AI</span>
+            <span class="tag">Open Source</span>
+          </div>
+
+          <p>
+            Use AI without letting it do your thinking for you.
+            MindShield adds a brief reflection pause when you use
+            AI for simple tasks you could potentially handle yourself.
+          </p>
+
+        </div>
+
+        <div class="links">
+
+          <a
+            class="primary-link"
+            href="https://fluryjanis.github.io/Mind-Shield/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try MindShield →
+          </a>
+
+          <a
+            href="https://github.com/fluryjanis/Mind-Shield/releases/tag/v1.0.2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chrome
+          </a>
+
+          <a
+            href="https://github.com/fluryjanis/Mind-Shield-Firefox/releases/tag/v1.0.2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Firefox
+          </a>
+
+          <a
+            href="https://github.com/fluryjanis/Mind-Shield"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- Content Chef -->
+
+      <article class="card">
+
+        <div>
+
           <h3>Content Chef</h3>
+
           <div class="tags">
             <span class="tag">Browser Extension</span>
             <span class="tag">Privacy</span>
           </div>
-          <p>A privacy-first local browser extension to filter and curate YouTube video recommendations.</p>
+
+          <p>
+            A privacy-first browser extension that helps you filter
+            and curate YouTube recommendations based on the content
+            you actually want to see.
+          </p>
+
         </div>
+
         <div class="links">
-          <a href="https://frog1230.itch.io/content-chef" target="_blank" rel="noopener">itch.io</a>
-          <a href="https://addons.mozilla.org/en-US/firefox/addon/content-chef/" target="_blank" rel="noopener">Firefox Add-on</a>
-          <a href="https://github.com/fluryjanis/Content-Chef" target="_blank" rel="noopener">GitHub</a>
+
+          <a
+            class="primary-link"
+            href="https://frog1230.itch.io/content-chef"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try Content Chef →
+          </a>
+
+          <a
+            href="https://addons.mozilla.org/en-US/firefox/addon/content-chef/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Firefox
+          </a>
+
+          <a
+            href="https://github.com/fluryjanis/Content-Chef"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+
         </div>
+
       </article>
 
-      <!-- Remind Me -->
-      <article class="card">
-        <div>
-          <h3>Remind Me</h3>
-          <div class="tags">
-            <span class="tag">Desktop App</span>
-            <span class="tag">Flutter</span>
-          </div>
-          <p>A keyboard-driven 24-hour desktop planner and calendar designed for fast scheduling.</p>
-        </div>
-        <div class="links">
-          <a href="https://frog1230.itch.io/remind-me" target="_blank" rel="noopener">itch.io</a>
-        </div>
-      </article>
-
-      <!-- Your Pomodoro -->
-      <article class="card">
-        <div>
-          <h3>Your Pomodoro</h3>
-          <div class="tags">
-            <span class="tag">Desktop App</span>
-            <span class="tag">Productivity</span>
-          </div>
-          <p>A standalone, modular Pomodoro timer utility derived from the Remind Me planner ecosystem.</p>
-        </div>
-        <div class="links">
-          <a href="https://frog1230.itch.io/your-pomodoro" target="_blank" rel="noopener">itch.io</a>
-          <a href="https://github.com/fluryjanis/Your-Pomodoro" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </article>
-
-      <!-- MindShield -->
-      <article class="card">
-        <div>
-          <h3>MindShield</h3>
-          <div class="tags">
-            <span class="tag">Browser Extension</span>
-            <span class="tag">Local AI</span>
-          </div>
-          <p>A privacy-first, on-device AI browser extension that counters cognitive offloading and protects critical thinking.</p>
-        </div>
-        <div class="links">
-          <a href="https://frog1230.itch.io/mind-shield" target="_blank" rel="noopener">itch.io</a>
-          <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://github.com/fluryjanis/Mind-Shield-Firefox" target="_blank" rel="noopener">GitHub (Firefox)</a>
-        </div>
-      </article>
-
-      
-      
-<!-- Research Wheel -->
-<article class="card">
-  <div>
-    <h3>Research Wheel</h3>
-    <div class="tags">
-      <span class="tag">Browser Extension</span>
-      <span class="tag">Research</span>
-    </div>
-    <p>Research the web without constantly switching tabs. Save quotes, find sources, generate citations, and organize your findings.</p>
-  </div>
-  <div class="links">
-    <a href="https://fluryjanis.github.io/ResearchWheel/" target="_blank" rel="noopener">Website</a>
-    <a href="https://frog1230.itch.io/researchwheel" target="_blank" rel="noopener">itch.io</a>
-    <a href="https://addons.mozilla.org/en-US/firefox/addon/researchwheel/" target="_blank" rel="noopener">Firefox Add-on</a>
-    <a href="https://github.com/fluryjanis/ResearchWheel" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</article>
-       
     </main>
 
+
+    <!-- OTHER PROJECTS -->
+
+    <section style="margin-top: 4rem;">
+
+      <h2 class="section-title">Other Projects</h2>
+
+      <p class="section-subtitle">
+        Smaller tools and experiments.
+      </p>
+
+      <div class="grid">
+
+        <!-- Remind Me -->
+
+        <article class="card">
+
+          <div>
+
+            <h3>Remind Me</h3>
+
+            <div class="tags">
+              <span class="tag">Desktop App</span>
+              <span class="tag">Productivity</span>
+            </div>
+
+            <p>
+              A keyboard-driven 24-hour desktop planner and calendar
+              designed for fast scheduling.
+            </p>
+
+          </div>
+
+          <div class="links">
+
+            <a
+              class="primary-link"
+              href="https://frog1230.itch.io/remind-me"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Try Remind Me →
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- Your Pomodoro -->
+
+        <article class="card">
+
+          <div>
+
+            <h3>Your Pomodoro</h3>
+
+            <div class="tags">
+              <span class="tag">Desktop App</span>
+              <span class="tag">Productivity</span>
+            </div>
+
+            <p>
+              A standalone Pomodoro timer designed for simple,
+              focused work sessions.
+            </p>
+
+          </div>
+
+          <div class="links">
+
+            <a
+              class="primary-link"
+              href="https://frog1230.itch.io/your-pomodoro"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Try Your Pomodoro →
+            </a>
+
+            <a
+              href="https://github.com/fluryjanis/Your-Pomodoro"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
     <footer>
-      <p>&copy; Frog1230. Built with plain HTML/CSS on GitHub Pages.</p>
+
+      <p>
+        © Frog1230. Built with plain HTML/CSS on GitHub Pages.
+      </p>
+
     </footer>
+
   </div>
 
 </body>
