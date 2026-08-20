@@ -1,0 +1,142 @@
+<!-- Meta Description (Fixed closing bracket & optimized to 152 characters) -->
+<meta
+  name="description"
+  content="MindShield is an open-source browser extension using local AI to prevent cognitive offloading, promoting mindful prompting and independent critical thinking."
+>
+
+<article class="article-container">
+
+  <header class="article-header">
+    <h1>Using AI More Intentionally: Stopping Automatic Cognitive Offloading</h1>
+    <p class="subtitle">
+      What if using AI didn't always mean immediately handing over your thinking process?
+    </p>
+  </header>
+
+  <main class="article-body">
+
+    <p>
+      AI assistants have made acquiring answers instant. A problem that once required 
+      several minutes of logical reasoning can now be solved with a single prompt.
+    </p>
+
+    <p>
+      That efficiency is powerful, but it introduces a subtle drawback: 
+      <strong>we begin outsourcing small acts of problem-solving simply because AI removes all friction.</strong>
+    </p>
+
+    <div class="highlight-box">
+      <p>
+        <strong>The goal isn't to stop using AI.</strong> 
+        The goal is to use it intentionally rather than as an automatic reflex.
+      </p>
+    </div>
+
+    <!-- Targeted for Google Featured Snippets (45-word direct definition) -->
+    <section>
+      <h2>What is cognitive offloading?</h2>
+      <p class="featured-snippet">
+        <strong>Cognitive offloading</strong> is the practice of using external tools—such as calculators, navigation apps, or AI assistants—to reduce mental effort. While offloading routine data storage saves working memory, delegating simple reasoning tasks to AI can reduce independent critical thinking skills over time.
+      </p>
+
+      <p>
+        AI differs from past tools because it handles high-level cognitive tasks: generating 
+        code, summarizing arguments, framing decisions, and analyzing complex data. Because the convenience 
+        is so high, it is easy to default to asking AI before attempting to reason through a problem yourself.
+      </p>
+    </section>
+
+    <section>
+      <h2>The problem isn't asking AI questions</h2>
+
+      <p>
+        Using AI is often the most effective approach. Debugging deeply nested code errors, exploring 
+        an unfamiliar code base, or summarizing lengthy technical papers are ideal tasks for an LLM.
+      </p>
+
+      <p>
+        The friction point happens with smaller, reflective tasks:
+      </p>
+
+      <div class="highlight-box">
+        <p>
+          <strong>"Could I have reasoned through this myself in 10 seconds before asking AI?"</strong>
+        </p>
+      </div>
+
+      <p>
+        When immediate delegation becomes your default habit, you lose the opportunity to practice 
+        active problem-solving.
+      </p>
+    </section>
+
+    <section>
+      <h2>How MindShield works</h2>
+
+      <p>
+        <strong>MindShield</strong> is an open-source browser extension designed to introduce a tiny 
+        moment of friction before an unnecessary AI query is submitted.
+      </p>
+
+      <p>
+        Using a lightweight, on-device machine learning model, MindShield evaluates your prompt locally 
+        before it reaches platforms like ChatGPT or Gemini. If a prompt looks like a simple logic 
+        shortcut you could answer yourself, MindShield encourages a brief pause to reflect.
+      </p>
+
+      <p>
+        Complex research prompts and heavy technical queries pass through instantly without interruption.
+      </p>
+    </section>
+
+    <section>
+      <h2>Local processing and privacy by design</h2>
+
+      <p>
+        Because MindShield inspects prompts, privacy is central to its architecture:
+      </p>
+
+      <ul>
+        <li><strong>On-Device Evaluation:</strong> All prompt classification runs locally in your browser using local WebAssembly/ONNX execution. No prompt data ever leaves your device.</li>
+        <li><strong>Zero External Servers:</strong> Your data is never sent to a remote API or classification server.</li>
+        <li><strong>Open Source:</strong> The code is fully transparent and open for inspection on GitHub.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>An experiment in intentional design</h2>
+
+      <p>
+        MindShield is an experiment in changing how we interact with software interfaces. 
+        Instead of maximizing friction-free engagement, it tests whether introducing subtle, 
+        mindful friction can help maintain active critical thinking skills in an AI-driven environment.
+      </p>
+
+      <div class="cta-box">
+        <h2>Explore the Project</h2>
+        <p>Use AI when it helps. Think for yourself when you can.</p>
+
+        <div class="cta-buttons">
+          <a
+            href="https://github.com/fluryjanis/Mind-Shield"
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on GitHub
+          </a>
+          <a
+            href="https://frog1230.itch.io/mind-shield"
+            class="btn btn-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try MindShield
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</article>
