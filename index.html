@@ -633,94 +633,153 @@
     </section>
     <!-- BLOG -->
 
-    <section style="margin-top: 4rem;">
+<section class="blog-section">
+  <h2 class="section-title">Blog & Updates</h2>
+  
+  <div class="blog-grid">
 
-      <h2 class="section-title">Blog</h2>
-
-      <p class="section-subtitle">
-        Development notes, research, and ideas behind my projects.
-      </p>
-
-      <div class="grid">
-
-        <!-- AI and Critical Thinking -->
-
-        <article class="card">
-
-          <div>
-
-            <h3>
-              AI and Critical Thinking: What Should We Actually Worry About?
-            </h3>
-
-            <div class="tags">
-              <span class="tag">AI</span>
-              <span class="tag">Critical Thinking</span>
-              <span class="tag">MindShield</span>
-            </div>
-
-            <p>
-              A look at the potential relationship between AI use,
-              critical thinking, and cognitive offloading.
-            </p>
-
-          </div>
-
-          <div class="links">
-
-<a
-  href="blog/AI-and-Critical-Thinking.html"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Read post →
-</a>
-
-          </div>
-
-        </article>
-
-
-        <!-- Using AI More Intentionally -->
-
-        <article class="card">
-
-          <div>
-
-            <h3>
-              Using AI More Intentionally: Stopping Automatic Cognitive Offloading
-            </h3>
-
-            <div class="tags">
-              <span class="tag">AI</span>
-              <span class="tag">Cognitive Offloading</span>
-              <span class="tag">MindShield</span>
-            </div>
-
-            <p>
-              Exploring why we can become overly reliant on AI and how
-              MindShield is designed to encourage more intentional AI use.
-            </p>
-
-          </div>
-
-          <div class="links">
-
-<a
-  href="blog/Using-AI-More-Intentionally.html"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Read post →
-</a>
-
-          </div>
-
-        </article>
-
+    <!-- Post 1 -->
+    <article class="blog-card">
+      <div class="blog-meta">
+        <span class="blog-date">Updated Today</span>
       </div>
+      <h3 class="blog-title">
+        <a href="blog/Stop-Cognitive-Offloading-to-AI.html">How to Stop Cognitive Offloading to AI</a>
+      </h3>
+      <p class="blog-description">
+        Practical strategies and frameworks to reclaim active reasoning and prevent automatic AI reliance.
+      </p>
+      <a href="blog/Stop-Cognitive-Offloading-to-AI.html" class="read-more">Read Article →</a>
+    </article>
 
-    </section>
+    <!-- Post 2 -->
+    <article class="blog-card">
+      <div class="blog-meta">
+        <span class="blog-date">Yesterday</span>
+      </div>
+      <h3 class="blog-title">
+        <a href="blog/Using-AI-More-Intentionally.html">Using AI More Intentionally</a>
+      </h3>
+      <p class="blog-description">
+        Exploring mindful prompting techniques and balancing AI speed with independent problem solving.
+      </p>
+      <a href="blog/Using-AI-More-Intentionally.html" class="read-more">Read Article →</a>
+    </article>
+
+    <!-- Post 3 -->
+    <article class="blog-card">
+      <div class="blog-meta">
+        <span class="blog-date">Yesterday</span>
+      </div>
+      <h3 class="blog-title">
+        <a href="blog/AI-and-Critical-Thinking.html">AI and Critical Thinking: What Should We Worry About?</a>
+      </h3>
+      <p class="blog-description">
+        An analysis of how friction-free tools shift mental habits and why intentional friction matters.
+      </p>
+      <a href="blog/AI-and-Critical-Thinking.html" class="read-more">Read Article →</a>
+    </article>
+
+    <!-- Post 4 -->
+    <article class="blog-card">
+      <div class="blog-meta">
+        <span class="blog-date">Yesterday</span>
+        <span class="blog-tag">Release</span>
+      </div>
+      <h3 class="blog-title">
+        <a href="blog/v1.1.0.html">MindShield v1.1.0 Release Notes</a>
+      </h3>
+      <p class="blog-description">
+        New local evaluation improvements, model latency optimizations, and UI updates for MindShield.
+      </p>
+      <a href="blog/v1.1.0.html" class="read-more">Read Release Notes →</a>
+    </article>
+
+  </div>
+</section>
+
+<style>
+  .blog-section {
+    margin: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--text, #f8fafc);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .blog-card {
+    background: var(--card, #1e293b);
+    border: 1px solid var(--border, #334155);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, #38bdf8);
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--muted, #94a3b8);
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-tag {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent, #38bdf8);
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .blog-title {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.35;
+  }
+
+  .blog-title a {
+    color: var(--text, #f8fafc);
+    text-decoration: none;
+  }
+
+  .blog-title a:hover {
+    color: var(--accent, #38bdf8);
+  }
+
+  .blog-description {
+    color: var(--muted, #94a3b8);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .read-more {
+    color: var(--accent, #38bdf8);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .read-more:hover {
+    text-decoration: underline;
+  }
+</style>
     <!-- FOOTER -->
 
     <footer>
