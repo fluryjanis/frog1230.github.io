@@ -1,0 +1,130 @@
+<article>
+  <h1>AI's Impact on Reason vs. Knowledge</h1>
+
+  <p>Current research does not show that AI impacts reasoning more than knowledge overall. Instead, the effects depend on what task AI performs, whether the goal is learning or simply completing a task, how much cognitive work the user delegates, and what outcome is measured. AI can improve task performance and learning under some conditions, while unrestricted assistance can reduce later unaided performance or retention in some studies. The evidence therefore points to a more specific conclusion: <strong>AI can affect both knowledge and reasoning, but the direction and size of the effect depend heavily on how the technology is used.</strong></p>
+
+  <h2>1. Understanding Knowledge in the AI Era</h2>
+
+  <p>In cognitive science, <strong>knowledge</strong> includes facts, concepts, and information stored in memory, as well as the ability to understand and retrieve that information. Technology has changed how people manage knowledge for decades. Research on Internet search found that when people expected information to remain available externally, they recalled less of the information itself and were more likely to remember where it could be found. This is one form of cognitive offloading and is commonly associated with the "Google Effect." [1]</p>
+
+  <p>Generative AI extends this form of external assistance by producing explanations, summaries, and answers directly. That can make information easier to access and can support learning, but it can also reduce the amount of independent retrieval or problem-solving a learner performs. The important question is therefore not simply whether AI is used, but what the learner does with the assistance.</p>
+
+  <h2>2. Understanding Reasoning in the AI Era</h2>
+
+  <p><strong>Reasoning</strong> involves evaluating evidence, connecting information, identifying logical problems, solving problems, and reaching conclusions. Generative AI can participate directly in these activities by proposing explanations, arguments, solutions, and recommendations.</p>
+
+  <p>This creates more opportunities to delegate parts of a reasoning task to an external system. However, that does not mean AI inherently weakens reasoning. Research shows that AI can improve performance on some analytical and knowledge-work tasks, while also creating accuracy problems on tasks where the system performs poorly. The effect depends on the task and on how the human uses and evaluates the AI output.</p>
+
+  <h2>3. What Research Says About AI and Knowledge</h2>
+
+  <p>The evidence on knowledge acquisition and learning is mixed. Importantly, there is experimental evidence for both positive learning effects and potential costs from unrestricted AI assistance.</p>
+
+  <ul>
+    <li><strong>AI can improve learning outcomes:</strong> A 2026 meta-analysis of 35 experimental and quasi-experimental studies involving 4,193 participants found a statistically significant, moderately positive overall effect of ChatGPT on student learning outcomes (g = 0.670). The researchers also found that factors including subject, intervention duration, and instructional mode influenced the results. [2]</li>
+
+```
+<li><strong>Better performance with AI does not necessarily mean better learning without it:</strong> Bastani et al. conducted a randomized field experiment involving nearly 1,000 high-school mathematics students. Students using GPT-4 performed substantially better during AI-assisted practice: grades were 48% higher with the standard GPT-4 interface and 127% higher with a learning-oriented GPT Tutor. However, when students later had to complete an exam without AI, the standard GPT-4 group performed 17% worse than the control group. The learning-oriented tutor largely avoided this negative effect. [3]</li>
+
+<li><strong>Retention can also be affected:</strong> A 2025 randomized controlled trial involving 120 undergraduates found that students who used ChatGPT as a study aid scored 57.5% on a surprise knowledge-retention test 45 days later, compared with 68.5% for students using traditional study methods. This provides experimental evidence of lower retention in that particular learning context, but it does not establish that AI universally reduces knowledge retention. [4]</li>
+
+<li><strong>How AI is designed matters:</strong> The Bastani experiment found that students often used the unrestricted GPT-4 interface to request and copy solutions, whereas the learning-oriented tutor encouraged more substantive engagement. The difference between these conditions shows why "AI use" should not be treated as a single type of behavior. [3]</li>
+```
+
+  </ul>
+
+  <p>These findings show why immediate performance and learning should not be treated as the same outcome. AI can make someone perform better while the tool is available without necessarily improving what that person can do independently later. Conversely, AI designed or used as instructional support can improve learning outcomes. The evidence therefore does not support the simple claim that AI reduces knowledge.</p>
+
+  <h2>4. What Research Says About AI and Reasoning</h2>
+
+  <p>Research on reasoning and critical thinking likewise shows both benefits and risks.</p>
+
+  <ul>
+    <li><strong>AI can improve performance on tasks within its capabilities:</strong> Dell'Acqua et al.'s 2026 preregistered randomized field experiment involved 758 knowledge workers who were assigned to no AI, GPT-4, or GPT-4 with a prompt-engineering overview. Across 18 realistic knowledge-work tasks within GPT-4's capability frontier, AI users completed 12.2% more tasks, completed them 25.1% faster, and produced higher-quality solutions on average. [5]</li>
+
+```
+<li><strong>AI can reduce correctness when the task is outside its capabilities:</strong> On a complex managerial task selected to be outside GPT-4's capability frontier, participants using AI were <strong>19% less likely to produce a correct solution</strong> than participants without AI. This is evidence of a task-specific performance cost, not proof that AI generally causes reasoning decline. [5]</li>
+
+<li><strong>Frequent AI use is associated with lower critical-thinking measures in one observational study:</strong> Gerlich's 2025 mixed-method study analyzed 666 valid responses and found a significant negative association between frequent AI-tool use and critical-thinking measures, with cognitive offloading included as a mediating variable. The study used questionnaire measures including items based on the Halpern Critical Thinking Assessment and self-reported critical-thinking measures, alongside interviews. Because the study was not a randomized experiment, the association does not establish that AI use caused lower critical-thinking ability. [6]</li>
+
+<li><strong>LLM assistance was associated with different neural activity during one writing task:</strong> Kosmyna et al.'s 2025 preprint studied 54 participants across three essay-writing sessions, with 18 participants completing a fourth session. EEG was used to examine brain connectivity and cognitive load while participants wrote essays with an LLM, a search engine, or no external tool. The researchers reported weaker connectivity in the LLM group than in the other groups. These measurements describe neural activity during the studied task; they do not establish brain damage, permanent cognitive decline, or reduced intelligence. [7]</li>
+```
+
+  </ul>
+
+  <p>The reasoning evidence therefore does not show that AI simply makes people worse at thinking. The Dell'Acqua experiment demonstrates that the same AI can improve performance on many tasks while reducing correctness on a task outside its capabilities. The Gerlich study provides correlational evidence involving critical-thinking measures, while the EEG study provides evidence about task-related neural activity. These are different outcomes and should not be treated as evidence for one universal effect on reasoning.</p>
+
+  <h2>5. Comparing the Evidence: Reason vs. Knowledge</h2>
+
+  <p>The available research does not establish that reasoning is affected more than knowledge. Instead, the two areas have different kinds of evidence and different measurable outcomes.</p>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Impact on Knowledge</th>
+        <th>Impact on Reasoning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>What AI can improve</strong></td>
+        <td>Learning outcomes and assisted performance can improve under some instructional conditions.</td>
+        <td>Performance, speed, and quality can improve on tasks within an AI system's capabilities.</td>
+      </tr>
+      <tr>
+        <td><strong>Observed risk</strong></td>
+        <td>Some experiments find lower later retention or unaided performance when AI supplies too much of the learning work.</td>
+        <td>Accuracy can decrease when users rely on AI for tasks outside its capabilities; observational research also finds an association between frequent AI use and lower critical-thinking measures.</td>
+      </tr>
+      <tr>
+        <td><strong>What is actually measured</strong></td>
+        <td>Learning outcomes, retention, and later unaided performance.</td>
+        <td>Task correctness, productivity, critical-thinking measures, and task-related neural activity.</td>
+      </tr>
+      <tr>
+        <td><strong>Useful safeguard</strong></td>
+        <td>Use AI to explain or guide learning while retaining opportunities for independent retrieval and problem-solving.</td>
+        <td>Attempt problems independently, evaluate AI reasoning, verify important conclusions, and retain responsibility for the final judgment.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The table summarizes different observed effects; it does <strong>not</strong> prove that one cognitive domain is harmed more than the other. In particular, lower retention, lower task engagement, lower critical-thinking scores, and lower performance on a difficult task are different findings and cannot be combined into a single measure of "cognitive damage."</p>
+
+  <h2>6. Key Limitations and Uncertainty</h2>
+
+  <p>Current research has several important boundaries:</p>
+
+  <ol>
+    <li><strong>Correlation vs. causation:</strong> Gerlich's study found an association between AI-tool use, cognitive offloading, and critical-thinking measures. Because participants were not randomly assigned to different levels of AI use, the study cannot establish that AI caused the observed differences. [6]</li>
+
+```
+<li><strong>Immediate performance vs. later learning:</strong> The Bastani experiment shows that students can perform substantially better with AI available while subsequently performing worse without it. Assisted performance and independent learning are therefore separate outcomes. [3]</li>
+
+<li><strong>Neural activity vs. cognitive ability:</strong> EEG measurements can reveal differences in brain activity during a task, but they do not by themselves establish changes in intelligence, reasoning ability, or long-term cognitive health. The Kosmyna study did not establish permanent cognitive decline. [7]</li>
+
+<li><strong>Long-term effects remain uncertain:</strong> Some studies have examined retention over weeks or repeated task sessions, but the current evidence does not establish that ordinary AI use causes permanent cognitive decline or "cognitive atrophy."</li>
+
+<li><strong>Usage and design matter:</strong> The positive findings from the 2026 learning meta-analysis and the contrasting GPT Base/GPT Tutor results show that instructional mode and tool design can substantially change outcomes. [2][3]</li>
+
+<li><strong>Tasks are not interchangeable:</strong> Learning a mathematics skill, writing an essay, completing management tasks, and answering a critical-thinking assessment measure different abilities. Results from one type of task should not automatically be generalized to all reasoning or knowledge.</li>
+```
+
+  </ol>
+
+  <h2>7. Conclusion</h2>
+
+  <p>So, does AI impact reasoning more than knowledge? <strong>Current research does not establish that it does.</strong> There is evidence that AI can affect both areas, but the effects are not directly comparable and can be positive or negative depending on how AI is used.</p>
+
+  <p>For knowledge and learning, AI can improve learning outcomes and assisted performance under some conditions. At the same time, experiments have found lower subsequent unaided performance or retention when unrestricted AI assistance replaces too much of the learner's own work. For reasoning, AI can improve performance on tasks within its capabilities but can reduce correctness on tasks where the system performs poorly. Observational research also finds an association between frequent AI use, cognitive offloading, and lower critical-thinking measures.</p>
+
+  <p>What the research does <strong>not</strong> establish is that AI universally damages reasoning, universally reduces knowledge, or causes permanent cognitive decline. The more defensible conclusion is that <strong>the effects of AI depend strongly on what cognitive work is delegated and how the AI is used.</strong> Using AI to support learning or analysis can improve performance, while using it to bypass independent learning, evaluation, or problem-solving can create measurable costs in some settings.</p>
+
+  <h2>8. Protect Your Critical Thinking with MindShield</h2>
+
+  <p>If you want a practical way to pause before delegating certain tasks to AI, <strong>MindShield</strong> is an open-source browser extension designed around that idea.</p>
+
+  <p>MindShield evaluates prompts locally in the browser using an on-device machine-learning model compiled for WebAssembly. When it identifies a prompt as a potential shortcut, the extension can introduce a brief pause before submission. The project describes this as a behavioral intervention intended to encourage more deliberate AI use. [8]</p>
+
+  <p>MindShield is not presented here as a scientifically proven method for preventing cognitive decline or improving critical-thinking ability. Its connection to the research is narrower: it is designed to encourage users to pause before delegating certain types of cognitive work to AI.</p>
+</article>
