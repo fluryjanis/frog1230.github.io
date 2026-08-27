@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MindShield v1.2.0 Technical Dev Log</title>
-  <style>
-    :root {
+  <style>:root {
       --bg: #0d1117;
       --card-bg: #161b22;
       --border: #30363d;
@@ -43,6 +42,14 @@
       margin-bottom: 2rem;
     }
 
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
     h1 {
       color: var(--heading);
       font-size: 2.2rem;
@@ -55,6 +62,31 @@
       color: var(--accent);
       font-size: 1rem;
       font-weight: 500;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent);
+      color: #0d1117;
+      font-weight: 600;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-footer {
+      margin-top: 1rem;
     }
 
     h2 {
@@ -146,15 +178,13 @@
     .tier-2 .tier-title { color: var(--amber); }
     .tier-3 .tier-title { color: var(--red); }
 
-    .diagram-box {
+    .footer-cta {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.2rem;
+      padding: 1.5rem;
       text-align: center;
-      margin: 1.2rem 0;
-      font-family: ui-monospace, monospace;
-      font-size: 0.85rem;
+      margin-top: 2.5rem;
     }
 
     hr {
@@ -237,6 +267,13 @@
       <li><strong>Network &amp; WASM Configuration:</strong> Added explicit <code>host_permissions</code> for HuggingFace and jsDelivr CDN endpoints to eliminate network aborts. Set <code>env.allowLocalModels = false;</code> and constrained WASM threads (<code>env.backends.onnx.wasm.numThreads = 1</code>) to bypass <code>SharedArrayBuffer</code> cross-origin isolation requirements.</li>
       <li><strong>AMO Compliance &amp; XSS Prevention:</strong> Completely replaced <code>innerHTML</code> assignments in <code>showToast()</code> with strict <code>document.createElement()</code> and <code>textContent</code> DOM nodes. Manifest configurations updated with <code>"data_collection_permissions": { "required": ["none"] }</code> and a <code>strict_min_version</code> of <code>112.0</code>.</li>
     </ul>
+
+    <div class="footer-cta">
+      <h3>Ready to test the latest release?</h3>
+      <p style="margin-bottom: 0.8rem; font-size: 0.9rem;">Add a small moment of reflection to your AI workflow across Chrome and Firefox.</p>
+      <a href="https://fluryjanis.github.io/Mind-Shield/" class="btn btn-footer" target="_blank" rel="noopener noreferrer">Try MindShield</a>
+    </div>
   </div>
+  
 </body>
 </html>
