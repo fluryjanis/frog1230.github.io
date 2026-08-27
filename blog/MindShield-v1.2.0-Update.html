@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindShield v1.2.0 Technical Dev Log</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --heading: #f0f6fc;
+      --accent: #38bdf8;
+      --teal: #2dd4bf;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --code-bg: #1f242c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      color: var(--heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    h2 {
+      color: var(--heading);
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+
+    h3 {
+      color: var(--heading);
+      font-size: 1.1rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    code {
+      background-color: var(--code-bg);
+      color: #e6edf3;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      font-size: 0.88em;
+      border: 1px solid var(--border);
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      margin-bottom: 1.2rem;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      font-size: 0.85rem;
+      color: #e6edf3;
+      line-height: 1.45;
+    }
+
+    .tier-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin: 1.2rem 0;
+    }
+
+    .tier-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .tier-card.tier-1 { border-left: 4px solid var(--teal); }
+    .tier-card.tier-2 { border-left: 4px solid var(--amber); }
+    .tier-card.tier-3 { border-left: 4px solid var(--red); }
+
+    .tier-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .tier-1 .tier-title { color: var(--teal); }
+    .tier-2 .tier-title { color: var(--amber); }
+    .tier-3 .tier-title { color: var(--red); }
+
+    .diagram-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem;
+      text-align: center;
+      margin: 1.2rem 0;
+      font-family: ui-monospace, monospace;
+      font-size: 0.85rem;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛡️ MindShield v1.2.0 Technical Dev Log</h1>
+      <div class="subtitle">Local AI Persistence, Blueprint v2.0, &amp; Firefox MV3 Architecture</div>
+    </header>
+
+    <p>Building client-side reflection mechanisms into modern AI chat interfaces requires balancing zero-friction user experience with robust intent classification. MindShield v1.2.0 introduces a fundamental rework of our local inference runtime, intent triage architecture, cross-platform DOM interception, and Firefox Manifest V3 compliance.</p>
+
+    <h2>1. Blueprint v2.0: 3-Tier Intent Classification &amp; Flagging</h2>
+    <p>Previous iterations relied on binary pass/flag logic that proved overly restrictive on non-surrender queries. Blueprint v2.0 establishes a nuanced 3-tier triage hierarchy executed locally:</p>
+
+    <div class="tier-grid">
+      <div class="tier-card tier-1">
+        <div class="tier-title">Tier 1: PASS (0ms Delay)</div>
+        <p style="font-size: 0.85rem; margin: 0;">Bypasses all delays for factual lookups, concept breakdowns, comparative analysis, collaborative reviews, and context dumps exceeding 400 characters.</p>
+      </div>
+      <div class="tier-card tier-2">
+        <div class="tier-title">Tier 2: WARNING (Soft Notice)</div>
+        <p style="font-size: 0.85rem; margin: 0;">Renders a glassmorphic amber toast without blocking execution. Targeted at cognitive offloading like basic math (<code>15 * 42</code>), social drafting, and action requests.</p>
+      </div>
+      <div class="tier-card tier-3">
+        <div class="tier-title">Tier 3: FLAGGED (5s Lockout)</div>
+        <p style="font-size: 0.85rem; margin: 0;">Enforces a 5-second reflection timer specifically for direct problem-solving surrender, homework evasion, and puzzle shortcuts.</p>
+      </div>
+    </div>
+
+    <h3>Contextual Scanning &amp; Regex Improvements</h3>
+    <ul>
+      <li><strong>Unanchored Scanning:</strong> Removed rigid <code>^</code> start-of-prompt regex anchors, allowing the model to catch offloading intent embedded midway through multi-sentence prompts (e.g., <em>"Database crashed. Tell me exactly what to do."</em>).</li>
+      <li><strong>Length Guard:</strong> Prompts longer than 400 characters automatically bypass classifier evaluation, eliminating false positives on raw code blocks and attached documents.</li>
+      <li><strong>Human-in-the-Loop Pass:</strong> Explicit validation requests (<em>"Can you review my argument for logical fallacies?"</em>) pass directly without friction.</li>
+    </ul>
+
+    <h2>2. Local AI Engine Optimization (ONNX / WASM)</h2>
+    <p>Running zero-shot classification via <code>@xenova/transformers</code> locally inside the browser presents strict memory and latency boundaries.</p>
+
+    <pre><code>[Native Chat Input] ──> [Capture Event] ──> [Warm Offscreen / Service Worker RAM] 
+                                                    │
+                                      (DistilBERT-MNLI / ONNX WASM)
+                                                    │
+                                 ┌──────────────────┴──────────────────┐
+                                 ▼                                     ▼
+                        &lt; 50ms Triage                        &gt; 400 Chars Auto-Pass</code></pre>
+
+    <h3>Persistent RAM Caching (Chrome)</h3>
+    <p>Chrome's background service worker previously terminated the offscreen document post-eval, triggering full 28MB model re-downloads and re-compilations on subsequent queries (~10s latency). Implementing <code>chrome.offscreen.hasDocument()</code> checks keeps the offscreen document permanently warm in memory, bringing inference evaluation down to <strong>&lt;50ms</strong>.</p>
+
+    <h3>Zero-Shot Label Engineering</h3>
+    <p>Candidate labels and hypothesis templates for <code>distilbert-base-uncased-mnli</code> were recalibrated for high-contrast output:</p>
+    <ul>
+      <li><strong>Flagged:</strong> <em>"solving a logic puzzle, riddle, math problem, or test question"</em></li>
+      <li><strong>Warning:</strong> <em>"asking for personal advice, social reply drafting, subjective decision, or action steps"</em></li>
+      <li><strong>Pass:</strong> <em>"asking for a factual explanation, concept breakdown, critique, or learning inquiry"</em></li>
+    </ul>
+
+    <h2>3. DOM Interception &amp; SPA Route Lifecycle</h2>
+    <p>Handling Single Page Application (SPA) state transitions across ChatGPT, Claude, Gemini, and X.com (Grok) required refactoring event capture strategies:</p>
+    <ul>
+      <li><strong>X.com (Grok) Button Compatibility:</strong> Added listener support for React Native for Web <code>div[role="button"]</code> structures and <code>[data-testid="grok-send-button"]</code>, attaching listeners to <code>pointerdown</code>, <code>mousedown</code>, and <code>click</code> phases.</li>
+      <li><strong>Tab-Scoped Memory Isolation:</strong> Moved lockout timers and bypass state to tab-isolated memory to prevent cross-tab race conditions.</li>
+      <li><strong>SPA Route Transition Teardown:</strong> Hooked into <code>popstate</code> and navigation events. Changing conversation threads immediately dismisses lingering toasts, clears active timers, and flushes state flags.</li>
+    </ul>
+
+    <h2>4. Firefox AMO Compatibility &amp; Security Hardening</h2>
+    <p>Firefox MV3 does not support Chrome's <code>offscreen</code> API. To achieve full cross-browser feature parity, the Firefox build was re-engineered for direct in-process WebAssembly execution within the background module.</p>
+
+    <h3>Runtime &amp; Build Adaptations</h3>
+    <ul>
+      <li><strong>Network &amp; WASM Configuration:</strong> Added explicit <code>host_permissions</code> for HuggingFace and jsDelivr CDN endpoints to eliminate network aborts. Set <code>env.allowLocalModels = false;</code> and constrained WASM threads (<code>env.backends.onnx.wasm.numThreads = 1</code>) to bypass <code>SharedArrayBuffer</code> cross-origin isolation requirements.</li>
+      <li><strong>AMO Compliance &amp; XSS Prevention:</strong> Completely replaced <code>innerHTML</code> assignments in <code>showToast()</code> with strict <code>document.createElement()</code> and <code>textContent</code> DOM nodes. Manifest configurations updated with <code>"data_collection_permissions": { "required": ["none"] }</code> and a <code>strict_min_version</code> of <code>112.0</code>.</li>
+    </ul>
+  </div>
+</body>
+</html>
