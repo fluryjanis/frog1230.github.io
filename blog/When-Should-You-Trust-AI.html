@@ -6,12 +6,192 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>When Should You Trust AI?</title>
-  <meta name="description" content="When should you trust AI? Learn four evidence-based boundaries for appropriate AI reliance: demonstrated capability, verifiability, calibrated confidence, and improved human performance.">
+  <meta name="description" content="When should you trust AI? Learn what research says about appropriate reliance, demonstrated capability, human evaluation, confidence calibration, and AI-assisted performance.">
 
   <link rel="canonical" href="https://fluryjanis.github.io/frog1230.github.io/blog/when-should-you-trust-ai.html/">
 
   <style>
-    /* Keep your existing CSS here */
+    :root {
+      --bg-color: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border-color: #e2e8f0;
+      --bg-alt: #f8fafc;
+      --card-bg: #f1f5f9;
+      --card-border: #cbd5e1;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0f172a;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --accent: #3b82f6;
+        --accent-hover: #60a5fa;
+        --border-color: #334155;
+        --bg-alt: #1e293b;
+        --card-bg: #1e293b;
+        --card-border: #475569;
+      }
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.7;
+      margin: 0;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    article.styled-article {
+      max-width: 760px;
+      width: 100%;
+    }
+
+    article h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    article h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    article h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    article p {
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    article strong {
+      font-weight: 600;
+    }
+
+    article a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    article a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    article ul,
+    article ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    article li {
+      margin-bottom: 0.75rem;
+      font-size: 1.05rem;
+    }
+
+    article blockquote {
+      margin: 1.5rem 0;
+      padding: 1rem 1.25rem;
+      border-left: 4px solid var(--accent);
+      background-color: var(--bg-alt);
+      border-radius: 4px;
+    }
+
+    article blockquote p {
+      margin-bottom: 0;
+    }
+
+    /* Research Station Cards */
+
+    .research-station {
+      background-color: var(--bg-alt);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .research-station h3 {
+      margin-top: 0;
+    }
+
+    .research-station p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Practical Boundary */
+
+    .boundary {
+      background-color: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      border-radius: 5px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .boundary p {
+      margin-bottom: 0;
+    }
+
+    /* Evidence Category Label */
+
+    .evidence-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Evidence Strength */
+
+    .evidence-strength {
+      background-color: var(--bg-alt);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* MindShield Box Theme */
+
+    .mindshield-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .mindshield-section h2 {
+      margin-top: 0;
+    }
   </style>
 </head>
 
@@ -19,168 +199,179 @@
 
 <article class="styled-article">
 
-  <article class="styled-article">
-
   <h1>When Should You Trust AI?</h1>
 
   <p>
     You should not trust AI simply because it is AI, because it sounds confident, because it explains its answer, or because it performed well somewhere else. Reliance becomes more defensible when the system has demonstrated capability for the task, the human has a meaningful way to evaluate its output, confidence information is calibrated, and AI assistance has actually improved performance in the relevant workflow.
   </p>
 
-  <h2>Why the Answer Is Not Simply "Always Trust AI" or "Never Trust AI"</h2>
+
+  <h2>Introduction: Why the Answer Is Not Simply "Always Trust AI" or "Never Trust AI"</h2>
 
   <p>
-    The question "when should you trust AI?" can sound as though there should be a simple rule. Either AI is trustworthy, or it is not.
+    The question "when should you trust AI?" does not have a single answer that applies to every AI system and every task.
   </p>
 
   <p>
-    The research does not support either extreme.
+    The more useful concept is <strong>appropriate reliance</strong>.
   </p>
 
   <p>
-    Instead, the evidence points toward <strong>appropriate reliance</strong>: using AI more when there is evidence that it can perform the task and that its assistance helps, while being more cautious when its capability, reliability, or usefulness is uncertain.
+    Appropriate reliance means that a person uses AI when the available evidence supports relying on it, while remaining able to recognize situations where the system should not be followed.
   </p>
 
   <p>
-    Several different ideas are involved here.
+    Several different concepts matter here.
   </p>
 
   <ul>
-    <li><strong>AI accuracy</strong> is how often an AI system produces a correct result.</li>
-    <li><strong>AI capability</strong> is what the system can successfully do for a particular task.</li>
-    <li><strong>Human evaluation</strong> is whether the person using AI can meaningfully recognize whether its output is correct.</li>
-    <li><strong>Trust</strong> is a person's belief that an AI system is dependable.</li>
-    <li><strong>Reliance</strong> is whether the person actually follows the AI's recommendation.</li>
-    <li><strong>Appropriate reliance</strong> means relying on AI when doing so is beneficial and withholding reliance when it is not.</li>
+    <li><strong>AI accuracy</strong> concerns whether an AI produces correct results.</li>
+    <li><strong>AI capability</strong> concerns what the system has demonstrated that it can do.</li>
+    <li><strong>Human evaluation</strong> concerns whether a person can meaningfully assess the AI's output.</li>
+    <li><strong>Trust</strong> concerns a person's belief that an AI system is worthy of reliance.</li>
+    <li><strong>Reliance</strong> concerns whether a person actually follows or uses the AI's output.</li>
+    <li><strong>Appropriate reliance</strong> concerns whether that reliance is justified under the conditions in which the AI is being used.</li>
   </ul>
 
   <p>
-    These concepts are related, but they are not interchangeable. An AI can be highly capable at a particular task while a person still relies on it too much. A person can also under-rely on a capable system or fail to benefit from useful assistance.
+    These concepts are related, but they are not the same thing. An AI can be accurate on a particular task without being reliable on every task. A person can trust an AI without having good evidence for that trust. And a human can remain involved in a decision without actually being able to evaluate the AI's output effectively.
   </p>
 
   <p>
-    That leads to a more useful question than "Can I trust AI?"
+    The goal is therefore not maximum trust or maximum skepticism.
   </p>
 
-  <blockquote>
-    <p>
-      <strong>Has this AI demonstrated that it can do this task, and do I have a good reason to rely on its output here?</strong>
-    </p>
-  </blockquote>
-
   <p>
-    Four practical boundaries help answer that question.
+    The goal is to make reliance match what the AI has actually demonstrated and what the human-AI workflow can support.
   </p>
 
 
   <h2>1. Does the AI Have Demonstrated Capability for This Task?</h2>
 
   <p>
-    The first question is not whether an AI system is generally impressive. It is whether it has demonstrated that it can handle <strong>the specific task you are asking it to perform</strong>.
+    The first boundary is capability.
   </p>
 
   <p>
-    Bansal and colleagues' 2019 research examined how people's understanding of an AI system's error boundaries affected human-AI team performance. The important finding was that overall AI accuracy was not the only factor that mattered. Understanding where the AI tended to make mistakes affected when people accepted or overrode its recommendations.
+    AI systems can have different strengths and weaknesses. Evidence that a system performs well in one situation does not automatically establish that it will perform equally well in another.
   </p>
 
   <p>
-    In other words, knowing that a system is accurate overall does not tell you everything about when it should be relied upon.
+    Bansal and colleagues (2019) examined human-AI decision making and showed why the relationship between AI capability and human reliance matters. People do not necessarily adjust their reliance perfectly to the AI's actual performance.
   </p>
 
   <p>
-    Dunning, Fischhoff, and Davis reached a related conclusion in a 2024 controlled experiment involving 156 participants. Participants made repeated decisions while receiving recommendations from AI agents with different levels of skill.
+    Dunning, Fischhoff, and Davis (2024) likewise examined how people relied on AI agents with different levels of skill. Their results showed that people benefited from highly skilled AI, but also that they could rely too heavily on a highly skilled system. At the other end, people could rely too little on a lower-skilled system.
   </p>
 
   <p>
-    Participants benefited from highly skilled AI, but their improvement plateaued because they relied too uncritically on the highly skilled agent. At the same time, they relied too little on lower-skilled AI agents.
+    That distinction is important.
   </p>
 
   <p>
-    That finding is important because it shows that human reliance does not automatically track actual AI capability.
+    <strong>Human reliance does not automatically match AI capability.</strong>
   </p>
 
   <p>
-    A system can be good enough to deserve substantial reliance without deserving <em>unlimited</em> reliance. Likewise, a weaker system may still provide useful information without receiving the level of reliance that its actual capabilities warrant.
+    A strong AI can still be over-relied upon. A weaker AI can be under-relied upon.
+  </p>
+
+  <p>
+    This means that "Is this AI good?" is often a less useful question than "What has this AI demonstrated that it can do?"
   </p>
 
   <div class="boundary">
-    <p><strong>Boundary: Trust AI more when its capability has been demonstrated for the specific task, rather than assuming that general performance transfers everywhere.</strong></p>
+    <p><strong>Boundary: The relevant question is not whether the AI is generally good. It is what the AI has demonstrated that it can do.</strong></p>
   </div>
 
   <p>
-    The evidence does not establish that modern AI systems have simple, universally predictable error boundaries. The practical lesson is narrower: <strong>performance on one task is not automatic evidence of performance on another.</strong>
+    This does not create a universal rule about where every AI system will succeed or fail. It means that task-specific evidence is more relevant than assuming that capability transfers automatically between tasks.
   </p>
 
 
   <h2>2. Can You Meaningfully Evaluate the Output?</h2>
 
   <p>
-    Capability is only part of the problem. You also need to consider whether the human using the AI has a meaningful way to evaluate what it produces.
+    Demonstrated capability is only part of the question.
   </p>
 
   <p>
-    Bansal and colleagues' findings suggest that understanding where an AI makes mistakes can affect whether people appropriately accept or override its recommendations. That makes the human's ability to recognize relevant failures important to the overall human-AI team.
+    The next question is whether the human using the AI has a meaningful way to evaluate what it produces.
   </p>
 
   <p>
-    But there is an important distinction between <strong>understanding an AI's explanation</strong> and <strong>being able to verify its answer</strong>.
+    Human presence alone does not guarantee effective oversight. A person can be involved in a decision while still having difficulty recognizing when an AI recommendation is incorrect.
   </p>
 
   <p>
-    Fok and Weld's 2024 research synthesis makes this distinction central. Their argument is that explanations are most useful when they help people determine whether an AI recommendation is actually correct. An explanation can make an answer easier to understand or more convincing without necessarily providing a reliable way to establish that the answer is true.
+    Bansal and colleagues (2019) provide evidence that human reliance depends partly on how well people understand the AI's capabilities and limitations. If people do not have a meaningful way to judge when an AI should or should not be followed, simply putting a human in the loop does not automatically produce appropriate reliance.
+  </p>
+
+  <p>
+    Fok and Weld (2024) make a related distinction in their supporting synthesis of research on AI-advised decision making. They argue that explanations are useful for appropriate reliance to the extent that they allow a human to verify whether an AI recommendation is correct.
+  </p>
+
+  <p>
+    This leads to an important principle:
   </p>
 
   <blockquote>
-    <p>
-      <strong>An explanation is not the same thing as evidence that lets you check an answer.</strong>
-    </p>
+    <p><strong>An explanation is not the same thing as evidence that lets you check an answer.</strong></p>
   </blockquote>
 
   <p>
-    This does not mean humans are incapable of evaluating AI. Kelso and colleagues' 2025 experiments provide an important counterexample. Across two experiments involving 1,092 and 1,809 participants, AI assistance improved people's ability to distinguish correct from incorrect eyewitness lineup identifications in several tested conditions.
+    An AI can explain an answer without that explanation establishing that the answer is correct. A convincing explanation can make an output easier to understand without making it independently verified.
   </p>
 
   <p>
-    The point is therefore not that human oversight always fails.
+    But this does not mean humans are simply incapable of evaluating AI.
   </p>
 
   <p>
-    The point is that <strong>human oversight works differently depending on whether the person has a meaningful basis for evaluating the AI's output</strong>.
+    Kelso and colleagues (2025) provide an important balancing point. Their research found that AI assistance improved people's ability to distinguish correct from incorrect eyewitness identifications in several tested conditions.
   </p>
 
   <p>
-    If you can independently assess an answer, compare it against relevant evidence, or otherwise recognize when the system has gone wrong, reliance can be more defensible. If you cannot meaningfully evaluate the output, simply knowing that an AI produced it does not solve that problem.
+    The finding matters because it shows that AI assistance can sometimes improve human evaluation rather than merely replace it.
+  </p>
+
+  <p>
+    The relevant question is therefore not simply whether a human is present.
+  </p>
+
+  <p>
+    It is whether the human has a meaningful way to evaluate the output.
   </p>
 
   <div class="boundary">
-    <p><strong>Boundary: Trust AI more when you have a meaningful way to evaluate its output; do not confuse a convincing explanation with verification.</strong></p>
+    <p><strong>Boundary: Reliance is more defensible when the human can meaningfully evaluate the AI's output rather than simply accepting an explanation as proof.</strong></p>
   </div>
 
 
   <h2>3. Is the AI's Confidence Actually Meaningful?</h2>
 
   <p>
-    Some AI systems provide confidence information alongside their recommendations. That information can influence how much people rely on the system.
+    Some AI systems provide confidence information alongside their recommendations. That information can affect whether people decide to rely on the system.
   </p>
 
   <p>
-    But confidence is useful only if it tells you something meaningful about the likelihood that the AI is correct.
+    But confidence is only useful as a guide to reliance when it is meaningfully related to correctness.
   </p>
 
   <p>
-    Fregosi and colleagues' 2026 study examined this issue with 184 adults solving logic problems while receiving AI recommendations accompanied by different confidence levels.
+    Fregosi and colleagues (2026) examined how calibrated and poorly calibrated AI confidence affected human reliance and decision outcomes. In the tested setting, <strong>well-calibrated confidence produced better outcomes than poorly calibrated confidence</strong>.
   </p>
 
   <p>
-    The study found that <strong>well-calibrated AI confidence improved decision accuracy substantially more than poorly calibrated confidence</strong>. Poorly calibrated confidence could encourage both over-reliance and under-reliance.
+    Calibration matters because poorly calibrated confidence can encourage inappropriate reliance in either direction.
   </p>
 
   <p>
-    Calibration means that a system's stated confidence corresponds reasonably well to how often it is actually correct. If a system is highly confident when it is frequently wrong, its confidence signal can push people in the wrong direction.
+    If an AI expresses high confidence when its recommendation is incorrect, a person may be encouraged to accept an incorrect answer. If confidence is poorly calibrated in the other direction, people may reject useful AI recommendations.
   </p>
 
   <p>
-    This creates a simple rule worth remembering:
+    The simple principle is:
   </p>
 
   <blockquote>
@@ -188,42 +379,26 @@
   </blockquote>
 
   <p>
-    The Fregosi study does not establish that all AI confidence signals are reliable or that confidence information in modern language models works in exactly the same way as the system tested in the experiment.
-  </p>
-
-  <p>
-    The narrower lesson is that <strong>confidence should increase reliance only when there is evidence that the confidence signal is actually calibrated</strong>.
+    What matters is whether the confidence information has been shown to be calibrated for the system and conditions in which it is being used.
   </p>
 
   <div class="boundary">
-    <p><strong>Boundary: Treat AI confidence as useful only when there is evidence that the confidence signal corresponds reasonably well to actual accuracy.</strong></p>
+    <p><strong>Boundary: Confidence information is more useful when it is calibrated for the relevant system and task.</strong></p>
   </div>
+
+  <p>
+    The Fregosi et al. study does not establish that all AI confidence signals are calibrated. It shows that calibration can affect reliance and outcomes when confidence information is used to guide human decisions.
+  </p>
 
 
   <h2>4. Does AI Actually Improve the Human-AI Workflow?</h2>
 
   <p>
-    There is another question that can easily get overlooked: <strong>Does using the AI actually make the human perform better?</strong>
+    The final boundary shifts attention away from the AI by itself and toward the entire human-AI workflow.
   </p>
 
   <p>
-    An AI system can produce useful answers without every form of AI assistance improving the overall task. What matters is the performance of the human-AI workflow, not just the capability of the AI in isolation.
-  </p>
-
-  <p>
-    Kelso and colleagues' 2025 experiments provide an important example of AI assistance producing a positive result. Participants receiving AI assistance improved their ability to distinguish correct from incorrect eyewitness lineup identifications in several tested conditions.
-  </p>
-
-  <p>
-    This is important because it demonstrates that the evidence should not be interpreted as an argument for simply distrusting AI. Under the conditions tested, AI assistance could make people better at the task.
-  </p>
-
-  <p>
-    Dunning, Fischhoff, and Davis provide the other side of the picture. Their 2024 experiment found that participants benefited from highly skilled AI, but also relied too uncritically on it. So even when an AI system is genuinely useful, more reliance does not necessarily produce more benefit.
-  </p>
-
-  <p>
-    The practical question is therefore not merely:
+    The important question is not merely:
   </p>
 
   <blockquote>
@@ -231,26 +406,50 @@
   </blockquote>
 
   <p>
-    It is also:
+    It is:
   </p>
 
   <blockquote>
-    <p><strong>"Did using the AI help the human perform the task better?"</strong></p>
+    <p><strong>"Did using the AI help the human perform better at the task?"</strong></p>
   </blockquote>
 
   <p>
-    That distinction matters because the goal of an AI-assisted workflow is not maximum AI involvement. The goal is better performance under the conditions in which the system is being used.
+    This distinction matters because an AI system does not operate in isolation when it is being used as decision support. The final result depends on how the human and AI interact.
+  </p>
+
+  <p>
+    Kelso and colleagues (2025) provide a positive example. AI assistance improved people's ability to distinguish correct from incorrect eyewitness identifications in several tested conditions.
+  </p>
+
+  <p>
+    That finding shows that AI assistance can produce a benefit at the level of the human-AI workflow.
+  </p>
+
+  <p>
+    Dunning, Fischhoff, and Davis (2024) provide an important counterweight. Their findings showed that highly skilled AI could improve performance, while people could still rely too heavily on it. Lower-skilled AI could also be underused.
+  </p>
+
+  <p>
+    In other words, useful AI does not automatically produce optimal human-AI performance.
+  </p>
+
+  <p>
+    The question is whether the particular combination of human, AI, task, and conditions actually produces a better result.
   </p>
 
   <div class="boundary">
-    <p><strong>Boundary: Trust AI more when its use has actually demonstrated a benefit to the human-AI workflow for the relevant task.</strong></p>
+    <p><strong>Boundary: Rely on AI more when its use has actually demonstrated a benefit in the relevant human-AI workflow.</strong></p>
   </div>
+
+  <p>
+    This does not mean AI-human collaboration is always better. It means that workflow-level performance is part of the evidence for appropriate reliance.
+  </p>
 
 
   <h2>Research Stations</h2>
 
   <p>
-    The evidence below comes from four primary experimental studies and one supporting research synthesis. Each study answers a narrower question than the broad question "Should AI be trusted?"
+    The research below supports different parts of the argument. The four primary experimental studies address AI capability, human reliance, evaluation, confidence, and human-AI performance. Fok and Weld (2024) is included separately as a supporting research synthesis.
   </p>
 
 
@@ -260,28 +459,26 @@
 
     <h3>Research Station: Bansal et al. (2019)</h3>
 
-    <p><strong>Study:</strong> <em>Beyond Accuracy: The Role of Mental Models in Human-AI Team Performance</em></p>
+    <p><strong>Study:</strong> Bansal et al. (2019).</p>
 
-    <p><strong>Year:</strong> 2019</p>
+    <p><strong>Year:</strong> 2019.</p>
 
-    <p><strong>Method:</strong> Controlled human-AI team experiments examining how people's understanding of AI error boundaries affected team performance.</p>
+    <p><strong>Method:</strong> Experimental research on human-AI decision making.</p>
 
-    <p><strong>Sample:</strong> The locked evidence base does not specify a sample size, so no sample number is provided.</p>
+    <p><strong>Sample:</strong> The evidence map used for this article does not specify a sample size.</p>
+
+    <p><strong>AI/task:</strong> Human decision making with AI recommendations.</p>
 
     <p>
-      <strong>AI/task:</strong> Participants worked with AI recommendations in controlled tasks where understanding the AI's strengths and error boundaries could affect whether recommendations were accepted or overridden.
+      <strong>Main finding:</strong> Human reliance on AI does not automatically correspond to the AI's actual capabilities and limitations.
     </p>
 
     <p>
-      <strong>Main finding:</strong> Human-AI performance depended on more than the AI's overall accuracy. Understanding where the AI tended to make mistakes affected reliance on its recommendations.
+      <strong>What it supports:</strong> Appropriate reliance depends on understanding what the AI can and cannot do, rather than assuming that a capable system should always be followed.
     </p>
 
     <p>
-      <strong>What it supports:</strong> Appropriate reliance depends partly on understanding an AI system's demonstrated strengths and weaknesses. Aggregate accuracy is not the whole story.
-    </p>
-
-    <p>
-      <strong>Important limitation:</strong> The experimental tasks were more controlled and constrained than open-ended modern AI use. The study does not establish that modern LLMs have simple or universally predictable error boundaries.
+      <strong>Important limitation:</strong> The study's findings come from its tested decision-making conditions. They do not establish a universal rule for every AI system or task.
     </p>
 
   </div>
@@ -295,26 +492,24 @@
 
     <p><strong>Study:</strong> <em>When Do Humans Heed AI Agents' Advice? When Should They?</em></p>
 
-    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Year:</strong> 2024.</p>
 
-    <p><strong>Method:</strong> Controlled experiment in which participants made repeated decisions while receiving recommendations from AI agents with different levels of skill.</p>
+    <p><strong>Method:</strong> Experimental study of human reliance on AI agents with different levels of skill.</p>
 
-    <p><strong>Sample:</strong> 156 participants.</p>
+    <p><strong>Sample:</strong> The evidence map used for this article does not specify a sample size.</p>
+
+    <p><strong>AI/task:</strong> Human decision making with AI advice in the tested task.</p>
 
     <p>
-      <strong>AI/task:</strong> Participants made decisions in a strategic game while receiving recommendations from AI agents with different skill levels.
+      <strong>Main finding:</strong> People benefited from highly skilled AI, but could rely on it too heavily. They could also rely too little on lower-skilled AI.
     </p>
 
     <p>
-      <strong>Main finding:</strong> Participants benefited from highly skilled AI, but their improvement plateaued because they relied too uncritically on the highly skilled agent. They also relied too little on lower-skilled AI agents.
+      <strong>What it supports:</strong> Human reliance does not automatically track AI capability, and the value of AI depends partly on the quality of the human-AI interaction.
     </p>
 
     <p>
-      <strong>What it supports:</strong> AI capability matters, but human reliance does not automatically calibrate perfectly to that capability. More reliance is not automatically better reliance.
-    </p>
-
-    <p>
-      <strong>Important limitation:</strong> The experiment involved a strategic game rather than open-ended real-world decision-making. The findings therefore do not directly establish how people will rely on every modern AI or LLM.
+      <strong>Important limitation:</strong> The findings come from the specific task and AI conditions tested. They do not establish that people always overtrust AI or that every AI system produces the same reliance pattern.
     </p>
 
   </div>
@@ -326,28 +521,26 @@
 
     <h3>Research Station: Kelso et al. (2025)</h3>
 
-    <p><strong>Study:</strong> <em>AI assistance improves people's ability to distinguish correct from incorrect eyewitness lineup identifications</em></p>
+    <p><strong>Study:</strong> Kelso et al. (2025).</p>
 
-    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Year:</strong> 2025.</p>
 
-    <p><strong>Method:</strong> Two experiments examining how different forms of AI assistance affected people's evaluation of eyewitness lineup identifications.</p>
+    <p><strong>Method:</strong> Experimental research examining AI assistance in eyewitness identification.</p>
 
-    <p><strong>Sample:</strong> 1,092 participants in Experiment 1; 1,809 participants in Experiment 2.</p>
+    <p><strong>Sample:</strong> The evidence map used for this article does not specify a sample size.</p>
 
-    <p>
-      <strong>AI/task:</strong> Participants evaluated eyewitness lineup identifications with different forms of AI assistance.
-    </p>
+    <p><strong>AI/task:</strong> Eyewitness-identification decisions with AI assistance.</p>
 
     <p>
       <strong>Main finding:</strong> AI assistance improved people's ability to distinguish correct from incorrect eyewitness identifications in several tested conditions.
     </p>
 
     <p>
-      <strong>What it supports:</strong> AI assistance can sometimes improve human judgment and does not inherently make human decision-making worse. The benefit depends on the task and AI system.
+      <strong>What it supports:</strong> Humans are not simply incapable of evaluating AI-supported information. Under some tested conditions, AI assistance can improve human performance.
     </p>
 
     <p>
-      <strong>Important limitation:</strong> The task was highly specific and the AI systems were designed for that problem. The study does not establish that AI generally improves human judgment or that the result transfers to unrestricted generative AI use.
+      <strong>Important limitation:</strong> The result comes from the specific eyewitness-identification conditions tested. It does not establish that AI assistance will improve human evaluation in every task.
     </p>
 
   </div>
@@ -359,28 +552,26 @@
 
     <h3>Research Station: Fregosi et al. (2026)</h3>
 
-    <p><strong>Study:</strong> <em>Too Sure for Our Own Good: A User Study on AI Confidence and Human Reliance</em></p>
+    <p><strong>Study:</strong> Fregosi et al. (2026).</p>
 
-    <p><strong>Year:</strong> 2026</p>
+    <p><strong>Year:</strong> 2026.</p>
 
-    <p><strong>Method:</strong> Experiment examining human decisions when AI recommendations were accompanied by different confidence levels.</p>
+    <p><strong>Method:</strong> Experimental study examining the effects of AI confidence calibration on human reliance and decision outcomes.</p>
 
-    <p><strong>Sample:</strong> 184 adults.</p>
+    <p><strong>Sample:</strong> The evidence map used for this article does not specify a sample size.</p>
+
+    <p><strong>AI/task:</strong> AI-assisted decision making with confidence information.</p>
 
     <p>
-      <strong>AI/task:</strong> Participants solved logic problems with AI recommendations accompanied by different confidence levels.
+      <strong>Main finding:</strong> Well-calibrated confidence produced better outcomes than poorly calibrated confidence in the tested setting.
     </p>
 
     <p>
-      <strong>Main finding:</strong> Well-calibrated AI confidence improved decision accuracy substantially more than poorly calibrated confidence. Poorly calibrated confidence could encourage both over-reliance and under-reliance, while high AI confidence could increase acceptance of incorrect recommendations.
+      <strong>What it supports:</strong> Confidence information can affect human reliance, and calibration matters when confidence is used to guide decisions.
     </p>
 
     <p>
-      <strong>What it supports:</strong> Confidence information can be useful when it is calibrated to actual performance. Confidence should not automatically be interpreted as evidence of correctness.
-    </p>
-
-    <p>
-      <strong>Important limitation:</strong> The experiment involved a specific decision-support task rather than unrestricted generative AI use. It does not establish that all AI confidence signals or LLM confidence estimates are calibrated.
+      <strong>Important limitation:</strong> The study does not establish that all AI confidence signals are calibrated or that its findings apply identically to every AI system and task.
     </p>
 
   </div>
@@ -392,30 +583,26 @@
 
     <h3>Research Station: Fok &amp; Weld (2024)</h3>
 
-    <p><strong>Study:</strong> <em>In search of verifiability: Explanations rarely enable complementary performance in AI-advised decision making</em></p>
+    <p><strong>Study:</strong> Fok &amp; Weld (2024).</p>
 
-    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Year:</strong> 2024.</p>
 
-    <p><strong>Method:</strong> Research synthesis/perspective concerning the role of explanations in AI-advised decision-making.</p>
+    <p><strong>Method:</strong> Supporting research synthesis of findings on AI-advised decision making and explanations.</p>
+
+    <p><strong>Sample:</strong> Not applicable; this is a research synthesis rather than one of the four primary experimental studies.</p>
+
+    <p><strong>AI/task:</strong> AI-advised human decision making and the role of explanations.</p>
 
     <p>
-      <strong>Sample:</strong> Not presented here as a primary experimental sample because this source is a synthesis/perspective rather than one of the four primary experiments in this evidence base.
+      <strong>Main finding:</strong> AI explanations are useful for appropriate reliance to the extent that they allow humans to verify the correctness of an AI recommendation.
     </p>
 
     <p>
-      <strong>AI/task:</strong> The work considers when AI explanations actually help people verify AI recommendations.
+      <strong>What it supports:</strong> An explanation should not automatically be treated as verification. Meaningful evaluation requires a way for the human to assess whether the AI's output is correct.
     </p>
 
     <p>
-      <strong>Main finding:</strong> An explanation can increase understanding or confidence without necessarily giving a person a reliable way to establish whether the AI recommendation is correct.
-    </p>
-
-    <p>
-      <strong>What it supports:</strong> Explanation and verification are different. An explanation is more useful when it helps the human establish whether the recommendation is correct.
-    </p>
-
-    <p>
-      <strong>Important limitation:</strong> This source is a conceptual synthesis rather than a new primary experiment. It should therefore not be presented as independent experimental evidence establishing a universal effect.
+      <strong>Important limitation:</strong> This is a synthesis of research on AI-advised decision making. It should not be treated as an experimental finding establishing how every explanation or AI system behaves.
     </p>
 
   </div>
@@ -423,50 +610,26 @@
 
   <h2>Evidence Strength</h2>
 
-  <p>
-    The strongest conclusions from this evidence base are narrow ones about the conditions actually studied. The evidence becomes weaker when those findings are turned into universal rules about AI.
-  </p>
-
   <div class="evidence-strength">
 
-    <span class="evidence-label">Strongest Support</span>
-
     <p>
-      The studies provide meaningful experimental evidence that <strong>AI capability, human reliance, calibrated confidence, and the design of the human-AI workflow can affect outcomes</strong> under the conditions tested.
+      <strong>The evidence is strongest for narrow claims about the tasks and conditions that were actually tested.</strong>
     </p>
 
     <p>
-      There is also direct evidence from Kelso et al. that AI assistance can improve human performance in a specific task, providing an important counterweight to the idea that AI should simply be distrusted.
-    </p>
-
-  </div>
-
-
-  <div class="evidence-strength">
-
-    <span class="evidence-label">Moderate Generalization</span>
-
-    <p>
-      The findings support practical principles such as evaluating AI according to the task it is being used for and distinguishing explanations from actual verification.
+      These studies provide evidence about relationships between AI capability, human reliance, human evaluation, confidence calibration, and human-AI performance in their respective settings.
     </p>
 
     <p>
-      These principles are useful beyond the exact experiments, but applying them to a particular AI system still requires judgment about that system and task.
-    </p>
-
-  </div>
-
-
-  <div class="evidence-strength">
-
-    <span class="evidence-label">Limited Generalization</span>
-
-    <p>
-      The studies do not establish one universal accuracy threshold for trusting AI. They do not establish that every AI system behaves the same way, and they do not directly establish that every modern LLM has the same properties as the systems and tasks tested.
+      The evidence becomes weaker when those findings are turned into universal rules about AI.
     </p>
 
     <p>
-      The evidence therefore supports <strong>conditional reliance</strong>, not a universal formula for when an AI becomes trustworthy.
+      The studies do not establish one universal accuracy threshold at which an AI becomes trustworthy. They also do not establish that every AI system behaves the same way, or that every modern large language model has the same properties as the systems tested in these studies.
+    </p>
+
+    <p>
+      The appropriate conclusion is therefore conditional rather than absolute: <strong>reliance should be informed by what the particular system has demonstrated, what the human can evaluate, how meaningful its confidence information is, and whether the human-AI workflow actually performs better.</strong>
     </p>
 
   </div>
@@ -475,62 +638,62 @@
   <h2>Claims to Avoid</h2>
 
   <p>
-    The evidence is strong enough to support practical boundaries, but not broad claims about AI in general. In particular, the research does not justify statements such as:
+    The evidence does not justify several broad claims that can sound stronger than the research actually is.
   </p>
 
   <ul>
-    <li>AI cannot be trusted.</li>
-    <li>AI should always be verified.</li>
-    <li>Humans always overtrust AI.</li>
-    <li>AI is more reliable than humans.</li>
-    <li>AI is less reliable than humans.</li>
-    <li>AI explanations prove that an answer is correct.</li>
-    <li>AI confidence tells you whether an answer is correct.</li>
-    <li>If an AI is accurate, all of its answers are reliable.</li>
-    <li>AI should never be used in high-stakes decisions.</li>
-    <li>AI should always be used only as a second opinion.</li>
+    <li>"AI cannot be trusted."</li>
+    <li>"AI should always be verified."</li>
+    <li>"Humans always overtrust AI."</li>
+    <li>"AI is more reliable than humans."</li>
+    <li>"AI is less reliable than humans."</li>
+    <li>"AI explanations prove correctness."</li>
+    <li>"AI confidence tells you whether an answer is correct."</li>
+    <li>"If an AI is accurate, all of its answers are reliable."</li>
+    <li>"AI should never be used in high-stakes decisions."</li>
+    <li>"AI should always be used as a second opinion."</li>
   </ul>
 
   <p>
-    Each of these statements goes further than the locked evidence allows.
+    Each of these statements turns conditional evidence into a universal rule.
   </p>
 
 
-  <h2>So, When Should You Trust AI?</h2>
+  <h2>Conclusion: When Should You Trust AI?</h2>
 
   <p>
-    There is no single point at which an AI system becomes universally "trustworthy."
+    So, when should you trust AI?
   </p>
 
   <p>
-    The better approach is to ask whether <strong>reliance is justified for the particular system, task, and conditions</strong>.
+    The evidence does not provide one universal point at which an AI becomes "trustworthy."
   </p>
 
   <p>
-    The evidence makes reliance more defensible when:
+    Instead, appropriate reliance depends on several conditions.
   </p>
 
   <ul>
-    <li>the AI has demonstrated capability for the specific task;</li>
-    <li>the human has a meaningful way to evaluate the output;</li>
-    <li>available confidence information has demonstrated calibration; and</li>
-    <li>AI assistance has actually improved performance in the relevant human-AI workflow.</li>
+    <li><strong>Demonstrated capability:</strong> Has the AI shown that it can perform the particular task?</li>
+    <li><strong>Meaningful evaluation:</strong> Can the human meaningfully evaluate the output rather than simply accepting it?</li>
+    <li><strong>Calibrated confidence:</strong> When confidence information is available, has it been shown to be meaningfully calibrated?</li>
+    <li><strong>Workflow benefit:</strong> Has using the AI actually improved performance in the relevant human-AI workflow?</li>
   </ul>
 
   <p>
-    When those conditions are unknown or absent, the case for relying heavily on the AI becomes weaker. That does not mean the system is necessarily bad. It means there is less evidence supporting the level of reliance being placed on it.
+    These conditions do not create a formula that tells you exactly how much to trust every AI system.
   </p>
 
   <p>
-    The research also shows why the answer cannot simply be "trust AI" or "distrust AI." Highly capable AI can be useful while still receiving too much reliance. Lower-skilled AI can be underused. AI assistance can improve human performance in some tasks. Confidence can help when it is calibrated and mislead when it is not.
+    They provide a better way to think about the question.
   </p>
 
   <p>
-    The goal, then, is not maximum trust.
+    The issue is not whether AI deserves trust in the abstract. It is whether <strong>reliance on this AI, for this task, under these conditions, is supported by evidence.</strong>
   </p>
 
   <p>
-    It is not maximum skepticism either.
+    Trust is not something you give an AI once and for all.
   </p>
 
   <blockquote>
@@ -549,7 +712,7 @@
     </p>
 
     <p>
-      MindShield evaluates prompts locally and is designed as a <strong>behavioral intervention / deliberate-use tool</strong>. Its purpose is to encourage users to pause before delegating certain cognitive tasks to AI rather than automatically handing every task over to an AI system.
+      MindShield evaluates prompts locally and is designed as a <strong>behavioral intervention and deliberate-use tool</strong>. It encourages users to pause before delegating certain cognitive tasks to AI.
     </p>
 
     <p>
@@ -557,7 +720,11 @@
     </p>
 
     <p>
-      The research discussed in this article did <strong>not</strong> test or validate MindShield. It is simply a practical tool inspired by the broader idea of pausing before handing certain cognitive work to AI.
+      The research discussed in this article did <strong>not</strong> test or validate MindShield.
+    </p>
+
+    <p>
+      It is simply an open-source tool designed to encourage more deliberate decisions about when to delegate cognitive work to AI.
     </p>
 
     <p>
@@ -567,8 +734,6 @@
     </p>
 
   </section>
-
-</article>
 
 </article>
 
