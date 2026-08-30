@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Are you over-relying on AI? — MindShield Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Hero Header -->
+    <header class="hero-section text-center">
+      <span class="pill-badge">🧠 Cognitive Health Assessment</span>
+      <h1 class="main-title">Are you over-relying on AI?</h1>
+      <p class="subtitle">Test how much of your critical thinking, decision-making, and problem-solving you've outsourced to chatbots.</p>
+      
+      <button id="start-test-btn" class="btn btn-primary btn-large">Start Test</button>
+      <p class="science-tagline">🔬 Built on peer-reviewed cognitive offloading science</p>
+    </header>
+
+    <!-- Interactive Quiz Card (Slides open when started) -->
+    <section id="quiz-section" class="quiz-section hidden">
+      <div class="quiz-card">
+        <div class="quiz-progress-bar">
+          <div id="quiz-progress" class="quiz-progress-fill"></div>
+        </div>
+        <div id="quiz-content"></div>
+      </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results-section" class="results-section hidden">
+      <div class="glass-card text-center">
+        <div id="score-circle" class="score-circle">
+          <span id="score-number">0%</span>
+        </div>
+        <h2 id="score-title">Calculating your score...</h2>
+        <p id="score-desc" class="score-desc"></p>
+
+        <div class="cta-actions">
+          <a href="web-demo-mindshield.html" class="btn btn-primary">Try Live Prompt Sandbox →</a>
+          <button id="retake-btn" class="btn btn-secondary">Retake Test</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Science Section -->
+    <section class="info-section">
+      <div class="glass-card">
+        <h2>🔬 The Science of Cognitive Offloading</h2>
+        <p class="lead-text">
+          When we immediately turn to AI for every question, our brains engage in <strong>cognitive offloading</strong>—the psychological tendency to reduce mental effort by relying on external tools.
+        </p>
+
+        <div class="grid-2">
+          <div class="info-item">
+            <h3>📉 The Atrophy of Problem Solving</h3>
+            <p>
+              Peer-reviewed research in cognitive psychology shows that bypassing the friction of independent problem-solving weakens working memory retention and reduces structural problem-solving endurance over time.
+            </p>
+          </div>
+          <div class="info-item">
+            <h3>⚡ The Generation Effect</h3>
+            <p>
+              Formulating your own hypothesis—even for just <strong>5 seconds</strong> before receiving an answer—activates the <em>Generation Effect</em>, strengthening long-term neural connections and conceptual mastery.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center">
+      <p>MindShield is open source under the MIT License. <a href="web-demo-mindshield.html" style="color: var(--primary);">Open Prompt Sandbox</a></p>
+    </footer>
+  </div>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
