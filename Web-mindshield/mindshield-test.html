@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How Much Thinking Do You Actually Outsource to AI?</title>
   
+  <!-- SEO Meta Tags -->
+  <title>AI Dependency Quiz: How Much Thinking Do You Outsource to AI?</title>
+  <meta name="description" content="Take this free 60-second AI dependency quiz to see if you use AI as a thinking partner or a replacement brain. Learn how cognitive offloading works and how to keep your critical thinking sharp." />
+  <meta name="keywords" content="AI dependency quiz, AI reliance quiz, AI dependency test, AI reliance, overreliance on AI, cognitive offloading, AI and critical thinking, using AI without replacing your thinking" />
+
   <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,13 +60,15 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 32px 16px;
+      padding: 40px 16px 80px;
     }
 
-    .quiz-container {
+    .container {
       width: 100%;
-      max-width: 560px;
+      max-width: 620px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
       margin: 0 auto;
     }
 
@@ -75,7 +81,7 @@
       transition: all 0.2s ease;
     }
 
-    /* --- Intro Screen --- */
+    /* --- Quiz Intro Screen --- */
     .intro-view {
       text-align: center;
       display: flex;
@@ -94,8 +100,8 @@
       letter-spacing: 0.02em;
     }
 
-    .intro-title {
-      font-size: 25px;
+    .main-title {
+      font-size: 26px;
       font-weight: 700;
       line-height: 1.3;
       letter-spacing: -0.02em;
@@ -114,7 +120,7 @@
       font-weight: 500;
       color: var(--text-subtle);
       margin-top: -4px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     /* --- Progress Bar & Header --- */
@@ -168,7 +174,7 @@
       margin-bottom: 20px;
     }
 
-    /* --- Options --- */
+    /* --- Option Buttons --- */
     .quiz-options {
       display: flex;
       flex-direction: column;
@@ -268,7 +274,7 @@
       font-size: 14.5px;
       color: var(--text-body);
       line-height: 1.55;
-      max-width: 460px;
+      max-width: 480px;
     }
 
     .promo-card {
@@ -296,6 +302,7 @@
       line-height: 1.5;
     }
 
+    /* --- Buttons --- */
     .cta-actions {
       display: flex;
       flex-direction: column;
@@ -340,6 +347,151 @@
       color: var(--text-main);
     }
 
+    /* --- SEO Educational Article Section --- */
+    .seo-section {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 20px;
+    }
+
+    .article-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .article-intro {
+      font-size: 15px;
+      color: var(--text-body);
+      line-height: 1.65;
+    }
+
+    .article-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .article-block h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .article-block p {
+      font-size: 14.5px;
+      color: var(--text-body);
+      line-height: 1.65;
+    }
+
+    .example-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .example-list li {
+      font-size: 14px;
+      color: var(--text-body);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .example-list li::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      color: var(--brand);
+      font-weight: bold;
+    }
+
+    /* Practical Comparison Box */
+    .prompt-comparison {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .comparison-item {
+      background: #f8fafc;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13.5px;
+    }
+
+    .instead-row {
+      color: #9a3412;
+      font-weight: 500;
+    }
+
+    .try-row {
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    .disclaimer-box {
+      background: #f8fafc;
+      border-left: 3px solid var(--brand);
+      padding: 12px 16px;
+      border-radius: 4px 10px 10px 4px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .mindshield-callout {
+      background: #f8fafc;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mindshield-callout h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .mindshield-callout p {
+      font-size: 14.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* --- Footer --- */
+    .site-footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-subtle);
+      padding-top: 8px;
+    }
+
+    .site-footer a {
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+
+    /* --- Utility --- */
     .hidden {
       display: none !important;
     }
@@ -357,8 +509,11 @@
       .card {
         padding: 24px 20px;
       }
-      .intro-title {
+      .main-title {
         font-size: 22px;
+      }
+      .article-title {
+        font-size: 20px;
       }
       .question-title {
         font-size: 16.5px;
@@ -368,13 +523,17 @@
 </head>
 <body>
 
-  <main class="quiz-container">
-    <div class="card">
+  <div class="container">
+    
+    <!-- ==========================================
+         PRIMARY EXPERIENCE: AI RELIANCE QUIZ
+         ========================================== -->
+    <main class="card" aria-label="AI Dependency Quiz Application">
       
       <!-- 1. Intro Screen -->
       <section id="intro-view" class="intro-view">
         <span class="pill-tag">Self-Discovery Quiz</span>
-        <h1 class="intro-title">How Much Thinking Do You Actually Outsource to AI?</h1>
+        <h1 class="main-title">How Much Thinking Do You Actually Outsource to AI?</h1>
         <p class="intro-desc">
           10 everyday scenarios. Pick what you'd genuinely do — there are no wrong answers.
         </p>
@@ -383,7 +542,7 @@
       </section>
 
       <!-- 2. Question View -->
-      <section id="quiz-view" class="hidden">
+      <section id="quiz-view" class="hidden" aria-live="polite">
         <div class="quiz-header">
           <span id="step-label" class="step-counter">1 of 10</span>
         </div>
@@ -394,7 +553,7 @@
       </section>
 
       <!-- 3. Results Screen -->
-      <section id="results-view" class="results-view hidden fade-in">
+      <section id="results-view" class="results-view hidden fade-in" aria-live="polite">
         <span class="results-subtitle">Your AI Reliance Score</span>
         
         <div id="score-box" class="score-badge">
@@ -406,7 +565,7 @@
 
         <!-- Subtle MindShield Context -->
         <div class="promo-card">
-          <h3 class="promo-title">Curious what this looks like in practice?</h3>
+          <h2 class="promo-title" style="font-size: 14px; margin: 0;">Curious what this looks like in practice?</h2>
           <p class="promo-desc">
             MindShield helps you notice when you're asking AI to do the thinking instead of helping you think.
           </p>
@@ -420,9 +579,132 @@
         </div>
       </section>
 
-    </div>
-  </main>
+    </main>
 
+    <!-- ==========================================
+         SEO & EDUCATIONAL ARTICLE SECTION
+         Visible upon scrolling down
+         ========================================== -->
+    <article class="card seo-section">
+      
+      <header class="article-header">
+        <h2 class="article-title">AI Dependency Quiz: What Does Your Score Mean?</h2>
+        <p class="article-intro">
+          This <strong>AI dependency quiz</strong> explores how you interact with artificial intelligence when you run into everyday friction—whether you're stuck on a problem, choosing between products, drafting messages, or searching for answers.
+        </p>
+      </header>
+
+      <!-- Section 1 -->
+      <section class="article-block">
+        <h3>What is AI dependency?</h3>
+        <p>
+          When people talk about <strong>AI dependency</strong> or <strong>overreliance on AI</strong>, it isn’t simply about how often you open ChatGPT, Claude, or Gemini. Using AI frequently throughout the day is not an issue on its own.
+        </p>
+        <p>
+          The more important question is the role AI plays in your workflow: <strong>Is AI helping you think, or are you handing the thinking over to AI?</strong>
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="article-block">
+        <h3>What is cognitive offloading?</h3>
+        <p>
+          <strong>Cognitive offloading</strong> is what happens when we use something outside our brain to handle part of a mental task. A calculator handles arithmetic. A GPS handles navigation. Today, AI can handle parts of writing, reasoning, decision-making, and problem-solving.
+        </p>
+        <p>
+          Cognitive offloading itself isn't automatically bad. It frees up mental bandwidth for bigger goals. Recent research in <strong>AI and critical thinking</strong> highlights the key difference between:
+        </p>
+        <ul class="example-list">
+          <li><strong>Autonomous AI offloading:</strong> Using AI as an analytical sparring partner to compare options, clarify concepts, and polish your own drafts.</li>
+          <li><strong>Dependent AI offloading:</strong> Bypassing the effort of reasoning by asking AI to decide, solve, or write without prior reflection.</li>
+        </ul>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="article-block">
+        <h3>Why can AI reliance matter?</h3>
+        <p>
+          AI tools can save hours of effort. However, there is a clear difference between getting meaningful assistance and avoiding the mental work entirely. Common patterns of high <strong>AI reliance</strong> include:
+        </p>
+        <ul class="example-list">
+          <li>Asking AI to write every message before formulating your own thoughts.</li>
+          <li>Asking AI which option to choose rather than comparing the trade-offs.</li>
+          <li>Handing an entire problem to AI before attempting to diagnose it.</li>
+          <li>Asking AI for an immediate answer before understanding the question.</li>
+        </ul>
+        <p>
+          Using AI to <em>explain</em> a concept builds understanding. Asking AI to simply <em>give the answer</em> skips the learning process entirely.
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="article-block">
+        <h3>How the AI dependency quiz works</h3>
+        <p>
+          This <strong>AI reliance quiz</strong> looks at practical, everyday scenarios rather than academic theory. It evaluates habitual patterns across six core areas:
+        </p>
+        <ul class="example-list">
+          <li><strong>Decision-making:</strong> Asking for recommendations versus evaluating criteria.</li>
+          <li><strong>Problem-solving:</strong> Requesting direct fixes versus diagnosing causes.</li>
+          <li><strong>Writing:</strong> Generating entire texts versus drafting and refining.</li>
+          <li><strong>Information seeking:</strong> Demanding quick answers versus seeking conceptual clarity.</li>
+          <li><strong>Understanding:</strong> Passive consumption versus active synthesis.</li>
+          <li><strong>Reasoning:</strong> Instant solutions versus guided hints.</li>
+        </ul>
+        <div class="disclaimer-box">
+          <strong>Please note:</strong> This <strong>AI dependency test</strong> is a lighthearted self-reflection tool, not a medical or psychological diagnosis. It is designed solely to help you build awareness around your daily AI habits.
+        </div>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="article-block">
+        <h3>How to use AI without replacing your thinking</h3>
+        <p>
+          You don't have to stop using AI to protect your cognitive autonomy. You can keep all the speed benefits while remaining in the driver's seat by making small adjustments to how you prompt:
+        </p>
+
+        <div class="prompt-comparison">
+          <div class="comparison-item">
+            <span class="instead-row">❌ Instead of: “Which one should I choose?”</span>
+            <span class="try-row">✅ Try: “Here are the things that matter to me. Help me compare them.”</span>
+          </div>
+          <div class="comparison-item">
+            <span class="instead-row">❌ Instead of: “Solve this for me.”</span>
+            <span class="try-row">✅ Try: “Give me a hint” or “Help me understand where my reasoning went wrong.”</span>
+          </div>
+          <div class="comparison-item">
+            <span class="instead-row">❌ Instead of: “Write this for me.”</span>
+            <span class="try-row">✅ Try: “Here's my rough draft. Help me polish and improve it.”</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: MindShield Callout -->
+      <section class="mindshield-callout">
+        <h3>About MindShield</h3>
+        <p>
+          <strong>MindShield is a lightweight browser extension built around this idea.</strong> It helps you notice in real-time when you are asking AI to perform a task you could reasonably think through yourself.
+        </p>
+        <p>
+          By introducing a gentle moment of intentional friction on shortcut queries, MindShield ensures you use AI as a cognitive amplifier rather than a replacement brain.
+        </p>
+        <div>
+          <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 14px; padding: 10px 20px;">
+            Learn More About MindShield →
+          </a>
+        </div>
+      </section>
+
+    </article>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>MindShield is open source under the MIT License. <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>
+    </footer>
+
+  </div>
+
+  <!-- Quiz Script -->
   <script>
     const QUIZ_QUESTIONS = [
       {
@@ -520,7 +802,7 @@
     let currentQuestion = 0;
     let totalPoints = 0;
 
-    // Dynamically calculate the maximum possible points from the questions array
+    // Dynamically calculate the maximum possible points from all questions
     const maxPossiblePoints = QUIZ_QUESTIONS.reduce((sum, q) => {
       const maxOpt = Math.max(...q.options.map(o => o.points));
       return sum + maxOpt;
@@ -545,13 +827,11 @@
     function renderQuestion() {
       const q = QUIZ_QUESTIONS[currentQuestion];
       
-      // Step counter & Progress Bar (1 of 10 -> 10 of 10)
       stepLabel.textContent = `${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}`;
       quizProgress.style.width = `${((currentQuestion + 1) / QUIZ_QUESTIONS.length) * 100}%`;
 
-      // Quick fade animation
       quizContent.className = '';
-      void quizContent.offsetWidth; // Trigger reflow
+      void quizContent.offsetWidth; // Reflow for subtle animation
       quizContent.className = 'fade-in';
 
       quizContent.innerHTML = `
@@ -567,7 +847,6 @@
         </div>
       `;
 
-      // Immediate transition on click
       document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const points = parseInt(e.currentTarget.dataset.points, 10);
@@ -587,7 +866,6 @@
       quizView.classList.add('hidden');
       resultsView.classList.remove('hidden');
 
-      // Calculate score dynamically against the true maximum points
       const score = Math.round((totalPoints / maxPossiblePoints) * 100);
       scoreNumber.textContent = `${score}%`;
 
