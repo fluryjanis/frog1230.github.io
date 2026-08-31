@@ -10,7 +10,7 @@
       --panel: #13141c;
       --card: #1b1c26;
       --card-hover: #242533;
-      --border: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.08);
       --border-focus: rgba(59, 130, 246, 0.4);
       --text: #f4f4f6;
       --text-secondary: #d1d5db;
@@ -183,7 +183,7 @@
     #health-fill { background: var(--success); width: 100%; }
     #task-fill { background: var(--primary); width: 0%; }
 
-    /* Layout Wrapper with Side Avatar Deck */
+    /* Layout Wrapper */
     .game-layout {
       max-width: 1320px;
       margin: 28px auto 64px;
@@ -196,7 +196,7 @@
 
     .game-layout.full-width {
       grid-template-columns: 1fr;
-      max-width: 960px;
+      max-width: 880px;
     }
 
     .main-wrap {
@@ -204,94 +204,89 @@
       min-width: 0;
     }
 
-    /* Start Screen Presentation */
-    .start-screen-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 40px 36px;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    /* Start Screen (Clean Typography & Natural Alignment) */
+    .start-screen-container {
+      padding: 20px 0 60px;
     }
 
-    .goal-hero-box {
-      background: linear-gradient(180deg, rgba(59, 130, 246, 0.12) 0%, rgba(27, 28, 38, 0.6) 100%);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 32px;
-    }
-
-    .goal-hero-tag {
-      font-size: 11px;
+    .hero-kicker {
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       color: var(--primary);
       font-family: var(--font-mono);
-      margin-bottom: 8px;
-      display: inline-block;
+      margin-bottom: 12px;
     }
 
-    .goal-hero-title {
-      font-size: 22px;
+    .hero-title {
+      font-size: 34px;
       font-weight: 800;
+      letter-spacing: -0.5px;
       color: #fff;
-      margin: 0 0 12px;
+      margin: 0 0 16px;
+      line-height: 1.25;
     }
 
-    .goal-two-sentences {
-      font-size: 16px;
+    .hero-goal-statement {
+      font-size: 18px;
       line-height: 1.7;
-      color: var(--text-secondary);
-      margin: 0;
-      font-weight: 500;
+      color: #e4e4e7;
+      margin: 0 0 32px;
+      max-width: 800px;
+      font-weight: 400;
     }
 
-    .explainer-section {
-      border-top: 1px solid var(--border);
-      padding-top: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .cta-row {
+      margin-bottom: 56px;
     }
 
-    .explainer-title {
+    .divider-line {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 48px;
+    }
+
+    .briefing-heading {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.5px;
       font-family: var(--font-mono);
-      margin: 0;
+      margin: 0 0 32px;
     }
 
-    .explainer-grid {
+    .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 36px 48px;
     }
 
-    .explainer-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-    }
-
-    .explainer-card h4 {
-      margin: 0 0 8px;
-      font-size: 15px;
-      color: #fff;
+    .category-block {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 8px;
     }
 
-    .explainer-card p {
-      margin: 0;
-      font-size: 13.5px;
-      line-height: 1.6;
+    .category-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .category-icon {
+      font-size: 18px;
+    }
+
+    .category-desc {
+      font-size: 14.5px;
+      line-height: 1.7;
       color: var(--muted);
+      margin: 0;
     }
 
     /* MindShield Character Side Panel */
@@ -333,7 +328,6 @@
       background: linear-gradient(180deg, #121b16 0%, #13141c 100%);
     }
 
-    /* Avatar Graphic */
     .avatar-wrapper {
       width: 90px;
       height: 90px;
@@ -408,7 +402,6 @@
       color: var(--success);
     }
 
-    /* Speech Bubble */
     .mindshield-bubble-box {
       background: #191b26;
       border: 1px solid var(--border);
@@ -698,19 +691,20 @@
     .rank-F { color: var(--danger); border: 3px solid var(--danger); background: rgba(239, 68, 68, 0.1); }
 
     .btn-action {
-      padding: 16px 32px;
+      padding: 16px 36px;
       background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 12px;
-      font-weight: 800;
-      font-size: 15px;
+      font-weight: 700;
+      font-size: 16px;
       cursor: pointer;
       font-family: var(--font-main);
       text-decoration: none;
       display: inline-block;
       transition: all 0.2s ease;
       box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+      letter-spacing: 0.3px;
     }
     .btn-action:hover { 
       background: var(--primary-hover);
@@ -725,6 +719,9 @@
       .mindshield-side-panel {
         position: static;
         margin-top: 20px;
+      }
+      .categories-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -808,7 +805,7 @@
     const layoutContainer = document.getElementById('layout-container');
 
     // ---------------------------------------------------------------------------
-    // MindShield Character Persona & Speech System
+    // MindShield Character Speech
     // ---------------------------------------------------------------------------
     function mindshieldSpeak(text, mood = 'neutral') {
       mindshieldCard.classList.remove('lecture-mode', 'rush-mode', 'praise-mode');
@@ -1002,7 +999,7 @@
     }
 
     // ---------------------------------------------------------------------------
-    // START SCREEN
+    // CLEAN START SCREEN (Un-boxed & Category Aligned)
     // ---------------------------------------------------------------------------
     function renderStartScreen() {
       stopTimer();
@@ -1015,57 +1012,60 @@
       updateHUD();
 
       mainContent.innerHTML = `
-        <div class="start-screen-card">
+        <div class="start-screen-container">
           <!-- Goal 1 in Two Sentences -->
-          <div class="goal-hero-box">
-            <span class="goal-hero-tag">Active Mission Directive // Sector 1</span>
-            <h2 class="goal-hero-title">10-Minute Cleaning Emergency</h2>
-            <p class="goal-two-sentences">
-              Your room is in complete disarray, and someone is coming over to your place in exactly 10 minutes. 
-              You must use an AI assistant to coordinate an emergency cleanup strategy and complete the task before the clock hits zero.
-            </p>
+          <div class="hero-kicker">Mission Directive // Emergency Triage</div>
+          <h1 class="hero-title">10-Minute Cleaning Emergency</h1>
+          <p class="hero-goal-statement">
+            Your room is in complete disarray, and someone is coming over to your place in exactly 10 minutes. 
+            You must use an AI assistant to coordinate an emergency cleanup strategy and complete the task before the clock hits zero.
+          </p>
+
+          <!-- Primary CTA Button -->
+          <div class="cta-row">
+            <button class="btn-action" onclick="initSimulation()">Begin Game</button>
           </div>
 
-          <div style="text-align: center; margin-bottom: 32px;">
-            <button class="btn-action" onclick="initSimulation()">⚡ INITIATE SIMULATION (10:00 TIMER)</button>
-          </div>
+          <div class="divider-line"></div>
 
-          <!-- Game Overview & Mechanics -->
-          <div class="explainer-section">
-            <h3 class="explainer-title">Simulation Overview & How It Works</h3>
+          <!-- Structured Categories & Game Overview -->
+          <div class="briefing-heading">Simulation Architecture & Overview</div>
 
-            <div class="explainer-grid">
-              <div class="explainer-card">
-                <h4>🎯 The Point of the Game</h4>
-                <p>
-                  Tests whether you can use AI as an analytical tool without surrendering your own critical thinking. 
-                  Blindly following flawed AI plans or getting stuck in endless prompt loops causes cognitive atrophy.
-                </p>
+          <div class="categories-grid">
+            <div class="category-block">
+              <div class="category-header">
+                <span class="category-icon">🎯</span> The Core Objective
               </div>
+              <p class="category-desc">
+                Learn to use AI as an efficient planning scaffold without surrendering your own critical judgment. Blindly trusting flawed AI suggestions or looping in prompts leads to failure.
+              </p>
+            </div>
 
-              <div class="explainer-card">
-                <h4>🧠 Cognitive HP & Damage</h4>
-                <p>
-                  Every time you offload basic common sense, let the AI hallucinate distractions, or fall into conversational loops, 
-                  you take damage: your screen flashes red and your Brain Health drops.
-                </p>
+            <div class="category-block">
+              <div class="category-header">
+                <span class="category-icon">🧠</span> Brain Health & Damage
               </div>
+              <p class="category-desc">
+                Offloading basic common sense or following hallucinated AI distractions causes cognitive damage. Your screen will flash red, shake, and reduce your Cognitive HP.
+              </p>
+            </div>
 
-              <div class="explainer-card">
-                <h4>🛡️ MindShield Character</h4>
-                <p>
-                  A cognitive defense instructor docked on your side screen. 
-                  MindShield monitors your choices, lectures you when you make lazy decisions, and rushes you when time runs low.
-                </p>
+            <div class="category-block">
+              <div class="category-header">
+                <span class="category-icon">🛡️</span> MindShield Guardian
               </div>
+              <p class="category-desc">
+                A live cognitive instructor monitoring your decisions from the side deck. MindShield will actively lecture you on lazy prompts and rush you as the deadline nears.
+              </p>
+            </div>
 
-              <div class="explainer-card">
-                <h4>⏱️ Real-Time Pressure</h4>
-                <p>
-                  The 10-minute timer runs continuously in real-time. 
-                  You will need to review plans, catch bad AI suggestions in the interactive Task Auditor, and execute fast.
-                </p>
+            <div class="category-block">
+              <div class="category-header">
+                <span class="category-icon">⏱️</span> Real-Time Mechanics
               </div>
+              <p class="category-desc">
+                A live 10:00 countdown timer runs in real-time. Use the interactive Task Auditor to eliminate wasted steps, re-order priorities, and finish with 100% completion.
+              </p>
             </div>
           </div>
         </div>
@@ -1625,7 +1625,7 @@
       }, 1200);
     }
 
-    // Launch to start screen
+    // Launch to clean start screen
     renderStartScreen();
   </script>
 </body>
