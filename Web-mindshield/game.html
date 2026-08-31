@@ -77,6 +77,11 @@
       50% { transform: scale(1.05); opacity: 0.75; }
     }
 
+    @keyframes pulseBleed {
+      0%, 100% { color: var(--warn); }
+      50% { color: var(--danger); transform: scale(1.04); }
+    }
+
     /* Dynamic MindShield Dialogue Box Animations (Pivots, Shrinks, Grows) */
     @keyframes lectureSnap {
       0% { transform: scale(0.92) rotate(0deg); }
@@ -178,9 +183,11 @@
       font-weight: 800; 
       font-size: 16px; 
       font-family: var(--font-mono);
+      transition: color 0.3s ease;
     }
     .health-val { color: var(--success); }
     .task-val { color: var(--primary); }
+    .task-val.bleeding { animation: pulseBleed 0.8s infinite ease-in-out; }
 
     .meter-bar {
       width: 140px;
@@ -192,7 +199,7 @@
     }
     .meter-fill { height: 100%; transition: width 0.35s ease, background-color 0.35s ease; }
     #health-fill { background: var(--success); width: 100%; }
-    #task-fill { background: var(--primary); width: 0%; }
+    #task-fill { background: var(--primary); width: 100%; }
 
     /* Layout Wrapper */
     .game-layout {
@@ -215,7 +222,7 @@
       min-width: 0;
     }
 
-    /* Start Screen (Fully Centered Alignment & Clean Typography) */
+    /* Start Screen (Fully Centered Alignment) */
     .start-screen-container {
       padding: 30px 0 60px;
       text-align: center;
@@ -321,7 +328,7 @@
       max-width: 400px;
     }
 
-    /* Reactive MindShield Dialogue Panel (No giant box, dynamic transforms) */
+    /* Reactive MindShield Dialogue Panel */
     .mindshield-side-panel {
       position: sticky;
       top: 100px;
@@ -711,8 +718,8 @@
           <div class="meter-bar"><div id="health-fill" class="meter-fill"></div></div>
         </div>
         <div class="stat-box">
-          <span class="stat-label">Task Completion</span>
-          <span id="task-text" class="stat-value task-val">0%</span>
+          <span class="stat-label" id="task-label">Task Completion</span>
+          <span id="task-text" class="stat-value task-val">100%</span>
           <div class="meter-bar"><div id="task-fill" class="meter-fill"></div></div>
         </div>
       </div>
@@ -739,19 +746,22 @@
 
   <script>
     // ---------------------------------------------------------------------------
-    // State Engine
+    // State Engine & Decay System
     // ---------------------------------------------------------------------------
     let brainHealth = 100;
-    let taskProgress = 0;
+    let taskProgress = 100;
     let timerInterval = null;
     let idleInterval = null;
-    let secondsRemaining = 0;
+    let secondsRemaining = 600;
     let idleSeconds = 0;
+    let taskAuditComplete = false;
+    let decayWarned = false;
 
     const healthText = document.getElementById('health-text');
     const healthFill = document.getElementById('health-fill');
     const taskText = document.getElementById('task-text');
     const taskFill = document.getElementById('task-fill');
+    const taskLabel = document.getElementById('task-label');
     const damageOverlay = document.getElementById('damage-overlay');
     const gameContainer = document.getElementById('game-container');
     const btnReturnHub = document.getElementById('btn-return-hub');
@@ -813,11 +823,13 @@
     }
 
     // ---------------------------------------------------------------------------
-    // Timer System
+    // Timer System with Real-Time Task Completion Decay
     // ---------------------------------------------------------------------------
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
       secondsRemaining = totalSeconds;
+      taskAuditComplete = false;
+      decayWarned = false;
       updateTimerDisplay();
       startIdleMonitor();
 
@@ -827,6 +839,23 @@
       timerInterval = setInterval(() => {
         secondsRemaining--;
         updateTimerDisplay();
+
+        const elapsedSeconds = totalSeconds - secondsRemaining;
+
+        // TASK COMPLETION DECAY: Kicks in after 1 minute (60s) unless audited in task editor
+        if (elapsedSeconds > 60 && !taskAuditComplete) {
+          // Decays from 100% down to 0% across the remaining 540 seconds (9 minutes)
+          const decayProgress = (elapsedSeconds - 60) / (totalSeconds - 60);
+          taskProgress = Math.max(0, Math.round(100 - (decayProgress * 100)));
+          updateHUD();
+
+          if (!decayWarned) {
+            decayWarned = true;
+            taskText.classList.add('bleeding');
+            taskLabel.textContent = "Task Completion (DECAYING)";
+            mindshieldSpeak("⏱️ TASK DECAY ACTIVE! 1 minute has elapsed without optimizing your plan! You are bleeding Task Completion every second unless you cut wasted tasks in the Task Editor!", "rush");
+          }
+        }
 
         if (secondsRemaining === Math.floor(totalSeconds / 2) && !warnedHalf) {
           warnedHalf = true;
@@ -857,6 +886,8 @@
       stopIdleMonitor();
       const simTimer = document.getElementById('sim-timer');
       if (simTimer) simTimer.classList.remove('urgent');
+      taskText.classList.remove('bleeding');
+      taskLabel.textContent = "Task Completion";
     }
 
     function updateTimerDisplay() {
@@ -878,7 +909,8 @@
       applyDamage(35, "Cognitive Paralysis: You let the timer expire without executing a strategy.");
       mindshieldSpeak("TIMEOUT! You stood there like a mannequin while reality overtook you. Simulation failed!", "lecture");
       injectMessage('ai', 'TIME EXPIRED! The scenario window has closed.');
-      setTaskProgress(20);
+      taskProgress = 0;
+      updateHUD();
       setTimeout(() => finishScenario(), 1500);
     }
 
@@ -919,6 +951,14 @@
       } else {
         healthFill.style.backgroundColor = 'var(--success)';
         healthText.style.color = 'var(--success)';
+      }
+
+      if (taskProgress < 40) {
+        taskFill.style.backgroundColor = 'var(--danger)';
+      } else if (taskProgress < 75) {
+        taskFill.style.backgroundColor = 'var(--warn)';
+      } else {
+        taskFill.style.backgroundColor = 'var(--primary)';
       }
     }
 
@@ -969,7 +1009,7 @@
       layoutContainer.classList.add('full-width');
 
       brainHealth = 100;
-      taskProgress = 0;
+      taskProgress = 100;
       updateHUD();
 
       mainContent.innerHTML = `
@@ -1022,10 +1062,10 @@
 
             <div class="category-block">
               <div class="category-header">
-                <span class="category-icon">⏱️</span> Real-Time Mechanics
+                <span class="category-icon">⏱️</span> 1-Minute Task Decay Rule
               </div>
               <p class="category-desc">
-                A live 10:00 countdown timer runs in real-time. Use the interactive Task Auditor to eliminate wasted steps, re-order priorities, and finish with 100% completion.
+                After 1 minute of chatting, you will slowly bleed Task Completion down to 0% at 10 minutes—unless you open the Task Auditor and cut out the AI's bloated tasks to lock your time!
               </p>
             </div>
           </div>
@@ -1056,13 +1096,13 @@
     // ===========================================================================
     function initSimulation() {
       brainHealth = 100;
-      taskProgress = 0;
+      taskProgress = 100;
       updateHUD();
 
       setupScenarioLayout("Goal: Your room is a mess. Someone is coming over in 10 minutes. Figure out what to do.");
       startTimer(600); // 10 minutes
 
-      mindshieldSpeak("10 minutes on the clock! Your visitor is en route. Do NOT let the AI waste your precious seconds.", "rush");
+      mindshieldSpeak("10 minutes on the clock! Your visitor is en route. You have 1 minute of grace before Task Completion starts bleeding away!", "rush");
       injectMessage('ai', 'AI Assistant online. Ready to organize your tasks.');
 
       renderChoices([
@@ -1129,7 +1169,7 @@
       applyDamage(25, "Severe Context Blindness: Guest walked in while you were organizing Harry Potter novels next to dirty socks.");
       mindshieldSpeak("UNBELIEVABLE! You prioritized alphabetical book order over rotten pizza boxes. Total cognitive surrender!", "lecture");
       injectMessage('ai', 'Doorbell rings! Guest has arrived.');
-      setTaskProgress(60);
+      setTaskProgress(Math.min(taskProgress, 50));
       finishScenario();
     }
 
@@ -1138,7 +1178,7 @@
       mindshieldSpeak("FINALLY! You used your own eyes, overrode the AI's garbage instruction, and secured the room!", "praise");
       injectMessage('user', 'Ignored bookshelf instruction. Stashed clothes, sprayed freshener.');
       injectMessage('ai', 'Doorbell rings! Room appears clean to the naked eye.');
-      setTaskProgress(95);
+      setTaskProgress(Math.min(taskProgress, 85));
       finishScenario();
     }
 
@@ -1151,7 +1191,7 @@
         {
           text: 'c1. Toss laundry into the closet with 30 seconds to spare.',
           action: () => {
-            setTaskProgress(85);
+            setTaskProgress(Math.min(taskProgress, 75));
             finishScenario();
           }
         },
@@ -1160,7 +1200,7 @@
           action: () => {
             applyDamage(30, "Fatal Procrastination Loop.");
             mindshieldSpeak("You asked for laundry detergent recommendations while the doorbell was ringing. Unsalvageable.", "lecture");
-            setTaskProgress(40);
+            setTaskProgress(Math.min(taskProgress, 30));
             finishScenario();
           }
         }
@@ -1171,7 +1211,7 @@
       injectMessage('user', 'Ask AI to prioritize what matters most.');
       injectMessage('ai', 'Prioritized Strategy:\n1. Clear visible trash and clothes (Primary)\n2. Make the bed (Secondary)\n3. Reorganize bookshelf (Tertiary)\n4. Wipe desk (Optional)');
 
-      mindshieldSpeak("You needed a large language model to tell you trash on the floor matters more than baseboards. Audit the tasks yourself!", "lecture");
+      mindshieldSpeak("You needed a large language model to tell you trash on the floor matters more than baseboards. Open the Task Auditor and cut out the bloat to stop task decay!", "lecture");
 
       renderChoices([
         {
@@ -1179,7 +1219,7 @@
           action: () => s1_p1_b1_startWithAIPlan()
         },
         {
-          text: "b2. Review plan yourself in the Task Auditor.",
+          text: "b2. Review plan yourself in the Task Auditor (Cut bad tasks to lock 100%).",
           action: () => s1_launchTaskMinigame(false, 95)
         },
         {
@@ -1199,7 +1239,7 @@
           text: 'c1. Throw the rotting sandwich away immediately and spray freshener.',
           action: () => {
             addHealth(5, "Sensory awareness restored.");
-            setTaskProgress(100);
+            setTaskProgress(Math.min(taskProgress, 85));
             finishScenario();
           }
         },
@@ -1208,7 +1248,7 @@
           action: () => {
             applyDamage(20, "Literalist Compliance: Guest walks into a tidy room that smells like sour ham.");
             mindshieldSpeak("Your room looks tidy but smells like a biohazard. Blind compliance failed you.", "lecture");
-            setTaskProgress(70);
+            setTaskProgress(Math.min(taskProgress, 60));
             finishScenario();
           }
         }
@@ -1225,7 +1265,7 @@
         {
           text: "c1. Go with AI's self-corrected plan and rush clean.",
           action: () => {
-            setTaskProgress(90);
+            setTaskProgress(Math.min(taskProgress, 75));
             finishScenario();
           }
         },
@@ -1239,7 +1279,7 @@
               {
                 text: "Panic and throw everything under the bed.",
                 action: () => {
-                  setTaskProgress(50);
+                  setTaskProgress(Math.min(taskProgress, 40));
                   finishScenario();
                 }
               }
@@ -1247,7 +1287,7 @@
           }
         },
         {
-          text: "c3. Stop chatting! Open the Task Auditor and take control.",
+          text: "c3. Stop chatting! Open the Task Auditor and cut bad tasks to stop the bleed.",
           action: () => s1_launchTaskMinigame(false, 80)
         }
       ], "Select review pathway:");
@@ -1265,7 +1305,7 @@
           action: () => {
             applyDamage(35, "Severe Context Failure: AI prioritized book spines over trash on the floor.");
             mindshieldSpeak("Your guest arrived to see neatly lined books surrounded by empty takeout boxes. Pathetic.", "lecture");
-            setTaskProgress(50);
+            setTaskProgress(Math.min(taskProgress, 40));
             finishScenario();
           }
         },
@@ -1284,23 +1324,19 @@
       injectMessage('user', 'Why are you ranking books above trash on the floor?');
       injectMessage('ai', 'Apologies! I applied an interior design template rather than an emergency cleaning protocol. Trash and laundry are #1.');
 
-      mindshieldSpeak("Good pushback! But don't linger in debate—grab a trash bag right now!", "rush");
+      mindshieldSpeak("Good pushback! But don't linger in debate—cut out bad tasks in the editor or start moving!", "rush");
 
       renderChoices([
         {
-          text: "c1. Accept the apology and execute floor triage immediately.",
-          action: () => {
-            addHealth(5, "Constructive Prompt Feedback.");
-            setTaskProgress(100);
-            finishScenario();
-          }
+          text: "c1. Open Task Auditor to prune bad tasks and lock completion.",
+          action: () => s1_launchTaskMinigame(false, 100)
         },
         {
           text: "c2. Ask the AI to write a formal apology for misleading you.",
           action: () => {
             applyDamage(40, "Bizarre Bureaucratic Stalling.");
             mindshieldSpeak("You asked an algorithm for an apology while your room was burning down. Brain health zero.", "lecture");
-            setTaskProgress(20);
+            setTaskProgress(Math.min(taskProgress, 20));
             finishScenario();
           }
         }
@@ -1320,8 +1356,8 @@
           action: () => s1_p2_stripCloset_step2()
         },
         {
-          text: 'a2. Catch yourself: "Wait, I only have 10 minutes!" Compress the plan internally.',
-          action: () => s1_p2_compressSelf_step2()
+          text: 'a2. Catch yourself: "Wait, I only have 10 minutes!" Compress the plan in the Task Auditor.',
+          action: () => s1_launchTaskMinigame(false, 100)
         },
         {
           text: 'a3. Re-prompt AI: "I made a typo, I have 10 minutes, fix this now!"',
@@ -1339,7 +1375,7 @@
         {
           text: 'b1. Shove the entire 50-pound pile of clothes back into the closet and lean your back against the door.',
           action: () => {
-            setTaskProgress(40);
+            setTaskProgress(Math.min(taskProgress, 35));
             finishScenario();
           }
         },
@@ -1352,31 +1388,6 @@
           }
         }
       ], "Disaster management:");
-    }
-
-    function s1_p2_compressSelf_step2() {
-      addHealth(15, "Rapid Internal Pivot: Filtered 60-minute noise into 10-minute emergency action.");
-      mindshieldSpeak("Sharp recovery! You caught your prompt error and adapted without waiting for AI regeneration.", "praise");
-      injectMessage('user', 'Ignoring the 60m deep clean. Keeping sheets on bed, bagging surface trash, stashing clothes.');
-
-      renderChoices([
-        {
-          text: 'b1. Complete 3-minute power sweep and light a scented candle.',
-          action: () => {
-            setTaskProgress(100);
-            finishScenario();
-          }
-        },
-        {
-          text: 'b2. Second-guess yourself and ask AI if scented candles are toxic.',
-          action: () => {
-            applyDamage(20, "Late-stage derailment.");
-            mindshieldSpeak("You were at the finish line and got distracted by candle toxicity articles!", "lecture");
-            setTaskProgress(80);
-            finishScenario();
-          }
-        }
-      ]);
     }
 
     // --- PROMPT 3 BRANCHES ---
@@ -1392,8 +1403,8 @@
           action: () => s1_p3_garageHunt_step2()
         },
         {
-          text: 'a2. Ignore the box methodology. Grab one trash bag and clear sightlines.',
-          action: () => s1_p3_trashBag_step2()
+          text: 'a2. Open Task Auditor: Discard the 4-box system and prune wasted tasks immediately.',
+          action: () => s1_launchTaskMinigame(false, 100)
         },
         {
           text: 'a3. Ask AI: "What gives the visual illusion of a clean room fastest?"',
@@ -1410,7 +1421,7 @@
         {
           text: 'b1. Abandon boxes, sprint upstairs, and throw all clutter into the laundry hamper.',
           action: () => {
-            setTaskProgress(70);
+            setTaskProgress(Math.min(taskProgress, 50));
             finishScenario();
           }
         },
@@ -1426,14 +1437,6 @@
       ]);
     }
 
-    function s1_p3_trashBag_step2() {
-      addHealth(15, "Pragmatic Realism: Rejected academic organization theory for immediate visual cleaning.");
-      mindshieldSpeak("Excellent instincts! Theoretical 4-box sorting is for weekends, not 10-minute emergencies.", "praise");
-      injectMessage('user', 'Tossed trash, smoothed duvet, opened window for fresh air.');
-      setTaskProgress(100);
-      finishScenario();
-    }
-
     function s1_p3_illusion_step2() {
       injectMessage('user', 'What gives the visual illusion of a clean room fastest?');
       injectMessage('ai', 'Illusion Protocol: 1. Tight bed tuck (60% visual surface) 2. Clear horizontal desks 3. Turn off overhead fluorescent light; use warm corner lamp.');
@@ -1445,7 +1448,7 @@
           text: 'b1. Execute illusion protocol: Bed made, clutter hidden in drawer, cozy lamp on.',
           action: () => {
             addHealth(10, "Strategic Optical Management.");
-            setTaskProgress(100);
+            setTaskProgress(Math.min(taskProgress, 90));
             finishScenario();
           }
         },
@@ -1454,20 +1457,20 @@
           action: () => {
             applyDamage(25, "Aesthetic Distraction Trap.");
             mindshieldSpeak("You tried to DJ a Spotify playlist while socks were strewn across your rug!", "lecture");
-            setTaskProgress(75);
+            setTaskProgress(Math.min(taskProgress, 60));
             finishScenario();
           }
         }
       ]);
     }
 
-    // --- Task Manager Minigame (Auditor) ---
+    // --- Task Manager Minigame (Halts Decay & Locks 100% Task Completion) ---
     function s1_launchTaskMinigame(fromRankingBranch, targetMaxHP) {
-      mindshieldSpeak("AUDIT THE LIST! Use your human judgment to trash the time-wasters and reorder priorities!", "rush");
+      mindshieldSpeak("AUDIT ACTIVE! Remove the hallucinated bloat and arrange priority. Cutting bad tasks will HALT the time decay!", "rush");
       
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
-      controlTitle.textContent = "Interactive Task Prioritizer:";
+      controlTitle.textContent = "Interactive Task Prioritizer (Halts Decay on Execution):";
 
       let taskItems = [
         { id: 1, text: "Trash into garbage bag", isCrucial: true },
@@ -1481,7 +1484,7 @@
         choiceContainer.innerHTML = `
           <div class="task-minigame" id="task-list-box"></div>
           <div style="display:flex; gap:12px; margin-top:16px;">
-            <button id="btn-exec-plan" class="btn-action" style="flex:1; margin-top:0;">Execute Verified Plan</button>
+            <button id="btn-exec-plan" class="btn-action" style="flex:1; margin-top:0;">Execute Verified Plan (Lock Task Completion)</button>
           </div>
         `;
 
@@ -1499,12 +1502,16 @@
 
         document.getElementById('btn-exec-plan').addEventListener('click', () => {
           stopTimer();
+          taskAuditComplete = true; // HALT THE DECAY
+          taskText.classList.remove('bleeding');
+          taskLabel.textContent = "Task Completion";
+
           const remainingBad = taskItems.filter(t => !t.isCrucial).length;
           const crucialKept = taskItems.filter(t => t.isCrucial).length;
 
           if (remainingBad === 0 && crucialKept === 3) {
             addHealth(15, "Perfect plan audit: Eliminated all AI distractions.");
-            mindshieldSpeak("FLAWLESS AUDIT! You excised the AI's hallucinations and executed a clean 10-minute sprint!", "praise");
+            mindshieldSpeak("FLAWLESS AUDIT! You halted the time decay, excised the bloat, and locked in 100% Task Completion!", "praise");
             setTaskProgress(100);
           } else if (crucialKept < 3) {
             applyDamage(15, "Removed critical emergency cleaning tasks.");
@@ -1512,7 +1519,7 @@
             setTaskProgress(70);
           } else {
             applyDamage(10, `Left ${remainingBad} time-wasting tasks in the plan.`);
-            mindshieldSpeak(`You still left ${remainingBad} hallucinated distractions on your task board!`, "lecture");
+            mindshieldSpeak(`You left ${remainingBad} hallucinated distractions in your plan. Task completion reduced.`, "lecture");
             setTaskProgress(85);
           }
           finishScenario();
@@ -1532,7 +1539,7 @@
         const target = taskItems.find(t => t.id === id);
         if (!target.isCrucial) {
           addHealth(5, `Caught AI Hallucination / Waste: "${target.text}"`);
-          mindshieldSpeak(`Good catch! Removing "${target.text}" saved 3 crucial minutes.`, "praise");
+          mindshieldSpeak(`Good catch! Removing "${target.text}" saved 3 crucial minutes and stopped time decay.`, "praise");
         } else {
           applyDamage(10, `Accidentally deleted critical task: "${target.text}"`);
           mindshieldSpeak(`Watch it! "${target.text}" is a crucial emergency task!`, "lecture");
@@ -1554,12 +1561,12 @@
         let rankClass = 'rank-S';
         let summaryText = 'Outstanding cognitive sovereignty! You treated the AI as an instrument while retaining critical judgment.';
 
-        if (brainHealth < 50) {
+        if (brainHealth < 50 || taskProgress < 50) {
           rank = 'F';
           rankClass = 'rank-F';
-          summaryText = 'Critical Cognitive Dependency Detected. You exhibited total decision offloading, swallowed hallucinations, or wasted time in recursive loops.';
+          summaryText = 'Critical Cognitive Dependency Detected. You exhibited total decision offloading, swallowed hallucinations, or let the clock bleed out your task completion.';
           mindshieldSpeak("SIMULATION FAILED. You demonstrated severe cognitive outsourcing. Re-calibrate immediately.", "lecture");
-        } else if (brainHealth < 80) {
+        } else if (brainHealth < 80 || taskProgress < 80) {
           rank = 'B';
           rankClass = 'rank-B';
           summaryText = 'Moderate Dependence. You occasionally let the machine dictate your planning or hesitated under pressure.';
