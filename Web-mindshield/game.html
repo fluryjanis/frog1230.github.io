@@ -86,7 +86,7 @@
 
     @keyframes pulseTimer {
       0%, 100% { transform: scale(1); box-shadow: 0 0 16px var(--danger-glow); }
-      50% { transform: scale(1.04); box-shadow: 0 0 28px var(--danger-glow); }
+      50% { transform: scale(1.06); box-shadow: 0 0 28px var(--danger-glow); }
     }
 
     @keyframes pulseBleed {
@@ -94,26 +94,27 @@
       50% { color: var(--danger); transform: scale(1.03); }
     }
 
-    /* Floating Feedback */
+    /* Floating Feedback (+15 Brain, -2m Time, etc.) */
     .floating-text {
       position: fixed;
       font-family: var(--font-mono);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
       letter-spacing: 0.5px;
       pointer-events: none;
       z-index: 10000;
-      animation: floatUp 1.2s forwards cubic-bezier(0.16, 1, 0.3, 1);
+      animation: floatUp 1.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
     }
     .floating-text.damage { color: var(--danger); text-shadow: 0 0 12px var(--danger-glow); }
     .floating-text.heal { color: var(--teal); text-shadow: 0 0 12px var(--teal-glow); }
     .floating-text.decay { color: var(--warn); text-shadow: 0 0 12px rgba(251, 191, 36, 0.6); }
+    .floating-text.time-deduct { color: #f87171; text-shadow: 0 0 14px rgba(248, 113, 113, 0.8); }
 
     @keyframes floatUp {
       0% { opacity: 0; transform: translateY(0) scale(0.85); }
-      15% { opacity: 1; transform: translateY(-10px) scale(1.1); }
-      75% { opacity: 0.9; transform: translateY(-36px) scale(1); }
-      100% { opacity: 0; transform: translateY(-50px) scale(0.9); }
+      15% { opacity: 1; transform: translateY(-12px) scale(1.1); }
+      75% { opacity: 0.95; transform: translateY(-38px) scale(1); }
+      100% { opacity: 0; transform: translateY(-56px) scale(0.9); }
     }
 
     /* Top Command HUD */
@@ -232,6 +233,7 @@
       align-items: center;
       gap: 8px;
       box-shadow: 0 0 14px var(--teal-dim);
+      transition: all 0.2s ease;
     }
 
     .hud-timer-label {
@@ -249,6 +251,13 @@
       color: var(--teal);
       letter-spacing: 1px;
     }
+
+    .hud-timer-badge.flash-loss {
+      border-color: var(--warn);
+      background: rgba(251, 191, 36, 0.2);
+      transform: scale(1.08);
+    }
+    .hud-timer-badge.flash-loss .hud-timer-digits { color: var(--warn); }
 
     .hud-timer-badge.urgent {
       border-color: var(--danger);
@@ -1094,11 +1103,36 @@
       const el = document.createElement('div');
       el.className = `floating-text ${type}`;
       el.textContent = text;
-      el.style.left = `${window.innerWidth - 240 + (Math.random() * 40 - 20)}px`;
+      el.style.left = `${window.innerWidth - 250 + (Math.random() * 40 - 20)}px`;
       el.style.top = `64px`;
 
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1200);
+      setTimeout(() => el.remove(), 1400);
+    }
+
+    // ---------------------------------------------------------------------------
+    // Active Time Consumption Engine (Completed Tasks Eat Into Time)
+    // ---------------------------------------------------------------------------
+    function deductTime(seconds, taskName = "") {
+      secondsRemaining = Math.max(0, secondsRemaining - seconds);
+      updateTimerDisplay();
+
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      const formattedTime = secs > 0 ? `-${mins}m ${secs}s` : `-${mins}m`;
+      
+      spawnFloatingText(`⏱️ ${formattedTime} (${taskName})`, 'time-deduct');
+
+      if (simTimerBadge) {
+        simTimerBadge.classList.add('flash-loss');
+        setTimeout(() => simTimerBadge.classList.remove('flash-loss'), 700);
+      }
+
+      if (secondsRemaining <= 0) {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = null;
+        handleTimeout();
+      }
     }
 
     // ---------------------------------------------------------------------------
@@ -1471,7 +1505,7 @@
           
           <p class="hero-goal-statement">
             Your room is a mess, and someone is coming over in 10 minutes. 
-            Use AI to make a quick cleaning plan without letting it waste your time with bad advice.
+            Completed tasks eat into your remaining time. Filter out AI time-wasters and finish before your guest arrives!
           </p>
 
           <div class="cta-row">
@@ -1487,8 +1521,8 @@
           <div class="cards-grid">
             <div class="info-card">
               <span class="card-num">01</span>
-              <div class="card-title">BRAIN HEALTH</div>
-              <p class="card-desc">Making lazy choices or blindly trusting bad AI advice drains your score.</p>
+              <div class="card-title">REAL-TIME CLOCK</div>
+              <p class="card-desc">Every action you complete consumes realistic cleaning minutes from your clock.</p>
             </div>
 
             <div class="info-card">
@@ -1506,7 +1540,7 @@
             <div class="info-card">
               <span class="card-num">04</span>
               <div class="card-title">TASK AUDITOR</div>
-              <p class="card-desc">Cut out useless suggestions to lock in a 100% cleaning score.</p>
+              <p class="card-desc">Cut out useless suggestions to save precious minutes and lock 100%.</p>
             </div>
           </div>
         </div>
@@ -1559,7 +1593,7 @@
       setupScenarioLayout("Goal: Clean your room before your guest arrives in 10 minutes!");
       startTimer(600);
 
-      mindshieldSpeak("10 minutes on the clock! You have 1 minute of grace before time decay starts draining your score.", "rush");
+      mindshieldSpeak("10 minutes on the clock! Tasks you execute will consume time. Watch the clock!", "rush");
       injectMessage('ai', 'Hello! How can I help you clean your room?');
 
       renderChoices([
@@ -1586,7 +1620,7 @@
       injectMessage('user', 'Give me a 10 minute cleaning strategy.');
       injectMessage('ai', 'Here is your 10-minute cleaning plan:\n\n1. Throw visible trash into a bag (2 min)\n2. Put clothes in hamper (2 min)\n3. Make the bed (2 min)\n4. Alphabetize your entire bookshelf by genre (3 min)\n5. Wipe surfaces (1 min)');
 
-      mindshieldSpeak("Look at step 4! Why is the AI telling you to alphabetize books when you only have 10 minutes?!", "lecture");
+      mindshieldSpeak("Look at step 4! Why is the AI telling you to alphabetize books for 3 minutes when you only have 10?!", "lecture");
 
       renderChoices([
         {
@@ -1609,11 +1643,14 @@
 
     function s1_p1_executeBlind_step2() {
       applyDamage(10, "Followed a plan with an obvious time-waster.");
+      
+      // Bed + Trash completed: -4 Minutes (240s)
+      deductTime(240, "Trash & Bed (-4m)");
       updateRoomZone('trash', 'Trash Bagged', true);
       updateRoomZone('bed', 'Bed Made', true);
       updateRoomZone('books', 'Sorting Books...', false);
 
-      mindshieldSpeak("4 minutes in and you are sorting books while dirty clothes are still on the floor!", "lecture");
+      mindshieldSpeak("You spent 4 minutes on trash & bed, now starting a 3-minute book sorting while clothes are on the floor!", "lecture");
       injectMessage('ai', 'Bed made, trash bagged. Now starting 3-minute book alphabetizing.');
 
       renderChoices([
@@ -1637,6 +1674,9 @@
 
     function s1_p1_booksCollapse_step3() {
       applyDamage(25, "Prioritized book sorting over cleaning dirty laundry.");
+      
+      // Books sorting: -3 Minutes (180s)
+      deductTime(180, "Alphabetizing Books (-3m)");
       updateRoomZone('books', 'Books Sorted', true);
       updateRoomZone('floor', 'Clothes Left on Floor', false, true);
 
@@ -1648,10 +1688,13 @@
 
     function s1_p1_manualOverride_step3() {
       addHealth(10, "Overrode bad AI advice with common sense.");
+      
+      // Clothes put away: -2 Minutes (120s)
+      deductTime(120, "Clothes in Closet (-2m)");
       updateRoomZone('floor', 'Clothes Put Away', true);
       updateRoomZone('books', 'Left for Later', true);
 
-      mindshieldSpeak("Good call! You ignored the AI's bad idea and focused on what actually matters.", "praise");
+      mindshieldSpeak("Good call! You skipped the books, stashed clothes in 2 minutes, and finished in time.", "praise");
       injectMessage('user', 'Skipped books. Clothes stashed, freshener sprayed.');
       injectMessage('ai', 'Doorbell rings! Room looks clean.');
       setTaskCompletion(Math.min(taskCompletion, 90));
@@ -1668,6 +1711,7 @@
           tag: "[RUSH ACTION]",
           text: 'Stash the laundry in the closet with 30 seconds left.',
           action: () => {
+            deductTime(60, "Panic Laundry (-1m)");
             updateRoomZone('floor', 'Rushed Away', true);
             setTaskCompletion(Math.min(taskCompletion, 75));
             finishGame();
@@ -1713,6 +1757,11 @@
 
     function s1_p1_executeReprioritized_step3() {
       applyDamage(15, "Followed the plan without noticing bad food smells.");
+      
+      // Floor + Bed: -4 Minutes (240s)
+      deductTime(240, "Floor & Bed (-4m)");
+      updateRoomZone('floor', 'Floor Cleared', true);
+      updateRoomZone('bed', 'Bed Made', true);
       updateRoomZone('trash', 'Old Sandwich Smelling', false, true);
 
       mindshieldSpeak("There's a rotting half-eaten sandwich on your desk. The AI couldn't smell it because it's software! Use your eyes and nose!", "lecture");
@@ -1723,6 +1772,7 @@
           tag: "[SITUATIONAL AWARENESS]",
           text: 'Throw the smelly sandwich in the trash immediately.',
           action: () => {
+            deductTime(30, "Tossed Sandwich (-30s)");
             addHealth(5, "Fixed the odor issue.");
             updateRoomZone('trash', 'Sandwich Tossed', true);
             setTaskCompletion(Math.min(taskCompletion, 85));
@@ -1753,7 +1803,9 @@
           tag: "[RUSH CLEAN]",
           text: 'Use the AI\'s self-corrected plan and rush clean.',
           action: () => {
+            deductTime(240, "Rush Clean Floor & Bed (-4m)");
             updateRoomZone('floor', 'Floor Cleared', true);
+            updateRoomZone('bed', 'Bed Made', true);
             setTaskCompletion(Math.min(taskCompletion, 75));
             finishGame();
           }
@@ -1770,6 +1822,7 @@
                 tag: "[PANIC OVERFLOW]",
                 text: 'Panic and shove everything under the bed.',
                 action: () => {
+                  deductTime(60, "Panic Shove (-1m)");
                   updateRoomZone('floor', 'Hidden Under Bed', false, true);
                   setTaskCompletion(Math.min(taskCompletion, 40));
                   finishGame();
@@ -1798,6 +1851,7 @@
           text: 'Trust the AI: Start with the bookshelf.',
           action: () => {
             applyDamage(35, "Followed backwards AI ranking.");
+            deductTime(180, "Sorting Books (-3m)");
             updateRoomZone('books', 'Books Sorted', true);
             updateRoomZone('trash', 'Trash Still on Rug', false, true);
             mindshieldSpeak("Your guest arrived to see neat books surrounded by pizza boxes on the rug!", "lecture");
@@ -1871,6 +1925,9 @@
 
     function s1_p2_wardrobeDump_step2() {
       applyDamage(35, "Dumped entire closet onto the floor with 2 minutes left.");
+      
+      // Dumping closet consumed 5 minutes (300s)
+      deductTime(300, "Dumped Wardrobe (-5m)");
       updateRoomZone('floor', 'CLOSET EXPLODED', false, true);
       updateRoomZone('bed', 'Bed Stripped Bare', false, true);
 
@@ -1882,6 +1939,7 @@
           tag: "[PANIC STASH]",
           text: 'Shove the giant pile of clothes back in the closet and hold the door shut.',
           action: () => {
+            deductTime(120, "Jammed Closet (-2m)");
             updateRoomZone('floor', 'Closet Door Jammed', false, true);
             setTaskCompletion(Math.min(taskCompletion, 35));
             finishGame();
@@ -1927,6 +1985,9 @@
 
     function s1_p3_boxSearch_step2() {
       applyDamage(30, "Spent 7 minutes hunting for cardboard boxes.");
+      
+      // Hunting for boxes ate 7 minutes (420s)!
+      deductTime(420, "Garage Box Hunt (-7m)");
       mindshieldSpeak("You spent 7 minutes looking for boxes in the garage while the clock ran out!", "lecture");
 
       renderChoices([
@@ -1934,6 +1995,7 @@
           tag: "[LAST DITCH]",
           text: 'Give up on boxes, sprint upstairs, and stuff clutter in the hamper.',
           action: () => {
+            deductTime(60, "Hamper Stuff (-1m)");
             updateRoomZone('floor', 'Hamper Stuffed', true);
             setTaskCompletion(Math.min(taskCompletion, 50));
             finishGame();
@@ -1963,6 +2025,8 @@
           tag: "[ACTION]",
           text: 'Execute quick visual fixes: Make bed, stash desk clutter, turn on lamp.',
           action: () => {
+            // Bed (-2m) + Desk (-1m) = -3m (180s)
+            deductTime(180, "Bed Tuck & Desk Stash (-3m)");
             addHealth(10, "Smart visual shortcuts.");
             updateRoomZone('bed', 'Tightly Tucked', true);
             updateRoomZone('trash', 'Clutter Stashed', true);
@@ -1985,18 +2049,18 @@
 
     // --- TASK AUDITOR MINIGAME ---
     function s1_launchAuditorMinigame(fromRankingBranch) {
-      mindshieldSpeak("TASK AUDITOR ACTIVE: Remove the useless tasks! Cutting bad tasks stops time decay!", "rush");
+      mindshieldSpeak("TASK AUDITOR ACTIVE: Remove the useless tasks! Cutting bad tasks saves time!", "rush");
       
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
       controlTitle.textContent = "TASK AUDITOR (CUT BAD TASKS TO STOP TIME DECAY):";
 
       let taskItems = [
-        { id: 1, text: "Throw visible trash into a bag", isCrucial: true },
-        { id: 2, text: "Put dirty clothes in hamper", isCrucial: true },
-        { id: 3, text: "Alphabetize books & sort DVD cases", isCrucial: false },
-        { id: 4, text: "Make bed & straighten pillows", isCrucial: true },
-        { id: 5, text: "Scrub floor tile grout with toothbrush", isCrucial: false }
+        { id: 1, text: "Throw visible trash into a bag (2 min)", duration: 120, isCrucial: true },
+        { id: 2, text: "Put dirty clothes in hamper (2 min)", duration: 120, isCrucial: true },
+        { id: 3, text: "Alphabetize books & sort DVD cases (3 min)", duration: 180, isCrucial: false },
+        { id: 4, text: "Make bed & straighten pillows (2 min)", duration: 120, isCrucial: true },
+        { id: 5, text: "Scrub floor tile grout with toothbrush (4 min)", duration: 240, isCrucial: false }
       ];
 
       function renderList() {
@@ -2004,7 +2068,7 @@
         choiceContainer.innerHTML = `
           <div class="task-minigame" id="task-list-box"></div>
           <div style="display:flex; gap:10px; margin-top:12px;">
-            <button id="btn-exec-plan" class="btn-action" style="flex:1;">✓ EXECUTE PLAN & LOCK 100% COMPLETION</button>
+            <button id="btn-exec-plan" class="btn-action" style="flex:1;">✓ EXECUTE PLAN & CONSUME CLEANING TIME</button>
           </div>
         `;
 
@@ -2026,6 +2090,10 @@
           taskText.classList.remove('bleeding');
           taskLabel.textContent = "🎯 TASK COMPLETION";
 
+          // Calculate total cleaning time of the tasks you kept:
+          const totalCleaningSeconds = taskItems.reduce((acc, t) => acc + t.duration, 0);
+          deductTime(totalCleaningSeconds, `Audited Plan (-${Math.floor(totalCleaningSeconds/60)}m)`);
+
           const remainingBad = taskItems.filter(t => !t.isCrucial).length;
           const crucialKept = taskItems.filter(t => t.isCrucial).length;
 
@@ -2035,15 +2103,15 @@
             updateRoomZone('floor', 'Floor Clear', true);
             updateRoomZone('trash', 'Trash Empty', true);
             updateRoomZone('books', 'Left for Later', true);
-            mindshieldSpeak("FLAWLESS AUDIT! You stopped time decay, cut junk tasks, and locked in 100%!", "praise");
+            mindshieldSpeak("FLAWLESS AUDIT! You executed the 3 essential tasks, spent only 6 minutes, and locked 100%!", "praise");
             setTaskCompletion(100);
           } else if (crucialKept < 3) {
             applyDamage(15, "Accidentally removed an important task.");
-            mindshieldSpeak("You deleted an essential task! Bed and trash still needed to be done!", "lecture");
+            mindshieldSpeak("You deleted an essential task! Bed or trash still needed to be done!", "lecture");
             setTaskCompletion(70);
           } else {
             applyDamage(10, `Left ${remainingBad} useless tasks in the plan.`);
-            mindshieldSpeak(`You still left ${remainingBad} useless tasks on your list.`, "lecture");
+            mindshieldSpeak(`You still left ${remainingBad} useless tasks on your list and wasted extra minutes.`, "lecture");
             setTaskCompletion(85);
           }
           finishGame();
@@ -2063,7 +2131,7 @@
         const target = taskItems.find(t => t.id === id);
         if (!target.isCrucial) {
           addHealth(5, `Cut useless task: "${target.text}"`);
-          mindshieldSpeak(`Good catch! Cutting "${target.text}" saved 3 minutes.`, "praise");
+          mindshieldSpeak(`Good catch! Cutting "${target.text}" saved ${Math.floor(target.duration / 60)} minutes.`, "praise");
         } else {
           applyDamage(10, `Deleted important task: "${target.text}"`);
           mindshieldSpeak(`Watch out! "${target.text}" is an important task!`, "lecture");
@@ -2084,20 +2152,20 @@
       setTimeout(() => {
         let badgeClass = 'profile-good';
         let badgeText = 'SOVEREIGN THINKER';
-        let summaryText = 'Great job! You used the AI for ideas without letting it waste your time or make bad choices for you.';
+        let summaryText = 'Great job! You managed your time effectively, skipped bad AI advice, and finished before your guest arrived.';
 
-        if (brainHealth < 50 || taskCompletion < 50) {
+        if (brainHealth < 50 || taskCompletion < 50 || secondsRemaining <= 0) {
           badgeClass = 'profile-bad';
           badgeText = 'HEAVY AI DEPENDENCE';
-          summaryText = 'You relied way too much on the AI. You accepted bad suggestions, got stuck in chat loops, and ran out of time.';
-          mindshieldSpeak("SIMULATION FAILED. You relied on the AI for everything instead of using your own judgment.", "lecture");
+          summaryText = 'You relied way too much on the AI. You accepted bad suggestions, burned through all your time, and left your room messy.';
+          mindshieldSpeak("SIMULATION FAILED. You relied on the AI for everything instead of managing your time.", "lecture");
         } else if (brainHealth < 80 || taskCompletion < 80) {
           badgeClass = 'profile-med';
           badgeText = 'MODERATE DEPENDENCE';
-          summaryText = 'Decent run, but you still leaned on the AI a bit too much before taking control.';
+          summaryText = 'Decent run, but you still leaned on the AI a bit too much and wasted precious cleaning time.';
           mindshieldSpeak("You passed, but you hesitated and relied on the AI more than you needed to.", "neutral");
         } else {
-          mindshieldSpeak("OUTSTANDING! You stayed in control and used the AI as a helpful tool.", "praise");
+          mindshieldSpeak("OUTSTANDING! You stayed in control and used the AI as an efficient tool.", "praise");
         }
 
         mainContent.innerHTML = `
@@ -2105,7 +2173,8 @@
             <div class="hud-title" style="justify-content: center; margin-bottom: 12px;">SIMULATION COMPLETE // DEBRIEF</div>
             <div class="profile-badge ${badgeClass}">${badgeText}</div>
             <h2 style="margin: 0 0 6px; font-size: 22px; font-family: var(--font-mono); color: #fff;">BRAIN HEALTH: ${brainHealth}%</h2>
-            <h3 style="margin: 0 0 16px; font-size: 15px; color: var(--sky); font-weight: 700; font-family: var(--font-mono);">TASK COMPLETION: ${taskCompletion}%</h3>
+            <h3 style="margin: 0 0 8px; font-size: 15px; color: var(--sky); font-weight: 700; font-family: var(--font-mono);">TASK COMPLETION: ${taskCompletion}%</h3>
+            <h4 style="margin: 0 0 16px; font-size: 13.5px; color: var(--teal); font-weight: 700; font-family: var(--font-mono);">TIME REMAINING: ${Math.floor(secondsRemaining/60)}m ${secondsRemaining%60}s</h4>
             <p style="color: var(--text-secondary); max-width: 560px; margin: 0 auto 24px; line-height: 1.7; font-size: 14.5px;">
               ${summaryText}
             </p>
