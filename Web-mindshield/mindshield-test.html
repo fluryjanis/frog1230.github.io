@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Are you over-relying on AI? — MindShield Test</title>
+  <title>Do you rely on AI too much? — MindShield</title>
   
   <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
       --indigo-subtle: #e0e7ff;
       --indigo-text: #4338ca;
 
-      /* Status Indicator Colors */
+      /* Status Colors */
       --pass: #15803d;
       --warn: #c2410c;
       --flag: #b91c1c;
@@ -97,9 +97,9 @@
 
     .subtitle {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-secondary);
-      max-width: 540px;
+      max-width: 500px;
       line-height: 1.5;
     }
 
@@ -203,7 +203,7 @@
       color: var(--text-main);
       line-height: 1.5;
       margin-top: 4px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .quiz-options {
@@ -277,7 +277,7 @@
       color: var(--text-muted);
       line-height: 1.55;
       max-width: 480px;
-      margin: 4px auto 14px;
+      margin: 4px auto 16px;
     }
 
     .cta-actions {
@@ -290,7 +290,7 @@
 
     /* --- Science Info Section --- */
     .lead-text {
-      font-size: 14.5px;
+      font-size: 14px;
       color: #475569;
       line-height: 1.55;
     }
@@ -318,7 +318,7 @@
       padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
 
     .info-item h3 {
@@ -371,15 +371,15 @@
     
     <!-- Hero Header -->
     <header class="hero-section">
-      <span class="badge-pill">🧠 Cognitive Health Assessment</span>
-      <h1 class="main-title">Are you over-relying on AI?</h1>
-      <p class="subtitle">Test how much of your critical thinking, decision-making, and problem-solving you've outsourced to chatbots.</p>
+      <span class="badge-pill">🧠 1-Minute Quiz</span>
+      <h1 class="main-title">Do you rely on AI too much?</h1>
+      <p class="subtitle">See if you're letting chatbots do your thinking for you, or using them the smart way.</p>
       
       <div>
-        <button id="start-test-btn" class="btn btn-primary btn-large">Start Assessment</button>
+        <button id="start-test-btn" class="btn btn-primary btn-large">Start Quiz</button>
       </div>
       
-      <p class="science-tagline">🔬 Built on peer-reviewed cognitive offloading science</p>
+      <p class="science-tagline">🔬 Based on research in learning and memory</p>
     </header>
 
     <!-- Interactive Quiz Card -->
@@ -395,33 +395,33 @@
       <div id="score-circle" class="score-circle">
         <span id="score-number">0%</span>
       </div>
-      <h2 id="score-title">Calculating your score...</h2>
+      <h2 id="score-title">Your Result</h2>
       <p id="score-desc" class="score-desc"></p>
 
       <div class="cta-actions">
         <a href="web-demo-mindshield.html" class="btn btn-primary">Try Live Prompt Sandbox →</a>
-        <button id="retake-btn" class="btn btn-secondary">Retake Test</button>
+        <button id="retake-btn" class="btn btn-secondary">Retake Quiz</button>
       </div>
     </section>
 
     <!-- Science Section -->
     <section class="card">
-      <h2 class="card-title">🔬 The Science of Cognitive Offloading</h2>
+      <h2 class="card-title">🔬 Why This Matters</h2>
       <p class="lead-text">
-        When we immediately turn to AI for every question, our brains engage in <strong>cognitive offloading</strong>—the psychological tendency to reduce mental effort by relying on external tools.
+        When we ask AI for answers right away, our brains skip the effort of thinking. Over time, that makes hard problems feel even harder.
       </p>
 
       <div class="grid-2">
         <div class="info-item">
-          <h3>📉 The Atrophy of Problem Solving</h3>
+          <h3>📉 Use It or Lose It</h3>
           <p>
-            Peer-reviewed research in cognitive psychology shows that bypassing the friction of independent problem-solving weakens working memory retention and reduces structural endurance over time.
+            Skipping the hard thinking part weakens your memory and makes it harder to focus over time.
           </p>
         </div>
         <div class="info-item">
-          <h3>⚡ The Generation Effect</h3>
+          <h3>⚡ The 5-Second Rule</h3>
           <p>
-            Formulating your own hypothesis—even for just <strong>5 seconds</strong> before receiving an answer—activates the <em>Generation Effect</em>, strengthening long-term neural connections.
+            Thinking for just <strong>5 seconds</strong> before checking the answer helps your brain remember it much longer.
           </p>
         </div>
       </div>
@@ -429,7 +429,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>MindShield is open source under the MIT License.</p>
+      <p>MindShield is free and open source under the MIT License.</p>
       <p><a href="web-demo-mindshield.html">Open Live Prompt Sandbox →</a></p>
     </footer>
 
@@ -438,35 +438,35 @@
   <script>
     const QUIZ_QUESTIONS = [
       {
-        title: "Scenario 1: You get a confusing or critical comment on your post/project. What is your first instinct?",
+        title: "1. You get a confusing or critical comment on your project. What do you do first?",
         options: [
-          { text: "Copy-paste it into AI and ask: 'What should I respond with?'", points: 3 },
-          { text: "Formulate my own draft response, then ask AI to critique its tone.", points: 0 },
-          { text: "Ask AI to explain the technical concepts mentioned in the comment.", points: 0 }
+          { text: "Paste it into AI: 'What should I reply?'", points: 3 },
+          { text: "Write my own draft, then ask AI to check the tone.", points: 0 },
+          { text: "Ask AI to explain the terms mentioned so I understand it.", points: 0 }
         ]
       },
       {
-        title: "Scenario 2: You encounter a critical bug in your code or database.",
+        title: "2. You hit an annoying bug or error in your work.",
         options: [
-          { text: "Paste the error and demand: 'Tell me exactly what to do to fix this.'", points: 3 },
-          { text: "Inspect the stack trace, hypothesize the cause, and ask: 'Why does this error occur?'", points: 0 },
-          { text: "Paste the entire file and say: 'Solve this bug for me.'", points: 3 }
+          { text: "Paste the error and ask: 'Fix this for me.'", points: 3 },
+          { text: "Try to guess the cause first, then ask AI why it happened.", points: 0 },
+          { text: "Paste the whole file and say: 'Find and fix the issue.'", points: 3 }
         ]
       },
       {
-        title: "Scenario 3: You are choosing between two job offers, laptops, or approaches.",
+        title: "3. You have to choose between two options (like jobs or laptops).",
         options: [
-          { text: "Ask AI: 'Which one should I choose?' and follow its judgment.", points: 2 },
-          { text: "List my criteria and ask for objective comparison benchmarks.", points: 0 },
-          { text: "Ask AI: 'What would you do if you were in my position?'", points: 2 }
+          { text: "Ask AI: 'Which one should I pick?' and trust its answer.", points: 2 },
+          { text: "List what matters to me and ask AI for facts to compare.", points: 0 },
+          { text: "Ask AI: 'What would you do if you were me?'", points: 2 }
         ]
       },
       {
-        title: "Scenario 4: You encounter a tricky brain teaser or logic riddle.",
+        title: "4. You run into a tricky riddle or brain teaser.",
         options: [
-          { text: "Immediately ask AI: 'Solve this riddle for me.'", points: 3 },
-          { text: "Attempt to solve it myself first, then verify if my answer is correct.", points: 0 },
-          { text: "Ask AI for a gentle hint without giving away the solution.", points: 1 }
+          { text: "Ask AI right away: 'Give me the answer.'", points: 3 },
+          { text: "Try solving it myself first, then check if I was right.", points: 0 },
+          { text: "Ask AI for a tiny hint without giving it away.", points: 1 }
         ]
       }
     ];
@@ -520,16 +520,16 @@
 
       if (dependencyPercent >= 60) {
         scoreCircle.style.borderColor = 'var(--flag)';
-        scoreTitle.textContent = "High Cognitive Dependency Risk";
-        scoreDesc.textContent = "You frequently outsource personal decisions, troubleshooting, and social replies to AI before attempting them yourself. MindShield was built to help you reclaim your critical thinking.";
+        scoreTitle.textContent = "High AI Reliance";
+        scoreDesc.textContent = "You often let AI think for you before trying on your own. Try taking a few seconds to think through problems first.";
       } else if (dependencyPercent >= 25) {
         scoreCircle.style.borderColor = 'var(--warn)';
         scoreTitle.textContent = "Moderate AI Reliance";
-        scoreDesc.textContent = "You use AI productively for synthesis, but occasionally offload subjective choices or quick answers when under friction.";
+        scoreDesc.textContent = "You use AI well, but you sometimes lean on it for quick answers instead of working through the problem.";
       } else {
         scoreCircle.style.borderColor = 'var(--pass)';
-        scoreTitle.textContent = "Strong Critical Thinker";
-        scoreDesc.textContent = "You use AI as an analytical sparring partner rather than a replacement brain. You formulate hypotheses before seeking answers.";
+        scoreTitle.textContent = "Independent Thinker";
+        scoreDesc.textContent = "Great job! You use AI as a helpful assistant, not as a replacement for your own brain.";
       }
 
       resultsSection.scrollIntoView({ behavior: 'smooth' });
