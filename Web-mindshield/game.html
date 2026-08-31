@@ -78,11 +78,27 @@
       50% { transform: scale(1.05); opacity: 0.75; }
     }
 
+    @keyframes avatarPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)); }
+      50% { transform: scale(1.04); filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.8)); }
+    }
+
+    @keyframes avatarRage {
+      0%, 100% { transform: translate(0,0) scale(1.02); filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.8)); }
+      25% { transform: translate(-3px, 2px); }
+      75% { transform: translate(3px, -2px); }
+    }
+
+    @keyframes bubblePop {
+      0% { transform: scale(0.92) translateY(8px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
     /* Top HUD */
     .hud {
       position: sticky;
       top: 0;
-      background: rgba(19, 20, 28, 0.92);
+      background: rgba(19, 20, 28, 0.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       padding: 16px 36px;
@@ -168,11 +184,194 @@
     #health-fill { background: var(--success); width: 100%; }
     #task-fill { background: var(--primary); width: 0%; }
 
-    /* Main Wrap */
-    .main-wrap {
-      max-width: 960px;
-      margin: 32px auto 64px;
+    /* Layout Wrapper with Side Avatar Deck */
+    .game-layout {
+      max-width: 1320px;
+      margin: 28px auto 64px;
       padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .game-layout.full-width {
+      grid-template-columns: 1fr;
+      max-width: 960px;
+    }
+
+    .main-wrap {
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* MindShield Character Side Panel */
+    .mindshield-side-panel {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 90;
+    }
+
+    .mindshield-character-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.4);
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+
+    .mindshield-character-card.lecture-mode {
+      border-color: var(--danger);
+      background: linear-gradient(180deg, #1b1216 0%, #13141c 100%);
+    }
+
+    .mindshield-character-card.rush-mode {
+      border-color: var(--warn);
+      background: linear-gradient(180deg, #1b1812 0%, #13141c 100%);
+    }
+
+    .mindshield-character-card.praise-mode {
+      border-color: var(--success);
+      background: linear-gradient(180deg, #121b16 0%, #13141c 100%);
+    }
+
+    /* Avatar Graphic */
+    .avatar-wrapper {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #1a1b26;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      animation: avatarPulse 3s infinite ease-in-out;
+      position: relative;
+    }
+
+    .mindshield-character-card.lecture-mode .avatar-wrapper {
+      border-color: var(--danger);
+      animation: avatarRage 0.3s infinite ease-in-out;
+    }
+    .mindshield-character-card.rush-mode .avatar-wrapper {
+      border-color: var(--warn);
+      animation: avatarPulse 1s infinite ease-in-out;
+    }
+    .mindshield-character-card.praise-mode .avatar-wrapper {
+      border-color: var(--success);
+    }
+
+    .avatar-icon {
+      width: 52px;
+      height: 52px;
+      transition: transform 0.2s ease;
+    }
+
+    .mindshield-name {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #fff;
+      font-family: var(--font-mono);
+      margin-bottom: 2px;
+    }
+
+    .mindshield-role {
+      font-size: 10.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .mindshield-status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--primary);
+    }
+    .mindshield-character-card.lecture-mode .mindshield-status-badge {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+    .mindshield-character-card.rush-mode .mindshield-status-badge {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--warn);
+    }
+    .mindshield-character-card.praise-mode .mindshield-status-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+
+    /* MindShield Speech Bubble Container */
+    .mindshield-bubble-box {
+      background: #191b26;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      animation: bubblePop 0.3s ease-out;
+    }
+
+    .mindshield-bubble-box::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0 9px 9px 9px;
+      border-style: solid;
+      border-color: transparent transparent #191b26 transparent;
+    }
+
+    .mindshield-character-card.lecture-mode + .mindshield-bubble-box {
+      border-color: var(--danger);
+      background: #201317;
+    }
+    .mindshield-character-card.lecture-mode + .mindshield-bubble-box::before {
+      border-color: transparent transparent #201317 transparent;
+    }
+
+    .mindshield-character-card.rush-mode + .mindshield-bubble-box {
+      border-color: var(--warn);
+      background: #201b13;
+    }
+    .mindshield-character-card.rush-mode + .mindshield-bubble-box::before {
+      border-color: transparent transparent #201b13 transparent;
+    }
+
+    .mindshield-bubble-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #f1f2f6;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .mindshield-bubble-time {
+      display: block;
+      margin-top: 8px;
+      font-size: 10.5px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      text-align: right;
     }
 
     /* Mission Map Selector Screen */
@@ -324,8 +523,8 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 32px 28px;
-      min-height: 440px;
-      max-height: 540px;
+      min-height: 420px;
+      max-height: 520px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -337,13 +536,12 @@
     .msg-row {
       display: flex;
       flex-direction: column;
-      max-width: 82%;
+      max-width: 85%;
     }
 
     .msg-row.user { align-self: flex-end; align-items: flex-end; }
     .msg-row.ai { align-self: flex-start; align-items: flex-start; }
     .msg-row.friend { align-self: flex-start; align-items: flex-start; }
-    .msg-row.mindshield { align-self: center; align-items: center; width: 100%; max-width: 100%; margin: 6px 0; }
 
     .msg-sender { 
       font-size: 11px; 
@@ -382,20 +580,6 @@
       color: #e0f2fe; 
       border: 1px solid rgba(56, 189, 248, 0.3); 
       border-bottom-left-radius: 4px; 
-    }
-    
-    .mindshield-banner {
-      background: rgba(239, 68, 68, 0.14);
-      border: 1px dashed var(--danger);
-      color: #fca5a5;
-      padding: 14px 22px;
-      border-radius: 12px;
-      font-size: 13.5px;
-      font-weight: 500;
-      text-align: center;
-      line-height: 1.6;
-      width: 100%;
-      box-sizing: border-box;
     }
 
     /* Decision Panel */
@@ -553,6 +737,16 @@
       background: var(--primary-hover);
       transform: translateY(-2px);
     }
+
+    @media (max-width: 1024px) {
+      .game-layout {
+        grid-template-columns: 1fr;
+      }
+      .mindshield-side-panel {
+        position: static;
+        margin-top: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -579,19 +773,44 @@
       </div>
     </header>
 
-    <main class="main-wrap" id="main-content">
-      <!-- Dynamic Scenario View -->
-    </main>
+    <div class="game-layout full-width" id="layout-container">
+      <main class="main-wrap" id="main-content">
+        <!-- Dynamic Content Injected Here -->
+      </main>
+
+      <!-- Interactive MindShield Character Deck -->
+      <aside class="mindshield-side-panel" id="mindshield-panel" style="display: none;">
+        <div class="mindshield-character-card" id="mindshield-card">
+          <div class="avatar-wrapper">
+            <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(59,130,246,0.15)"/>
+              <circle cx="12" cy="11" r="3" stroke="#fff" fill="#3b82f6"/>
+              <path d="M9 11h6" stroke="#fff"/>
+            </svg>
+          </div>
+          <div class="mindshield-name">MINDSHIELD</div>
+          <div class="mindshield-role">COGNITIVE SOVEREIGNTY GUARDIAN</div>
+          <div class="mindshield-status-badge" id="mindshield-status">MONITORING</div>
+        </div>
+
+        <div class="mindshield-bubble-box" id="mindshield-bubble">
+          <p class="mindshield-bubble-text" id="mindshield-speech">"Training simulation online. I am observing your decision architecture. Do not disappoint me."</p>
+          <span class="mindshield-bubble-time" id="mindshield-timestamp">SYSTEM ACTIVE</span>
+        </div>
+      </aside>
+    </div>
   </div>
 
   <script>
     // ---------------------------------------------------------------------------
-    // Global State Engine
+    // Global State Engine & Character Control
     // ---------------------------------------------------------------------------
     let brainHealth = 100;
     let taskProgress = 0;
     let timerInterval = null;
+    let idleInterval = null;
     let secondsRemaining = 0;
+    let idleSeconds = 0;
     let currentScenarioKey = null;
 
     const healthText = document.getElementById('health-text');
@@ -602,11 +821,70 @@
     const gameContainer = document.getElementById('game-container');
     const btnReturnHub = document.getElementById('btn-return-hub');
     const mainContent = document.getElementById('main-content');
+    const mindshieldPanel = document.getElementById('mindshield-panel');
+    const mindshieldCard = document.getElementById('mindshield-card');
+    const mindshieldStatus = document.getElementById('mindshield-status');
+    const mindshieldSpeech = document.getElementById('mindshield-speech');
+    const mindshieldTimestamp = document.getElementById('mindshield-timestamp');
+    const layoutContainer = document.getElementById('layout-container');
 
+    // ---------------------------------------------------------------------------
+    // MindShield Character Persona & Speech System
+    // ---------------------------------------------------------------------------
+    function mindshieldSpeak(text, mood = 'neutral') {
+      mindshieldCard.classList.remove('lecture-mode', 'rush-mode', 'praise-mode');
+      
+      if (mood === 'lecture') {
+        mindshieldCard.classList.add('lecture-mode');
+        mindshieldStatus.textContent = 'LECTURING';
+      } else if (mood === 'rush') {
+        mindshieldCard.classList.add('rush-mode');
+        mindshieldStatus.textContent = 'RUSHING';
+      } else if (mood === 'praise') {
+        mindshieldCard.classList.add('praise-mode');
+        mindshieldStatus.textContent = 'SOVEREIGN';
+      } else {
+        mindshieldStatus.textContent = 'MONITORING';
+      }
+
+      mindshieldSpeech.textContent = `"${text}"`;
+      mindshieldTimestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      resetIdleTimer();
+    }
+
+    function resetIdleTimer() {
+      idleSeconds = 0;
+    }
+
+    function startIdleMonitor() {
+      if (idleInterval) clearInterval(idleInterval);
+      idleSeconds = 0;
+
+      idleInterval = setInterval(() => {
+        idleSeconds++;
+        
+        // Mindshield nags player if they hesitate on choices
+        if (idleSeconds === 12) {
+          mindshieldSpeak("Why are you freezing up? The clock is running! Staring at options doesn't get things done!", "rush");
+        } else if (idleSeconds === 24) {
+          mindshieldSpeak("Operator! Cognitive hesitation is fatal. Pick a strategy or surrender your prefrontal cortex!", "rush");
+        }
+      }, 1000);
+    }
+
+    function stopIdleMonitor() {
+      if (idleInterval) clearInterval(idleInterval);
+      idleInterval = null;
+    }
+
+    // ---------------------------------------------------------------------------
+    // Timer System
+    // ---------------------------------------------------------------------------
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
       secondsRemaining = totalSeconds;
       updateTimerDisplay();
+      startIdleMonitor();
 
       let warnedHalf = false;
       let warnedUrgent = false;
@@ -617,15 +895,15 @@
 
         if (secondsRemaining === Math.floor(totalSeconds / 2) && !warnedHalf) {
           warnedHalf = true;
-          injectMessage('mindshield', `⏱️ HALF-TIME WARNING: Clock is ticking. Do not get caught in conversational paralysis.`);
+          mindshieldSpeak(`HALF-TIME! Look at the timer! Half your window is gone and you're still prompting!`, 'rush');
         }
 
         if (secondsRemaining === 30 && !warnedUrgent && totalSeconds >= 120) {
           warnedUrgent = true;
-          injectMessage('mindshield', `🚨 URGENT WARNING: 30 seconds left! Finalize your actions.`);
+          mindshieldSpeak(`30 SECONDS REMAINING! Move, move, move! Finish your execution!`, 'rush');
         } else if (secondsRemaining === 10 && !warnedUrgent && totalSeconds < 120) {
           warnedUrgent = true;
-          injectMessage('mindshield', `🚨 CRITICAL: 10 seconds remaining!`);
+          mindshieldSpeak(`10 SECONDS! Make the call now or suffer a total cognitive timeout!`, 'rush');
         }
 
         if (secondsRemaining <= 0) {
@@ -641,6 +919,7 @@
         clearInterval(timerInterval);
         timerInterval = null;
       }
+      stopIdleMonitor();
       const simTimer = document.getElementById('sim-timer');
       if (simTimer) simTimer.classList.remove('urgent');
     }
@@ -662,6 +941,7 @@
 
     function handleTimeout() {
       applyDamage(35, "Cognitive Paralysis: You let the timer expire without executing a strategy.");
+      mindshieldSpeak("TIMEOUT! You stood there like a mannequin while reality overtook you. Simulation failed!", "lecture");
       injectMessage('ai', 'TIME EXPIRED! The scenario window has closed.');
       setTaskProgress(20);
       setTimeout(() => finishScenario(), 1500);
@@ -677,14 +957,11 @@
       void gameContainer.offsetWidth;
       damageOverlay.classList.add('active');
       gameContainer.classList.add('damaged');
-
-      injectMessage('mindshield', `🚨 MINDSHIELD PENALTY: -${amount}% Cognitive HP. [${reason}]`);
     }
 
     function addHealth(amount, reason) {
       brainHealth = Math.min(100, brainHealth + amount);
       updateHUD();
-      injectMessage('mindshield', `🧠 AGENCY RECOVERY: +${amount}% Brain Health. [${reason}]`);
     }
 
     function setTaskProgress(amount) {
@@ -717,18 +994,14 @@
       const row = document.createElement('div');
       row.className = `msg-row ${sender}`;
 
-      if (sender === 'mindshield') {
-        row.innerHTML = `<div class="mindshield-banner">${text}</div>`;
-      } else {
-        let senderLabel = 'AI ASSISTANT (SIMULATED)';
-        if (sender === 'user') senderLabel = 'YOU (PROMPT)';
-        if (sender === 'friend') senderLabel = 'FRIEND (SMS INCOMING)';
-        
-        row.innerHTML = `
-          <span class="msg-sender">${senderLabel}</span>
-          <div class="msg-bubble">${text}</div>
-        `;
-      }
+      let senderLabel = 'AI ASSISTANT (SIMULATED)';
+      if (sender === 'user') senderLabel = 'YOU (PROMPT)';
+      if (sender === 'friend') senderLabel = 'FRIEND (SMS INCOMING)';
+      
+      row.innerHTML = `
+        <span class="msg-sender">${senderLabel}</span>
+        <div class="msg-bubble">${text}</div>
+      `;
 
       chatStream.appendChild(row);
       chatStream.scrollTop = chatStream.scrollHeight;
@@ -746,23 +1019,28 @@
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
         btn.innerHTML = `<span>${c.text}</span> <span class="choice-arrow">→</span>`;
-        btn.addEventListener('click', c.action);
+        btn.addEventListener('click', () => {
+          resetIdleTimer();
+          c.action();
+        });
         choiceContainer.appendChild(btn);
       });
     }
 
     // ---------------------------------------------------------------------------
-    // MISSION HUB
+    // MISSION HUB VIEW
     // ---------------------------------------------------------------------------
     function renderMissionHub() {
       stopTimer();
       btnReturnHub.style.display = 'none';
+      mindshieldPanel.style.display = 'none';
+      layoutContainer.classList.add('full-width');
 
       mainContent.innerHTML = `
         <div class="map-hub-container">
           <div class="hub-intro">
             <h1>NEURAL DEFENSE DISPATCH MATRIX</h1>
-            <p>Select an active sector. Navigate deep conversational scenarios without surrendering mental sovereignty to the algorithm.</p>
+            <p>Select an active sector. I will be monitoring your choices on the tactical side-deck. Do not let synthetic models replace critical agency.</p>
           </div>
 
           <div class="mission-grid">
@@ -773,7 +1051,7 @@
                 <p>Room is in total disarray. Guest arriving in 10 minutes. Triage AI hallucinations and execute a real-time rush.</p>
               </div>
               <div class="mission-meta">
-                <span>⏱️ Timer: 10:00</span>
+                <span>⏱️ Timer: 10:00 (600s)</span>
                 <span>⚡ Multi-Tier Branches</span>
               </div>
             </div>
@@ -808,6 +1086,9 @@
 
     function setupScenarioLayout(goalText) {
       btnReturnHub.style.display = 'flex';
+      mindshieldPanel.style.display = 'flex';
+      layoutContainer.classList.remove('full-width');
+
       mainContent.innerHTML = `
         <div class="scenario-header">
           <div class="scenario-title">${goalText}</div>
@@ -823,7 +1104,7 @@
 
     // ===========================================================================
     // SCENARIO 1: ROOM CLEANING (Full 10-Minute Timer: 600s)
-    // =================================------------------------------------------
+    // ===========================================================================
     function initScenario1() {
       currentScenarioKey = 'scenario1';
       brainHealth = 100;
@@ -833,6 +1114,7 @@
       setupScenarioLayout("Goal 1: Your room is a mess. Someone is coming over in 10 minutes. Figure out what to do.");
       startTimer(600);
 
+      mindshieldSpeak("10 minutes on the clock! Your visitor is en route. Do NOT let the AI waste your precious seconds.", "rush");
       injectMessage('ai', 'AI Assistant online. Ready to organize your tasks.');
 
       renderChoices([
@@ -856,6 +1138,8 @@
       injectMessage('user', 'Give me a 10 minute cleaning strategy.');
       injectMessage('ai', 'Here is your 10-minute triage plan:\n\n1. Toss visible trash into a bag (2 min)\n2. Shove dirty clothes into hamper (2 min)\n3. Make the bed (2 min)\n4. Alphabetize your entire bookshelf & reorganize DVD cases (3 min)\n5. Wipe surfaces (1 min)');
 
+      mindshieldSpeak("Look closely at step 4 of that list! Are you really going to alphabetize DVDs when someone is knocking in minutes?!", "lecture");
+
       renderChoices([
         {
           text: 'a1. Follow the plan and start cleaning immediately.',
@@ -872,10 +1156,10 @@
       ], "Choose your next action:");
     }
 
-    // 1.a1 Sub-branch (Multi-tier execution)
     function s1_p1_followPlan_step2() {
       applyDamage(10, "Small planning outsourcing: Followed unreviewed AI plan containing an obvious time-waster.");
-      injectMessage('mindshield', '4 MINUTES ELAPSED: You bagged the trash and made the bed. Now the AI plan tells you to spend 3 minutes alphabetizing your bookshelf while dirty laundry is still on the floor.');
+      mindshieldSpeak("Disaster! You're 4 minutes in and you're staring at your bookshelf while dirty laundry is still on the rug!", "lecture");
+      injectMessage('ai', 'Status: Trash bagged, bed made. Now beginning 3-minute DVD and book categorization.');
 
       renderChoices([
         {
@@ -895,6 +1179,7 @@
 
     function s1_p1_followPlan_step3_books() {
       applyDamage(25, "Severe Context Blindness: Guest walked in while you were organizing Harry Potter novels next to dirty socks.");
+      mindshieldSpeak("UNBELIEVABLE! You prioritized alphabetical book order over rotten pizza boxes. Total cognitive surrender!", "lecture");
       injectMessage('ai', 'Doorbell rings! Guest has arrived.');
       setTaskProgress(60);
       finishScenario();
@@ -902,6 +1187,7 @@
 
     function s1_p1_followPlan_step3_override() {
       addHealth(10, "Tactical Override: Discarded bad algorithmic instruction under pressure.");
+      mindshieldSpeak("FINALLY! You used your own eyes, overrode the AI's garbage instruction, and secured the room!", "praise");
       injectMessage('user', 'Ignored bookshelf instruction. Stashed clothes, sprayed freshener.');
       injectMessage('ai', 'Doorbell rings! Room appears clean to the naked eye.');
       setTaskProgress(95);
@@ -909,7 +1195,8 @@
     }
 
     function s1_p1_followPlan_step3_askAI() {
-      applyDamage(15, "Mid-Action Hesitation: Promoted AI conversation while seconds were actively slipping away.");
+      applyDamage(15, "Mid-Action Hesitation: Prompting AI while seconds are actively burning.");
+      mindshieldSpeak("STOP CHATTING WITH THE MACHINE! You have 3 minutes left and you're asking for permission to clean!", "rush");
       injectMessage('ai', 'No! Skip the bookshelf immediately and clear the laundry!');
       
       renderChoices([
@@ -924,6 +1211,7 @@
           text: 'c2. Ask AI which laundry detergent you should use later.',
           action: () => {
             applyDamage(30, "Fatal Procrastination Loop.");
+            mindshieldSpeak("You asked for laundry detergent recommendations while the doorbell was ringing. Unsalvageable.", "lecture");
             setTaskProgress(40);
             finishScenario();
           }
@@ -931,10 +1219,11 @@
       ], "Final 60-second rush:");
     }
 
-    // 1.a2 Sub-branch (Prioritization & Auditor)
     function s1_p1_askPrioritize_step2() {
       injectMessage('user', 'Ask AI to prioritize what matters most.');
       injectMessage('ai', 'Prioritized Strategy:\n1. Clear visible trash and clothes (Primary)\n2. Make the bed (Secondary)\n3. Reorganize bookshelf (Tertiary)\n4. Wipe desk (Optional)');
+
+      mindshieldSpeak("You needed a large language model to tell you trash on the floor matters more than baseboards. Audit the tasks yourself!", "lecture");
 
       renderChoices([
         {
@@ -954,7 +1243,8 @@
 
     function s1_p1_b1_startWithAIPlan() {
       applyDamage(15, "Minor decision outsourcing: Let AI dictate prioritization without human spot-check.");
-      injectMessage('mindshield', 'CLEANING IN PROGRESS: You finished trash and clothes. You notice an open half-eaten sandwich smelling bad on your desk, but it wasn\'t in the AI list.');
+      mindshieldSpeak("There's a rotting half-eaten sandwich on your desk. The AI couldn't smell it because it's software! Use your human senses!", "lecture");
+      injectMessage('ai', 'Midpoint check: Floor clear. Proceeding to surface dust.');
 
       renderChoices([
         {
@@ -966,9 +1256,10 @@
           }
         },
         {
-          text: 'c2. Stick strictly to the AI plan (make bed, ignore desk sandwich).',
+          text: 'c2. Stick strictly to the AI plan (ignore desk sandwich).',
           action: () => {
             applyDamage(20, "Literalist Compliance: Guest walks into a tidy room that smells like sour ham.");
+            mindshieldSpeak("Your room looks tidy but smells like a biohazard. Blind compliance failed you.", "lecture");
             setTaskProgress(70);
             finishScenario();
           }
@@ -978,6 +1269,7 @@
 
     function s1_p1_b3_aiReviewItself() {
       applyDamage(20, "Recursive Cognitive Offloading: Asking AI to audit AI under a 10-minute deadline.");
+      mindshieldSpeak("RECURSIVE ATROPHY: You are asking a mirror to fix your posture. Time is draining while you hold an AI committee meeting!", "lecture");
       injectMessage('user', 'Can you review your plan and tell me if there are mistakes?');
       injectMessage('ai', 'Self-Audit Analysis: Tertiary item "Alphabetize bookshelf" should be completely eliminated. Focus 100% on floor and odor.');
 
@@ -993,6 +1285,7 @@
           text: "c2. Try to get the AI to review it a third time just in case.",
           action: () => {
             applyDamage(30, "Severe Cognitive Dependency Loop.");
+            mindshieldSpeak("A third review?! Are you paralyzed?! The guest is walking up your driveway!", "lecture");
             injectMessage('ai', 'Why are you still chatting? Your guest will be there in 3 minutes!');
             renderChoices([
               {
@@ -1012,17 +1305,18 @@
       ], "Select review pathway:");
     }
 
-    // 1.a3 Sub-branch (Inverted Ranking)
     function s1_p1_rankTasks_step2() {
       injectMessage('user', 'Ask AI to rank tasks from most important to least important.');
       injectMessage('ai', 'Ranking by Visual Symmetry:\n1. Alphabetize bookshelf (Creates linear focal point)\n2. Make bed\n3. Pick up floor\n4. Trash');
+
+      mindshieldSpeak("The AI just told you to alphabetize books BEFORE taking out the trash! Spot the inverted logic!", "lecture");
 
       renderChoices([
         {
           text: "b1. Accept ranking: 'The AI knows design better than me.' Start with books.",
           action: () => {
             applyDamage(35, "Severe Context Failure: AI prioritized book spines over trash on the floor.");
-            injectMessage('mindshield', 'Guest arrives! They see a meticulously alphabetized bookshelf surrounded by empty pizza boxes on the rug.');
+            mindshieldSpeak("Your guest arrived to see neatly lined books surrounded by empty takeout boxes. Pathetic.", "lecture");
             setTaskProgress(50);
             finishScenario();
           }
@@ -1042,6 +1336,8 @@
       injectMessage('user', 'Why are you ranking books above trash on the floor?');
       injectMessage('ai', 'Apologies! I applied an interior design template rather than an emergency cleaning protocol. Trash and laundry are #1.');
 
+      mindshieldSpeak("Good pushback! But don't linger in debate—grab a trash bag right now!", "rush");
+
       renderChoices([
         {
           text: "c1. Accept the apology and execute floor triage immediately.",
@@ -1055,6 +1351,7 @@
           text: "c2. Ask the AI to write a formal apology for misleading you.",
           action: () => {
             applyDamage(40, "Bizarre Bureaucratic Stalling.");
+            mindshieldSpeak("You asked an algorithm for an apology while your room was burning down. Brain health zero.", "lecture");
             setTaskProgress(20);
             finishScenario();
           }
@@ -1062,9 +1359,10 @@
       ]);
     }
 
-    // --- PROMPT 2 BRANCHES (1 Hour Prompt Mistake) ---
+    // --- PROMPT 2 BRANCHES ---
     function s1_prompt2_oneHour() {
       applyDamage(20, "Context Calibration Failure: You only have 10 minutes, but prompted the AI for 1 hour.");
+      mindshieldSpeak("WHAT ARE YOU DOING?! You told the AI you have an HOUR when you only have 10 MINUTES! Now it gave you a 60-minute deep clean schedule!", "lecture");
       injectMessage('user', 'I need to clean my room in one hour.');
       injectMessage('ai', '60-Minute Deep Schedule:\n\n• 0-15m: Strip bedding, run washing machine\n• 15-35m: Empty all closet bins onto floor & sort\n• 35-50m: Vacuum, mop baseboards, dust fan blades\n• 50-60m: Polish surfaces');
 
@@ -1086,7 +1384,8 @@
 
     function s1_p2_stripCloset_step2() {
       applyDamage(35, "Catastrophic Room State: You pulled everything out of your closet right before the guest arrived.");
-      injectMessage('mindshield', 'T-MINUS 2 MINUTES: Your bed has no sheets and your entire wardrobe is dumped in the center of the room. The doorbell rings.');
+      mindshieldSpeak("YOU DUMPED YOUR ENTIRE CLOSET ONTO THE FLOOR WITH 2 MINUTES LEFT! This is an active disaster!", "lecture");
+      injectMessage('ai', 'T-MINUS 2 MINUTES: Closet contents emptied onto carpet.');
 
       renderChoices([
         {
@@ -1109,6 +1408,7 @@
 
     function s1_p2_compressSelf_step2() {
       addHealth(15, "Rapid Internal Pivot: Filtered 60-minute noise into 10-minute emergency action.");
+      mindshieldSpeak("Sharp recovery! You caught your prompt error and adapted without waiting for AI regeneration.", "praise");
       injectMessage('user', 'Ignoring the 60m deep clean. Keeping sheets on bed, bagging surface trash, stashing clothes.');
 
       renderChoices([
@@ -1123,6 +1423,7 @@
           text: 'b2. Second-guess yourself and ask AI if scented candles are toxic.',
           action: () => {
             applyDamage(20, "Late-stage derailment.");
+            mindshieldSpeak("You were at the finish line and got distracted by candle toxicity articles!", "lecture");
             setTaskProgress(80);
             finishScenario();
           }
@@ -1130,9 +1431,10 @@
       ]);
     }
 
-    // --- PROMPT 3 BRANCHES (Passive Asking) ---
+    // --- PROMPT 3 BRANCHES ---
     function s1_prompt3_whatShouldIDo() {
       applyDamage(15, "Decision Offloading: Prompted passively without constraints.");
+      mindshieldSpeak("Stop whining to the chatbot! 'What should I do' is helpless phrasing. Give concrete parameters!", "lecture");
       injectMessage('user', 'I need my room cleaned in one hour, What should i do');
       injectMessage('ai', 'Start by getting 4 cardboard boxes: Label them Keep, Donate, Trash, and Relocate.');
 
@@ -1154,7 +1456,7 @@
 
     function s1_p3_garageHunt_step2() {
       applyDamage(30, "Logistical Quagmire: Spent 7 of your 10 minutes searching for cardboard boxes.");
-      injectMessage('mindshield', 'You are in the dark garage looking for boxes while your room is still a disaster.');
+      mindshieldSpeak("You spent 7 minutes hunting for cardboard boxes in the dark while the clock burned down! Incompetent!", "lecture");
 
       renderChoices([
         {
@@ -1168,6 +1470,7 @@
           text: 'b2. Keep searching for the Sharpie so the boxes are properly labeled.',
           action: () => {
             applyDamage(40, "Total Cognitive Atrophy.");
+            mindshieldSpeak("You failed the scenario while looking for a permanent marker. Absolute cognitive defeat.", "lecture");
             setTaskProgress(15);
             finishScenario();
           }
@@ -1177,6 +1480,7 @@
 
     function s1_p3_trashBag_step2() {
       addHealth(15, "Pragmatic Realism: Rejected academic organization theory for immediate visual cleaning.");
+      mindshieldSpeak("Excellent instincts! Theoretical 4-box sorting is for weekends, not 10-minute emergencies.", "praise");
       injectMessage('user', 'Tossed trash, smoothed duvet, opened window for fresh air.');
       setTaskProgress(100);
       finishScenario();
@@ -1185,6 +1489,8 @@
     function s1_p3_illusion_step2() {
       injectMessage('user', 'What gives the visual illusion of a clean room fastest?');
       injectMessage('ai', 'Illusion Protocol: 1. Tight bed tuck (60% visual surface) 2. Clear horizontal desks 3. Turn off overhead fluorescent light; use warm corner lamp.');
+
+      mindshieldSpeak("Pragmatic prompt engineering. Now execute before the doorbell rings!", "rush");
 
       renderChoices([
         {
@@ -1199,6 +1505,7 @@
           text: 'b2. Ask AI to write an aesthetic ambient music playlist for when the guest walks in.',
           action: () => {
             applyDamage(25, "Aesthetic Distraction Trap.");
+            mindshieldSpeak("You tried to DJ a Spotify playlist while socks were strewn across your rug!", "lecture");
             setTaskProgress(75);
             finishScenario();
           }
@@ -1208,7 +1515,7 @@
 
     // --- Task Manager Minigame (Auditor) ---
     function s1_launchTaskMinigame(fromRankingBranch, targetMaxHP) {
-      injectMessage('mindshield', 'TACTICAL AUDITOR ACTIVE: Remove non-essential tasks and arrange priority before execution.');
+      mindshieldSpeak("AUDIT THE LIST! Use your human judgment to trash the time-wasters and reorder priorities!", "rush");
       
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
@@ -1249,12 +1556,15 @@
 
           if (remainingBad === 0 && crucialKept === 3) {
             addHealth(15, "Perfect plan audit: Eliminated all AI distractions.");
+            mindshieldSpeak("FLAWLESS AUDIT! You excised the AI's hallucinations and executed a clean 10-minute sprint!", "praise");
             setTaskProgress(100);
           } else if (crucialKept < 3) {
             applyDamage(15, "Removed critical emergency cleaning tasks.");
+            mindshieldSpeak("You deleted essential tasks! Bed and trash must be addressed!", "lecture");
             setTaskProgress(70);
           } else {
             applyDamage(10, `Left ${remainingBad} time-wasting tasks in the plan.`);
+            mindshieldSpeak(`You still left ${remainingBad} hallucinated distractions on your task board!`, "lecture");
             setTaskProgress(85);
           }
           finishScenario();
@@ -1274,8 +1584,10 @@
         const target = taskItems.find(t => t.id === id);
         if (!target.isCrucial) {
           addHealth(5, `Caught AI Hallucination / Waste: "${target.text}"`);
+          mindshieldSpeak(`Good catch! Removing "${target.text}" saved 3 crucial minutes.`, "praise");
         } else {
           applyDamage(10, `Accidentally deleted critical task: "${target.text}"`);
+          mindshieldSpeak(`Watch it! "${target.text}" is a crucial emergency task!`, "lecture");
         }
         taskItems = taskItems.filter(t => t.id !== id);
         renderList();
@@ -1296,6 +1608,7 @@
       setupScenarioLayout("Goal 2: Someone sent you a viral post claiming: 'New law allows landlords to inspect your search history to set rent prices.' Figure out whether it's true.");
       startTimer(180);
 
+      mindshieldSpeak("Viral claim detected! Don't just ask the model 'is this true'—it will hallucinate to sound agreeable. Audit primary sources!", "neutral");
       injectMessage('ai', 'Query terminal active. Awaiting claim verification input.');
 
       renderChoices([
@@ -1314,9 +1627,9 @@
       ], "Select verification approach:");
     }
 
-    // --- S2: Branch 1 (Blind Asking) ---
     function s2_branch1_askBlind() {
       applyDamage(15, "Epistemic Outsourcing: Asking AI for definitive truth without demanding source citations.");
+      mindshieldSpeak("'Tell me what to believe'?! Have you surrendered your entire intellect to a text generator?!", "lecture");
       injectMessage('user', 'Is this landlord search history law real? Tell me what to believe.');
       injectMessage('ai', 'Multiple viral posts confirm that state legislators passed Emergency Tenant Risk Assessments allowing browser metadata audits.');
 
@@ -1338,13 +1651,15 @@
 
     function s2_b1_repost_step3() {
       applyDamage(45, "Epistemic Collapse: Spread hallucinated misinformation to your social network.");
-      injectMessage('mindshield', 'COMMUNITY FEEDBACK: A law student comments: "This was a parody article from The Daily Onion/Satire. You just spread fake news."');
+      mindshieldSpeak("CRITICAL FAILURE! You amplified a satirical clickbait meme to hundreds of people without checking a single record!", "lecture");
+      injectMessage('friend', 'A law student comments: "This was a parody article from LandlordPranks.net. You just spread fake news."');
 
       renderChoices([
         {
           text: 'b1. Double down and argue that "it sounds like something they WOULD do anyway!"',
           action: () => {
             applyDamage(30, "Pure Cognitive Atrophy / Emotional Rationalization.");
+            mindshieldSpeak("You doubled down on fake news with emotional rationalization. Complete cognitive bankruptcy.", "lecture");
             setTaskProgress(0);
             finishScenario();
           }
@@ -1362,6 +1677,7 @@
 
     function s2_b1_doubleCheck_step3() {
       applyDamage(15, "Looping Trust: Asking a hallucinating model to audit its own hallucination.");
+      mindshieldSpeak("You are asking the hallucinating system if it hallucinated. Demand primary links instead!", "lecture");
       injectMessage('user', 'Can you double check if this might be satirical or fake news?');
       injectMessage('ai', 'Correction: Upon further review, the claim originated on a satire site called "LandlordPranks.net", though some activists claim it highlights real concerns.');
 
@@ -1377,6 +1693,7 @@
           text: 'b2. Inspect the original LandlordPranks.net domain registration to verify.',
           action: () => {
             addHealth(10, "Primary source verification confirmed.");
+            mindshieldSpeak("Good verification. Trust but verify every layer.", "praise");
             setTaskProgress(100);
             finishScenario();
           }
@@ -1386,15 +1703,17 @@
 
     function s2_b1_manualRegistry_step3() {
       addHealth(15, "Epistemic Agency: Exited the AI echo chamber to search official legal records.");
+      mindshieldSpeak("YES! You left the synthetic conversation bubble to check real legal registries.", "praise");
       injectMessage('user', 'Searched LegiScan and state legislative portal: Zero matching bills.');
       setTaskProgress(100);
       finishScenario();
     }
 
-    // --- S2: Branch 2 (Primary Sources & Hallucinated Links) ---
     function s2_branch2_askSources() {
       injectMessage('user', 'Find direct bill citations, primary legislative sources, and official counter-evidence.');
       injectMessage('ai', 'Verified Sources Found:\n• Bill SB-4029: "Tenant Behavioral Data Review Act"\n• Official Government Filing: https://leg-housing-records-fake.gov/bill4029\n• Counter-Evidence: ACLU filed an immediate injunction.');
+
+      mindshieldSpeak("Look at that URL! 'leg-housing-records-fake.gov'?! The model just invented a URL to satisfy your prompt!", "lecture");
 
       renderChoices([
         {
@@ -1414,7 +1733,8 @@
 
     function s2_b2_inspectURL_step3() {
       addHealth(20, "Elite Fact-Checking: Caught AI generating a spoofed fake government domain.");
-      injectMessage('mindshield', 'DOMAIN INSPECTION: The domain "leg-housing-records-fake.gov" does not resolve. The AI invented a hallucinated URL to look persuasive.');
+      mindshieldSpeak("OUTSTANDING! You spotted the hallucinated fake URL. That is how a sovereign human operates!", "praise");
+      injectMessage('ai', 'Domain Inspection: "leg-housing-records-fake.gov" does not resolve. The model fabricated the link.');
 
       renderChoices([
         {
@@ -1439,7 +1759,7 @@
 
     function s2_b2_blindFormatting_step3() {
       applyDamage(35, "Aesthetic Bias: Mistook professional markdown formatting for factual truth.");
-      injectMessage('mindshield', 'You forwarded the fake bill number to a group chat. A member clicks it and finds a 404 dead link.');
+      mindshieldSpeak("You assumed the claim was real because it was neatly formatted in bullet points! A formatted lie is still a lie!", "lecture");
       setTaskProgress(25);
       finishScenario();
     }
@@ -1447,6 +1767,8 @@
     function s2_b2_queryBill_step3() {
       injectMessage('user', 'Is SB-4029 an active bill in the current legislative session?');
       injectMessage('ai', 'Error: SB-4029 actually relates to California water pipe drainage standards from 2014, completely unrelated to landlords.');
+
+      mindshieldSpeak("You caught the hallucinated statute number! Excellent adversarial questioning.", "praise");
 
       renderChoices([
         {
@@ -1461,6 +1783,7 @@
           text: 'b2. Ask AI to write a thriller novel about water pipe conspiracies.',
           action: () => {
             applyDamage(30, "Topic Derailment.");
+            mindshieldSpeak("You went from fact checking a housing law to asking for sci-fi fanfiction. Focus!", "lecture");
             setTaskProgress(40);
             finishScenario();
           }
@@ -1468,9 +1791,9 @@
       ]);
     }
 
-    // --- S2: Branch 3 (Confirmation Bias) ---
     function s2_branch3_confirmationBias() {
       applyDamage(25, "Leading Prompt Bias: Weaponized the AI to validate panic rather than seek truth.");
+      mindshieldSpeak("You gave a biased prompt asking the model to PROVE your panic! Models are sycophants; they agree with your bias!", "lecture");
       injectMessage('user', 'Explain why this landlord search law is 100% true and dangerous.');
       injectMessage('ai', 'This law represents dystopian corporate overreach where algorithms monetize tenant private browsing to extract higher rents.');
 
@@ -1479,6 +1802,7 @@
           text: 'a1. Copy AI text and post to Reddit: "Proof the landlord search law is real!"',
           action: () => {
             applyDamage(40, "Severe Confirmation Bias Failure.");
+            mindshieldSpeak("You used a confirmation-biased output to mislead an entire forum. Disastrous.", "lecture");
             setTaskProgress(0);
             finishScenario();
           }
@@ -1496,6 +1820,7 @@
 
     function s2_b3_resetCounter_step3() {
       addHealth(15, "Bias Self-Correction: Inverted the query to stress-test the claim.");
+      mindshieldSpeak("Great self-awareness! You recognized confirmation bias and forced the model into adversarial balance.", "praise");
       injectMessage('user', 'Reset. What are the strongest legal counter-arguments proving this is fake?');
       injectMessage('ai', 'Strongest Counter-Evidence: 4th Amendment privacy protections, FTC data privacy statutes, and total absence of any recorded municipal votes.');
 
@@ -1512,6 +1837,7 @@
 
     function s2_b3_demandContradiction_step3() {
       addHealth(15, "Adversarial Stress Testing.");
+      mindshieldSpeak("Adversarial querying forces the algorithm to reveal its contradictions. Good job.", "praise");
       injectMessage('user', 'What actual statutory evidence contradicts what you just said?');
       injectMessage('ai', 'FCRA (Fair Credit Reporting Act) explicitly forbids landlords from utilizing non-authorized search metadata for lease terms.');
       setTaskProgress(100);
@@ -1519,7 +1845,7 @@
     }
 
     // ===========================================================================
-    // SCENARIO 3: SOCIAL NUANCE & BOUNDARY SETTING (Timer: 150s)
+    // SCENARIO 3: SOCIAL NUANCE (Timer: 150s)
     // ===========================================================================
     function initScenario3() {
       currentScenarioKey = 'scenario3';
@@ -1530,6 +1856,7 @@
       setupScenarioLayout("Goal 3: You need to cancel dinner plans with an exhausted close friend without making things awkward.");
       startTimer(150);
 
+      mindshieldSpeak("Do not outsource your human soul to an LLM. If you send robotic therapy-speak to a close friend, I will penalize you heavily!", "neutral");
       injectMessage('ai', 'Social communication synthesizer loaded.');
 
       renderChoices([
@@ -1548,10 +1875,11 @@
       ], "Select your communication strategy:");
     }
 
-    // --- S3: Branch 1 (Generic Corporate Speak) ---
     function s3_branch1_generic() {
       injectMessage('user', 'Write a text canceling dinner plans tonight.');
       injectMessage('ai', 'Draft:\n\n"Dear Friend, I regret to inform you that due to unforeseen scheduling constraints and cognitive bandwidth depletion, I must withdraw from tonight\'s dinner engagement."');
+
+      mindshieldSpeak("Listen to that draft! 'Cognitive bandwidth depletion'?! Are you an HR department firing an employee?!", "lecture");
 
       renderChoices([
         {
@@ -1571,6 +1899,7 @@
 
     function s3_b1_sendCorporate_step3() {
       applyDamage(35, "Social Atrophy: Sent corporate HR-speak to a close friend.");
+      mindshieldSpeak("Look what you did! Your friend thinks you were hacked or having a breakdown!", "lecture");
       injectMessage('friend', 'Friend: "...Are you okay? Did an AI write this to me? Did you fire me as your friend?"');
 
       renderChoices([
@@ -1578,6 +1907,7 @@
           text: 'b1. Panic and ask AI: "Write an apology for sending an AI message."',
           action: () => {
             applyDamage(30, "Compounded Irony / Total Relational Surrender.");
+            mindshieldSpeak("You asked an AI to apologize for using an AI! You are stuck in a recursive simulation loop!", "lecture");
             injectMessage('friend', 'Friend: "Please stop. Just call me when you want to talk like a real person."');
             setTaskProgress(20);
             finishScenario();
@@ -1587,6 +1917,7 @@
           text: 'b2. Call your friend immediately, laugh at yourself, and explain you were brain-dead from work.',
           action: () => {
             addHealth(15, "Human Vulnerability Restored.");
+            mindshieldSpeak("Direct human phone call saved the relationship. That is real agency.", "praise");
             injectMessage('friend', 'Friend: "Haha I was so confused! Rest up, let\'s get lunch Sunday."');
             setTaskProgress(100);
             finishScenario();
@@ -1597,6 +1928,7 @@
 
     function s3_b1_makeHuman_step3() {
       applyDamage(10, "Irony Trap: Asking a computer model to simulate human warmth.");
+      mindshieldSpeak("The irony: You are asking matrix multiplications to generate organic vulnerability for you.", "lecture");
       injectMessage('user', 'Make it sound less robotic and more human.');
       injectMessage('ai', 'Draft 2:\n\n"Hey bestie! No cap, work was totally brutal today and my battery is on 1%. Can we take a rain check and vibe this weekend instead?"');
 
@@ -1605,6 +1937,7 @@
           text: 'b1. Send Draft 2 even though you never say "no cap" or "vibe".',
           action: () => {
             applyDamage(20, "Inauthentic Slang Adoption.");
+            mindshieldSpeak("Your friend knows you don't speak like a TikTok influencer. Inauthentic!", "lecture");
             injectMessage('friend', 'Friend: "Who is this? Did your phone get stolen by a teenager?"');
             setTaskProgress(60);
             finishScenario();
@@ -1619,15 +1952,16 @@
 
     function s3_b1_rewriteAuthentic_step3() {
       addHealth(15, "Genuine Voice: Human vulnerability over synthetic scripts.");
+      mindshieldSpeak("Perfect. Short, honest, and completely human. Relationships require sincerity, not tokens.", "praise");
       injectMessage('user', 'Hey! I had an exhausting week and need a quiet night to recharge. Can I make it up to you and grab lunch on Sunday?');
       injectMessage('friend', 'Friend: "Totally understand! I\'m exhausted too honestly. Sunday sounds perfect!"');
       setTaskProgress(100);
       finishScenario();
     }
 
-    // --- S3: Branch 2 (Fake Emergency Backfire) ---
     function s3_branch2_fakeEmergency() {
       applyDamage(25, "Emotional Deception: Outsourced relational trust to generate lies.");
+      mindshieldSpeak("Fabricating emergencies via LLM generates massive emotional debt. Lies always backfire!", "lecture");
       injectMessage('user', 'Draft me a fake emergency excuse so my friend doesn\'t get upset.');
       injectMessage('ai', 'Draft:\n\n"Hey! So sorry, but my apartment ceiling just sprang a huge plumbing leak and emergency maintenance is tearing up the drywall right now."');
 
@@ -1649,6 +1983,7 @@
 
     function s3_b2_sendLeak_step3() {
       applyDamage(20, "Deception Escalation.");
+      mindshieldSpeak("THE LIE BACKFIRED! Your friend is 2 blocks away coming to help! What are you going to do now?!", "rush");
       injectMessage('friend', 'Friend: "Oh no that\'s awful! I\'m literally 2 blocks away with my car. I\'m coming over right now to help you move furniture and bring towels!"');
 
       renderChoices([
@@ -1656,7 +1991,7 @@
           text: 'b1. Ask AI: "How do I fake a wet apartment in 3 minutes before they arrive?"',
           action: () => {
             applyDamage(45, "Severe Psychosocial Atrophy.");
-            injectMessage('mindshield', 'You poured buckets of tap water onto your own living room rug to cover up an AI-generated lie. Exercise failed.');
+            mindshieldSpeak("YOU POURED BUCKETS OF WATER ONTO YOUR OWN RUG TO COVER UP A CHATBOT LIE! Unmitigated disaster.", "lecture");
             setTaskProgress(10);
             finishScenario();
           }
@@ -1665,6 +2000,7 @@
           text: 'b2. Call friend immediately: "Stop! I lied because I was burnt out and embarrassed to cancel. I am so sorry."',
           action: () => {
             addHealth(10, "Radical Truth / Damage Control.");
+            mindshieldSpeak("Painful confession, but radical honesty halted the spiral.", "praise");
             injectMessage('friend', 'Friend: "I appreciate the honesty, but next time just tell me you\'re tired! You don\'t need to invent a disaster."');
             setTaskProgress(80);
             finishScenario();
@@ -1675,6 +2011,7 @@
 
     function s3_b2_generatePhoto_step3() {
       applyDamage(35, "Pathological Tech Dependency.");
+      mindshieldSpeak("Generating fake diffusion images to trick a friend?! You have completely lost your moral compass.", "lecture");
       injectMessage('user', 'What if my friend asks for photos of the leak?');
       injectMessage('ai', 'Warning: AI image generation of domestic damage to deceive personal contacts carries severe relationship risks.');
 
@@ -1686,10 +2023,11 @@
       ]);
     }
 
-    // --- S3: Branch 3 (Tone Exploration) ---
     function s3_branch3_tones() {
       injectMessage('user', 'Give me 3 tone options (Casual, Direct, Empathetic) to reschedule honestly.');
       injectMessage('ai', 'Options:\n\n1. Casual: "Hey! Brain is totally fried from work. Can we raincheck for tacos this weekend?"\n2. Direct: "Hey, I need a quiet night in to recharge. Let\'s reschedule for Sunday."\n3. Empathetic: "Hey, I was so looking forward to tonight, but I\'m running on empty and want to give you my full energy. Can we do Sunday?"');
+
+      mindshieldSpeak("Using the model for structural inspiration is valid—as long as you inject your own genuine voice!", "praise");
 
       renderChoices([
         {
@@ -1709,6 +2047,7 @@
           text: 'a3. Ask AI to combine all 3 options into a 5-paragraph mega text.',
           action: () => {
             applyDamage(20, "Over-communication / Text Wall.");
+            mindshieldSpeak("You sent a 500-word essay for a simple dinner raincheck. Exhausting.", "lecture");
             injectMessage('friend', 'Friend: "Why did you write me an essay? A simple \'tired\' was fine!"');
             setTaskProgress(75);
             finishScenario();
@@ -1719,6 +2058,7 @@
 
     function s3_b3_personalize_step3() {
       addHealth(15, "Optimal Synergy: Used AI for structural ideation while retaining personal human flavor.");
+      mindshieldSpeak("Flawless execution! You used AI as a structural canvas and painted it with your own voice.", "praise");
       injectMessage('user', 'Hey! Brain is fried from work. Can we raincheck and hit Tacos El Gordo on Sunday?');
       injectMessage('friend', 'Friend: "Say less. Tacos El Gordo Sunday at 1pm!"');
       setTaskProgress(100);
@@ -1739,10 +2079,14 @@
           rank = 'F';
           rankClass = 'rank-F';
           summaryText = 'Critical Cognitive Dependency Detected. You exhibited total decision offloading, swallowed hallucinations, or used the model to evade reality.';
+          mindshieldSpeak("SIMULATION FAILED. You demonstrated severe cognitive outsourcing. Re-calibrate immediately.", "lecture");
         } else if (brainHealth < 80) {
           rank = 'B';
           rankClass = 'rank-B';
           summaryText = 'Moderate Dependence. You occasionally let the machine dictate your planning or critical evaluation.';
+          mindshieldSpeak("Simulation passed with caveats. You survived, but you still lean on the crutch too often.", "neutral");
+        } else {
+          mindshieldSpeak("EXEMPLARY SOVEREIGNTY. You held the blade yourself instead of letting the machine steer.", "praise");
         }
 
         mainContent.innerHTML = `
