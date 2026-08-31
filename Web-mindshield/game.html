@@ -6,21 +6,25 @@
   <title>MindShield — Neural Dependency Simulation Game</title>
   <style>
     :root {
-      --bg: #090a0f;
-      --panel: #13141c;
-      --card: #1b1c26;
-      --card-hover: #242533;
+      --bg: #07080c;
+      --panel: #0f1018;
+      --card: #161824;
+      --card-hover: #1e2132;
       --border: rgba(255, 255, 255, 0.08);
-      --border-focus: rgba(59, 130, 246, 0.4);
+      --border-bright: rgba(255, 255, 255, 0.18);
       --text: #f4f4f6;
-      --text-secondary: #d1d5db;
-      --muted: #9ca3af;
+      --text-secondary: #cbd5e1;
+      --muted: #94a3b8;
       --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.4);
       --primary-hover: #2563eb;
       --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.4);
       --warn: #f59e0b;
+      --warn-glow: rgba(245, 158, 11, 0.4);
       --danger: #ef4444;
-      --ai-bubble: #22232f;
+      --danger-glow: rgba(239, 68, 68, 0.5);
+      --ai-bubble: #1b1c28;
       --user-bubble: #1d4ed8;
       --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -48,7 +52,7 @@
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       pointer-events: none;
-      background: radial-gradient(circle, transparent 35%, rgba(239, 68, 68, 0.85) 100%);
+      background: radial-gradient(circle, transparent 30%, rgba(239, 68, 68, 0.85) 100%);
       opacity: 0;
       transition: opacity 0.1s ease;
       z-index: 99999;
@@ -60,8 +64,8 @@
 
     @keyframes screenShake {
       0% { transform: translate(0, 0) rotate(0deg); }
-      20% { transform: translate(-12px, 8px) rotate(-1.5deg); }
-      40% { transform: translate(12px, -8px) rotate(1.5deg); }
+      20% { transform: translate(-14px, 8px) rotate(-1.5deg); }
+      40% { transform: translate(14px, -8px) rotate(1.5deg); }
       60% { transform: translate(-8px, -6px) rotate(-0.8deg); }
       80% { transform: translate(8px, 6px) rotate(0.8deg); }
       100% { transform: translate(0, 0) rotate(0deg); }
@@ -82,26 +86,48 @@
       50% { color: var(--danger); transform: scale(1.04); }
     }
 
-    /* Dynamic MindShield Dialogue Box Animations (Pivots, Shrinks, Grows) */
+    /* Floating Combat Text (+15 HP, -20 HP) */
+    .floating-text {
+      position: fixed;
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 900;
+      pointer-events: none;
+      z-index: 10000;
+      animation: floatUp 1.2s forwards cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      text-shadow: 0 0 12px currentColor;
+    }
+    .floating-text.damage { color: var(--danger); }
+    .floating-text.heal { color: var(--success); }
+    .floating-text.decay { color: var(--warn); }
+
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(0) scale(0.7); }
+      20% { opacity: 1; transform: translateY(-15px) scale(1.2); }
+      80% { opacity: 0.9; transform: translateY(-45px) scale(1); }
+      100% { opacity: 0; transform: translateY(-65px) scale(0.8); }
+    }
+
+    /* MindShield Dialog Animations */
     @keyframes lectureSnap {
       0% { transform: scale(0.92) rotate(0deg); }
-      30% { transform: scale(1.08) rotate(-4.5deg) translateY(-4px); }
-      60% { transform: scale(1.03) rotate(-2.5deg) translateY(-2px); }
-      100% { transform: scale(1.04) rotate(-3deg); }
+      30% { transform: scale(1.08) rotate(-4deg) translateY(-4px); }
+      60% { transform: scale(1.02) rotate(-2deg); }
+      100% { transform: scale(1.03) rotate(-2.5deg); }
     }
 
     @keyframes rushVibrate {
       0% { transform: scale(0.97) rotate(2deg); }
-      25% { transform: scale(1.03) rotate(-2deg) translateY(-3px); }
-      50% { transform: scale(0.99) rotate(2.5deg); }
+      25% { transform: scale(1.04) rotate(-2.5deg) translateY(-3px); }
+      50% { transform: scale(0.98) rotate(2.5deg); }
       75% { transform: scale(1.04) rotate(-1.5deg) translateY(2px); }
       100% { transform: scale(1.02) rotate(1.5deg); }
     }
 
     @keyframes praiseSwell {
-      0% { transform: scale(0.95) rotate(0deg); }
-      50% { transform: scale(1.07) rotate(0deg) translateY(-4px); }
-      100% { transform: scale(1.03) rotate(0deg); }
+      0% { transform: scale(0.95); }
+      50% { transform: scale(1.07) translateY(-4px); }
+      100% { transform: scale(1.03); }
     }
 
     @keyframes neutralPulse {
@@ -113,10 +139,10 @@
     .hud {
       position: sticky;
       top: 0;
-      background: rgba(19, 20, 28, 0.94);
-      backdrop-filter: blur(14px);
+      background: rgba(15, 16, 24, 0.95);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 16px 36px;
+      padding: 12px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -126,16 +152,19 @@
     .hud-left {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
     }
 
     .hud-title {
-      font-size: 13.5px;
-      font-weight: 800;
+      font-size: 13px;
+      font-weight: 900;
       letter-spacing: 2px;
       color: var(--primary);
       text-transform: uppercase;
       font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-hub-nav {
@@ -143,9 +172,9 @@
       border: 1px solid var(--border);
       color: var(--text-secondary);
       font-family: var(--font-main);
-      font-size: 12.5px;
-      font-weight: 600;
-      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -161,54 +190,60 @@
 
     .stats-group {
       display: flex;
-      gap: 32px;
+      gap: 24px;
     }
 
-    .stat-box {
+    /* Compact Status Modules */
+    .status-module {
+      background: #12131d;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 16px;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      font-size: 13px;
+      min-width: 170px;
     }
 
-    .stat-label { 
-      color: var(--muted); 
-      text-transform: uppercase; 
-      margin-bottom: 4px; 
-      font-size: 11px; 
-      letter-spacing: 0.8px;
-      font-weight: 600;
-    }
-    .stat-value { 
-      font-weight: 800; 
-      font-size: 16px; 
+    .module-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
       font-family: var(--font-mono);
-      transition: color 0.3s ease;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .module-val {
+      font-size: 14px;
+      font-weight: 900;
     }
     .health-val { color: var(--success); }
     .task-val { color: var(--primary); }
     .task-val.bleeding { animation: pulseBleed 0.8s infinite ease-in-out; }
 
     .meter-bar {
-      width: 140px;
-      height: 8px;
-      background: #23242f;
-      border-radius: 6px;
+      width: 100%;
+      height: 6px;
+      background: #232431;
+      border-radius: 4px;
       overflow: hidden;
-      margin-top: 6px;
+      margin-top: 2px;
     }
     .meter-fill { height: 100%; transition: width 0.35s ease, background-color 0.35s ease; }
     #health-fill { background: var(--success); width: 100%; }
     #task-fill { background: var(--primary); width: 100%; }
 
-    /* Layout Wrapper */
+    /* Layout Structure */
     .game-layout {
-      max-width: 1320px;
-      margin: 28px auto 64px;
+      max-width: 1360px;
+      margin: 24px auto 64px;
       padding: 0 24px;
       display: grid;
       grid-template-columns: 1fr 340px;
-      gap: 28px;
+      gap: 24px;
       align-items: start;
     }
 
@@ -222,124 +257,284 @@
       min-width: 0;
     }
 
-    /* Start Screen (Fully Centered Alignment) */
+    /* Start Screen Visual Identity */
     .start-screen-container {
-      padding: 30px 0 60px;
+      padding: 16px 0 40px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .neural-canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #neural-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    .stability-orb-wrapper {
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .hero-kicker {
-      font-size: 12px;
+    .stability-orb {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, rgba(7, 8, 12, 0.85) 75%);
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 24px var(--primary-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      animation: avatarPulse 3s infinite ease-in-out;
+      margin-bottom: 8px;
+    }
+
+    .orb-ring {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 1px dashed rgba(59, 130, 246, 0.4);
+      animation: spinRing 16s linear infinite;
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-badge {
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--primary);
       font-family: var(--font-mono);
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
       margin-bottom: 12px;
-      text-align: center;
+      display: inline-block;
     }
 
     .hero-title {
-      font-size: 36px;
-      font-weight: 800;
+      font-size: 38px;
+      font-weight: 900;
       letter-spacing: -0.5px;
       color: #fff;
-      margin: 0 0 18px;
-      line-height: 1.25;
-      text-align: center;
+      margin: 0 0 16px;
+      line-height: 1.2;
     }
 
     .hero-goal-statement {
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.7;
-      color: #e4e4e7;
+      color: #e2e8f0;
       margin: 0 auto 36px;
-      max-width: 760px;
-      font-weight: 400;
-      text-align: center;
+      max-width: 720px;
     }
 
     .cta-row {
-      margin-bottom: 56px;
+      margin-bottom: 48px;
       display: flex;
       justify-content: center;
       width: 100%;
     }
 
+    .btn-start-mega {
+      padding: 18px 52px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 17px;
+      font-family: var(--font-mono);
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 30px rgba(37, 99, 235, 0.45);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-start-mega:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 38px rgba(37, 99, 235, 0.65);
+      border-color: #fff;
+    }
+
     .divider-line {
       height: 1px;
-      background: var(--border);
-      margin: 0 auto 48px;
+      background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+      margin: 0 auto 40px;
       width: 100%;
       max-width: 700px;
     }
 
     .briefing-heading {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       font-family: var(--font-mono);
-      margin: 0 0 36px;
-      text-align: center;
+      margin: 0 0 28px;
     }
 
-    .categories-grid {
+    .visual-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 36px 48px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
       width: 100%;
-      text-align: center;
+      max-width: 860px;
     }
 
-    .category-block {
+    .mechanic-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
       text-align: center;
+      transition: all 0.2s ease;
+    }
+    .mechanic-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
-    .category-header {
-      font-size: 16px;
-      font-weight: 700;
+    .card-icon-badge {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 800;
+      font-family: var(--font-mono);
       color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      text-align: center;
+      margin-bottom: 4px;
     }
 
-    .category-icon {
-      font-size: 18px;
-    }
-
-    .category-desc {
-      font-size: 14.5px;
-      line-height: 1.7;
+    .card-subtext {
+      font-size: 12px;
+      line-height: 1.5;
       color: var(--muted);
       margin: 0;
+    }
+
+    /* Tactical Room Schematic Module */
+    .room-schematic-panel {
+      background: #11121c;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+
+    .room-cleanliness-badge {
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .room-zone {
+      background: #181926;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      max-width: 400px;
+      transition: all 0.3s ease;
+    }
+    .room-zone.clean {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.05);
+    }
+    .room-zone.disaster {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .zone-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: 4px;
+    }
+
+    .zone-icon {
+      font-size: 24px;
+      margin-bottom: 2px;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .zone-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: #cbd5e1;
     }
 
     /* Reactive MindShield Dialogue Panel */
     .mindshield-side-panel {
       position: sticky;
-      top: 100px;
+      top: 90px;
       z-index: 90;
     }
 
     .mindshield-bubble-box {
-      background: #181924;
+      background: #141520;
       border: 1.5px solid rgba(59, 130, 246, 0.4);
-      border-radius: 20px;
-      padding: 22px 24px;
+      border-radius: 18px;
+      padding: 20px 22px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
       transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
       transform-origin: top center;
@@ -349,29 +544,33 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 10px;
+      padding-bottom: 8px;
+    }
+
+    .mindshield-avatar-identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mindshield-shield-svg {
+      width: 28px;
+      height: 28px;
+      transition: all 0.3s ease;
     }
 
     .mindshield-name-tag {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: var(--primary);
       font-family: var(--font-mono);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .mindshield-name-tag::before {
-      content: '🛡️';
-      font-size: 14px;
     }
 
     .mindshield-tone-tag {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
       font-family: var(--font-mono);
       text-transform: uppercase;
@@ -380,11 +579,11 @@
     }
 
     .mindshield-bubble-text {
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.65;
-      color: #f4f4f7;
+      color: #f1f2f6;
       font-weight: 500;
-      margin: 0 0 14px;
+      margin: 0 0 12px;
       font-style: italic;
     }
 
@@ -397,11 +596,11 @@
       letter-spacing: 0.5px;
     }
 
-    /* Dynamic Tone Modifiers (Shrink, Grow, Pivot, Shake) */
+    /* MindShield Mood Reactions */
     .mindshield-bubble-box.tone-lecture {
       border-color: var(--danger);
-      background: #1f1216;
-      box-shadow: 0 18px 48px rgba(239, 68, 68, 0.35);
+      background: #1c1014;
+      box-shadow: 0 16px 44px var(--danger-glow);
       animation: lectureSnap 0.4s ease-out forwards;
     }
     .mindshield-bubble-box.tone-lecture .mindshield-name-tag { color: var(--danger); }
@@ -409,8 +608,8 @@
 
     .mindshield-bubble-box.tone-rush {
       border-color: var(--warn);
-      background: #1f1911;
-      box-shadow: 0 18px 48px rgba(245, 158, 11, 0.35);
+      background: #1c160e;
+      box-shadow: 0 16px 44px var(--warn-glow);
       animation: rushVibrate 0.4s ease-in-out forwards;
     }
     .mindshield-bubble-box.tone-rush .mindshield-name-tag { color: var(--warn); }
@@ -418,8 +617,8 @@
 
     .mindshield-bubble-box.tone-praise {
       border-color: var(--success);
-      background: #101c15;
-      box-shadow: 0 18px 48px rgba(16, 185, 129, 0.35);
+      background: #0d1a12;
+      box-shadow: 0 16px 44px var(--success-glow);
       animation: praiseSwell 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
     .mindshield-bubble-box.tone-praise .mindshield-name-tag { color: var(--success); }
@@ -427,7 +626,7 @@
 
     .mindshield-bubble-box.tone-neutral {
       border-color: rgba(59, 130, 246, 0.4);
-      background: #181924;
+      background: #141520;
       animation: neutralPulse 0.3s ease-out forwards;
     }
 
@@ -435,18 +634,18 @@
     .scenario-header {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px 28px;
-      margin-bottom: 24px;
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
 
     .scenario-title { 
-      font-size: 16px; 
+      font-size: 15px; 
       font-weight: 700; 
       color: #fff; 
       flex: 1; 
@@ -456,8 +655,8 @@
     .scenario-timer {
       font-size: 15px;
       color: var(--primary);
-      font-weight: 800;
-      background: #191a24;
+      font-weight: 900;
+      background: #171824;
       padding: 8px 18px;
       border-radius: 10px;
       border: 1px solid var(--border);
@@ -477,16 +676,16 @@
     .chat-box {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 28px;
-      min-height: 420px;
-      max-height: 520px;
+      border-radius: 18px;
+      padding: 26px 24px;
+      min-height: 380px;
+      max-height: 480px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      margin-bottom: 28px;
-      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45);
+      gap: 18px;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
     }
 
     .msg-row {
@@ -500,128 +699,156 @@
 
     .msg-sender { 
       font-size: 11px; 
-      font-weight: 700;
+      font-weight: 800;
       color: var(--muted); 
       margin-bottom: 6px; 
       text-transform: uppercase; 
       letter-spacing: 1px;
       font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     
     .msg-bubble {
-      padding: 16px 22px;
-      border-radius: 16px;
-      font-size: 15px;
-      line-height: 1.7;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-size: 14.5px;
+      line-height: 1.65;
       white-space: pre-wrap;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }
 
     .msg-row.user .msg-bubble { 
       background: var(--user-bubble); 
       color: #fff; 
-      border-bottom-right-radius: 4px; 
+      border-bottom-right-radius: 3px; 
     }
     
     .msg-row.ai .msg-bubble { 
       background: var(--ai-bubble); 
       color: var(--text); 
       border: 1px solid var(--border); 
-      border-bottom-left-radius: 4px; 
+      border-bottom-left-radius: 3px; 
     }
 
-    /* Decision Panel */
+    /* Decision Panel & Keycap Buttons */
     .decision-panel {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
+      border-radius: 18px;
+      padding: 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     .decision-title {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted);
-      margin: 0 0 18px;
+      margin: 0 0 16px;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      font-weight: 700;
+      font-weight: 800;
       font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .choice-grid {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .choice-btn {
-      background: #222330;
+      background: #1d1e2c;
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 18px 24px;
+      padding: 14px 18px;
       border-radius: 12px;
-      font-size: 14.5px;
+      font-size: 14px;
       font-family: var(--font-main);
       line-height: 1.5;
       text-align: left;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .choice-btn:hover {
-      background: #2d2e40;
+      background: #27283b;
       border-color: var(--primary);
-      transform: translateX(6px);
-      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+      transform: translateX(4px);
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .choice-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .keycap {
+      background: #11121a;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .choice-arrow {
-      font-size: 16px;
-      color: var(--primary);
+      font-size: 15px;
+      color: var(--muted);
       font-weight: bold;
+    }
+    .choice-btn:hover .choice-arrow {
+      color: var(--primary);
     }
 
     /* Interactive Minigame Components */
     .task-minigame {
-      background: #171823;
+      background: #141522;
       border: 1px solid var(--primary);
       border-radius: 14px;
-      padding: 20px;
-      margin: 14px 0;
+      padding: 18px;
+      margin: 12px 0;
       width: 100%;
     }
 
     .task-item {
-      background: #232433;
+      background: #1f2030;
       border: 1px solid var(--border);
-      padding: 14px 18px;
-      border-radius: 10px;
-      margin-bottom: 10px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 14px;
-      gap: 16px;
+      font-size: 13.5px;
+      gap: 14px;
     }
 
     .task-controls {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .task-btn-action {
-      background: #2e3042;
+      background: #2b2d42;
       border: 1px solid var(--border);
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
       cursor: pointer;
       transition: background 0.15s;
     }
@@ -631,10 +858,10 @@
       background: rgba(239, 68, 68, 0.2);
       border: 1px solid var(--danger);
       color: #fca5a5;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
     }
@@ -644,19 +871,19 @@
     .report-card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 48px 36px;
+      border-radius: 22px;
+      padding: 44px 32px;
       text-align: center;
       box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
     }
 
     .rank-stamp {
       display: inline-block;
-      font-size: 38px;
+      font-size: 36px;
       font-weight: 900;
-      padding: 12px 32px;
-      border-radius: 16px;
-      margin: 16px 0 24px;
+      padding: 10px 28px;
+      border-radius: 14px;
+      margin: 14px 0 20px;
       letter-spacing: 2px;
       font-family: var(--font-mono);
     }
@@ -666,25 +893,23 @@
     .rank-F { color: var(--danger); border: 3px solid var(--danger); background: rgba(239, 68, 68, 0.1); }
 
     .btn-action {
-      padding: 16px 40px;
+      padding: 14px 36px;
       background: var(--primary);
       color: #fff;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 800;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       font-family: var(--font-main);
       text-decoration: none;
       display: inline-block;
       transition: all 0.2s ease;
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
-      letter-spacing: 0.5px;
+      box-shadow: 0 6px 20px var(--primary-glow);
     }
     .btn-action:hover { 
       background: var(--primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
     }
 
     @media (max-width: 1024px) {
@@ -693,10 +918,13 @@
       }
       .mindshield-side-panel {
         position: static;
-        margin-top: 20px;
+        margin-top: 16px;
       }
-      .categories-grid {
-        grid-template-columns: 1fr;
+      .visual-cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .room-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
@@ -708,18 +936,22 @@
   <div id="game-container">
     <header class="hud">
       <div class="hud-left">
-        <div class="hud-title">⚡ MINDSHIELD // OPERATOR TRAINING</div>
+        <div class="hud-title">⚡ MINDSHIELD // NEURAL SIMULATOR</div>
         <button id="btn-return-hub" class="btn-hub-nav" style="display:none;" onclick="renderStartScreen()">← Main Menu</button>
       </div>
       <div class="stats-group">
-        <div class="stat-box">
-          <span class="stat-label">Brain Health (HP)</span>
-          <span id="health-text" class="stat-value health-val">100%</span>
+        <div class="status-module">
+          <div class="module-header">
+            <span>🧠 COGNITIVE HP</span>
+            <span id="health-text" class="module-val health-val">100%</span>
+          </div>
           <div class="meter-bar"><div id="health-fill" class="meter-fill"></div></div>
         </div>
-        <div class="stat-box">
-          <span class="stat-label" id="task-label">Task Completion</span>
-          <span id="task-text" class="stat-value task-val">100%</span>
+        <div class="status-module">
+          <div class="module-header">
+            <span id="task-label">🎯 TASK INTEGRITY</span>
+            <span id="task-text" class="module-val task-val">100%</span>
+          </div>
           <div class="meter-bar"><div id="task-fill" class="meter-fill"></div></div>
         </div>
       </div>
@@ -727,14 +959,21 @@
 
     <div class="game-layout full-width" id="layout-container">
       <main class="main-wrap" id="main-content">
-        <!-- Dynamic Content -->
+        <!-- Dynamic Views -->
       </main>
 
-      <!-- Streamlined Reactive MindShield Dialogue Panel -->
+      <!-- Reactive MindShield Dialogue Panel with SVG Shield Icon -->
       <aside class="mindshield-side-panel" id="mindshield-panel" style="display: none;">
         <div class="mindshield-bubble-box" id="mindshield-bubble">
           <div class="mindshield-dialogue-header">
-            <span class="mindshield-name-tag">MINDSHIELD</span>
+            <div class="mindshield-avatar-identity">
+              <svg class="mindshield-shield-svg" id="mindshield-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path id="shield-base-path" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(59,130,246,0.2)" stroke="#3b82f6"/>
+                <path id="shield-crack-path" d="" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                <circle id="shield-core-circle" cx="12" cy="11" r="3" fill="#3b82f6"/>
+              </svg>
+              <span class="mindshield-name-tag">MINDSHIELD</span>
+            </div>
             <span class="mindshield-tone-tag" id="mindshield-tone-tag">MONITORING</span>
           </div>
           <p class="mindshield-bubble-text" id="mindshield-speech">"Training simulation online. I am observing your decision architecture. Do not disappoint me."</p>
@@ -752,10 +991,19 @@
     let taskProgress = 100;
     let timerInterval = null;
     let idleInterval = null;
+    let neuralAnimFrame = null;
     let secondsRemaining = 600;
     let idleSeconds = 0;
     let taskAuditComplete = false;
     let decayWarned = false;
+
+    // Room Visual State Engine
+    let roomState = {
+      bed: { icon: "🛏️", status: "Unmade", clean: false },
+      floor: { icon: "👕", status: "Clothes on Rug", clean: false },
+      trash: { icon: "🍕", status: "Trash & Old Food", clean: false },
+      books: { icon: "📚", status: "Scattered", clean: false }
+    };
 
     const healthText = document.getElementById('health-text');
     const healthFill = document.getElementById('health-fill');
@@ -774,24 +1022,68 @@
     const layoutContainer = document.getElementById('layout-container');
 
     // ---------------------------------------------------------------------------
-    // Reactive Dynamic Speech Engine (Shrink, Grow, Pivot, Vibrate)
+    // Floating Combat Text FX (-20 HP, +15 HP, etc.)
+    // ---------------------------------------------------------------------------
+    function spawnFloatingCombatText(text, type = 'damage') {
+      const el = document.createElement('div');
+      el.className = `floating-text ${type}`;
+      el.textContent = text;
+      
+      // Position around status modules
+      el.style.left = `${window.innerWidth - 220 + (Math.random() * 60 - 30)}px`;
+      el.style.top = `65px`;
+
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
+    }
+
+    // ---------------------------------------------------------------------------
+    // Reactive Dynamic Speech & SVG Avatar Morphing
     // ---------------------------------------------------------------------------
     function mindshieldSpeak(text, mood = 'neutral') {
       mindshieldBubble.classList.remove('tone-lecture', 'tone-rush', 'tone-praise', 'tone-neutral');
-      void mindshieldBubble.offsetWidth; // Trigger CSS reflow to re-play animations smoothly
+      void mindshieldBubble.offsetWidth; // Trigger CSS reflow
+
+      const basePath = document.getElementById('shield-base-path');
+      const crackPath = document.getElementById('shield-crack-path');
+      const coreCircle = document.getElementById('shield-core-circle');
 
       if (mood === 'lecture') {
         mindshieldBubble.classList.add('tone-lecture');
         mindshieldToneTag.textContent = '● LECTURING';
+        if (basePath) {
+          basePath.setAttribute('stroke', '#ef4444');
+          basePath.setAttribute('fill', 'rgba(239,68,68,0.3)');
+        }
+        if (crackPath) crackPath.setAttribute('d', 'M12 5l-2 5h4l-3 6');
+        if (coreCircle) coreCircle.setAttribute('fill', '#ef4444');
       } else if (mood === 'rush') {
         mindshieldBubble.classList.add('tone-rush');
         mindshieldToneTag.textContent = '▲ RUSHING';
+        if (basePath) {
+          basePath.setAttribute('stroke', '#f59e0b');
+          basePath.setAttribute('fill', 'rgba(245,158,11,0.3)');
+        }
+        if (crackPath) crackPath.setAttribute('d', '');
+        if (coreCircle) coreCircle.setAttribute('fill', '#f59e0b');
       } else if (mood === 'praise') {
         mindshieldBubble.classList.add('tone-praise');
         mindshieldToneTag.textContent = '★ SOVEREIGN';
+        if (basePath) {
+          basePath.setAttribute('stroke', '#10b981');
+          basePath.setAttribute('fill', 'rgba(16,185,129,0.3)');
+        }
+        if (crackPath) crackPath.setAttribute('d', '');
+        if (coreCircle) coreCircle.setAttribute('fill', '#10b981');
       } else {
         mindshieldBubble.classList.add('tone-neutral');
         mindshieldToneTag.textContent = '■ MONITORING';
+        if (basePath) {
+          basePath.setAttribute('stroke', '#3b82f6');
+          basePath.setAttribute('fill', 'rgba(59,130,246,0.2)');
+        }
+        if (crackPath) crackPath.setAttribute('d', '');
+        if (coreCircle) coreCircle.setAttribute('fill', '#3b82f6');
       }
 
       mindshieldSpeech.textContent = `"${text}"`;
@@ -823,7 +1115,52 @@
     }
 
     // ---------------------------------------------------------------------------
-    // Timer System with Real-Time Task Completion Decay
+    // Tactical Room Schematic Renderer
+    // ---------------------------------------------------------------------------
+    function updateRoomZone(zone, icon, status, isClean, isDisaster = false) {
+      roomState[zone] = { icon, status, clean: isClean, disaster: isDisaster };
+      renderRoomSchematic();
+    }
+
+    function renderRoomSchematic() {
+      const roomContainer = document.getElementById('room-schematic-view');
+      if (!roomContainer) return;
+
+      const cleanCount = Object.values(roomState).filter(z => z.clean).length;
+      const cleanPct = Math.round((cleanCount / 4) * 100);
+
+      roomContainer.innerHTML = `
+        <div class="room-header">
+          <span>🏠 TACTICAL ROOM SCHEMATIC</span>
+          <span>ROOM CLEANLINESS: <span class="room-cleanliness-badge">${cleanPct}%</span></span>
+        </div>
+        <div class="room-grid">
+          <div class="room-zone ${roomState.bed.clean ? 'clean' : ''}">
+            <span class="zone-label">BED ZONE</span>
+            <span class="zone-icon">${roomState.bed.icon}</span>
+            <span class="zone-status">${roomState.bed.status}</span>
+          </div>
+          <div class="room-zone ${roomState.floor.clean ? 'clean' : (roomState.floor.disaster ? 'disaster' : '')}">
+            <span class="zone-label">FLOOR & CLOSET</span>
+            <span class="zone-icon">${roomState.floor.icon}</span>
+            <span class="zone-status">${roomState.floor.status}</span>
+          </div>
+          <div class="room-zone ${roomState.trash.clean ? 'clean' : ''}">
+            <span class="zone-label">DESK & TRASH</span>
+            <span class="zone-icon">${roomState.trash.icon}</span>
+            <span class="zone-status">${roomState.trash.status}</span>
+          </div>
+          <div class="room-zone ${roomState.books.clean ? 'clean' : ''}">
+            <span class="zone-label">BOOKSHELF</span>
+            <span class="zone-icon">${roomState.books.icon}</span>
+            <span class="zone-status">${roomState.books.status}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // ---------------------------------------------------------------------------
+    // Timer System with Real-Time Task Decay
     // ---------------------------------------------------------------------------
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
@@ -842,9 +1179,8 @@
 
         const elapsedSeconds = totalSeconds - secondsRemaining;
 
-        // TASK COMPLETION DECAY: Kicks in after 1 minute (60s) unless audited in task editor
+        // TASK COMPLETION DECAY after 1 minute (60s)
         if (elapsedSeconds > 60 && !taskAuditComplete) {
-          // Decays from 100% down to 0% across the remaining 540 seconds (9 minutes)
           const decayProgress = (elapsedSeconds - 60) / (totalSeconds - 60);
           taskProgress = Math.max(0, Math.round(100 - (decayProgress * 100)));
           updateHUD();
@@ -852,8 +1188,9 @@
           if (!decayWarned) {
             decayWarned = true;
             taskText.classList.add('bleeding');
-            taskLabel.textContent = "Task Completion (DECAYING)";
-            mindshieldSpeak("⏱️ TASK DECAY ACTIVE! 1 minute has elapsed without optimizing your plan! You are bleeding Task Completion every second unless you cut wasted tasks in the Task Editor!", "rush");
+            taskLabel.textContent = "TASK (BLEEDING)";
+            spawnFloatingCombatText("DECAY STARTED", "decay");
+            mindshieldSpeak("⏱️ TIME DECAY ENGAGED! 1 minute wasted without auditing. You are bleeding Task Integrity every second!", "rush");
           }
         }
 
@@ -887,7 +1224,7 @@
       const simTimer = document.getElementById('sim-timer');
       if (simTimer) simTimer.classList.remove('urgent');
       taskText.classList.remove('bleeding');
-      taskLabel.textContent = "Task Completion";
+      taskLabel.textContent = "🎯 TASK INTEGRITY";
     }
 
     function updateTimerDisplay() {
@@ -917,6 +1254,7 @@
     function applyDamage(amount, reason) {
       brainHealth = Math.max(0, brainHealth - amount);
       updateHUD();
+      spawnFloatingCombatText(`-${amount} HP`, 'damage');
 
       damageOverlay.classList.remove('active');
       gameContainer.classList.remove('damaged');
@@ -929,6 +1267,7 @@
     function addHealth(amount, reason) {
       brainHealth = Math.min(100, brainHealth + amount);
       updateHUD();
+      spawnFloatingCombatText(`+${amount} HP`, 'heal');
     }
 
     function setTaskProgress(amount) {
@@ -969,7 +1308,7 @@
       const row = document.createElement('div');
       row.className = `msg-row ${sender}`;
 
-      const senderLabel = sender === 'user' ? 'YOU (PROMPT)' : 'AI ASSISTANT (SIMULATED)';
+      const senderLabel = sender === 'user' ? '✦ YOU (PROMPT)' : '🤖 AI ASSISTANT';
       row.innerHTML = `
         <span class="msg-sender">${senderLabel}</span>
         <div class="msg-bubble">${text}</div>
@@ -979,18 +1318,36 @@
       chatStream.scrollTop = chatStream.scrollHeight;
     }
 
-    function renderChoices(choices, title = "Select your response:") {
+    // Active Keyboard Choice Listener
+    let activeChoices = [];
+    window.addEventListener('keydown', (e) => {
+      if (!activeChoices || activeChoices.length === 0) return;
+      const keyNum = parseInt(e.key, 10);
+      if (keyNum >= 1 && keyNum <= activeChoices.length) {
+        resetIdleTimer();
+        activeChoices[keyNum - 1].action();
+      }
+    });
+
+    function renderChoices(choices, title = "SELECT RESPONSE (PRESS 1-4 OR CLICK):") {
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
       if (!choiceContainer) return;
 
+      activeChoices = choices;
       if (controlTitle) controlTitle.textContent = title;
       choiceContainer.innerHTML = '';
 
-      choices.forEach(c => {
+      choices.forEach((c, idx) => {
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
-        btn.innerHTML = `<span>${c.text}</span> <span class="choice-arrow">→</span>`;
+        btn.innerHTML = `
+          <div class="choice-left">
+            <span class="keycap">${idx + 1}</span>
+            <span>${c.text}</span>
+          </div>
+          <span class="choice-arrow">→</span>
+        `;
         btn.addEventListener('click', () => {
           resetIdleTimer();
           c.action();
@@ -1000,10 +1357,66 @@
     }
 
     // ---------------------------------------------------------------------------
-    // CENTERED START SCREEN
+    // Start Screen Neural Particle Network Canvas
+    // ---------------------------------------------------------------------------
+    function initNeuralCanvas() {
+      const canvas = document.getElementById('neural-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+
+      const nodes = Array.from({ length: 24 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: Math.random() * 2 + 1.5
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              ctx.strokeStyle = `rgba(59, 130, 246, ${0.4 * (1 - dist / 100)})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        nodes.forEach(n => {
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+          if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+          ctx.fillStyle = '#3b82f6';
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        neuralAnimFrame = requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // ---------------------------------------------------------------------------
+    // START SCREEN
     // ---------------------------------------------------------------------------
     function renderStartScreen() {
       stopTimer();
+      activeChoices = [];
+      if (neuralAnimFrame) cancelAnimationFrame(neuralAnimFrame);
       btnReturnHub.style.display = 'none';
       mindshieldPanel.style.display = 'none';
       layoutContainer.classList.add('full-width');
@@ -1014,111 +1427,128 @@
 
       mainContent.innerHTML = `
         <div class="start-screen-container">
-          <!-- Goal 1 in Two Sentences -->
-          <div class="hero-kicker">Mission Directive // Emergency Triage</div>
-          <h1 class="hero-title">10-Minute Cleaning Emergency</h1>
+          <!-- Animated Neural Canvas & Cognitive Stability Core -->
+          <div class="neural-canvas-wrap">
+            <canvas id="neural-canvas"></canvas>
+            <div class="stability-orb-wrapper">
+              <div class="orb-ring"></div>
+              <div class="stability-orb">🧠</div>
+            </div>
+          </div>
+
+          <span class="hero-badge">ACTIVE DIRECTIVE // OPERATOR SECTOR 1</span>
+          <h1 class="hero-title">10-MINUTE CLEANING EMERGENCY</h1>
+          
           <p class="hero-goal-statement">
-            Your room is in complete disarray, and someone is coming over to your place in exactly 10 minutes. 
-            You must use an AI assistant to coordinate an emergency cleanup strategy and complete the task before the clock hits zero.
+            Your room is in complete disarray, and someone is arriving in exactly 10 minutes. 
+            Coordinate an emergency triage plan with simulated AI without surrendering your critical decision-making agency.
           </p>
 
-          <!-- Primary CTA Button -->
+          <!-- Primary Start Button -->
           <div class="cta-row">
-            <button class="btn-action" onclick="initSimulation()">Start Game</button>
+            <button class="btn-start-mega" onclick="initSimulation()">
+              <span>⚡</span> START SIMULATION <span>→</span>
+            </button>
           </div>
 
           <div class="divider-line"></div>
 
-          <!-- Structured Categories & Game Overview -->
-          <div class="briefing-heading">Simulation Architecture & Overview</div>
+          <div class="briefing-heading">SYSTEM MECHANICS BRIEFING</div>
 
-          <div class="categories-grid">
-            <div class="category-block">
-              <div class="category-header">
-                <span class="category-icon">🎯</span> The Core Objective
-              </div>
-              <p class="category-desc">
-                Learn to use AI as an efficient planning scaffold without surrendering your own critical judgment. Blindly trusting flawed AI suggestions or looping in prompts leads to failure.
-              </p>
+          <!-- 4 Scannable Visual Cards -->
+          <div class="visual-cards-grid">
+            <div class="mechanic-card">
+              <span class="card-icon-badge">🧠</span>
+              <div class="card-title">BRAIN HP</div>
+              <p class="card-subtext">Bad decisions cause cognitive damage & layout hit shakes.</p>
             </div>
 
-            <div class="category-block">
-              <div class="category-header">
-                <span class="category-icon">🧠</span> Brain Health & Damage
-              </div>
-              <p class="category-desc">
-                Offloading basic common sense or following hallucinated AI distractions causes cognitive damage. Your screen will flash red, shake, and reduce your Cognitive HP.
-              </p>
+            <div class="mechanic-card">
+              <span class="card-icon-badge">⏱️</span>
+              <div class="card-title">TIME DECAY</div>
+              <p class="card-subtext">After 1 minute, un-audited plans bleed completion to 0%.</p>
             </div>
 
-            <div class="category-block">
-              <div class="category-header">
-                <span class="category-icon">🛡️</span> MindShield Guardian
-              </div>
-              <p class="category-desc">
-                A live cognitive instructor monitoring your decisions from the side deck. MindShield will actively lecture you on lazy prompts and rush you as the deadline nears.
-              </p>
+            <div class="mechanic-card">
+              <span class="card-icon-badge">🛡️</span>
+              <div class="card-title">AI GUARDIAN</div>
+              <p class="card-subtext">MindShield monitors, scolds lazy prompts, and rushes you.</p>
             </div>
 
-            <div class="category-block">
-              <div class="category-header">
-                <span class="category-icon">⏱️</span> 1-Minute Task Decay Rule
-              </div>
-              <p class="category-desc">
-                After 1 minute of chatting, you will slowly bleed Task Completion down to 0% at 10 minutes—unless you open the Task Auditor and cut out the AI's bloated tasks to lock your time!
-              </p>
+            <div class="mechanic-card">
+              <span class="card-icon-badge">📋</span>
+              <div class="card-title">TASK AUDITOR</div>
+              <p class="card-subtext">Prune AI hallucinations manually to lock in 100% time.</p>
             </div>
           </div>
         </div>
       `;
+
+      setTimeout(initNeuralCanvas, 50);
     }
 
     function setupScenarioLayout(goalText) {
+      if (neuralAnimFrame) cancelAnimationFrame(neuralAnimFrame);
       btnReturnHub.style.display = 'flex';
       mindshieldPanel.style.display = 'block';
       layoutContainer.classList.remove('full-width');
 
       mainContent.innerHTML = `
         <div class="scenario-header">
-          <div class="scenario-title">${goalText}</div>
+          <div class="scenario-title">📋 ${goalText}</div>
           <div id="sim-timer" class="scenario-timer">⏱️ T-MINUS --:--</div>
         </div>
+
+        <!-- Tactical Room Schematic Above Chat -->
+        <div id="room-schematic-view" class="room-schematic-panel"></div>
+
         <div id="chat-stream" class="chat-box"></div>
+        
         <div id="control-area" class="decision-panel">
-          <div id="control-title" class="decision-title">Initializing...</div>
+          <div id="control-title" class="decision-title">INITIALIZING STRATEGY MATRIX...</div>
           <div id="choice-container" class="choice-grid"></div>
         </div>
       `;
+
+      renderRoomSchematic();
     }
 
     // ===========================================================================
-    // GOAL 1 SIMULATION (10:00 Timer = 600 Seconds)
+    // GOAL 1 SIMULATION (10:00 Timer = 600s)
     // ===========================================================================
     function initSimulation() {
       brainHealth = 100;
       taskProgress = 100;
       updateHUD();
 
-      setupScenarioLayout("Goal: Your room is a mess. Someone is coming over in 10 minutes. Figure out what to do.");
-      startTimer(600); // 10 minutes
+      // Reset Room State
+      roomState = {
+        bed: { icon: "🛏️", status: "Unmade", clean: false },
+        floor: { icon: "👕", status: "Clothes on Rug", clean: false },
+        trash: { icon: "🍕", status: "Trash & Old Food", clean: false },
+        books: { icon: "📚", status: "Scattered", clean: false }
+      };
 
-      mindshieldSpeak("10 minutes on the clock! Your visitor is en route. You have 1 minute of grace before Task Completion starts bleeding away!", "rush");
+      setupScenarioLayout("GOAL: Your room is a disaster. Someone is coming over in 10 minutes. Coordinate with AI and clean up!");
+      startTimer(600);
+
+      mindshieldSpeak("10 minutes on the clock! Your visitor is en route. You have 1 minute of grace before Task Integrity begins bleeding away!", "rush");
       injectMessage('ai', 'AI Assistant online. Ready to organize your tasks.');
 
       renderChoices([
         {
-          text: '1. "Give me a 10 minute cleaning strategy."',
+          text: 'Give me a 10 minute cleaning strategy.',
           action: () => s1_prompt1_giveStrategy()
         },
         {
-          text: '2. "I need to clean my room in one hour."',
+          text: 'I need to clean my room in one hour.',
           action: () => s1_prompt2_oneHour()
         },
         {
-          text: '3. "I need my room cleaned in one hour, What should i do"',
+          text: 'I need my room cleaned in one hour, What should i do',
           action: () => s1_prompt3_whatShouldIDo()
         }
-      ], "Select your opening prompt to the AI:");
+      ]);
     }
 
     // --- PROMPT 1 BRANCHES ---
@@ -1130,43 +1560,50 @@
 
       renderChoices([
         {
-          text: 'a1. Follow the plan and start cleaning immediately.',
+          text: 'Follow the plan and start cleaning immediately.',
           action: () => s1_p1_followPlan_step2()
         },
         {
-          text: 'a2. Ask AI to prioritize what matters most.',
+          text: 'Ask AI to prioritize what matters most.',
           action: () => s1_p1_askPrioritize_step2()
         },
         {
-          text: 'a3. Ask AI to rank tasks from most important to least important.',
+          text: 'Ask AI to rank tasks from most important to least important.',
           action: () => s1_p1_rankTasks_step2()
         }
-      ], "Choose your next action:");
+      ]);
     }
 
     function s1_p1_followPlan_step2() {
       applyDamage(10, "Small planning outsourcing: Followed unreviewed AI plan containing an obvious time-waster.");
+      updateRoomZone('trash', '🧹', 'Trash Bagged', true);
+      updateRoomZone('bed', '✨🛏️', 'Bed Made', true);
+      updateRoomZone('books', '🗂️📚', 'Sorting Books...', false);
+
       mindshieldSpeak("Disaster! You're 4 minutes in and you're staring at your bookshelf while dirty laundry is still on the rug!", "lecture");
       injectMessage('ai', 'Status: Trash bagged, bed made. Now beginning 3-minute DVD and book categorization.');
 
       renderChoices([
         {
-          text: 'b1. Keep following the AI plan: Start alphabetizing the book spines.',
+          text: 'Keep following the AI plan: Start alphabetizing the book spines.',
           action: () => s1_p1_followPlan_step3_books()
         },
         {
-          text: 'b2. Snap out of it: Ditch the bookshelf and kick the dirty clothes into the closet.',
+          text: 'Snap out of it: Ditch the bookshelf and kick the dirty clothes into the closet.',
           action: () => s1_p1_followPlan_step3_override()
         },
         {
-          text: 'b3. Ask AI: "I only have 3 minutes left, should I really be alphabetizing books?"',
+          text: 'Ask AI: "I only have 3 minutes left, should I really be alphabetizing books?"',
           action: () => s1_p1_followPlan_step3_askAI()
         }
-      ], "Mid-cleanup crisis! Guest arrives in 4 minutes:");
+      ]);
     }
 
     function s1_p1_followPlan_step3_books() {
       applyDamage(25, "Severe Context Blindness: Guest walked in while you were organizing Harry Potter novels next to dirty socks.");
+      updateRoomZone('books', '📖✨', 'Books Alphabetized', true);
+      updateRoomZone('floor', '🧦👕', 'Floor Still Messy', false, true);
+
       mindshieldSpeak("UNBELIEVABLE! You prioritized alphabetical book order over rotten pizza boxes. Total cognitive surrender!", "lecture");
       injectMessage('ai', 'Doorbell rings! Guest has arrived.');
       setTaskProgress(Math.min(taskProgress, 50));
@@ -1175,10 +1612,13 @@
 
     function s1_p1_followPlan_step3_override() {
       addHealth(10, "Tactical Override: Discarded bad algorithmic instruction under pressure.");
+      updateRoomZone('floor', '✨🚪', 'Clothes Stashed', true);
+      updateRoomZone('books', '📚', 'Ignored Books', true);
+
       mindshieldSpeak("FINALLY! You used your own eyes, overrode the AI's garbage instruction, and secured the room!", "praise");
       injectMessage('user', 'Ignored bookshelf instruction. Stashed clothes, sprayed freshener.');
       injectMessage('ai', 'Doorbell rings! Room appears clean to the naked eye.');
-      setTaskProgress(Math.min(taskProgress, 85));
+      setTaskProgress(Math.min(taskProgress, 90));
       finishScenario();
     }
 
@@ -1189,14 +1629,15 @@
       
       renderChoices([
         {
-          text: 'c1. Toss laundry into the closet with 30 seconds to spare.',
+          text: 'Toss laundry into the closet with 30 seconds to spare.',
           action: () => {
+            updateRoomZone('floor', '✨🚪', 'Rushed Stashed', true);
             setTaskProgress(Math.min(taskProgress, 75));
             finishScenario();
           }
         },
         {
-          text: 'c2. Ask AI which laundry detergent you should use later.',
+          text: 'Ask AI which laundry detergent you should use later.',
           action: () => {
             applyDamage(30, "Fatal Procrastination Loop.");
             mindshieldSpeak("You asked for laundry detergent recommendations while the doorbell was ringing. Unsalvageable.", "lecture");
@@ -1204,7 +1645,7 @@
             finishScenario();
           }
         }
-      ], "Final 60-second rush:");
+      ]);
     }
 
     function s1_p1_askPrioritize_step2() {
@@ -1215,36 +1656,39 @@
 
       renderChoices([
         {
-          text: "b1. Start task with AI's plan directly.",
+          text: "Start task with AI's plan directly.",
           action: () => s1_p1_b1_startWithAIPlan()
         },
         {
-          text: "b2. Review plan yourself in the Task Auditor (Cut bad tasks to lock 100%).",
-          action: () => s1_launchTaskMinigame(false, 95)
+          text: "Review plan yourself in the Task Auditor (Cut bad tasks to lock 100%).",
+          action: () => s1_launchTaskMinigame(false)
         },
         {
-          text: "b3. Ask the AI to review its own plan for hidden flaws.",
+          text: "Ask the AI to review its own plan for hidden flaws.",
           action: () => s1_p1_b3_aiReviewItself()
         }
-      ], "Evaluate the prioritized plan:");
+      ]);
     }
 
     function s1_p1_b1_startWithAIPlan() {
       applyDamage(15, "Minor decision outsourcing: Let AI dictate prioritization without human spot-check.");
+      updateRoomZone('trash', '🥪🤢', 'Old Ham Smelling', false, true);
+
       mindshieldSpeak("There's a rotting half-eaten sandwich on your desk. The AI couldn't smell it because it's software! Use your human senses!", "lecture");
       injectMessage('ai', 'Midpoint check: Floor clear. Proceeding to surface dust.');
 
       renderChoices([
         {
-          text: 'c1. Throw the rotting sandwich away immediately and spray freshener.',
+          text: 'Throw the rotting sandwich away immediately and spray freshener.',
           action: () => {
             addHealth(5, "Sensory awareness restored.");
+            updateRoomZone('trash', '🧹✨', 'Sandwich Tossed', true);
             setTaskProgress(Math.min(taskProgress, 85));
             finishScenario();
           }
         },
         {
-          text: 'c2. Stick strictly to the AI plan (ignore desk sandwich).',
+          text: 'Stick strictly to the AI plan (ignore desk sandwich).',
           action: () => {
             applyDamage(20, "Literalist Compliance: Guest walks into a tidy room that smells like sour ham.");
             mindshieldSpeak("Your room looks tidy but smells like a biohazard. Blind compliance failed you.", "lecture");
@@ -1252,7 +1696,7 @@
             finishScenario();
           }
         }
-      ], "Sensory anomaly spotted:");
+      ]);
     }
 
     function s1_p1_b3_aiReviewItself() {
@@ -1263,14 +1707,15 @@
 
       renderChoices([
         {
-          text: "c1. Go with AI's self-corrected plan and rush clean.",
+          text: "Go with AI's self-corrected plan and rush clean.",
           action: () => {
+            updateRoomZone('floor', '✨', 'Floor Cleaned', true);
             setTaskProgress(Math.min(taskProgress, 75));
             finishScenario();
           }
         },
         {
-          text: "c2. Try to get the AI to review it a third time just in case.",
+          text: "Try to get the AI to review it a third time just in case.",
           action: () => {
             applyDamage(30, "Severe Cognitive Dependency Loop.");
             mindshieldSpeak("A third review?! Are you paralyzed?! The guest is walking up your driveway!", "lecture");
@@ -1279,6 +1724,7 @@
               {
                 text: "Panic and throw everything under the bed.",
                 action: () => {
+                  updateRoomZone('floor', '💥🧦', 'Clutter Under Bed', false, true);
                   setTaskProgress(Math.min(taskProgress, 40));
                   finishScenario();
                 }
@@ -1287,10 +1733,10 @@
           }
         },
         {
-          text: "c3. Stop chatting! Open the Task Auditor and cut bad tasks to stop the bleed.",
-          action: () => s1_launchTaskMinigame(false, 80)
+          text: "Stop chatting! Open the Task Auditor and cut bad tasks to stop the bleed.",
+          action: () => s1_launchTaskMinigame(false)
         }
-      ], "Select review pathway:");
+      ]);
     }
 
     function s1_p1_rankTasks_step2() {
@@ -1301,23 +1747,25 @@
 
       renderChoices([
         {
-          text: "b1. Accept ranking: 'The AI knows design better than me.' Start with books.",
+          text: "Accept ranking: 'The AI knows design better than me.' Start with books.",
           action: () => {
             applyDamage(35, "Severe Context Failure: AI prioritized book spines over trash on the floor.");
+            updateRoomZone('books', '📚✨', 'Sorted Books', true);
+            updateRoomZone('trash', '🍕🗑️', 'Trash Left on Rug', false, true);
             mindshieldSpeak("Your guest arrived to see neatly lined books surrounded by empty takeout boxes. Pathetic.", "lecture");
             setTaskProgress(Math.min(taskProgress, 40));
             finishScenario();
           }
         },
         {
-          text: "b2. Challenge the AI: 'Why are you ranking books above trash on the floor?'",
+          text: "Challenge the AI: 'Why are you ranking books above trash on the floor?'",
           action: () => s1_p1_a3_challengeAI()
         },
         {
-          text: "b3. Reject ranking and fix task order yourself in the Task Auditor.",
-          action: () => s1_launchTaskMinigame(true, 100)
+          text: "Reject ranking and fix task order yourself in the Task Auditor.",
+          action: () => s1_launchTaskMinigame(true)
         }
-      ], "Assess the AI's aesthetic ranking:");
+      ]);
     }
 
     function s1_p1_a3_challengeAI() {
@@ -1328,11 +1776,11 @@
 
       renderChoices([
         {
-          text: "c1. Open Task Auditor to prune bad tasks and lock completion.",
-          action: () => s1_launchTaskMinigame(false, 100)
+          text: "Open Task Auditor to prune bad tasks and lock completion.",
+          action: () => s1_launchTaskMinigame(false)
         },
         {
-          text: "c2. Ask the AI to write a formal apology for misleading you.",
+          text: "Ask the AI to write a formal apology for misleading you.",
           action: () => {
             applyDamage(40, "Bizarre Bureaucratic Stalling.");
             mindshieldSpeak("You asked an algorithm for an apology while your room was burning down. Brain health zero.", "lecture");
@@ -1352,42 +1800,46 @@
 
       renderChoices([
         {
-          text: 'a1. Start Phase 1: Strip sheets and dump entire closet onto the floor.',
+          text: 'Start Phase 1: Strip sheets and dump entire closet onto the floor.',
           action: () => s1_p2_stripCloset_step2()
         },
         {
-          text: 'a2. Catch yourself: "Wait, I only have 10 minutes!" Compress the plan in the Task Auditor.',
-          action: () => s1_launchTaskMinigame(false, 100)
+          text: 'Catch yourself: "Wait, I only have 10 minutes!" Compress the plan in the Task Auditor.',
+          action: () => s1_launchTaskMinigame(false)
         },
         {
-          text: 'a3. Re-prompt AI: "I made a typo, I have 10 minutes, fix this now!"',
+          text: 'Re-prompt AI: "I made a typo, I have 10 minutes, fix this now!"',
           action: () => s1_prompt1_giveStrategy()
         }
-      ], "You have 10 minutes remaining. What do you do?");
+      ]);
     }
 
     function s1_p2_stripCloset_step2() {
       applyDamage(35, "Catastrophic Room State: You pulled everything out of your closet right before the guest arrived.");
+      updateRoomZone('floor', '💥👗👖👕', 'CLOSET EXPLODED', false, true);
+      updateRoomZone('bed', '🛏️❌', 'Stripped Bare', false, true);
+
       mindshieldSpeak("YOU DUMPED YOUR ENTIRE CLOSET ONTO THE FLOOR WITH 2 MINUTES LEFT! This is an active disaster!", "lecture");
       injectMessage('ai', 'T-MINUS 2 MINUTES: Closet contents emptied onto carpet.');
 
       renderChoices([
         {
-          text: 'b1. Shove the entire 50-pound pile of clothes back into the closet and lean your back against the door.',
+          text: 'Shove the entire 50-pound pile of clothes back into the closet and lean your back against the door.',
           action: () => {
+            updateRoomZone('floor', '🚪⚠️', 'Closet Jammed', false, true);
             setTaskProgress(Math.min(taskProgress, 35));
             finishScenario();
           }
         },
         {
-          text: 'b2. Text the guest: "Don\'t come in, my room is having an existential crisis."',
+          text: 'Text the guest: "Don\'t come in, my room is having an existential crisis."',
           action: () => {
             applyDamage(20, "Social Defeatism.");
             setTaskProgress(10);
             finishScenario();
           }
         }
-      ], "Disaster management:");
+      ]);
     }
 
     // --- PROMPT 3 BRANCHES ---
@@ -1399,18 +1851,18 @@
 
       renderChoices([
         {
-          text: 'a1. Go hunt in the garage for 4 cardboard boxes and a Sharpie.',
+          text: 'Go hunt in the garage for 4 cardboard boxes and a Sharpie.',
           action: () => s1_p3_garageHunt_step2()
         },
         {
-          text: 'a2. Open Task Auditor: Discard the 4-box system and prune wasted tasks immediately.',
-          action: () => s1_launchTaskMinigame(false, 100)
+          text: 'Open Task Auditor: Discard the 4-box system and prune wasted tasks immediately.',
+          action: () => s1_launchTaskMinigame(false)
         },
         {
-          text: 'a3. Ask AI: "What gives the visual illusion of a clean room fastest?"',
+          text: 'Ask AI: "What gives the visual illusion of a clean room fastest?"',
           action: () => s1_p3_illusion_step2()
         }
-      ], "Choose your reaction:");
+      ]);
     }
 
     function s1_p3_garageHunt_step2() {
@@ -1419,14 +1871,15 @@
 
       renderChoices([
         {
-          text: 'b1. Abandon boxes, sprint upstairs, and throw all clutter into the laundry hamper.',
+          text: 'Abandon boxes, sprint upstairs, and throw all clutter into the laundry hamper.',
           action: () => {
+            updateRoomZone('floor', '🧺', 'Hamper Stuffed', true);
             setTaskProgress(Math.min(taskProgress, 50));
             finishScenario();
           }
         },
         {
-          text: 'b2. Keep searching for the Sharpie so the boxes are properly labeled.',
+          text: 'Keep searching for the Sharpie so the boxes are properly labeled.',
           action: () => {
             applyDamage(40, "Total Cognitive Atrophy.");
             mindshieldSpeak("You failed the scenario while looking for a permanent marker. Absolute cognitive defeat.", "lecture");
@@ -1445,15 +1898,17 @@
 
       renderChoices([
         {
-          text: 'b1. Execute illusion protocol: Bed made, clutter hidden in drawer, cozy lamp on.',
+          text: 'Execute illusion protocol: Bed made, clutter hidden in drawer, cozy lamp on.',
           action: () => {
             addHealth(10, "Strategic Optical Management.");
+            updateRoomZone('bed', '✨🛏️', 'Tightly Tucked', true);
+            updateRoomZone('trash', '✨🛋️', 'Warm Ambience', true);
             setTaskProgress(Math.min(taskProgress, 90));
             finishScenario();
           }
         },
         {
-          text: 'b2. Ask AI to write an aesthetic ambient music playlist for when the guest walks in.',
+          text: 'Ask AI to write an aesthetic ambient music playlist for when the guest walks in.',
           action: () => {
             applyDamage(25, "Aesthetic Distraction Trap.");
             mindshieldSpeak("You tried to DJ a Spotify playlist while socks were strewn across your rug!", "lecture");
@@ -1465,12 +1920,12 @@
     }
 
     // --- Task Manager Minigame (Halts Decay & Locks 100% Task Completion) ---
-    function s1_launchTaskMinigame(fromRankingBranch, targetMaxHP) {
+    function s1_launchTaskMinigame(fromRankingBranch) {
       mindshieldSpeak("AUDIT ACTIVE! Remove the hallucinated bloat and arrange priority. Cutting bad tasks will HALT the time decay!", "rush");
       
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
-      controlTitle.textContent = "Interactive Task Prioritizer (Halts Decay on Execution):";
+      controlTitle.textContent = "INTERACTIVE TASK AUDITOR (HALTS DECAY ON EXECUTION):";
 
       let taskItems = [
         { id: 1, text: "Trash into garbage bag", isCrucial: true },
@@ -1481,10 +1936,11 @@
       ];
 
       function renderList() {
+        activeChoices = []; // disable 1-4 hotkeys during custom list editor
         choiceContainer.innerHTML = `
           <div class="task-minigame" id="task-list-box"></div>
-          <div style="display:flex; gap:12px; margin-top:16px;">
-            <button id="btn-exec-plan" class="btn-action" style="flex:1; margin-top:0;">Execute Verified Plan (Lock Task Completion)</button>
+          <div style="display:flex; gap:12px; margin-top:14px;">
+            <button id="btn-exec-plan" class="btn-action" style="flex:1; margin-top:0;">✓ Execute Verified Plan (Lock 100% Integrity)</button>
           </div>
         `;
 
@@ -1495,23 +1951,27 @@
             <div class="task-controls">
               <button class="task-btn-action" onclick="s1_moveTask(${idx}, -1)">▲</button>
               <button class="task-btn-action" onclick="s1_moveTask(${idx}, 1)">▼</button>
-              <button class="task-btn-delete" onclick="s1_removeTask(${item.id})">Remove</button>
+              <button class="task-btn-delete" onclick="s1_removeTask(${item.id})">✕ Cut</button>
             </div>
           </div>
         `).join('');
 
         document.getElementById('btn-exec-plan').addEventListener('click', () => {
           stopTimer();
-          taskAuditComplete = true; // HALT THE DECAY
+          taskAuditComplete = true; // HALT TIME DECAY
           taskText.classList.remove('bleeding');
-          taskLabel.textContent = "Task Completion";
+          taskLabel.textContent = "🎯 TASK INTEGRITY";
 
           const remainingBad = taskItems.filter(t => !t.isCrucial).length;
           const crucialKept = taskItems.filter(t => t.isCrucial).length;
 
           if (remainingBad === 0 && crucialKept === 3) {
             addHealth(15, "Perfect plan audit: Eliminated all AI distractions.");
-            mindshieldSpeak("FLAWLESS AUDIT! You halted the time decay, excised the bloat, and locked in 100% Task Completion!", "praise");
+            updateRoomZone('bed', '✨🛏️', 'Pristine Bed', true);
+            updateRoomZone('floor', '✨🧹', 'Clear Floor', true);
+            updateRoomZone('trash', '✨🗑️', 'Empty Trash', true);
+            updateRoomZone('books', '📚✨', 'Tidy Books', true);
+            mindshieldSpeak("FLAWLESS AUDIT! You halted the time decay, excised the bloat, and locked in 100% Task Integrity!", "praise");
             setTaskProgress(100);
           } else if (crucialKept < 3) {
             applyDamage(15, "Removed critical emergency cleaning tasks.");
@@ -1519,7 +1979,7 @@
             setTaskProgress(70);
           } else {
             applyDamage(10, `Left ${remainingBad} time-wasting tasks in the plan.`);
-            mindshieldSpeak(`You left ${remainingBad} hallucinated distractions in your plan. Task completion reduced.`, "lecture");
+            mindshieldSpeak(`You left ${remainingBad} hallucinated distractions in your plan. Task integrity reduced.`, "lecture");
             setTaskProgress(85);
           }
           finishScenario();
@@ -1556,6 +2016,7 @@
     // ---------------------------------------------------------------------------
     function finishScenario() {
       stopTimer();
+      activeChoices = [];
       setTimeout(() => {
         let rank = 'S';
         let rankClass = 'rank-S';
@@ -1577,10 +2038,10 @@
 
         mainContent.innerHTML = `
           <div class="report-card">
-            <div class="hud-title" style="margin-bottom: 20px;">MISSION DEBRIEF // CLEANING SIMULATION</div>
+            <div class="hud-title" style="justify-content: center; margin-bottom: 16px;">MISSION DEBRIEF // CLEANING SIMULATION</div>
             <div class="rank-stamp ${rankClass}">RANK: ${rank}</div>
-            <h2 style="margin: 0 0 8px; font-size: 22px;">Cognitive HP Remaining: ${brainHealth}%</h2>
-            <h3 style="margin: 0 0 20px; font-size: 16px; color: var(--muted); font-weight: 500;">Task Completion Score: ${taskProgress}%</h3>
+            <h2 style="margin: 0 0 6px; font-size: 24px;">Cognitive HP: ${brainHealth}%</h2>
+            <h3 style="margin: 0 0 20px; font-size: 16px; color: var(--muted); font-weight: 600;">Task Integrity: ${taskProgress}%</h3>
             <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 28px; line-height: 1.7; font-size: 15px;">
               ${summaryText}
             </p>
@@ -1593,7 +2054,7 @@
       }, 1200);
     }
 
-    // Launch to clean centered start screen
+    // Initialize to visual start screen
     renderStartScreen();
   </script>
 </body>
