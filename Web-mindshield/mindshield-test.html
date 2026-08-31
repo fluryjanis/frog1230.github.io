@@ -4,414 +4,436 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Are you over-relying on AI? — MindShield Test</title>
-
-  <!-- Google Font -->
+  
+  <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
+    /* --- CSS Variables & Theme --- */
     :root {
-      --bg-gradient: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 100%);
-      --card-bg: rgba(22, 30, 49, 0.72);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --primary-light: rgba(99, 102, 241, 0.15);
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+      
+      --primary: #0f172a;
+      --primary-hover: #1e293b;
+      --indigo: #4f46e5;
+      --indigo-subtle: #e0e7ff;
+      --indigo-text: #4338ca;
 
-      /* Dynamic JS Status Colors */
-      --flag: #ef4444;
-      --warn: #f59e0b;
-      --pass: #10b981;
+      /* Status Indicator Colors */
+      --pass: #15803d;
+      --warn: #c2410c;
+      --flag: #b91c1c;
     }
 
-    * {
+    /* --- Base Reset & Centering --- */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      background: var(--bg-gradient);
-      background-attachment: fixed;
+    html, body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-page);
       color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 60px 20px;
-      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
     }
 
-    /* Centered Container */
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px 80px;
+    }
+
     .container {
       width: 100%;
-      max-width: 680px;
+      max-width: 660px;
       display: flex;
       flex-direction: column;
-      gap: 32px;
-      margin: 0 auto;
+      gap: 28px;
     }
 
     .text-center {
       text-align: center;
     }
 
-    /* Hero Section */
+    /* --- Hero Header --- */
     .hero-section {
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 12px;
     }
 
-    .pill-badge {
-      display: inline-block;
-      padding: 6px 16px;
-      background: var(--primary-light);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      color: #a5b4fc;
-      font-size: 0.825rem;
+    .badge-pill {
+      font-size: 12px;
       font-weight: 600;
+      color: var(--indigo-text);
+      background: var(--indigo-subtle);
+      padding: 4px 12px;
       border-radius: 9999px;
-      margin-bottom: 18px;
       letter-spacing: 0.02em;
+      display: inline-block;
     }
 
     .main-title {
-      font-size: 2.3rem;
+      font-size: 32px;
       font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.2;
-      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      line-height: 1.25;
     }
 
     .subtitle {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.6;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-secondary);
       max-width: 540px;
-      margin-bottom: 26px;
+      line-height: 1.5;
     }
 
     .science-tagline {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-subtle);
+      margin-top: 4px;
     }
 
-    /* Glass Cards */
-    .glass-card,
-    .quiz-card {
+    /* --- Shared Card Style --- */
+    .card {
       background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 32px;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-      animation: fadeIn 0.35s ease forwards;
+      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -2px rgba(15, 23, 42, 0.02);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeIn 0.25s ease forwards;
     }
 
-    /* Buttons */
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* --- Buttons --- */
     .btn {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: inherit;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-size: 0.95rem;
+      gap: 6px;
+      transition: all 0.15s ease;
     }
 
     .btn-large {
-      padding: 14px 36px;
-      font-size: 1.05rem;
+      padding: 12px 28px;
+      font-size: 15px;
     }
 
     .btn-primary {
       background: var(--primary);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     }
 
     .btn-primary:hover {
       background: var(--primary-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(99, 102, 241, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.1);
-      color: var(--text-main);
+      background: #ffffff;
+      color: var(--text-secondary);
+      border: 1px solid #cbd5e1;
     }
 
     .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      color: var(--text-main);
+      transform: translateY(-1px);
     }
 
-    /* Quiz Card Elements */
+    /* --- Interactive Quiz Card --- */
     .quiz-progress-bar {
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.08);
+      background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
-      margin-bottom: 24px;
     }
 
     .quiz-progress-fill {
       height: 100%;
       width: 0%;
-      background: var(--primary);
+      background: var(--indigo);
       border-radius: 999px;
-      transition: width 0.35s ease;
+      transition: width 0.3s ease;
     }
 
     .question-title {
-      font-size: 1.15rem;
+      font-size: 16px;
       font-weight: 600;
+      color: var(--text-main);
       line-height: 1.5;
-      margin-bottom: 20px;
-      color: #ffffff;
+      margin-top: 4px;
+      margin-bottom: 14px;
     }
 
     .quiz-options {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .quiz-opt-btn {
       width: 100%;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      color: #e2e8f0;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      color: var(--text-secondary);
       font-family: inherit;
-      font-size: 0.93rem;
+      font-size: 14px;
+      font-weight: 500;
       text-align: left;
       line-height: 1.5;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
     .quiz-opt-btn:hover {
-      background: var(--primary-light);
-      border-color: rgba(99, 102, 241, 0.4);
-      transform: translateY(-2px);
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: var(--text-main);
+      transform: translateY(-1px);
     }
 
-    /* Results */
+    .quiz-opt-btn:active {
+      transform: scale(0.99);
+    }
+
+    /* --- Results Card --- */
+    .results-card {
+      align-items: center;
+      text-align: center;
+      padding: 32px 24px;
+    }
+
     .score-circle {
-      width: 125px;
-      height: 125px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       border: 6px solid var(--pass);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 8px auto 20px;
-      background: rgba(0, 0, 0, 0.25);
+      margin: 6px auto 14px;
+      background: #f8fafc;
       transition: border-color 0.4s ease;
     }
 
     #score-number {
-      font-size: 2rem;
+      font-size: 26px;
       font-weight: 700;
       letter-spacing: -0.02em;
+      color: var(--text-main);
     }
 
     #score-title {
-      font-size: 1.35rem;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 10px;
+      color: var(--text-main);
     }
 
     .score-desc {
+      font-size: 14px;
       color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      max-width: 520px;
-      margin: 0 auto 28px;
+      line-height: 1.55;
+      max-width: 480px;
+      margin: 4px auto 14px;
     }
 
     .cta-actions {
       display: flex;
-      gap: 14px;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
     }
 
-    /* Science & Info */
-    .info-section h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
+    /* --- Science Info Section --- */
     .lead-text {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 24px;
+      font-size: 14.5px;
+      color: #475569;
+      line-height: 1.55;
     }
 
     .lead-text strong {
-      color: #ffffff;
+      color: var(--text-main);
     }
 
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 12px;
+    }
+
+    @media (max-width: 560px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
     }
 
     .info-item {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 14px;
-      padding: 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .info-item h3 {
-      font-size: 0.98rem;
+      font-size: 13.5px;
       font-weight: 600;
-      margin-bottom: 8px;
-      color: #f1f5f9;
+      color: var(--text-main);
     }
 
     .info-item p {
-      font-size: 0.88rem;
+      font-size: 12.5px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.45;
     }
 
-    /* Footer */
-    footer {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 8px 0 20px;
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-subtle);
     }
 
-    /* Utility */
+    .footer a {
+      color: var(--indigo);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- Utility --- */
     .hidden {
       display: none !important;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 600px) {
-      body {
-        padding: 36px 16px;
-      }
-      .main-title {
-        font-size: 1.75rem;
-      }
-      .glass-card,
-      .quiz-card {
-        padding: 24px 18px;
-      }
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-      .cta-actions {
-        flex-direction: column;
-      }
-      .btn {
-        width: 100%;
-      }
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <main class="container">
     
     <!-- Hero Header -->
-    <header class="hero-section text-center">
-      <span class="pill-badge">🧠 Cognitive Health Assessment</span>
+    <header class="hero-section">
+      <span class="badge-pill">🧠 Cognitive Health Assessment</span>
       <h1 class="main-title">Are you over-relying on AI?</h1>
       <p class="subtitle">Test how much of your critical thinking, decision-making, and problem-solving you've outsourced to chatbots.</p>
       
-      <button id="start-test-btn" class="btn btn-primary btn-large">Start Test</button>
+      <div>
+        <button id="start-test-btn" class="btn btn-primary btn-large">Start Assessment</button>
+      </div>
+      
       <p class="science-tagline">🔬 Built on peer-reviewed cognitive offloading science</p>
     </header>
 
     <!-- Interactive Quiz Card -->
-    <section id="quiz-section" class="quiz-section hidden">
-      <div class="quiz-card">
-        <div class="quiz-progress-bar">
-          <div id="quiz-progress" class="quiz-progress-fill"></div>
-        </div>
-        <div id="quiz-content"></div>
+    <section id="quiz-section" class="card hidden">
+      <div class="quiz-progress-bar">
+        <div id="quiz-progress" class="quiz-progress-fill"></div>
       </div>
+      <div id="quiz-content"></div>
     </section>
 
     <!-- Results Screen -->
-    <section id="results-section" class="results-section hidden">
-      <div class="glass-card text-center">
-        <div id="score-circle" class="score-circle">
-          <span id="score-number">0%</span>
-        </div>
-        <h2 id="score-title">Calculating your score...</h2>
-        <p id="score-desc" class="score-desc"></p>
+    <section id="results-section" class="card results-card hidden">
+      <div id="score-circle" class="score-circle">
+        <span id="score-number">0%</span>
+      </div>
+      <h2 id="score-title">Calculating your score...</h2>
+      <p id="score-desc" class="score-desc"></p>
 
-        <div class="cta-actions">
-          <a href="web-demo-mindshield.html" class="btn btn-primary">Try Live Prompt Sandbox →</a>
-          <button id="retake-btn" class="btn btn-secondary">Retake Test</button>
-        </div>
+      <div class="cta-actions">
+        <a href="web-demo-mindshield.html" class="btn btn-primary">Try Live Prompt Sandbox →</a>
+        <button id="retake-btn" class="btn btn-secondary">Retake Test</button>
       </div>
     </section>
 
     <!-- Science Section -->
-    <section class="info-section">
-      <div class="glass-card">
-        <h2>🔬 The Science of Cognitive Offloading</h2>
-        <p class="lead-text">
-          When we immediately turn to AI for every question, our brains engage in <strong>cognitive offloading</strong>—the psychological tendency to reduce mental effort by relying on external tools.
-        </p>
+    <section class="card">
+      <h2 class="card-title">🔬 The Science of Cognitive Offloading</h2>
+      <p class="lead-text">
+        When we immediately turn to AI for every question, our brains engage in <strong>cognitive offloading</strong>—the psychological tendency to reduce mental effort by relying on external tools.
+      </p>
 
-        <div class="grid-2">
-          <div class="info-item">
-            <h3>📉 The Atrophy of Problem Solving</h3>
-            <p>
-              Peer-reviewed research in cognitive psychology shows that bypassing the friction of independent problem-solving weakens working memory retention and reduces structural problem-solving endurance over time.
-            </p>
-          </div>
-          <div class="info-item">
-            <h3>⚡ The Generation Effect</h3>
-            <p>
-              Formulating your own hypothesis—even for just <strong>5 seconds</strong> before receiving an answer—activates the <em>Generation Effect</em>, strengthening long-term neural connections and conceptual mastery.
-            </p>
-          </div>
+      <div class="grid-2">
+        <div class="info-item">
+          <h3>📉 The Atrophy of Problem Solving</h3>
+          <p>
+            Peer-reviewed research in cognitive psychology shows that bypassing the friction of independent problem-solving weakens working memory retention and reduces structural endurance over time.
+          </p>
+        </div>
+        <div class="info-item">
+          <h3>⚡ The Generation Effect</h3>
+          <p>
+            Formulating your own hypothesis—even for just <strong>5 seconds</strong> before receiving an answer—activates the <em>Generation Effect</em>, strengthening long-term neural connections.
+          </p>
         </div>
       </div>
     </section>
 
-    <footer class="text-center">
-      <p>MindShield is open source under the MIT License. <a href="web-demo-mindshield.html" style="color: var(--primary);">Open Prompt Sandbox</a></p>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>MindShield is open source under the MIT License.</p>
+      <p><a href="web-demo-mindshield.html">Open Live Prompt Sandbox →</a></p>
     </footer>
-  </div>
+
+  </main>
 
   <script>
     const QUIZ_QUESTIONS = [
