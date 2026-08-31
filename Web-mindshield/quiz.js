@@ -1,34 +1,34 @@
 const QUIZ_QUESTIONS = [
   {
-    title: "Scenario 1: You get a confusing or critical comment on your post/project. What is your first instinct?",
+    title: "You get a confusing or critical comment on something you posted. What's your first move?",
     options: [
-      { text: "Copy-paste it into AI and ask: 'What should I respond with?'", points: 3 },
-      { text: "Formulate my own draft response, then ask AI to critique its tone.", points: 0 },
-      { text: "Ask AI to explain the technical concepts mentioned in the comment.", points: 0 }
+      { text: "Paste the comment in and ask AI to write a solid reply back.", points: 3 },
+      { text: "Write out what I want to say first, then ask AI to polish the tone.", points: 0 },
+      { text: "Ask AI to clarify what the commenter means so I can understand their point.", points: 0 }
     ]
   },
   {
-    title: "Scenario 2: You encounter a critical bug in your code or database.",
+    title: "You run into a frustrating bug or technical error that halts your work. What do you do?",
     options: [
-      { text: "Paste the error and demand: 'Tell me exactly what to do to fix this.'", points: 3 },
-      { text: "Inspect the stack trace, hypothesize the cause, and ask: 'Why does this error occur?'", points: 0 },
-      { text: "Paste the entire file and say: 'Solve this bug for me.'", points: 3 }
+      { text: "Paste the error code and prompt AI to give me the direct fix.", points: 3 },
+      { text: "Form a quick hypothesis first, then ask AI why that error might occur.", points: 0 },
+      { text: "Drop in the entire file or context and let AI find and solve the issue.", points: 3 }
     ]
   },
   {
-    title: "Scenario 3: You are choosing between two job offers, laptops, or approaches.",
+    title: "You're deciding between two good options, like job offers or new laptops. What's your approach?",
     options: [
-      { text: "Ask AI: 'Which one should I choose?' and follow its judgment.", points: 2 },
-      { text: "List my criteria and ask for objective comparison benchmarks.", points: 0 },
-      { text: "Ask AI: 'What would you do if you were in my position?'", points: 2 }
+      { text: "Share both options with AI and ask it to make the recommendation for me.", points: 2 },
+      { text: "List the specific criteria I care about and ask AI for an objective comparison.", points: 0 },
+      { text: "Ask AI: 'What would you do if you were in my shoes?' to see how it weighs them.", points: 2 }
     ]
   },
   {
-    title: "Scenario 4: You encounter a tricky brain teaser or logic riddle.",
+    title: "A friend shares a tricky brain teaser or logic riddle with you. What do you do?",
     options: [
-      { text: "Immediately ask AI: 'Solve this riddle for me.'", points: 3 },
-      { text: "Attempt to solve it myself first, then verify if my answer is correct.", points: 0 },
-      { text: "Ask AI for a gentle hint without giving away the solution.", points: 1 }
+      { text: "Ask AI for the solution right away so I don't get stuck spinning my wheels.", points: 3 },
+      { text: "Spend a couple of minutes trying to solve it myself before checking if I'm right.", points: 0 },
+      { text: "Ask AI to give me a gentle hint without spoiling the final answer.", points: 1 }
     ]
   }
 ];
@@ -36,39 +36,50 @@ const QUIZ_QUESTIONS = [
 let currentQuestion = 0;
 let totalPoints = 0;
 
-// DOM Elements
-const startTestBtn = document.getElementById('start-test-btn');
-const quizSection = document.getElementById('quiz-section');
+const introView = document.getElementById('intro-view');
+const quizView = document.getElementById('quiz-view');
+const resultsView = document.getElementById('results-view');
+
+const startBtn = document.getElementById('start-btn');
+const retakeBtn = document.getElementById('retake-btn');
+
 const quizContent = document.getElementById('quiz-content');
 const quizProgress = document.getElementById('quiz-progress');
-const resultsSection = document.getElementById('results-section');
+const stepLabel = document.getElementById('step-label');
+
+const scoreBox = document.getElementById('score-box');
 const scoreNumber = document.getElementById('score-number');
-const scoreTitle = document.getElementById('score-title');
+const scoreTierLabel = document.getElementById('score-tier-label');
 const scoreDesc = document.getElementById('score-desc');
-const scoreCircle = document.getElementById('score-circle');
-const retakeBtn = document.getElementById('retake-btn');
 
 function renderQuestion() {
   const q = QUIZ_QUESTIONS[currentQuestion];
   
-  // Update progress bar width
+  stepLabel.textContent = `${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}`;
   quizProgress.style.width = `${((currentQuestion + 1) / QUIZ_QUESTIONS.length) * 100}%`;
 
-  // Render question markup
+  quizContent.className = '';
+  void quizContent.offsetWidth; // Trigger reflow for smooth animation
+  quizContent.className = 'fade-in';
+
   quizContent.innerHTML = `
-    <h3 class="question-title">${q.title}</h3>
+    <h2 class="question-title">${q.title}</h2>
     <div class="quiz-options">
       ${q.options.map(opt => `
-        <button class="quiz-opt-btn" data-points="${opt.points}">${opt.text}</button>
+        <button class="quiz-opt-btn" data-points="${opt.points}">
+          <span>${opt.text}</span>
+          <span class="opt-arrow">→</span>
+        </button>
       `).join('')}
     </div>
   `;
 
-  // Add click listeners to newly rendered option buttons
   document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      totalPoints += parseInt(e.currentTarget.dataset.points, 10);
+      const points = parseInt(e.currentTarget.dataset.points, 10);
+      totalPoints += points;
       currentQuestion++;
+
       if (currentQuestion < QUIZ_QUESTIONS.length) {
         renderQuestion();
       } else {
@@ -79,44 +90,45 @@ function renderQuestion() {
 }
 
 function showResults() {
-  quizSection.classList.add('hidden');
-  resultsSection.classList.remove('hidden');
+  quizView.classList.add('hidden');
+  resultsView.classList.remove('hidden');
 
-  const dependencyPercent = Math.round((totalPoints / 11) * 100);
-  scoreNumber.textContent = `${dependencyPercent}%`;
+  const score = Math.round((totalPoints / 11) * 100);
+  scoreNumber.textContent = `${score}%`;
 
-  if (dependencyPercent >= 60) {
-    scoreCircle.style.borderColor = 'var(--flag)';
-    scoreTitle.textContent = "High Cognitive Dependency Risk";
-    scoreDesc.textContent = "You frequently outsource personal decisions, troubleshooting, and social replies to AI before attempting them yourself. MindShield was built to help you reclaim your critical thinking.";
-  } else if (dependencyPercent >= 25) {
-    scoreCircle.style.borderColor = 'var(--warn)';
-    scoreTitle.textContent = "Moderate AI Reliance";
-    scoreDesc.textContent = "You use AI productively for synthesis, but occasionally offload subjective choices or quick answers when under friction.";
+  if (score >= 60) {
+    scoreTierLabel.textContent = "Higher reliance";
+    scoreDesc.textContent = "You tend to reach for AI when you're stuck, making a decision, or facing a difficult problem. That can be useful — the interesting question is whether AI is helping you think or doing the thinking for you.";
+    setTierStyle('var(--tier-high-bg)', 'var(--tier-high-text)', 'var(--tier-high-border)');
+  } else if (score >= 25) {
+    scoreTierLabel.textContent = "Moderate reliance";
+    scoreDesc.textContent = "You generally use AI as a tool, but sometimes hand over the harder parts when there's friction.";
+    setTierStyle('var(--tier-mod-bg)', 'var(--tier-mod-text)', 'var(--tier-mod-border)');
   } else {
-    scoreCircle.style.borderColor = 'var(--pass)';
-    scoreTitle.textContent = "Strong Critical Thinker";
-    scoreDesc.textContent = "You use AI as an analytical sparring partner rather than a replacement brain. You formulate hypotheses before seeking answers.";
+    scoreTierLabel.textContent = "Low reliance";
+    scoreDesc.textContent = "You tend to use AI as a thinking partner — getting explanations, comparisons, and feedback without immediately handing over the whole problem.";
+    setTierStyle('var(--tier-low-bg)', 'var(--tier-low-text)', 'var(--tier-low-border)');
   }
-
-  resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Event Listeners
-startTestBtn.addEventListener('click', () => {
+function setTierStyle(bg, text, border) {
+  scoreBox.style.backgroundColor = bg;
+  scoreBox.style.borderColor = border;
+  scoreBox.style.color = text;
+}
+
+startBtn.addEventListener('click', () => {
   currentQuestion = 0;
   totalPoints = 0;
-  quizSection.classList.remove('hidden');
-  resultsSection.classList.add('hidden');
+  introView.classList.add('hidden');
+  quizView.classList.remove('hidden');
   renderQuestion();
-  quizSection.scrollIntoView({ behavior: 'smooth' });
 });
 
 retakeBtn.addEventListener('click', () => {
   currentQuestion = 0;
   totalPoints = 0;
-  resultsSection.classList.add('hidden');
-  quizSection.classList.remove('hidden');
+  resultsView.classList.add('hidden');
+  quizView.classList.remove('hidden');
   renderQuestion();
-  quizSection.scrollIntoView({ behavior: 'smooth' });
 });
