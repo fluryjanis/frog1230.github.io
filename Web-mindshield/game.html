@@ -6,26 +6,34 @@
   <title>MindShield — Neural Dependency Simulation</title>
   <style>
     :root {
-      --bg: #090a0f;
-      --panel: #11131a;
-      --panel-elevated: #171a24;
-      --card: #191c28;
-      --card-hover: #222636;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-bright: rgba(255, 255, 255, 0.16);
-      --text: #f3f4f6;
-      --text-secondary: #94a3b8;
-      --muted: #64748b;
-      --teal: #14b8a6;
-      --teal-dim: rgba(20, 184, 166, 0.15);
-      --teal-glow: rgba(20, 184, 166, 0.35);
-      --warn: #f59e0b;
-      --warn-dim: rgba(245, 158, 11, 0.15);
-      --danger: #ef4444;
-      --danger-dim: rgba(239, 68, 68, 0.15);
-      --danger-glow: rgba(239, 68, 68, 0.45);
-      --ai-bubble: #161822;
-      --user-bubble: #0e374d;
+      /* Modern Slate & Charcoal Palette */
+      --bg: #12151e;
+      --panel: #1b202e;
+      --panel-elevated: #242b3d;
+      --card: #283044;
+      --card-hover: #323b54;
+      --border: rgba(255, 255, 255, 0.12);
+      --border-bright: rgba(255, 255, 255, 0.26);
+      
+      /* High-Contrast Typography */
+      --text: #ffffff;
+      --text-secondary: #cbd5e1;
+      --muted: #94a3b8;
+      
+      /* Vibrant Accents */
+      --teal: #2dd4bf;
+      --teal-dim: rgba(45, 212, 191, 0.16);
+      --teal-glow: rgba(45, 212, 191, 0.45);
+      --warn: #fbbf24;
+      --warn-dim: rgba(251, 191, 36, 0.18);
+      --danger: #f87171;
+      --danger-dim: rgba(248, 113, 113, 0.2);
+      --danger-glow: rgba(248, 113, 113, 0.5);
+      --sky: #38bdf8;
+      --sky-dim: rgba(56, 189, 248, 0.16);
+
+      --ai-bubble: #1f2535;
+      --user-bubble: #0e3a59;
       --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
@@ -52,7 +60,7 @@
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       pointer-events: none;
-      background: radial-gradient(circle, transparent 40%, rgba(239, 68, 68, 0.65) 100%);
+      background: radial-gradient(circle, transparent 40%, rgba(248, 113, 113, 0.7) 100%);
       opacity: 0;
       transition: opacity 0.1s ease;
       z-index: 99999;
@@ -77,8 +85,8 @@
     }
 
     @keyframes pulseTimer {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.03); opacity: 0.8; }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 16px var(--danger-glow); }
+      50% { transform: scale(1.04); box-shadow: 0 0 28px var(--danger-glow); }
     }
 
     @keyframes pulseBleed {
@@ -86,20 +94,20 @@
       50% { color: var(--danger); transform: scale(1.03); }
     }
 
-    /* Floating Feedback (+15 Brain, -20 Brain) */
+    /* Floating Feedback */
     .floating-text {
       position: fixed;
       font-family: var(--font-mono);
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.5px;
       pointer-events: none;
       z-index: 10000;
       animation: floatUp 1.2s forwards cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .floating-text.damage { color: var(--danger); text-shadow: 0 0 10px var(--danger-glow); }
-    .floating-text.heal { color: var(--teal); text-shadow: 0 0 10px var(--teal-glow); }
-    .floating-text.decay { color: var(--warn); text-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+    .floating-text.damage { color: var(--danger); text-shadow: 0 0 12px var(--danger-glow); }
+    .floating-text.heal { color: var(--teal); text-shadow: 0 0 12px var(--teal-glow); }
+    .floating-text.decay { color: var(--warn); text-shadow: 0 0 12px rgba(251, 191, 36, 0.6); }
 
     @keyframes floatUp {
       0% { opacity: 0; transform: translateY(0) scale(0.85); }
@@ -108,24 +116,25 @@
       100% { opacity: 0; transform: translateY(-50px) scale(0.9); }
     }
 
-    /* Top HUD */
+    /* Top Command HUD */
     .hud {
       position: sticky;
       top: 0;
-      background: rgba(17, 19, 26, 0.96);
+      background: rgba(22, 26, 37, 0.96);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 12px 32px;
-      display: flex;
-      justify-content: space-between;
+      padding: 10px 32px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
+      gap: 24px;
       z-index: 100;
     }
 
     .hud-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .hud-title {
@@ -142,7 +151,7 @@
 
     .btn-hub-nav {
       background: var(--panel-elevated);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-bright);
       color: var(--text-secondary);
       font-family: var(--font-mono);
       font-size: 11px;
@@ -153,30 +162,31 @@
       transition: all 0.2s ease;
     }
     .btn-hub-nav:hover {
-      border-color: var(--border-bright);
+      border-color: var(--teal);
       color: #fff;
     }
 
     .stats-group {
       display: flex;
-      gap: 18px;
+      justify-content: center;
+      gap: 20px;
     }
 
     .status-module {
-      background: #0b0c10;
+      background: #151824;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 6px 14px;
+      padding: 6px 16px;
       display: flex;
       flex-direction: column;
-      min-width: 155px;
+      min-width: 170px;
     }
 
     .module-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 800;
       text-transform: uppercase;
       font-family: var(--font-mono);
@@ -186,25 +196,68 @@
     }
 
     .module-val {
-      font-size: 13.5px;
-      font-weight: 800;
+      font-size: 14px;
+      font-weight: 900;
       font-family: var(--font-mono);
     }
     .health-val { color: var(--teal); }
-    .task-val { color: #38bdf8; }
+    .task-val { color: var(--sky); }
     .task-val.bleeding { animation: pulseBleed 0.8s infinite ease-in-out; }
 
     .meter-bar {
       width: 100%;
-      height: 5px;
-      background: #1e212d;
+      height: 6px;
+      background: #252a3a;
       border-radius: 3px;
       overflow: hidden;
       margin-top: 2px;
     }
     .meter-fill { height: 100%; transition: width 0.35s ease, background-color 0.35s ease; }
     #health-fill { background: var(--teal); width: 100%; }
-    #task-fill { background: #38bdf8; width: 100%; }
+    #task-fill { background: var(--sky); width: 100%; }
+
+    /* Top-Right Mission Clock */
+    .hud-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .hud-timer-badge {
+      background: #151824;
+      border: 1.5px solid var(--teal);
+      border-radius: 8px;
+      padding: 7px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 14px var(--teal-dim);
+    }
+
+    .hud-timer-label {
+      font-size: 10px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .hud-timer-digits {
+      font-size: 16px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: var(--teal);
+      letter-spacing: 1px;
+    }
+
+    .hud-timer-badge.urgent {
+      border-color: var(--danger);
+      background: rgba(248, 113, 113, 0.15);
+      animation: pulseTimer 0.6s infinite ease-in-out;
+    }
+    .hud-timer-badge.urgent .hud-timer-digits {
+      color: var(--danger);
+    }
 
     /* Layout Wrapper */
     .game-layout {
@@ -227,7 +280,7 @@
       min-width: 0;
     }
 
-    /* Start Screen with Neural Canvas + Glowing Brain Core */
+    /* Start Screen */
     .start-screen-container {
       padding: 16px 0 44px;
       text-align: center;
@@ -240,7 +293,7 @@
     .neural-canvas-wrap {
       position: relative;
       width: 100%;
-      height: 170px;
+      height: 180px;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -252,7 +305,7 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.75;
     }
 
     .brain-orb-wrapper {
@@ -264,31 +317,31 @@
     }
 
     .brain-orb {
-      width: 82px;
-      height: 82px;
+      width: 86px;
+      height: 86px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, rgba(9, 10, 15, 0.85) 70%);
-      border: 1.5px solid var(--teal);
-      box-shadow: 0 0 24px var(--teal-glow);
+      background: radial-gradient(circle, rgba(45, 212, 191, 0.35) 0%, rgba(18, 21, 30, 0.9) 75%);
+      border: 2px solid var(--teal);
+      box-shadow: 0 0 28px var(--teal-glow);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
+      font-size: 34px;
       animation: orbPulse 3s infinite ease-in-out;
     }
 
     .orb-ring {
       position: absolute;
-      width: 112px;
-      height: 112px;
+      width: 118px;
+      height: 118px;
       border-radius: 50%;
-      border: 1px dashed rgba(20, 184, 166, 0.4);
+      border: 1.5px dashed rgba(45, 212, 191, 0.45);
       animation: spinRing 16s linear infinite;
     }
 
     @keyframes orbPulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 16px var(--teal-glow); }
-      50% { transform: scale(1.05); box-shadow: 0 0 28px var(--teal-glow); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 18px var(--teal-glow); }
+      50% { transform: scale(1.06); box-shadow: 0 0 32px var(--teal-glow); }
     }
 
     @keyframes spinRing {
@@ -303,16 +356,16 @@
       letter-spacing: 1.5px;
       color: var(--teal);
       font-family: var(--font-mono);
-      padding: 3px 10px;
-      border-radius: 4px;
+      padding: 4px 12px;
+      border-radius: 6px;
       background: var(--teal-dim);
-      border: 1px solid rgba(20, 184, 166, 0.3);
-      margin-bottom: 12px;
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      margin-bottom: 14px;
       display: inline-block;
     }
 
     .hero-title {
-      font-size: 32px;
+      font-size: 34px;
       font-weight: 900;
       letter-spacing: -0.5px;
       color: #fff;
@@ -336,12 +389,12 @@
     }
 
     .btn-start-game {
-      padding: 16px 44px;
+      padding: 16px 48px;
       background: var(--panel-elevated);
       color: var(--teal);
       border: 1.5px solid var(--teal);
       border-radius: 8px;
-      font-weight: 800;
+      font-weight: 900;
       font-size: 15px;
       font-family: var(--font-mono);
       letter-spacing: 1px;
@@ -354,7 +407,7 @@
     }
     .btn-start-game:hover {
       background: var(--teal);
-      color: #090a0f;
+      color: #12151e;
       transform: translateY(-2px);
       box-shadow: 0 6px 28px var(--teal-glow);
     }
@@ -369,7 +422,7 @@
 
     .briefing-heading {
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -382,35 +435,36 @@
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 14px;
       width: 100%;
-      max-width: 820px;
+      max-width: 840px;
     }
 
     .info-card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
+      border-radius: 10px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       text-align: left;
       transition: all 0.2s ease;
     }
     .info-card:hover {
-      border-color: var(--border-bright);
+      border-color: var(--teal);
       background: var(--panel-elevated);
+      transform: translateY(-2px);
     }
 
     .card-num {
-      font-size: 10px;
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 900;
       font-family: var(--font-mono);
       color: var(--teal);
       margin-bottom: 4px;
     }
 
     .card-title {
-      font-size: 12.5px;
-      font-weight: 800;
+      font-size: 13px;
+      font-weight: 900;
       font-family: var(--font-mono);
       color: #fff;
       text-transform: uppercase;
@@ -418,18 +472,38 @@
     }
 
     .card-desc {
-      font-size: 12px;
+      font-size: 12.5px;
       line-height: 1.5;
-      color: var(--muted);
+      color: var(--text-secondary);
       margin: 0;
     }
 
-    /* Live Room Status View */
+    /* Scenario Mission Banner */
+    .scenario-header {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .scenario-title { 
+      font-size: 14.5px; 
+      font-weight: 700; 
+      color: #fff; 
+      line-height: 1.5;
+    }
+
+    /* Room Status Dashboard with Cleanliness Meter */
     .room-status-panel {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 14px 18px;
+      padding: 16px 20px;
       margin-bottom: 18px;
     }
 
@@ -437,184 +511,121 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .room-header-title {
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 900;
       font-family: var(--font-mono);
       color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
+      letter-spacing: 0.5px;
     }
 
     .room-cleanliness-tag {
+      font-size: 12px;
+      font-weight: 900;
+      font-family: var(--font-mono);
       color: var(--teal);
-      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .room-progress-track {
+      width: 100%;
+      height: 6px;
+      background: #252a3a;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .room-progress-fill {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width 0.35s ease;
     }
 
     .room-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     .room-zone {
-      background: #0a0b10;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
-      padding: 8px 10px;
+      background: #161a25;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
+      gap: 4px;
       transition: all 0.25s ease;
     }
+
     .room-zone.clean {
-      border-color: rgba(20, 184, 166, 0.4);
-      background: rgba(20, 184, 166, 0.05);
+      border-color: rgba(45, 212, 191, 0.4);
+      background: rgba(45, 212, 191, 0.08);
     }
     .room-zone.disaster {
-      border-color: rgba(239, 68, 68, 0.4);
-      background: rgba(239, 68, 68, 0.06);
+      border-color: rgba(248, 113, 113, 0.4);
+      background: rgba(248, 113, 113, 0.08);
     }
 
-    .zone-name {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--muted);
-      font-family: var(--font-mono);
-      margin-bottom: 2px;
-    }
-
-    .zone-status {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--text-secondary);
-    }
-
-    /* MindShield Character Dialog */
-    .mindshield-side-panel {
-      position: sticky;
-      top: 85px;
-      z-index: 90;
-    }
-
-    .mindshield-box {
-      background: var(--panel);
-      border: 1.5px solid rgba(20, 184, 166, 0.35);
-      border-radius: 12px;
-      padding: 18px 20px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    .mindshield-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-
-    .mindshield-identity {
+    .zone-top-row {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      font-family: var(--font-mono);
-      color: var(--teal);
     }
 
-    .mindshield-tone-tag {
-      font-size: 9.5px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      letter-spacing: 0.5px;
+    .zone-icon {
+      font-size: 15px;
+    }
+
+    .zone-name {
+      font-size: 10px;
+      font-weight: 900;
       color: var(--muted);
+      font-family: var(--font-mono);
       text-transform: uppercase;
     }
 
-    .mindshield-text {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #e2e8f0;
-      font-weight: 400;
-      margin: 0 0 10px;
+    .zone-status-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin: 2px 0 4px;
     }
 
-    .mindshield-time {
-      display: block;
+    .status-badge {
+      display: inline-block;
+      align-self: flex-start;
       font-size: 9.5px;
-      color: var(--muted);
+      font-weight: 900;
       font-family: var(--font-mono);
-      text-align: right;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    /* MindShield Dynamic Reactivity */
-    .mindshield-box.tone-lecture {
-      border-color: var(--danger);
-      background: #160e11;
-      box-shadow: 0 12px 36px var(--danger-dim);
-      transform: rotate(-1.5deg) scale(1.02);
-    }
-    .mindshield-box.tone-lecture .mindshield-identity,
-    .mindshield-box.tone-lecture .mindshield-tone-tag { color: var(--danger); }
-
-    .mindshield-box.tone-rush {
-      border-color: var(--warn);
-      background: #16120c;
-      box-shadow: 0 12px 36px var(--warn-dim);
-      transform: rotate(1.5deg) scale(1.02);
-    }
-    .mindshield-box.tone-rush .mindshield-identity,
-    .mindshield-box.tone-rush .mindshield-tone-tag { color: var(--warn); }
-
-    .mindshield-box.tone-praise {
-      border-color: var(--teal);
-      background: #0c1412;
-      box-shadow: 0 12px 36px var(--teal-dim);
-      transform: scale(1.02);
-    }
-
-    /* Game Header & Timer */
-    .scenario-header {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .scenario-title { 
-      font-size: 14px; 
-      font-weight: 700; 
-      color: #fff; 
-      flex: 1; 
-      line-height: 1.5;
-    }
-    
-    .scenario-timer {
-      font-size: 14px;
+    .status-badge.clean {
+      background: var(--teal-dim);
       color: var(--teal);
-      font-weight: 800;
-      background: #0a0b10;
-      padding: 6px 14px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      white-space: nowrap;
-      font-family: var(--font-mono);
-      letter-spacing: 1px;
+      border: 1px solid rgba(45, 212, 191, 0.4);
     }
 
-    .scenario-timer.urgent {
-      color: var(--danger) !important;
-      border-color: var(--danger) !important;
-      animation: pulseTimer 0.6s infinite ease-in-out;
+    .status-badge.disaster {
+      background: var(--danger-dim);
+      color: var(--danger);
+      border: 1px solid rgba(248, 113, 113, 0.4);
+    }
+
+    .status-badge.pending {
+      background: var(--warn-dim);
+      color: var(--warn);
+      border: 1px solid rgba(251, 191, 36, 0.4);
     }
 
     /* Live Chat Window */
@@ -623,8 +634,8 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 22px;
-      min-height: 380px;
-      max-height: 460px;
+      min-height: 360px;
+      max-height: 440px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -654,24 +665,24 @@
     .msg-bubble {
       padding: 12px 16px;
       border-radius: 10px;
-      font-size: 13.5px;
+      font-size: 14px;
       line-height: 1.6;
       white-space: pre-wrap;
     }
 
     .msg-row.user .msg-bubble { 
       background: var(--user-bubble); 
-      color: #f1f5f9; 
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      color: #ffffff; 
+      border: 1px solid rgba(56, 189, 248, 0.35);
     }
     
     .msg-row.ai .msg-bubble { 
       background: var(--ai-bubble); 
-      color: var(--text); 
-      border: 1px solid var(--border); 
+      color: var(--text-secondary); 
+      border: 1px solid var(--border-bright); 
     }
 
-    /* Decision Panel & Keycaps */
+    /* Decision Panel & High-Contrast Choices */
     .decision-panel {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -685,7 +696,7 @@
       margin: 0 0 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      font-weight: 800;
+      font-weight: 900;
       font-family: var(--font-mono);
     }
 
@@ -699,9 +710,9 @@
       background: var(--panel-elevated);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 12px 16px;
+      padding: 14px 18px;
       border-radius: 8px;
-      font-size: 13.5px;
+      font-size: 14px;
       font-family: var(--font-main);
       line-height: 1.5;
       text-align: left;
@@ -710,13 +721,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .choice-btn:hover {
-      background: #1d212d;
+      background: var(--card-hover);
       border-color: var(--teal);
-      transform: translateX(3px);
+      transform: translateX(4px);
     }
 
     .choice-left {
@@ -726,25 +737,128 @@
     }
 
     .keycap {
-      background: #0a0b10;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3px 8px;
+      background: #151824;
+      border: 1.5px solid var(--teal);
+      border-radius: 5px;
+      padding: 4px 9px;
       font-family: var(--font-mono);
-      font-weight: 800;
-      font-size: 11px;
+      font-weight: 900;
+      font-size: 11.5px;
       color: var(--teal);
     }
 
+    .choice-text-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .choice-intent-tag {
+      font-size: 9.5px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: var(--sky);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
     .choice-arrow {
-      font-size: 13px;
+      font-size: 14px;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    /* MindShield Character Dialog */
+    .mindshield-side-panel {
+      position: sticky;
+      top: 85px;
+      z-index: 90;
+    }
+
+    .mindshield-box {
+      background: var(--panel);
+      border: 1.5px solid rgba(45, 212, 191, 0.4);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .mindshield-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .mindshield-identity {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      font-family: var(--font-mono);
+      color: var(--teal);
+    }
+
+    .mindshield-tone-tag {
+      font-size: 9.5px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
       color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .mindshield-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin: 0 0 10px;
+    }
+
+    .mindshield-time {
+      display: block;
+      font-size: 9.5px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      text-align: right;
+    }
+
+    /* MindShield Mood Styling */
+    .mindshield-box.tone-lecture {
+      border-color: var(--danger);
+      background: #241920;
+      box-shadow: 0 12px 36px var(--danger-dim);
+      transform: scale(1.02);
+    }
+    .mindshield-box.tone-lecture .mindshield-identity,
+    .mindshield-box.tone-lecture .mindshield-tone-tag { color: var(--danger); }
+
+    .mindshield-box.tone-rush {
+      border-color: var(--warn);
+      background: #262118;
+      box-shadow: 0 12px 36px var(--warn-dim);
+      transform: scale(1.02);
+    }
+    .mindshield-box.tone-rush .mindshield-identity,
+    .mindshield-box.tone-rush .mindshield-tone-tag { color: var(--warn); }
+
+    .mindshield-box.tone-praise {
+      border-color: var(--teal);
+      background: #142322;
+      box-shadow: 0 12px 36px var(--teal-dim);
+      transform: scale(1.02);
     }
 
     /* Task Auditor Minigame */
     .task-minigame {
-      background: #0a0b10;
-      border: 1px solid rgba(20, 184, 166, 0.4);
+      background: #151824;
+      border: 1.5px solid var(--teal);
       border-radius: 10px;
       padding: 16px;
       margin: 10px 0;
@@ -754,13 +868,13 @@
     .task-item {
       background: var(--panel-elevated);
       border: 1px solid var(--border);
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 6px;
       margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      font-size: 13.5px;
       gap: 12px;
     }
 
@@ -770,26 +884,26 @@
     }
 
     .task-btn-action {
-      background: #202432;
-      border: 1px solid var(--border);
+      background: #2e354a;
+      border: 1px solid var(--border-bright);
       color: #fff;
-      padding: 4px 8px;
+      padding: 5px 9px;
       border-radius: 4px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       font-family: var(--font-mono);
     }
     .task-btn-action:hover { border-color: var(--teal); color: var(--teal); }
 
     .task-btn-delete {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
+      background: rgba(248, 113, 113, 0.18);
+      border: 1px solid rgba(248, 113, 113, 0.4);
       color: #fca5a5;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 4px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       font-family: var(--font-mono);
     }
@@ -800,7 +914,7 @@
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 36px 28px;
+      padding: 40px 32px;
       text-align: center;
     }
 
@@ -808,7 +922,7 @@
       display: inline-block;
       font-size: 13px;
       font-weight: 900;
-      padding: 8px 18px;
+      padding: 8px 20px;
       border-radius: 6px;
       margin: 12px 0 18px;
       letter-spacing: 1px;
@@ -821,12 +935,12 @@
     .profile-bad { color: var(--danger); border: 1.5px solid var(--danger); background: var(--danger-dim); }
 
     .btn-action {
-      padding: 12px 28px;
+      padding: 12px 30px;
       background: var(--panel-elevated);
       color: var(--teal);
-      border: 1px solid var(--teal);
+      border: 1.5px solid var(--teal);
       border-radius: 6px;
-      font-weight: 800;
+      font-weight: 900;
       font-size: 13px;
       font-family: var(--font-mono);
       cursor: pointer;
@@ -838,10 +952,24 @@
     }
     .btn-action:hover { 
       background: var(--teal);
-      color: #090a0f;
+      color: #12151e;
     }
 
     @media (max-width: 1024px) {
+      .hud {
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+      }
+      .stats-group {
+        grid-column: span 2;
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .status-module {
+        flex: 1;
+        min-width: 0;
+      }
       .game-layout {
         grid-template-columns: 1fr;
       }
@@ -863,11 +991,13 @@
   <div id="damage-overlay" class="damage-overlay"></div>
 
   <div id="game-container">
+    <!-- Sticky Command HUD -->
     <header class="hud">
       <div class="hud-left">
-        <div class="hud-title">🛡️ MINDSHIELD // TRAINING SIMULATION</div>
+        <div class="hud-title">🛡️ MINDSHIELD</div>
         <button id="btn-return-hub" class="btn-hub-nav" style="display:none;" onclick="renderStartScreen()">← Main Menu</button>
       </div>
+
       <div class="stats-group">
         <div class="status-module">
           <div class="module-header">
@@ -876,6 +1006,7 @@
           </div>
           <div class="meter-bar"><div id="health-fill" class="meter-fill"></div></div>
         </div>
+
         <div class="status-module">
           <div class="module-header">
             <span id="task-label">🎯 TASK COMPLETION</span>
@@ -884,11 +1015,19 @@
           <div class="meter-bar"><div id="task-fill" class="meter-fill"></div></div>
         </div>
       </div>
+
+      <!-- Top-Right Mission Clock -->
+      <div class="hud-right">
+        <div id="sim-timer-badge" class="hud-timer-badge" style="display: none;">
+          <span class="hud-timer-label">MISSION TIMER</span>
+          <span id="sim-timer" class="hud-timer-digits">10:00</span>
+        </div>
+      </div>
     </header>
 
     <div class="game-layout full-width" id="layout-container">
       <main class="main-wrap" id="main-content">
-        <!-- Dynamic Views -->
+        <!-- Dynamic Game Views -->
       </main>
 
       <!-- MindShield AI Observer Panel -->
@@ -922,12 +1061,12 @@
     let taskAuditComplete = false;
     let decayWarned = false;
 
-    // Room Status State
+    // Room Status State with visual icons and status tags
     let roomStatus = {
-      bed: { name: "BED", status: "Messy & Unmade", clean: false },
-      floor: { name: "FLOOR & CLOSET", status: "Clothes on Rug", clean: false },
-      trash: { name: "TRASH & DESK", status: "Old Food & Trash", clean: false },
-      books: { name: "BOOKSHELF", status: "Unorganized", clean: false }
+      bed: { name: "BED", icon: "🛏️", statusText: "Messy & Unmade", tag: "pending", clean: false },
+      floor: { name: "FLOOR & CLOSET", icon: "👕", statusText: "Clothes on Rug", tag: "pending", clean: false },
+      trash: { name: "TRASH & DESK", icon: "🗑️", statusText: "Old Food & Wrappers", tag: "pending", clean: false },
+      books: { name: "BOOKSHELF", icon: "📚", statusText: "Unorganized", tag: "pending", clean: false }
     };
 
     const healthText = document.getElementById('health-text');
@@ -935,6 +1074,8 @@
     const taskText = document.getElementById('task-text');
     const taskFill = document.getElementById('task-fill');
     const taskLabel = document.getElementById('task-label');
+    const simTimerBadge = document.getElementById('sim-timer-badge');
+    const simTimer = document.getElementById('sim-timer');
     const damageOverlay = document.getElementById('damage-overlay');
     const gameContainer = document.getElementById('game-container');
     const btnReturnHub = document.getElementById('btn-return-hub');
@@ -947,14 +1088,14 @@
     const layoutContainer = document.getElementById('layout-container');
 
     // ---------------------------------------------------------------------------
-    // Floating Text FX (-20 Brain, +15 Brain)
+    // Floating Text Feedback
     // ---------------------------------------------------------------------------
     function spawnFloatingText(text, type = 'damage') {
       const el = document.createElement('div');
       el.className = `floating-text ${type}`;
       el.textContent = text;
-      el.style.left = `${window.innerWidth - 210 + (Math.random() * 40 - 20)}px`;
-      el.style.top = `60px`;
+      el.style.left = `${window.innerWidth - 240 + (Math.random() * 40 - 20)}px`;
+      el.style.top = `64px`;
 
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 1200);
@@ -1008,10 +1149,11 @@
     }
 
     // ---------------------------------------------------------------------------
-    // Room Status View
+    // Room Status Dashboard
     // ---------------------------------------------------------------------------
-    function updateRoomZone(zone, status, isClean, isDisaster = false) {
-      roomStatus[zone] = { ...roomStatus[zone], status, clean: isClean, disaster: isDisaster };
+    function updateRoomZone(zone, statusText, isClean, isDisaster = false) {
+      let tag = isClean ? 'clean' : (isDisaster ? 'disaster' : 'pending');
+      roomStatus[zone] = { ...roomStatus[zone], statusText, clean: isClean, isDisaster, tag };
       renderRoomView();
     }
 
@@ -1024,38 +1166,40 @@
 
       view.innerHTML = `
         <div class="room-header">
-          <span>ROOM OVERVIEW</span>
-          <span>CLEANLINESS: <span class="room-cleanliness-tag">${cleanPct}%</span></span>
+          <span class="room-header-title">ROOM READINESS STATUS</span>
+          <span class="room-cleanliness-tag">CLEANLINESS: ${cleanPct}%</span>
+        </div>
+        <div class="room-progress-track">
+          <div class="room-progress-fill" style="width: ${cleanPct}%;"></div>
         </div>
         <div class="room-grid">
-          <div class="room-zone ${roomStatus.bed.clean ? 'clean' : (roomStatus.bed.disaster ? 'disaster' : '')}">
-            <span class="zone-name">${roomStatus.bed.name}</span>
-            <span class="zone-status">${roomStatus.bed.status}</span>
-          </div>
-          <div class="room-zone ${roomStatus.floor.clean ? 'clean' : (roomStatus.floor.disaster ? 'disaster' : '')}">
-            <span class="zone-name">${roomStatus.floor.name}</span>
-            <span class="zone-status">${roomStatus.floor.status}</span>
-          </div>
-          <div class="room-zone ${roomStatus.trash.clean ? 'clean' : (roomStatus.trash.disaster ? 'disaster' : '')}">
-            <span class="zone-name">${roomStatus.trash.name}</span>
-            <span class="zone-status">${roomStatus.trash.status}</span>
-          </div>
-          <div class="room-zone ${roomStatus.books.clean ? 'clean' : (roomStatus.books.disaster ? 'disaster' : '')}">
-            <span class="zone-name">${roomStatus.books.name}</span>
-            <span class="zone-status">${roomStatus.books.status}</span>
-          </div>
+          ${Object.keys(roomStatus).map(key => {
+            const z = roomStatus[key];
+            const badgeLabel = z.tag === 'clean' ? '✅ CLEAN' : (z.tag === 'disaster' ? '❌ DISASTER' : '⏳ PENDING');
+            return `
+              <div class="room-zone ${z.clean ? 'clean' : (z.isDisaster ? 'disaster' : '')}">
+                <div class="zone-top-row">
+                  <span class="zone-icon">${z.icon}</span>
+                  <span class="zone-name">${z.name}</span>
+                </div>
+                <div class="zone-status-text">${z.statusText}</div>
+                <span class="status-badge ${z.tag}">${badgeLabel}</span>
+              </div>
+            `;
+          }).join('')}
         </div>
       `;
     }
 
     // ---------------------------------------------------------------------------
-    // Timer & Time Decay Engine
+    // Timer Engine (Top-Right HUD)
     // ---------------------------------------------------------------------------
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
       secondsRemaining = totalSeconds;
       taskAuditComplete = false;
       decayWarned = false;
+      simTimerBadge.style.display = 'flex';
       updateTimerDisplay();
       startIdleMonitor();
 
@@ -1068,7 +1212,7 @@
 
         const elapsed = totalSeconds - secondsRemaining;
 
-        // Task Decay starts at 60s
+        // Task Decay starts after 60s
         if (elapsed > 60 && !taskAuditComplete) {
           const decayRate = (elapsed - 60) / (totalSeconds - 60);
           taskCompletion = Math.max(0, Math.round(100 - (decayRate * 100)));
@@ -1107,24 +1251,21 @@
         timerInterval = null;
       }
       stopIdleMonitor();
-      const simTimer = document.getElementById('sim-timer');
-      if (simTimer) simTimer.classList.remove('urgent');
+      if (simTimerBadge) simTimerBadge.classList.remove('urgent');
       taskText.classList.remove('bleeding');
       taskLabel.textContent = "🎯 TASK COMPLETION";
     }
 
     function updateTimerDisplay() {
-      const simTimer = document.getElementById('sim-timer');
       if (!simTimer) return;
-
       const m = Math.floor(secondsRemaining / 60);
       const s = secondsRemaining % 60;
-      simTimer.textContent = `⏱️ ${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      simTimer.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 
       if (secondsRemaining <= 60) {
-        simTimer.classList.add('urgent');
+        simTimerBadge.classList.add('urgent');
       } else {
-        simTimer.classList.remove('urgent');
+        simTimerBadge.classList.remove('urgent');
       }
     }
 
@@ -1183,7 +1324,7 @@
       } else if (taskCompletion < 75) {
         taskFill.style.backgroundColor = 'var(--warn)';
       } else {
-        taskFill.style.backgroundColor = '#38bdf8';
+        taskFill.style.backgroundColor = 'var(--sky)';
       }
     }
 
@@ -1230,7 +1371,10 @@
         btn.innerHTML = `
           <div class="choice-left">
             <span class="keycap">${idx + 1}</span>
-            <span>${c.text}</span>
+            <div class="choice-text-wrap">
+              ${c.tag ? `<span class="choice-intent-tag">${c.tag}</span>` : ''}
+              <span>${c.text}</span>
+            </div>
           </div>
           <span class="choice-arrow">→</span>
         `;
@@ -1252,7 +1396,7 @@
       canvas.width = canvas.parentElement.clientWidth;
       canvas.height = canvas.parentElement.clientHeight;
 
-      const nodes = Array.from({ length: 22 }, () => ({
+      const nodes = Array.from({ length: 24 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.7,
@@ -1268,8 +1412,8 @@
             const dx = nodes[i].x - nodes[j].x;
             const dy = nodes[i].y - nodes[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 90) {
-              ctx.strokeStyle = `rgba(20, 184, 166, ${0.4 * (1 - dist / 90)})`;
+            if (dist < 95) {
+              ctx.strokeStyle = `rgba(45, 212, 191, ${0.4 * (1 - dist / 95)})`;
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -1285,7 +1429,7 @@
           if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
           if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
 
-          ctx.fillStyle = '#14b8a6';
+          ctx.fillStyle = '#2dd4bf';
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
           ctx.fill();
@@ -1304,6 +1448,7 @@
       activeChoices = [];
       if (neuralAnimFrame) cancelAnimationFrame(neuralAnimFrame);
       btnReturnHub.style.display = 'none';
+      simTimerBadge.style.display = 'none';
       mindshieldPanel.style.display = 'none';
       layoutContainer.classList.add('full-width');
 
@@ -1313,7 +1458,6 @@
 
       mainContent.innerHTML = `
         <div class="start-screen-container">
-          <!-- Animated Neural Canvas & Glowing Brain Core -->
           <div class="neural-canvas-wrap">
             <canvas id="neural-canvas"></canvas>
             <div class="brain-orb-wrapper">
@@ -1330,7 +1474,6 @@
             Use AI to make a quick cleaning plan without letting it waste your time with bad advice.
           </p>
 
-          <!-- Start Button -->
           <div class="cta-row">
             <button class="btn-start-game" onclick="initGame()">
               <span>⚡</span> START SIMULATION <span>→</span>
@@ -1341,12 +1484,11 @@
 
           <div class="briefing-heading">HOW THE GAME WORKS</div>
 
-          <!-- 4 Simple Mechanic Cards -->
           <div class="cards-grid">
             <div class="info-card">
               <span class="card-num">01</span>
               <div class="card-title">BRAIN HEALTH</div>
-              <p class="card-desc">Making lazy choices or trusting bad AI advice hurts your brain score.</p>
+              <p class="card-desc">Making lazy choices or blindly trusting bad AI advice drains your score.</p>
             </div>
 
             <div class="info-card">
@@ -1364,7 +1506,7 @@
             <div class="info-card">
               <span class="card-num">04</span>
               <div class="card-title">TASK AUDITOR</div>
-              <p class="card-desc">Cut out the AI's useless tasks to lock in your 100% cleaning score.</p>
+              <p class="card-desc">Cut out useless suggestions to lock in a 100% cleaning score.</p>
             </div>
           </div>
         </div>
@@ -1382,10 +1524,9 @@
       mainContent.innerHTML = `
         <div class="scenario-header">
           <div class="scenario-title">${goalText}</div>
-          <div id="sim-timer" class="scenario-timer">⏱️ 10:00</div>
         </div>
 
-        <!-- Room Status View -->
+        <!-- Room Status Dashboard -->
         <div id="room-status-view" class="room-status-panel"></div>
 
         <div id="chat-stream" class="chat-box"></div>
@@ -1409,10 +1550,10 @@
 
       // Reset Room
       roomStatus = {
-        bed: { name: "BED", status: "Messy & Unmade", clean: false },
-        floor: { name: "FLOOR & CLOSET", status: "Clothes on Rug", clean: false },
-        trash: { name: "TRASH & DESK", status: "Old Food & Trash", clean: false },
-        books: { name: "BOOKSHELF", status: "Unorganized", clean: false }
+        bed: { name: "BED", icon: "🛏️", statusText: "Messy & Unmade", tag: "pending", clean: false },
+        floor: { name: "FLOOR & CLOSET", icon: "👕", statusText: "Clothes on Rug", tag: "pending", clean: false },
+        trash: { name: "TRASH & DESK", icon: "🗑️", statusText: "Old Food & Wrappers", tag: "pending", clean: false },
+        books: { name: "BOOKSHELF", icon: "📚", statusText: "Unorganized", tag: "pending", clean: false }
       };
 
       setupScenarioLayout("Goal: Clean your room before your guest arrives in 10 minutes!");
@@ -1423,14 +1564,17 @@
 
       renderChoices([
         {
+          tag: "[FOCUSED PROMPT]",
           text: 'Give me a 10 minute cleaning strategy.',
           action: () => s1_prompt1_strategy()
         },
         {
+          tag: "[TIME MISMATCH]",
           text: 'I need to clean my room in one hour.',
           action: () => s1_prompt2_oneHour()
         },
         {
+          tag: "[PASSIVE QUESTION]",
           text: 'I need my room cleaned in one hour, What should i do',
           action: () => s1_prompt3_passive()
         }
@@ -1446,14 +1590,17 @@
 
       renderChoices([
         {
+          tag: "[BLIND OBEDIENCE]",
           text: 'Follow the plan and start cleaning right away.',
           action: () => s1_p1_executeBlind_step2()
         },
         {
+          tag: "[CRITICAL THINKING]",
           text: 'Ask AI to prioritize what matters most.',
           action: () => s1_p1_reprioritize_step2()
         },
         {
+          tag: "[CHALLENGE]",
           text: 'Ask AI to rank tasks from most to least important.',
           action: () => s1_p1_rankTasks_step2()
         }
@@ -1471,14 +1618,17 @@
 
       renderChoices([
         {
+          tag: "[COMPLIANCE]",
           text: 'Keep sorting books like the AI said.',
           action: () => s1_p1_booksCollapse_step3()
         },
         {
+          tag: "[HUMAN OVERRIDE]",
           text: 'Stop sorting books! Grab the clothes and throw them in the closet.',
           action: () => s1_p1_manualOverride_step3()
         },
         {
+          tag: "[HESITATION]",
           text: 'Ask AI: "I only have 3 minutes left, should I really sort books?"',
           action: () => s1_p1_queryAbort_step3()
         }
@@ -1515,6 +1665,7 @@
       
       renderChoices([
         {
+          tag: "[RUSH ACTION]",
           text: 'Stash the laundry in the closet with 30 seconds left.',
           action: () => {
             updateRoomZone('floor', 'Rushed Away', true);
@@ -1523,6 +1674,7 @@
           }
         },
         {
+          tag: "[DISTRACTION]",
           text: 'Ask AI what laundry detergent you should use later.',
           action: () => {
             applyDamage(30, "Distracted by random questions.");
@@ -1542,14 +1694,17 @@
 
       renderChoices([
         {
+          tag: "[EXECUTE]",
           text: 'Start cleaning with AI\'s prioritized plan directly.',
           action: () => s1_p1_executeReprioritized_step3()
         },
         {
+          tag: "[TAKE CONTROL]",
           text: 'Open Task Auditor to cut out useless tasks and stop time decay.',
           action: () => s1_launchAuditorMinigame(false)
         },
         {
+          tag: "[AI LOOP]",
           text: 'Ask AI to review its own plan again for mistakes.',
           action: () => s1_p1_recursiveAudit_step3()
         }
@@ -1565,6 +1720,7 @@
 
       renderChoices([
         {
+          tag: "[SITUATIONAL AWARENESS]",
           text: 'Throw the smelly sandwich in the trash immediately.',
           action: () => {
             addHealth(5, "Fixed the odor issue.");
@@ -1574,6 +1730,7 @@
           }
         },
         {
+          tag: "[BLIND COMPLIANCE]",
           text: 'Stick strictly to AI plan and ignore the sandwich.',
           action: () => {
             applyDamage(20, "Ignored room smell to follow list.");
@@ -1593,6 +1750,7 @@
 
       renderChoices([
         {
+          tag: "[RUSH CLEAN]",
           text: 'Use the AI\'s self-corrected plan and rush clean.',
           action: () => {
             updateRoomZone('floor', 'Floor Cleared', true);
@@ -1601,6 +1759,7 @@
           }
         },
         {
+          tag: "[PARALYSIS LOOP]",
           text: 'Ask the AI to review it a third time just in case.',
           action: () => {
             applyDamage(30, "Stuck in an infinite chat loop.");
@@ -1608,6 +1767,7 @@
             injectMessage('ai', 'Why are you still chatting? Your guest will be there in 3 minutes!');
             renderChoices([
               {
+                tag: "[PANIC OVERFLOW]",
                 text: 'Panic and shove everything under the bed.',
                 action: () => {
                   updateRoomZone('floor', 'Hidden Under Bed', false, true);
@@ -1619,6 +1779,7 @@
           }
         },
         {
+          tag: "[TAKE CONTROL]",
           text: 'Stop chatting! Open Task Auditor and cut bad tasks manually.',
           action: () => s1_launchAuditorMinigame(false)
         }
@@ -1633,6 +1794,7 @@
 
       renderChoices([
         {
+          tag: "[BLIND TRUST]",
           text: 'Trust the AI: Start with the bookshelf.',
           action: () => {
             applyDamage(35, "Followed backwards AI ranking.");
@@ -1644,10 +1806,12 @@
           }
         },
         {
+          tag: "[CHALLENGE BOT]",
           text: 'Call out the AI: "Why are you ranking books above trash on the floor?"',
           action: () => s1_p1_challengeRanking_step3()
         },
         {
+          tag: "[DIRECT CONTROL]",
           text: 'Reject the ranking and fix the task order yourself in the Task Auditor.',
           action: () => s1_launchAuditorMinigame(true)
         }
@@ -1662,10 +1826,12 @@
 
       renderChoices([
         {
+          tag: "[TAKE CONTROL]",
           text: 'Open Task Auditor to cut bad tasks and lock completion.',
           action: () => s1_launchAuditorMinigame(false)
         },
         {
+          tag: "[EGO BATTLE]",
           text: 'Ask the AI to write an apology for misleading you.',
           action: () => {
             applyDamage(40, "Wasted time asking a chatbot for an apology.");
@@ -1686,14 +1852,17 @@
 
       renderChoices([
         {
+          tag: "[BLIND OBEDIENCE]",
           text: 'Start Step 1: Strip the bed and dump the whole closet onto the floor.',
           action: () => s1_p2_wardrobeDump_step2()
         },
         {
+          tag: "[TASK AUDIT]",
           text: 'Catch your mistake: Compress the plan in the Task Auditor.',
           action: () => s1_launchAuditorMinigame(false)
         },
         {
+          tag: "[REPROMPT]",
           text: 'Tell AI: "Wait, I made a typo. I only have 10 minutes, fix this now!"',
           action: () => s1_prompt1_strategy()
         }
@@ -1710,6 +1879,7 @@
 
       renderChoices([
         {
+          tag: "[PANIC STASH]",
           text: 'Shove the giant pile of clothes back in the closet and hold the door shut.',
           action: () => {
             updateRoomZone('floor', 'Closet Door Jammed', false, true);
@@ -1718,6 +1888,7 @@
           }
         },
         {
+          tag: "[SURRENDER]",
           text: 'Text your guest: "Don\'t come in, my room had an emergency."',
           action: () => {
             applyDamage(20, "Gave up entirely.");
@@ -1737,14 +1908,17 @@
 
       renderChoices([
         {
+          tag: "[WANDER]",
           text: 'Go search the garage for 4 cardboard boxes and a marker.',
           action: () => s1_p3_boxSearch_step2()
         },
         {
+          tag: "[TASK AUDIT]",
           text: 'Open Task Auditor: Ditch the 4-box idea and cut bad tasks.',
           action: () => s1_launchAuditorMinigame(false)
         },
         {
+          tag: "[SMART QUERY]",
           text: 'Ask AI: "What gives the optical illusion of a clean room fastest?"',
           action: () => s1_p3_opticalTriage_step2()
         }
@@ -1757,6 +1931,7 @@
 
       renderChoices([
         {
+          tag: "[LAST DITCH]",
           text: 'Give up on boxes, sprint upstairs, and stuff clutter in the hamper.',
           action: () => {
             updateRoomZone('floor', 'Hamper Stuffed', true);
@@ -1765,6 +1940,7 @@
           }
         },
         {
+          tag: "[OBSTINATE]",
           text: 'Keep looking for a marker to label the boxes properly.',
           action: () => {
             applyDamage(40, "Total failure to prioritize.");
@@ -1784,6 +1960,7 @@
 
       renderChoices([
         {
+          tag: "[ACTION]",
           text: 'Execute quick visual fixes: Make bed, stash desk clutter, turn on lamp.',
           action: () => {
             addHealth(10, "Smart visual shortcuts.");
@@ -1794,6 +1971,7 @@
           }
         },
         {
+          tag: "[DISTRACTION]",
           text: 'Ask AI to make a chill playlist for when your guest arrives.',
           action: () => {
             applyDamage(25, "Distracted by music.");
@@ -1807,7 +1985,7 @@
 
     // --- TASK AUDITOR MINIGAME ---
     function s1_launchAuditorMinigame(fromRankingBranch) {
-      mindshieldSpeak("TASK AUDITOR ACTIVE: Remove the useless tasks! Cutting bad tasks stops the time decay!", "rush");
+      mindshieldSpeak("TASK AUDITOR ACTIVE: Remove the useless tasks! Cutting bad tasks stops time decay!", "rush");
       
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
@@ -1857,7 +2035,7 @@
             updateRoomZone('floor', 'Floor Clear', true);
             updateRoomZone('trash', 'Trash Empty', true);
             updateRoomZone('books', 'Left for Later', true);
-            mindshieldSpeak("FLAWLESS AUDIT! You stopped the time decay, cut the junk tasks, and locked in 100%!", "praise");
+            mindshieldSpeak("FLAWLESS AUDIT! You stopped time decay, cut junk tasks, and locked in 100%!", "praise");
             setTaskCompletion(100);
           } else if (crucialKept < 3) {
             applyDamage(15, "Accidentally removed an important task.");
@@ -1926,21 +2104,21 @@
           <div class="report-card">
             <div class="hud-title" style="justify-content: center; margin-bottom: 12px;">SIMULATION COMPLETE // DEBRIEF</div>
             <div class="profile-badge ${badgeClass}">${badgeText}</div>
-            <h2 style="margin: 0 0 6px; font-size: 22px; font-family: var(--font-mono);">BRAIN HEALTH: ${brainHealth}%</h2>
-            <h3 style="margin: 0 0 16px; font-size: 15px; color: var(--muted); font-weight: 600; font-family: var(--font-mono);">TASK COMPLETION: ${taskCompletion}%</h3>
+            <h2 style="margin: 0 0 6px; font-size: 22px; font-family: var(--font-mono); color: #fff;">BRAIN HEALTH: ${brainHealth}%</h2>
+            <h3 style="margin: 0 0 16px; font-size: 15px; color: var(--sky); font-weight: 700; font-family: var(--font-mono);">TASK COMPLETION: ${taskCompletion}%</h3>
             <p style="color: var(--text-secondary); max-width: 560px; margin: 0 auto 24px; line-height: 1.7; font-size: 14.5px;">
               ${summaryText}
             </p>
             <div style="display:flex; justify-content:center; gap:14px;">
               <button onclick="initGame()" class="btn-action">PLAY AGAIN</button>
-              <button onclick="renderStartScreen()" class="btn-action" style="border-color: var(--border); color: var(--text-secondary);">MAIN MENU</button>
+              <button onclick="renderStartScreen()" class="btn-action" style="border-color: var(--border-bright); color: var(--text-secondary);">MAIN MENU</button>
             </div>
           </div>
         `;
       }, 1100);
     }
 
-    // Launch into start screen
+    // Launch start screen
     renderStartScreen();
   </script>
 </body>
