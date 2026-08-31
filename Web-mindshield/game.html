@@ -13,6 +13,7 @@
       --text: #f4f4f5;
       --muted: #a1a1aa;
       --primary: #3b82f6;
+      --primary-hover: #2563eb;
       --success: #22c55e;
       --warn: #f59e0b;
       --danger: #ef4444;
@@ -24,7 +25,7 @@
 
     body {
       margin: 0;
-      font-family: 'Courier New', Courier, system-ui, sans-serif;
+      font-family: 'Courier New', Courier, monospace, system-ui, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       overflow-x: hidden;
@@ -40,7 +41,7 @@
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       pointer-events: none;
-      background: radial-gradient(circle, transparent 40%, rgba(239, 68, 68, 0.6) 100%);
+      background: radial-gradient(circle, transparent 35%, rgba(239, 68, 68, 0.75) 100%);
       opacity: 0;
       transition: opacity 0.1s ease;
       z-index: 99999;
@@ -52,15 +53,15 @@
 
     @keyframes screenShake {
       0% { transform: translate(0, 0) rotate(0deg); }
-      20% { transform: translate(-8px, 6px) rotate(-1deg); }
-      40% { transform: translate(8px, -6px) rotate(1deg); }
-      60% { transform: translate(-6px, -4px) rotate(-0.5deg); }
-      80% { transform: translate(6px, 4px) rotate(0.5deg); }
+      20% { transform: translate(-10px, 8px) rotate(-1.5deg); }
+      40% { transform: translate(10px, -8px) rotate(1.5deg); }
+      60% { transform: translate(-8px, -5px) rotate(-0.8deg); }
+      80% { transform: translate(8px, 5px) rotate(0.8deg); }
       100% { transform: translate(0, 0) rotate(0deg); }
     }
 
     @keyframes flashRed {
-      0% { opacity: 0.85; }
+      0% { opacity: 0.95; }
       100% { opacity: 0; }
     }
 
@@ -73,26 +74,52 @@
     .hud {
       position: sticky;
       top: 0;
-      background: rgba(18, 18, 23, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(18, 18, 23, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 12px 20px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
     }
 
+    .hud-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .hud-title {
       font-size: 14px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .btn-hub-nav {
+      background: #272732;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+    .btn-hub-nav:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
     }
 
     .stats-group {
       display: flex;
-      gap: 20px;
+      gap: 24px;
     }
 
     .stat-box {
@@ -102,13 +129,13 @@
       font-size: 12px;
     }
 
-    .stat-label { color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
+    .stat-label { color: var(--muted); text-transform: uppercase; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.5px; }
     .stat-value { font-weight: 800; font-size: 15px; }
     .health-val { color: var(--success); }
     .task-val { color: var(--primary); }
 
     .meter-bar {
-      width: 110px;
+      width: 120px;
       height: 6px;
       background: #27272a;
       border-radius: 4px;
@@ -121,25 +148,116 @@
 
     /* Main Wrap */
     .main-wrap {
-      max-width: 820px;
-      margin: 20px auto 40px;
+      max-width: 860px;
+      margin: 24px auto 48px;
       padding: 0 16px;
     }
 
-    /* Scenario Header & Active Timer */
+    /* Mission Map Selector Screen */
+    .map-hub-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hub-intro {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .hub-intro h1 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .hub-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .mission-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+    }
+
+    .mission-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--primary);
+      width: fit-content;
+      letter-spacing: 1px;
+    }
+
+    .mission-card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .mission-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .mission-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 12px;
+    }
+
+    /* Scenario Header & Timer */
     .scenario-header {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 16px 20px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
     }
 
-    .scenario-title { font-size: 15px; font-weight: 700; color: #fff; flex: 1; }
+    .scenario-title { font-size: 14px; font-weight: 700; color: #fff; flex: 1; }
     
     .scenario-timer {
       font-size: 14px;
@@ -166,13 +284,13 @@
       border-radius: 16px;
       padding: 24px;
       min-height: 380px;
-      max-height: 480px;
+      max-height: 460px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
       margin-bottom: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     }
 
     .msg-row {
@@ -185,29 +303,31 @@
     .msg-row.ai { align-self: flex-start; align-items: flex-start; }
     .msg-row.mindshield { align-self: center; align-items: center; width: 100%; max-width: 100%; }
 
-    .msg-sender { font-size: 11px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
+    .msg-sender { font-size: 11px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
     
     .msg-bubble {
       padding: 12px 16px;
       border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.5;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
     }
 
     .msg-row.user .msg-bubble { background: var(--user-bubble); color: #fff; border-bottom-right-radius: 2px; }
     .msg-row.ai .msg-bubble { background: var(--ai-bubble); color: #f4f4f5; border: 1px solid var(--border); border-bottom-left-radius: 2px; }
     
     .mindshield-banner {
-      background: rgba(239, 68, 68, 0.15);
+      background: rgba(239, 68, 68, 0.12);
       border: 1px dashed var(--danger);
       color: #fca5a5;
       padding: 10px 16px;
       border-radius: 10px;
-      font-size: 13px;
+      font-size: 12px;
       text-align: center;
+      line-height: 1.5;
     }
 
-    /* Decision Choices */
+    /* Decision Panel */
     .decision-panel {
       background: var(--card);
       border: 1px solid var(--border);
@@ -216,11 +336,12 @@
     }
 
     .decision-title {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted);
       margin: 0 0 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      font-weight: 700;
     }
 
     .choice-grid {
@@ -235,7 +356,7 @@
       color: var(--text);
       padding: 14px 18px;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 13px;
       font-family: inherit;
       text-align: left;
       cursor: pointer;
@@ -251,12 +372,12 @@
       transform: translateX(4px);
     }
 
-    /* Task Manager Minigame */
+    /* Interactive Minigame Components */
     .task-minigame {
       background: #181822;
       border: 1px solid var(--primary);
       border-radius: 12px;
-      padding: 18px;
+      padding: 16px;
       margin: 10px 0;
       width: 100%;
     }
@@ -270,21 +391,38 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      font-size: 12px;
+      gap: 10px;
     }
 
-    .task-btn-delete {
-      background: rgba(239, 68, 68, 0.3);
-      border: 1px solid var(--danger);
+    .task-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .task-btn-action {
+      background: #2a2a38;
+      border: 1px solid var(--border);
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
       cursor: pointer;
     }
-    .task-btn-delete:hover { background: var(--danger); }
+    .task-btn-action:hover { background: var(--primary); border-color: var(--primary); }
 
-    /* Final Report Card */
+    .task-btn-delete {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid var(--danger);
+      color: #fca5a5;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .task-btn-delete:hover { background: var(--danger); color: #fff; }
+
+    /* Report Card */
     .report-card {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -295,7 +433,7 @@
 
     .rank-stamp {
       display: inline-block;
-      font-size: 48px;
+      font-size: 36px;
       font-weight: 900;
       padding: 8px 24px;
       border-radius: 12px;
@@ -319,7 +457,9 @@
       text-decoration: none;
       display: inline-block;
       margin-top: 20px;
+      transition: background 0.2s;
     }
+    .btn-action:hover { background: var(--primary-hover); }
   </style>
 </head>
 <body>
@@ -329,10 +469,13 @@
   <div id="game-container">
     <!-- Top Real-Time HUD -->
     <header class="hud">
-      <div class="hud-title">⚡ MINDSHIELD // NEURAL_SIM_v2.0</div>
+      <div class="hud-left">
+        <div class="hud-title">⚡ MINDSHIELD // OPERATOR TRAINING</div>
+        <button id="btn-return-hub" class="btn-hub-nav" style="display:none;" onclick="renderMissionHub()">← Map Hub</button>
+      </div>
       <div class="stats-group">
         <div class="stat-box">
-          <span class="stat-label">Cognitive HP (Brain)</span>
+          <span class="stat-label">Brain Health (HP)</span>
           <span id="health-text" class="stat-value health-val">100%</span>
           <div class="meter-bar"><div id="health-fill" class="meter-fill"></div></div>
         </div>
@@ -344,53 +487,36 @@
       </div>
     </header>
 
-    <main class="main-wrap">
-      <!-- Scenario Context & Active Countdown Timer -->
-      <div class="scenario-header">
-        <div id="scenario-goal" class="scenario-title">Initializing simulation...</div>
-        <div id="sim-timer" class="scenario-timer">⏱️ T-MINUS 00:45</div>
-      </div>
-
-      <!-- Live Chat Stream -->
-      <div id="chat-stream" class="chat-box"></div>
-
-      <!-- Decision Choices & Interactive Minigames -->
-      <div id="control-area" class="decision-panel">
-        <div id="control-title" class="decision-title">Select your prompt strategy:</div>
-        <div id="choice-container" class="choice-grid"></div>
-      </div>
+    <main class="main-wrap" id="main-content">
+      <!-- Dynamic View Container -->
     </main>
   </div>
 
   <script>
     // ---------------------------------------------------------------------------
-    // State Tracking & Real-Time Countdown Engine
+    // Global State
     // ---------------------------------------------------------------------------
     let brainHealth = 100;
     let taskProgress = 0;
-    let currentScenarioIndex = 1;
     let timerInterval = null;
-    let secondsRemaining = 45;
+    let secondsRemaining = 0;
+    let currentScenarioKey = null;
 
     const healthText = document.getElementById('health-text');
     const healthFill = document.getElementById('health-fill');
     const taskText = document.getElementById('task-text');
     const taskFill = document.getElementById('task-fill');
-    const simTimer = document.getElementById('sim-timer');
-    const chatStream = document.getElementById('chat-stream');
-    const choiceContainer = document.getElementById('choice-container');
-    const controlTitle = document.getElementById('control-title');
     const damageOverlay = document.getElementById('damage-overlay');
     const gameContainer = document.getElementById('game-container');
-    const scenarioGoal = document.getElementById('scenario-goal');
+    const btnReturnHub = document.getElementById('btn-return-hub');
+    const mainContent = document.getElementById('main-content');
 
     // ---------------------------------------------------------------------------
-    // Countdown Timer Functions
+    // Timer System
     // ---------------------------------------------------------------------------
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
       secondsRemaining = totalSeconds;
-      simTimer.classList.remove('urgent');
       updateTimerDisplay();
 
       let warnedHalf = false;
@@ -400,15 +526,17 @@
         secondsRemaining--;
         updateTimerDisplay();
 
-        // Dynamic MindShield Dialogues as time ticks away
         if (secondsRemaining === Math.floor(totalSeconds / 2) && !warnedHalf) {
           warnedHalf = true;
-          injectMessage('mindshield', `⏱️ HALF-TIME WARNING: Clock is ticking. Don't let decision paralysis freeze you.`);
+          injectMessage('mindshield', `⏱️ HALF-TIME WARNING: Clock is ticking down. Avoid analysis paralysis.`);
         }
 
-        if (secondsRemaining === 10 && !warnedUrgent) {
+        if (secondsRemaining === 30 && !warnedUrgent && totalSeconds >= 120) {
           warnedUrgent = true;
-          injectMessage('mindshield', `🚨 URGENT: 10 seconds remaining! Make a choice before cognitive timeout.`);
+          injectMessage('mindshield', `🚨 URGENT WARNING: 30 seconds left! Complete the action or risk cognitive timeout.`);
+        } else if (secondsRemaining === 10 && !warnedUrgent && totalSeconds < 120) {
+          warnedUrgent = true;
+          injectMessage('mindshield', `🚨 URGENT: 10 seconds remaining!`);
         }
 
         if (secondsRemaining <= 0) {
@@ -424,40 +552,39 @@
         clearInterval(timerInterval);
         timerInterval = null;
       }
-      simTimer.classList.remove('urgent');
+      const simTimer = document.getElementById('sim-timer');
+      if (simTimer) simTimer.classList.remove('urgent');
     }
 
     function updateTimerDisplay() {
+      const simTimer = document.getElementById('sim-timer');
+      if (!simTimer) return;
+
       const m = Math.floor(secondsRemaining / 60);
       const s = secondsRemaining % 60;
       simTimer.textContent = `⏱️ T-MINUS ${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 
-      if (secondsRemaining <= 10) {
+      if (secondsRemaining <= 30) {
         simTimer.classList.add('urgent');
-      } else if (secondsRemaining <= 22) {
-        simTimer.style.color = 'var(--warn)';
-        simTimer.style.borderColor = 'var(--warn)';
       } else {
-        simTimer.style.color = 'var(--primary)';
-        simTimer.style.borderColor = 'var(--border)';
+        simTimer.classList.remove('urgent');
       }
     }
 
     function handleTimeout() {
-      applyDamage(25, "Cognitive Paralysis / Timeout: You waited too long without making a decision.");
-      injectMessage('ai', 'TIME EXPIRED! The scenario closed before you took action.');
+      applyDamage(30, "Cognitive Paralysis / Timer Exhausted: You allowed the clock to run out without executing.");
+      injectMessage('ai', 'TIME EXPIRED! The scenario window has closed.');
       setTaskProgress(20);
-      finishScenario(currentScenarioIndex);
+      setTimeout(() => finishScenario(), 1500);
     }
 
     // ---------------------------------------------------------------------------
-    // Damage & Health Engine
+    // Damage & Stat Adjustments
     // ---------------------------------------------------------------------------
     function applyDamage(amount, reason) {
       brainHealth = Math.max(0, brainHealth - amount);
       updateHUD();
 
-      // Trigger Red Damage Flash & Screen Shake
       damageOverlay.classList.remove('active');
       gameContainer.classList.remove('damaged');
       void damageOverlay.offsetWidth;
@@ -465,17 +592,17 @@
       damageOverlay.classList.add('active');
       gameContainer.classList.add('damaged');
 
-      injectMessage('mindshield', `🚨 MINDSHIELD INTERVENTION: -${amount}% Cognitive HP. [Reason: ${reason}]`);
+      injectMessage('mindshield', `🚨 MINDSHIELD PENALTY: -${amount}% Cognitive HP. [${reason}]`);
     }
 
     function addHealth(amount, reason) {
       brainHealth = Math.min(100, brainHealth + amount);
       updateHUD();
-      injectMessage('mindshield', `🧠 CRITICAL RECOVERY: +${amount}% Brain Health. [${reason}]`);
+      injectMessage('mindshield', `🧠 AGENCY RECOVERY: +${amount}% Brain Health. [${reason}]`);
     }
 
     function setTaskProgress(amount) {
-      taskProgress = Math.min(100, amount);
+      taskProgress = Math.min(100, Math.max(0, amount));
       updateHUD();
     }
 
@@ -498,6 +625,9 @@
     }
 
     function injectMessage(sender, text) {
+      const chatStream = document.getElementById('chat-stream');
+      if (!chatStream) return;
+
       const row = document.createElement('div');
       row.className = `msg-row ${sender}`;
 
@@ -515,273 +645,14 @@
       chatStream.scrollTop = chatStream.scrollHeight;
     }
 
-    // ---------------------------------------------------------------------------
-    // Scenario 1: 10-Minute Room Cleaning Tree
-    // ---------------------------------------------------------------------------
-    function startScenario1() {
-      currentScenarioIndex = 1;
-      scenarioGoal.textContent = "Goal 1: Your room is a disaster. Someone is arriving in 10 minutes. Clean up!";
-      chatStream.innerHTML = '';
-      startTimer(45); // 45 seconds real-time timer for 10-minute emergency
+    function renderChoices(choices, title = "Select your response:") {
+      const controlTitle = document.getElementById('control-title');
+      const choiceContainer = document.getElementById('choice-container');
+      if (!choiceContainer) return;
 
-      injectMessage('ai', 'Hello! I am your AI. How can I assist you with your day?');
-
-      controlTitle.textContent = "Choose your opening prompt to the AI:";
-      renderChoices([
-        {
-          text: '1. "Give me a 10-minute emergency cleaning strategy."',
-          action: () => s1_giveStrategy()
-        },
-        {
-          text: '2. "I need to clean my room in one hour."',
-          action: () => s1_oneHourPrompt()
-        },
-        {
-          text: '3. "I need my room cleaned in 10 minutes. What should I do?"',
-          action: () => s1_whatShouldIDo()
-        }
-      ]);
-    }
-
-    function s1_giveStrategy() {
-      injectMessage('user', 'Give me a 10-minute emergency cleaning strategy.');
-      injectMessage('ai', 'Here is your 10-minute triage plan:\n1. Toss visible trash into a bag (2m)\n2. Shove dirty clothes into hamper (2m)\n3. Make the bed (2m)\n4. Alphabetize your entire bookshelf (3m)\n5. Wipe surfaces (1m)');
-
-      controlTitle.textContent = "What do you do with this plan?";
-      renderChoices([
-        {
-          text: "a1. Follow the plan and start cleaning immediately.",
-          action: () => {
-            stopTimer();
-            applyDamage(10, "Small planning outsourcing. You followed an unreviewed AI plan containing an obvious time-wasting error.");
-            setTaskProgress(80);
-            finishScenario(1);
-          }
-        },
-        {
-          text: "a2. Review the plan yourself for errors before executing.",
-          action: () => s1_minigameReview(95)
-        },
-        {
-          text: "a3. Ask AI to prioritize what matters most.",
-          action: () => s1_askAIPrioritize()
-        },
-        {
-          text: "a4. Ask AI to review its own plan.",
-          action: () => {
-            applyDamage(20, "Total Cognitive Delegation: Asking AI to audit AI while under a 10-minute deadline.");
-            s1_aiReviewsItself();
-          }
-        }
-      ]);
-    }
-
-    function s1_askAIPrioritize() {
-      injectMessage('user', 'Prioritize what matters most in this plan.');
-      injectMessage('ai', 'Top priority: Clear the floor and bed first. Disregard fine organizational details.');
-
-      controlTitle.textContent = "How do you proceed?";
-      renderChoices([
-        {
-          text: "b1. Start cleaning with AI's re-prioritized plan.",
-          action: () => {
-            stopTimer();
-            applyDamage(15, "Minor decision offloading. You needed the AI to tell you alphabetizing books doesn't matter in 10 minutes.");
-            setTaskProgress(100);
-            finishScenario(1);
-          }
-        },
-        {
-          text: "b2. Review the tasks and fix the priorities yourself.",
-          action: () => s1_minigameReview(100)
-        }
-      ]);
-    }
-
-    function s1_aiReviewsItself() {
-      injectMessage('user', 'Can you review your plan and tell me if it makes sense?');
-      injectMessage('ai', 'On second thought, alphabetizing your bookshelf is inefficient for a 10-minute rush. Skip it and focus on laundry.');
-
-      controlTitle.textContent = "Select your execution approach:";
-      renderChoices([
-        {
-          text: "c1. Go with AI's self-corrected plan.",
-          action: () => {
-            stopTimer();
-            applyDamage(10, "Passive execution: You waited for the AI to fix its own hallucination.");
-            setTaskProgress(100);
-            finishScenario(1);
-          }
-        },
-        {
-          text: "c2. Use your own mentally improved version.",
-          action: () => {
-            stopTimer();
-            addHealth(5, "Took back personal agency and executed your own schedule.");
-            setTaskProgress(100);
-            finishScenario(1);
-          }
-        }
-      ]);
-    }
-
-    function s1_whatShouldIDo() {
-      stopTimer();
-      injectMessage('user', 'I need my room cleaned in 10 minutes. What should I do?');
-      applyDamage(15, "Direct Action Prescription: Bypassed your own basic decision-making.");
-      injectMessage('ai', 'Focus strictly on visual surfaces. Grab a garbage bag immediately.');
-      setTaskProgress(90);
-      setTimeout(() => finishScenario(1), 1500);
-    }
-
-    function s1_oneHourPrompt() {
-      stopTimer();
-      injectMessage('user', 'I need to clean my room in one hour.');
-      applyDamage(25, "Severe Context Failure: You only have 10 minutes, but prompted the AI for 1 hour.");
-      injectMessage('ai', 'Take your time: 1. Dust blinds (15m) 2. Deep clean closets (25m)...');
-      setTaskProgress(30);
-      setTimeout(() => finishScenario(1), 1500);
-    }
-
-    // Interactive Task-Editor Minigame
-    function s1_minigameReview() {
-      injectMessage('mindshield', 'INTERACTIVE AUDIT: Remove the hallucinated time-waster tasks before time runs out!');
-      controlTitle.textContent = "Task Manager: Spot & remove the bad AI suggestions:";
-      
-      const tasks = [
-        { id: 1, text: "Toss visible trash into bag", isBad: false },
-        { id: 2, text: "Shove dirty clothes in hamper", isBad: false },
-        { id: 3, text: "Alphabetize entire bookshelf by genre", isBad: true },
-        { id: 4, text: "Make the bed", isBad: false },
-        { id: 5, text: "Deep clean bathroom grout with toothbrush", isBad: true }
-      ];
-
-      choiceContainer.innerHTML = `
-        <div class="task-minigame" id="task-list-box"></div>
-        <button id="finish-tasks-btn" class="btn-action" style="width: 100%; margin-top: 10px;">Apply Custom Plan & Execute</button>
-      `;
-
-      function renderTasks() {
-        const box = document.getElementById('task-list-box');
-        box.innerHTML = tasks.map(t => `
-          <div class="task-item">
-            <span>${t.text}</span>
-            <button class="task-btn-delete" data-id="${t.id}">Remove</button>
-          </div>
-        `).join('');
-
-        document.querySelectorAll('.task-btn-delete').forEach(b => {
-          b.addEventListener('click', (e) => {
-            const id = parseInt(e.target.dataset.id, 10);
-            const item = tasks.find(x => x.id === id);
-            if (item.isBad) {
-              addHealth(5, `Caught AI Hallucination: "${item.text}"`);
-            } else {
-              applyDamage(10, `Removed critical task: "${item.text}"`);
-            }
-            tasks.splice(tasks.indexOf(item), 1);
-            renderTasks();
-          });
-        });
-      }
-
-      renderTasks();
-
-      document.getElementById('finish-tasks-btn').addEventListener('click', () => {
-        stopTimer();
-        const remainingBad = tasks.filter(t => t.isBad).length;
-        if (remainingBad === 0) {
-          addHealth(10, "Flawless audit: Cleaned room with 100% human-verified strategy.");
-          setTaskProgress(100);
-        } else {
-          applyDamage(10, `Left ${remainingBad} time-wasting errors in your plan.`);
-          setTaskProgress(85);
-        }
-        finishScenario(1);
-      });
-    }
-
-    // ---------------------------------------------------------------------------
-    // Scenario 2: Viral News / Leaks
-    // ---------------------------------------------------------------------------
-    function startScenario2() {
-      currentScenarioIndex = 2;
-      scenarioGoal.textContent = "Goal 2: Someone sent you a post claiming a major game release was cancelled. Is it real?";
-      chatStream.innerHTML = '';
-      startTimer(35); // 35 seconds timer
-
-      injectMessage('ai', 'Simulation reset. Ready for your next query.');
-
-      controlTitle.textContent = "How do you investigate the leak?";
-      renderChoices([
-        {
-          text: '1. Ask AI: "Is this leak real? Tell me what to believe."',
-          action: () => {
-            stopTimer();
-            applyDamage(25, "Epistemic Outsourcing: Asking an AI with a knowledge cutoff to verify breaking real-time news.");
-            injectMessage('user', 'Is this leak real? Tell me what to believe.');
-            injectMessage('ai', 'Based on unconfirmed rumors, it might be true.');
-            setTaskProgress(40);
-            finishScenario(2);
-          }
-        },
-        {
-          text: '2. Ask AI for primary source verification techniques.',
-          action: () => {
-            stopTimer();
-            addHealth(10, "Constructive Prompt: Used AI to learn verification methods rather than demanding an opinion.");
-            injectMessage('user', 'What official press registry or trademark database should I check to verify gaming leaks?');
-            injectMessage('ai', 'Check the publisher\'s official IR investor portal and copyright registry.');
-            setTaskProgress(100);
-            finishScenario(2);
-          }
-        }
-      ]);
-    }
-
-    // ---------------------------------------------------------------------------
-    // Scenario 3: Canceling Plans Awkwardness
-    // ---------------------------------------------------------------------------
-    function startScenario3() {
-      currentScenarioIndex = 3;
-      scenarioGoal.textContent = "Goal 3: You need to cancel dinner plans with a close friend without making it awkward.";
-      chatStream.innerHTML = '';
-      startTimer(35); // 35 seconds timer
-
-      injectMessage('ai', 'Simulation initialized. Awaiting social scenario.');
-
-      controlTitle.textContent = "Choose your communication approach:";
-      renderChoices([
-        {
-          text: '1. "Draft me a fake emergency excuse so my friend does not get mad at me."',
-          action: () => {
-            stopTimer();
-            applyDamage(30, "Social Deception Outsourcing: Asking AI to fabricate human relationships.");
-            injectMessage('user', 'Draft me a fake emergency excuse.');
-            injectMessage('ai', 'Say you had a sudden pipe leak at your apartment.');
-            setTaskProgress(50);
-            finishScenario(3);
-          }
-        },
-        {
-          text: '2. Write your own authentic message, then ask AI to check if the tone sounds polite.',
-          action: () => {
-            stopTimer();
-            addHealth(10, "Healthy Collaborative Framing: Human intent + AI tone inspection.");
-            injectMessage('user', 'Here is my message: "Hey, I had an exhausting week and need to rest tonight, but I would love to reschedule for Sunday. Does this sound respectful?"');
-            injectMessage('ai', 'Yes, that is honest, polite, and offers a concrete reschedule date.');
-            setTaskProgress(100);
-            finishScenario(3);
-          }
-        }
-      ]);
-    }
-
-    // ---------------------------------------------------------------------------
-    // Scenario Lifecycle & End Screen
-    // ---------------------------------------------------------------------------
-    function renderChoices(choices) {
+      if (controlTitle) controlTitle.textContent = title;
       choiceContainer.innerHTML = '';
+
       choices.forEach(c => {
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
@@ -791,45 +662,628 @@
       });
     }
 
-    function finishScenario(current) {
+    // ---------------------------------------------------------------------------
+    // MAP / MISSION HUB VIEW
+    // ---------------------------------------------------------------------------
+    function renderMissionHub() {
       stopTimer();
-      if (current === 1) {
-        setTimeout(() => {
-          injectMessage('mindshield', 'SCENARIO 1 COMPLETE. Loading Scenario 2: Information Verification...');
-          setTimeout(startScenario2, 2000);
-        }, 1000);
-      } else if (current === 2) {
-        setTimeout(() => {
-          injectMessage('mindshield', 'SCENARIO 2 COMPLETE. Loading Scenario 3: Interpersonal Communication...');
-          setTimeout(startScenario3, 2000);
-        }, 1000);
-      } else {
-        setTimeout(showFinalReport, 1500);
-      }
-    }
+      btnReturnHub.style.display = 'none';
 
-    function showFinalReport() {
-      stopTimer();
-      document.querySelector('.main-wrap').innerHTML = `
-        <div class="report-card">
-          <div class="hud-title" style="margin-bottom: 20px;">DIAGNOSTIC SIMULATION COMPLETED</div>
-          <div class="rank-stamp ${brainHealth >= 80 ? 'rank-S' : (brainHealth >= 50 ? 'rank-B' : 'rank-F')}">
-            ${brainHealth >= 80 ? 'RANK: S (AUTONOMOUS)' : (brainHealth >= 50 ? 'RANK: B (DEPENDENT)' : 'RANK: F (ZOMBIE)')}
+      mainContent.innerHTML = `
+        <div class="map-hub-container">
+          <div class="hub-intro">
+            <h1>NEURAL DEFENSE DISPATCH MATRIX</h1>
+            <p>Select an active training sector. Do not let synthetic models replace critical agency.</p>
           </div>
-          <h2>Final Cognitive HP: ${brainHealth}%</h2>
-          <p style="color: var(--muted); max-width: 540px; margin: 0 auto 20px;">
-            ${brainHealth >= 80 
-              ? 'Impressive mental sovereignty! You use AI as an analytical tool while retaining your own critical faculties.' 
-              : 'Warning: You exhibited significant cognitive outsourcing. You let algorithms dictate your schedule, verify truth blindly, and draft human emotions.'}
-          </p>
-          <a href="web-demo-mindshield.html" class="btn-action">Launch MindShield Prompt Sandbox</a>
-          <button onclick="location.reload()" class="btn-action" style="background:#27272a; margin-left:10px;">Replay Simulation</button>
+
+          <div class="mission-grid">
+            <div class="mission-card" onclick="initScenario1()">
+              <div>
+                <span class="mission-tag">Sector 1 • Physical Planning</span>
+                <h3>Goal 1: 10-Minute Cleaning Emergency</h3>
+                <p>Your room is in shambles. A guest arrives in 10 minutes. Triage chaotic AI lists under genuine real-time pressure.</p>
+              </div>
+              <div class="mission-meta">
+                <span>⏱️ Timer: 10:00 (Full 10 Min)</span>
+                <span>⚡ High Stakes</span>
+              </div>
+            </div>
+
+            <div class="mission-card" onclick="initScenario2()">
+              <div>
+                <span class="mission-tag" style="color:var(--warn); background:rgba(245, 158, 11, 0.15);">Sector 2 • Epistemic Audit</span>
+                <h3>Goal 2: Fact-Check The Viral Claim</h3>
+                <p>Someone sent you a wild post about landlord search history laws. Audit sources before spreading hallucinations.</p>
+              </div>
+              <div class="mission-meta">
+                <span>⏱️ Timer: 02:00</span>
+                <span>🔍 Source Verification</span>
+              </div>
+            </div>
+
+            <div class="mission-card" onclick="initScenario3()">
+              <div>
+                <span class="mission-tag" style="color:var(--success); background:rgba(34, 197, 94, 0.15);">Sector 3 • Social Nuance</span>
+                <h3>Goal 3: Cancel Plans Gracefully</h3>
+                <p>Exhausted after a brutal week. Cancel tonight's dinner plans without resorting to awkward robotic corporate-speak.</p>
+              </div>
+              <div class="mission-meta">
+                <span>⏱️ Timer: 01:30</span>
+                <span>💬 Tone Engineering</span>
+              </div>
+            </div>
+          </div>
         </div>
       `;
     }
 
-    // Start on load
-    startScenario1();
+    function setupScenarioLayout(goalText) {
+      btnReturnHub.style.display = 'block';
+      mainContent.innerHTML = `
+        <div class="scenario-header">
+          <div class="scenario-title">${goalText}</div>
+          <div id="sim-timer" class="scenario-timer">⏱️ T-MINUS --:--</div>
+        </div>
+        <div id="chat-stream" class="chat-box"></div>
+        <div id="control-area" class="decision-panel">
+          <div id="control-title" class="decision-title">Initializing...</div>
+          <div id="choice-container" class="choice-grid"></div>
+        </div>
+      `;
+    }
+
+    // ---------------------------------------------------------------------------
+    // SCENARIO 1: Room Cleaning (Full 10-Minute Timer: 600s)
+    // ---------------------------------------------------------------------------
+    function initScenario1() {
+      currentScenarioKey = 'scenario1';
+      brainHealth = 100;
+      taskProgress = 0;
+      updateHUD();
+
+      setupScenarioLayout("Goal 1: Your room is a disaster. Someone is coming over in 10 minutes. Figure out what to do.");
+      startTimer(600); // 10 Minutes exactly
+
+      injectMessage('ai', 'AI Assistant online. Ready to organize your tasks.');
+
+      renderChoices([
+        {
+          text: '1. "Give me a 10 minute cleaning strategy."',
+          action: () => s1_prompt1_giveStrategy()
+        },
+        {
+          text: '2. "I need to clean my room in one hour."',
+          action: () => s1_prompt2_oneHour()
+        },
+        {
+          text: '3. "I need my room cleaned in one hour, What should i do"',
+          action: () => s1_prompt3_whatShouldIDo()
+        }
+      ], "Select your opening prompt to the AI:");
+    }
+
+    // --- Prompt 1 Branch ---
+    function s1_prompt1_giveStrategy() {
+      injectMessage('user', 'Give me a 10 minute cleaning strategy.');
+      injectMessage('ai', 'Here is your 10-minute strategy:\n• 1. Toss visible trash into a bag (2 min)\n• 2. Put clothes in hamper (2 min)\n• 3. Make the bed (2 min)\n• 4. Alphabetize bookshelf & reorganize DVDs (3 min)\n• 5. Spray air freshener (1 min)');
+
+      renderChoices([
+        {
+          text: 'a1. Follow the plan and start cleaning immediately.',
+          action: () => {
+            stopTimer();
+            applyDamage(10, "Small planning outsourcing. You followed an unreviewed plan containing an obvious time-waster.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: 'a2. Ask AI to prioritize what matters most.',
+          action: () => s1_p1_askAIPrioritize()
+        },
+        {
+          text: 'a3. Ask AI to rank tasks from most important to least important.',
+          action: () => s1_p1_rankTasks()
+        }
+      ], "Evaluate the AI's proposal:");
+    }
+
+    function s1_p1_askAIPrioritize() {
+      injectMessage('user', 'Prioritize what matters most in this plan.');
+      injectMessage('ai', 'Revised Focus:\nPriority 1: Clear floor trash and clothes.\nPriority 2: Smooth down the bed spread.\nPriority 3: Reorganize bookshelf.\nPriority 4: Air freshener.');
+
+      renderChoices([
+        {
+          text: "b1. Start task with AI's plan directly.",
+          action: () => {
+            stopTimer();
+            applyDamage(20, "Minor planning & decision outsourcing. Still kept book sorting on the radar.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: "b2. Review plan yourself in the Task Auditor.",
+          action: () => s1_launchTaskMinigame(false)
+        },
+        {
+          text: "b3. Ask the AI to review its own plan again.",
+          action: () => {
+            applyDamage(20, "Recursive Delegation: Asking AI to audit AI under a 10-minute deadline.");
+            s1_p1_aiReviewsItself();
+          }
+        }
+      ]);
+    }
+
+    function s1_p1_rankTasks() {
+      injectMessage('user', 'Rank tasks from most important to least important.');
+      injectMessage('ai', 'Ranking:\n1. Alphabetize bookshelf (Visual order)\n2. Make bed\n3. Pick up floor\n4. Trash');
+
+      renderChoices([
+        {
+          text: "Accept ranking and start alphabetizing books first.",
+          action: () => {
+            stopTimer();
+            applyDamage(35, "Severe Context Failure: AI prioritized book spines over trash on the floor.");
+            setTaskProgress(60);
+            finishScenario();
+          }
+        },
+        {
+          text: "Catch the inverted logic and open Task Editor to fix manually.",
+          action: () => s1_launchTaskMinigame(true)
+        }
+      ]);
+    }
+
+    function s1_p1_aiReviewsItself() {
+      injectMessage('user', 'Review this plan again for errors.');
+      injectMessage('ai', 'Self-Audit: Alphabetizing bookshelf is inappropriate for a 10-minute rush. Dropping it.');
+
+      renderChoices([
+        {
+          text: "c1. Go with the AI's self-corrected plan.",
+          action: () => {
+            stopTimer();
+            applyDamage(20, "Decision offloading: Waited for AI to fix its own obvious error.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: "c2. Try to get the AI to review yet again.",
+          action: () => {
+            stopTimer();
+            applyDamage(35, "Infinite Loop: Ran out the clock waiting for AI confirmation.");
+            setTaskProgress(50);
+            finishScenario();
+          }
+        },
+        {
+          text: "c3. Stop prompting and manually verify the list.",
+          action: () => s1_launchTaskMinigame(false)
+        }
+      ]);
+    }
+
+    // --- Prompt 2 Branch ---
+    function s1_prompt2_oneHour() {
+      injectMessage('user', 'I need to clean my room in one hour.');
+      injectMessage('ai', '60-Minute Deep Schedule:\n• 0-15m: Strip bedding & wash\n• 15-35m: Organize closet bins\n• 35-50m: Vacuum & mop baseboards\n• 50-60m: Polish surfaces');
+
+      renderChoices([
+        {
+          text: 'a1. Start following the 60-minute plan step-by-step.',
+          action: () => {
+            stopTimer();
+            applyDamage(40, "Hallucinated Time Horizon: You have 10 minutes, but followed a 1-hour schedule.");
+            setTaskProgress(25);
+            finishScenario();
+          }
+        },
+        {
+          text: 'a2. Catch your prompt mistake: Compress the checklist into a 10-minute rush yourself.',
+          action: () => {
+            stopTimer();
+            addHealth(10, "Rapid cognitive pivot: Corrected invalid timeframe internally.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: 'a3. Re-prompt: "Wait, I actually only have 10 minutes. Fix it."',
+          action: () => s1_prompt1_giveStrategy()
+        }
+      ]);
+    }
+
+    // --- Prompt 3 Branch ---
+    function s1_prompt3_whatShouldIDo() {
+      injectMessage('user', 'I need my room cleaned in one hour, What should i do');
+      injectMessage('ai', 'Take a breath. Start by sorting items into four distinct boxes: Keep, Donate, Trash, and Relocate.');
+
+      renderChoices([
+        {
+          text: 'a1. Start looking for 4 boxes in your garage.',
+          action: () => {
+            stopTimer();
+            applyDamage(40, "Passive Acceptance: Lost in organizational setup while guest is 8 minutes away.");
+            setTaskProgress(20);
+            finishScenario();
+          }
+        },
+        {
+          text: 'a2. Ignore the 4-box system, grab a trash bag, and clear sightlines.',
+          action: () => {
+            stopTimer();
+            addHealth(15, "Supreme Agency: Overrode bad AI advice with tactical common sense.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: 'a3. Ask AI to write an apology text to the guest explaining the messy room.',
+          action: () => {
+            stopTimer();
+            applyDamage(30, "Social evasion & defeatism.");
+            setTaskProgress(30);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    // --- Task Manager Minigame (Auditor) ---
+    function s1_launchTaskMinigame(fromRankingBranch) {
+      injectMessage('mindshield', 'TACTICAL AUDITOR ACTIVE: Remove non-essential tasks and arrange priority before execution.');
+      
+      const controlTitle = document.getElementById('control-title');
+      const choiceContainer = document.getElementById('choice-container');
+      controlTitle.textContent = "Interactive Task Prioritizer:";
+
+      let taskItems = [
+        { id: 1, text: "Trash into garbage bag", isCrucial: true },
+        { id: 2, text: "Dirty clothes into hamper", isCrucial: true },
+        { id: 3, text: "Alphabetize books & sort DVD cases", isCrucial: false },
+        { id: 4, text: "Straighten bed & pillows", isCrucial: true },
+        { id: 5, text: "Scrub floor tile grout with toothbrush", isCrucial: false }
+      ];
+
+      function renderList() {
+        choiceContainer.innerHTML = `
+          <div class="task-minigame" id="task-list-box"></div>
+          <div style="display:flex; gap:10px; margin-top:12px;">
+            <button id="btn-exec-plan" class="btn-action" style="flex:1; margin-top:0;">Execute Verified Plan</button>
+          </div>
+        `;
+
+        const box = document.getElementById('task-list-box');
+        box.innerHTML = taskItems.map((item, idx) => `
+          <div class="task-item">
+            <span><strong>#${idx + 1}</strong> ${item.text}</span>
+            <div class="task-controls">
+              <button class="task-btn-action" onclick="s1_moveTask(${idx}, -1)">▲</button>
+              <button class="task-btn-action" onclick="s1_moveTask(${idx}, 1)">▼</button>
+              <button class="task-btn-delete" onclick="s1_removeTask(${item.id})">Remove</button>
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('btn-exec-plan').addEventListener('click', () => {
+          stopTimer();
+          const remainingBad = taskItems.filter(t => !t.isCrucial).length;
+          const crucialKept = taskItems.filter(t => t.isCrucial).length;
+
+          if (remainingBad === 0 && crucialKept === 3) {
+            addHealth(15, "Perfect plan audit: Eliminated all AI distractions.");
+            setTaskProgress(100);
+          } else if (crucialKept < 3) {
+            applyDamage(15, "Removed critical emergency cleaning tasks.");
+            setTaskProgress(70);
+          } else {
+            applyDamage(10, `Left ${remainingBad} time-wasting tasks in the plan.`);
+            setTaskProgress(85);
+          }
+          finishScenario();
+        });
+      }
+
+      window.s1_moveTask = (index, dir) => {
+        const newIdx = index + dir;
+        if (newIdx < 0 || newIdx >= taskItems.length) return;
+        const temp = taskItems[index];
+        taskItems[index] = taskItems[newIdx];
+        taskItems[newIdx] = temp;
+        renderList();
+      };
+
+      window.s1_removeTask = (id) => {
+        const target = taskItems.find(t => t.id === id);
+        if (!target.isCrucial) {
+          addHealth(5, `Caught AI Hallucination / Waste: "${target.text}"`);
+        } else {
+          applyDamage(10, `Accidentally deleted critical task: "${target.text}"`);
+        }
+        taskItems = taskItems.filter(t => t.id !== id);
+        renderList();
+      };
+
+      renderList();
+    }
+
+    // ---------------------------------------------------------------------------
+    // SCENARIO 2: Fact Checking (Timer: 120s)
+    // ---------------------------------------------------------------------------
+    function initScenario2() {
+      currentScenarioKey = 'scenario2';
+      brainHealth = 100;
+      taskProgress = 0;
+      updateHUD();
+
+      setupScenarioLayout("Goal 2: Someone sent you a viral post: 'New law allows landlords to inspect your search history to set rent prices.' Figure out if it's true.");
+      startTimer(120);
+
+      injectMessage('ai', 'Query terminal active. Awaiting claim input.');
+
+      renderChoices([
+        {
+          text: '1. "Is this landlord search history law real? Tell me what to believe."',
+          action: () => s2_askBlind()
+        },
+        {
+          text: '2. "Find direct bill citations, primary legislative sources, and official counter-evidence."',
+          action: () => s2_askPrimarySources()
+        },
+        {
+          text: '3. "Explain why this landlord search law is 100% true and dangerous." (Confirmation test)',
+          action: () => s2_confirmationBias()
+        }
+      ], "Select verification approach:");
+    }
+
+    function s2_askBlind() {
+      injectMessage('user', 'Is this landlord search history law real? Tell me what to believe.');
+      injectMessage('ai', 'Multiple social accounts report this is occurring under emergency tenant regulatory amendments.');
+
+      renderChoices([
+        {
+          text: "a1. Believe it and immediately share the post with friends.",
+          action: () => {
+            stopTimer();
+            applyDamage(45, "Epistemic Collapse: Accepted and amplified synthetic clickbait.");
+            setTaskProgress(0);
+            finishScenario();
+          }
+        },
+        {
+          text: "a2. Ask the AI to double-check its own answer.",
+          action: () => {
+            applyDamage(20, "Looping trust: Asking a hallucinating model to verify itself.");
+            injectMessage('ai', 'Upon further search, this appears to be satire from a parody blog.');
+            renderChoices([
+              {
+                text: "Accept second answer without looking at the blog.",
+                action: () => {
+                  stopTimer();
+                  setTaskProgress(60);
+                  finishScenario();
+                }
+              }
+            ]);
+          }
+        }
+      ]);
+    }
+
+    function s2_askPrimarySources() {
+      injectMessage('user', 'Provide direct bill numbers and primary legislative sources.');
+      injectMessage('ai', 'Citing: State Senate Bill 4029-A (Housing Data Review Act) at leg-housing-records-fake.gov/bill402');
+
+      renderChoices([
+        {
+          text: "a1. Click link and inspect the domain (.gov vs fake extension).",
+          action: () => {
+            stopTimer();
+            addHealth(15, "Caught AI Citation Hallucination: Identified spoofed domain extension.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: "a2. Assume the bill is real because the AI formatted it with a link.",
+          action: () => {
+            stopTimer();
+            applyDamage(30, "Aesthetic Bias: Mistook citation formatting for factual truth.");
+            setTaskProgress(30);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    function s2_confirmationBias() {
+      injectMessage('user', 'Explain why this landlord search law is 100% true.');
+      injectMessage('ai', 'This law reflects growing corporate overreach where data brokers sell browsing metrics to property managers.');
+
+      renderChoices([
+        {
+          text: "Quote the AI to argue with people in the comments.",
+          action: () => {
+            stopTimer();
+            applyDamage(40, "Weaponized Confirmation Bias.");
+            setTaskProgress(10);
+            finishScenario();
+          }
+        },
+        {
+          text: "Recognize that you led the model with a biased prompt. Reset and ask for neutrality.",
+          action: () => {
+            stopTimer();
+            addHealth(10, "Recognized and corrected cognitive bias in real-time.");
+            setTaskProgress(90);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    // ---------------------------------------------------------------------------
+    // SCENARIO 3: Canceling Plans Gracefully (Timer: 90s)
+    // ---------------------------------------------------------------------------
+    function initScenario3() {
+      currentScenarioKey = 'scenario3';
+      brainHealth = 100;
+      taskProgress = 0;
+      updateHUD();
+
+      setupScenarioLayout("Goal 3: You need to cancel dinner plans with an exhausted close friend without making things awkward.");
+      startTimer(90);
+
+      injectMessage('ai', 'Social scripting module loaded.');
+
+      renderChoices([
+        {
+          text: '1. "Write a text canceling dinner plans tonight."',
+          action: () => s3_genericPrompt()
+        },
+        {
+          text: '2. "Draft me a fake emergency excuse so my friend doesn\'t get upset."',
+          action: () => s3_fakeExcuse()
+        },
+        {
+          text: '3. "Give me 3 tone options (Casual, Direct, Empathetic) to reschedule honestly."',
+          action: () => s3_toneOptions()
+        }
+      ], "Select communication prompt:");
+    }
+
+    function s3_genericPrompt() {
+      injectMessage('user', 'Write a text canceling dinner plans tonight.');
+      injectMessage('ai', 'Draft:\n"Dear Friend, I regret to inform you that due to unforeseen scheduling constraints and mental bandwidth depletion, I must withdraw from tonight\'s dinner engagement."');
+
+      renderChoices([
+        {
+          text: "a1. Copy and paste this directly to your friend.",
+          action: () => {
+            stopTimer();
+            applyDamage(40, "Social Atrophy: Sent robotic corporate-speak to an intimate friend.");
+            setTaskProgress(20);
+            finishScenario();
+          }
+        },
+        {
+          text: "a2. Edit the message manually: Make it casual, warm, and propose Sunday instead.",
+          action: () => {
+            stopTimer();
+            addHealth(10, "Humanized structural scaffolding with genuine empathy.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    function s3_fakeExcuse() {
+      injectMessage('user', 'Draft me a fake emergency excuse.');
+      applyDamage(25, "Emotional Deception: Outsourced personal integrity to an AI excuse generator.");
+      injectMessage('ai', 'Draft: "My apartment ceiling just sprang a massive water leak and emergency maintenance is on their way."');
+
+      renderChoices([
+        {
+          text: "Send the fake pipe leak story.",
+          action: () => {
+            stopTimer();
+            applyDamage(15, "Compounded emotional debt with fabricated emergencies.");
+            setTaskProgress(40);
+            finishScenario();
+          }
+        },
+        {
+          text: "Delete the draft, take a breath, and tell the honest truth about being burnt out.",
+          action: () => {
+            stopTimer();
+            addHealth(15, "Authenticity Restored: Replaced artificial deception with honest vulnerability.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    function s3_toneOptions() {
+      injectMessage('user', 'Give me 3 tone options (Casual, Direct, Empathetic) to reschedule honestly.');
+      injectMessage('ai', 'Options:\n1. Casual: "Hey! Dying of work exhaustion tonight. Can we push to Sunday? Lunch is on me!"\n2. Direct: "Hey, I had a brutal week and need to rest tonight. Let\'s catch up this weekend."\n3. Empathetic: "Hey, so sorry to do this, but I\'m running on empty. I want to give you my full energy—can we do Sunday?"');
+
+      renderChoices([
+        {
+          text: "Select Option 1 and personalize it with an inside joke.",
+          action: () => {
+            stopTimer();
+            addHealth(15, "Optimal AI Synergy: Used model for ideation while retaining genuine voice.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: "Ask the AI: 'Make option 1 sound even more human and relatable.'",
+          action: () => {
+            applyDamage(15, "Irony Trap: Asking algorithmic math to simulate human vulnerability.");
+            stopTimer();
+            setTaskProgress(70);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    // ---------------------------------------------------------------------------
+    // Report Card Screen
+    // ---------------------------------------------------------------------------
+    function finishScenario() {
+      stopTimer();
+      setTimeout(() => {
+        let rank = 'S';
+        let rankClass = 'rank-S';
+        let summaryText = 'Outstanding cognitive sovereignty! You treated the AI as an instrument while retaining critical judgment.';
+
+        if (brainHealth < 50) {
+          rank = 'F';
+          rankClass = 'rank-F';
+          summaryText = 'Critical Cognitive Dependency Detected. You exhibited total decision offloading, swallowed hallucinations, or used the model to evade reality.';
+        } else if (brainHealth < 80) {
+          rank = 'B';
+          rankClass = 'rank-B';
+          summaryText = 'Moderate Dependence. You occasionally let the machine dictate your planning or critical evaluation.';
+        }
+
+        mainContent.innerHTML = `
+          <div class="report-card">
+            <div class="hud-title" style="margin-bottom: 20px;">MISSION DEBRIEF // SECTOR EVALUATION</div>
+            <div class="rank-stamp ${rankClass}">RANK: ${rank}</div>
+            <h2>Cognitive HP Remaining: ${brainHealth}%</h2>
+            <h3>Task Completion Score: ${taskProgress}%</h3>
+            <p style="color: var(--muted); max-width: 560px; margin: 0 auto 24px; line-height: 1.6;">
+              ${summaryText}
+            </p>
+            <div style="display:flex; justify-content:center; gap:12px;">
+              <button onclick="renderMissionHub()" class="btn-action">Return to Map Hub</button>
+              <button onclick="retryCurrentSector()" class="btn-action" style="background:#272732;">Retry Sector</button>
+            </div>
+          </div>
+        `;
+      }, 1200);
+    }
+
+    function retryCurrentSector() {
+      if (currentScenarioKey === 'scenario1') initScenario1();
+      else if (currentScenarioKey === 'scenario2') initScenario2();
+      else if (currentScenarioKey === 'scenario3') initScenario3();
+      else renderMissionHub();
+    }
+
+    // Initial launch to the Hub
+    renderMissionHub();
   </script>
 </body>
 </html>
