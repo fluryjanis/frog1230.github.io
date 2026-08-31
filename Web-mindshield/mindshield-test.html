@@ -3,38 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Do you rely on AI too much? — MindShield</title>
+  <title>How Much Thinking Do You Actually Outsource to AI?</title>
   
   <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <style>
-    /* --- CSS Variables & Theme --- */
     :root {
-      --bg-page: #f8fafc;
+      --bg: #f8fafc;
       --card-bg: #ffffff;
       --card-border: #e2e8f0;
       
       --text-main: #0f172a;
-      --text-secondary: #334155;
+      --text-body: #334155;
       --text-muted: #64748b;
       --text-subtle: #94a3b8;
       
-      --primary: #0f172a;
-      --primary-hover: #1e293b;
-      --indigo: #4f46e5;
-      --indigo-subtle: #e0e7ff;
-      --indigo-text: #4338ca;
+      --brand: #4f46e5;
+      --brand-hover: #4338ca;
+      --brand-subtle: #eef2ff;
 
-      /* Status Colors */
-      --pass: #15803d;
-      --warn: #c2410c;
-      --flag: #b91c1c;
+      --tier-low-bg: #ecfdf5;
+      --tier-low-text: #065f46;
+      --tier-low-border: #a7f3d0;
+
+      --tier-mod-bg: #eef2ff;
+      --tier-mod-text: #3730a3;
+      --tier-mod-border: #c7d2fe;
+
+      --tier-high-bg: #fff7ed;
+      --tier-high-text: #9a3412;
+      --tier-high-border: #fed7aa;
     }
 
-    /* --- Base Reset & Centering --- */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -43,430 +46,408 @@
 
     html, body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-page);
+      background-color: var(--bg);
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
       line-height: 1.6;
     }
 
     body {
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 40px 16px 80px;
+      align-items: center;
+      padding: 32px 16px;
     }
 
-    .container {
+    .quiz-container {
       width: 100%;
-      max-width: 660px;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
+      max-width: 580px;
+      margin: 0 auto;
     }
 
-    .text-center {
-      text-align: center;
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      padding: 36px 32px;
+      transition: all 0.2s ease;
     }
 
-    /* --- Hero Header --- */
-    .hero-section {
+    /* --- Intro Screen --- */
+    .intro-view {
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
-    .badge-pill {
-      font-size: 12px;
+    .pill-tag {
+      font-size: 13px;
       font-weight: 600;
-      color: var(--indigo-text);
-      background: var(--indigo-subtle);
-      padding: 4px 12px;
+      color: var(--brand);
+      background: var(--brand-subtle);
+      padding: 6px 14px;
       border-radius: 9999px;
-      letter-spacing: 0.02em;
-      display: inline-block;
+      letter-spacing: 0.01em;
     }
 
-    .main-title {
-      font-size: 32px;
+    .intro-title {
+      font-size: 26px;
       font-weight: 700;
+      line-height: 1.3;
       letter-spacing: -0.02em;
       color: var(--text-main);
-      line-height: 1.25;
     }
 
-    .subtitle {
+    .intro-desc {
       font-size: 15px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      max-width: 500px;
+      color: var(--text-body);
+      max-width: 440px;
       line-height: 1.5;
     }
 
-    .science-tagline {
+    .intro-time {
       font-size: 13px;
+      font-weight: 500;
       color: var(--text-subtle);
-      margin-top: 4px;
+      margin-top: -4px;
+      margin-bottom: 6px;
     }
 
-    /* --- Shared Card Style --- */
-    .card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -2px rgba(15, 23, 42, 0.02);
-      padding: 24px;
+    /* --- Progress Bar & Header --- */
+    .quiz-header {
       display: flex;
-      flex-direction: column;
-      gap: 18px;
-      animation: fadeIn 0.25s ease forwards;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
     }
 
-    .card-title {
-      font-size: 18px;
+    .step-counter {
+      font-size: 13px;
       font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    /* --- Buttons --- */
-    .btn {
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 9px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-    }
-
-    .btn-large {
-      padding: 12px 28px;
-      font-size: 15px;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:active {
-      transform: scale(0.98);
-    }
-
-    .btn-secondary {
-      background: #ffffff;
-      color: var(--text-secondary);
-      border: 1px solid #cbd5e1;
-    }
-
-    .btn-secondary:hover {
-      background: #f1f5f9;
-      border-color: #94a3b8;
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
-
-    /* --- Interactive Quiz Card --- */
-    .quiz-progress-bar {
+    .quiz-progress-track {
       width: 100%;
       height: 6px;
       background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
+      margin-bottom: 24px;
     }
 
     .quiz-progress-fill {
       height: 100%;
-      width: 0%;
-      background: var(--indigo);
+      width: 25%;
+      background: var(--brand);
       border-radius: 999px;
-      transition: width 0.3s ease;
+      transition: width 0.25s ease-out;
     }
 
+    /* --- Question & Options --- */
     .question-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
       color: var(--text-main);
-      line-height: 1.5;
-      margin-top: 4px;
-      margin-bottom: 12px;
+      line-height: 1.45;
+      margin-bottom: 20px;
     }
 
     .quiz-options {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .quiz-opt-btn {
       width: 100%;
-      padding: 14px 16px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      color: var(--text-secondary);
+      padding: 16px 18px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      color: var(--text-body);
       font-family: inherit;
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 500;
       text-align: left;
-      line-height: 1.5;
+      line-height: 1.45;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       transition: all 0.15s ease;
     }
 
     .quiz-opt-btn:hover {
-      background: #f1f5f9;
       border-color: #cbd5e1;
+      background: #f8fafc;
       color: var(--text-main);
       transform: translateY(-1px);
     }
 
     .quiz-opt-btn:active {
+      background: #f1f5f9;
       transform: scale(0.99);
     }
 
-    /* --- Results Card --- */
-    .results-card {
-      align-items: center;
-      text-align: center;
-      padding: 32px 24px;
+    .opt-arrow {
+      color: var(--text-subtle);
+      font-size: 16px;
+      transition: transform 0.15s ease, color 0.15s ease;
+      flex-shrink: 0;
     }
 
-    .score-circle {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 6px solid var(--pass);
+    .quiz-opt-btn:hover .opt-arrow {
+      color: var(--brand);
+      transform: translateX(2px);
+    }
+
+    /* --- Results Screen --- */
+    .results-view {
+      text-align: center;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .results-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .score-badge {
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 6px auto 14px;
-      background: #f8fafc;
-      transition: border-color 0.4s ease;
+      padding: 16px 28px;
+      border-radius: 16px;
+      border: 1px solid var(--tier-mod-border);
+      background: var(--tier-mod-bg);
+      margin: 4px 0 8px;
+      transition: all 0.3s ease;
     }
 
-    #score-number {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
+    .score-number {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
     }
 
-    #score-title {
-      font-size: 18px;
+    .score-tier-label {
+      font-size: 13px;
       font-weight: 700;
-      color: var(--text-main);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .score-desc {
-      font-size: 14px;
-      color: var(--text-muted);
+      font-size: 15px;
+      color: var(--text-body);
       line-height: 1.55;
-      max-width: 480px;
-      margin: 4px auto 16px;
+      max-width: 460px;
     }
 
-    .cta-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+    /* Subtle Promo Callout */
+    .promo-card {
       width: 100%;
-    }
-
-    /* --- Science Info Section --- */
-    .lead-text {
-      font-size: 14px;
-      color: #475569;
-      line-height: 1.55;
-    }
-
-    .lead-text strong {
-      color: var(--text-main);
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    @media (max-width: 560px) {
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .info-item {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-align: left;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
     }
 
-    .info-item h3 {
-      font-size: 13.5px;
-      font-weight: 600;
+    .promo-title {
+      font-size: 14px;
+      font-weight: 700;
       color: var(--text-main);
     }
 
-    .info-item p {
-      font-size: 12.5px;
+    .promo-desc {
+      font-size: 13.5px;
       color: var(--text-muted);
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
-    /* --- Footer --- */
-    .footer {
-      text-align: center;
+    /* Actions */
+    .cta-actions {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12.5px;
-      color: var(--text-subtle);
-    }
-
-    .footer a {
-      color: var(--indigo);
+      justify-content: center;
+      font-family: inherit;
+      font-size: 14.5px;
       font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
       text-decoration: none;
+      transition: all 0.15s ease;
     }
 
-    .footer a:hover {
-      text-decoration: underline;
+    .btn-primary {
+      background: var(--text-main);
+      color: #ffffff;
     }
 
-    /* --- Utility --- */
+    .btn-primary:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    .btn-subtle {
+      background: transparent;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      font-size: 13.5px;
+    }
+
+    .btn-subtle:hover {
+      color: var(--text-main);
+    }
+
     .hidden {
       display: none !important;
+    }
+
+    /* Subtle animation */
+    .fade-in {
+      animation: fadeIn 0.2s ease-out forwards;
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 20px;
+      }
+      .intro-title {
+        font-size: 22px;
+      }
+      .question-title {
+        font-size: 16.5px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <main class="container">
-    
-    <!-- Hero Header -->
-    <header class="hero-section">
-      <span class="badge-pill">🧠 1-Minute Quiz</span>
-      <h1 class="main-title">Do you rely on AI too much?</h1>
-      <p class="subtitle">See if you're letting chatbots do your thinking for you, or using them the smart way.</p>
+  <main class="quiz-container">
+    <div class="card">
       
-      <div>
-        <button id="start-test-btn" class="btn btn-primary btn-large">Start Quiz</button>
-      </div>
-      
-      <p class="science-tagline">🔬 Based on research in learning and memory</p>
-    </header>
+      <!-- 1. Intro View -->
+      <section id="intro-view" class="intro-view">
+        <span class="pill-tag">Self-Discovery Quiz</span>
+        <h1 class="intro-title">How Much Thinking Do You Actually Outsource to AI?</h1>
+        <p class="intro-desc">
+          Four everyday scenarios. Pick what you'd genuinely do — there are no wrong answers.
+        </p>
+        <p class="intro-time">Takes about 60 seconds.</p>
+        <button id="start-btn" class="btn btn-primary" style="padding: 14px 32px; font-size: 15px;">Start Quiz</button>
+      </section>
 
-    <!-- Interactive Quiz Card -->
-    <section id="quiz-section" class="card hidden">
-      <div class="quiz-progress-bar">
-        <div id="quiz-progress" class="quiz-progress-fill"></div>
-      </div>
-      <div id="quiz-content"></div>
-    </section>
+      <!-- 2. Interactive Questions View -->
+      <section id="quiz-view" class="hidden">
+        <div class="quiz-header">
+          <span id="step-label" class="step-counter">1 of 4</span>
+        </div>
+        <div class="quiz-progress-track">
+          <div id="quiz-progress" class="quiz-progress-fill"></div>
+        </div>
+        <div id="quiz-content" class="fade-in"></div>
+      </section>
 
-    <!-- Results Screen -->
-    <section id="results-section" class="card results-card hidden">
-      <div id="score-circle" class="score-circle">
-        <span id="score-number">0%</span>
-      </div>
-      <h2 id="score-title">Your Result</h2>
-      <p id="score-desc" class="score-desc"></p>
+      <!-- 3. Results View -->
+      <section id="results-view" class="results-view hidden fade-in">
+        <span class="results-subtitle">Your AI Reliance Score</span>
+        
+        <div id="score-box" class="score-badge">
+          <span id="score-number" class="score-number">0%</span>
+          <span id="score-tier-label" class="score-tier-label">Low Reliance</span>
+        </div>
 
-      <div class="cta-actions">
-        <a href="web-demo-mindshield.html" class="btn btn-primary">Try Live Prompt Sandbox →</a>
-        <button id="retake-btn" class="btn btn-secondary">Retake Quiz</button>
-      </div>
-    </section>
+        <p id="score-desc" class="score-desc"></p>
 
-    <!-- Science Section -->
-    <section class="card">
-      <h2 class="card-title">🔬 Why This Matters</h2>
-      <p class="lead-text">
-        When we ask AI for answers right away, our brains skip the effort of thinking. Over time, that makes hard problems feel even harder.
-      </p>
-
-      <div class="grid-2">
-        <div class="info-item">
-          <h3>📉 Use It or Lose It</h3>
-          <p>
-            Skipping the hard thinking part weakens your memory and makes it harder to focus over time.
+        <!-- Subtle MindShield Marketing Context -->
+        <div class="promo-card">
+          <h3 class="promo-title">Curious what this looks like in practice?</h3>
+          <p class="promo-desc">
+            MindShield helps you notice when you're asking AI to do the thinking instead of helping you think.
           </p>
         </div>
-        <div class="info-item">
-          <h3>⚡ The 5-Second Rule</h3>
-          <p>
-            Thinking for just <strong>5 seconds</strong> before checking the answer helps your brain remember it much longer.
-          </p>
+
+        <div class="cta-actions">
+          <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Learn More About MindShield →
+          </a>
+          <button id="retake-btn" class="btn btn-subtle">↺ Retake Quiz</button>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>MindShield is free and open source under the MIT License.</p>
-      <p><a href="web-demo-mindshield.html">Open Live Prompt Sandbox →</a></p>
-    </footer>
-
+    </div>
   </main>
 
   <script>
     const QUIZ_QUESTIONS = [
       {
-        title: "1. You get a confusing or critical comment on your project. What do you do first?",
+        title: "You get a confusing or critical comment on something you posted. What's your first move?",
         options: [
-          { text: "Paste it into AI: 'What should I reply?'", points: 3 },
-          { text: "Write my own draft, then ask AI to check the tone.", points: 0 },
-          { text: "Ask AI to explain the terms mentioned so I understand it.", points: 0 }
+          { text: "Paste the comment in and ask AI to write a solid reply back.", points: 3 },
+          { text: "Write out what I want to say first, then ask AI to polish the tone.", points: 0 },
+          { text: "Ask AI to clarify what the commenter means so I can understand their point.", points: 0 }
         ]
       },
       {
-        title: "2. You hit an annoying bug or error in your work.",
+        title: "You run into a frustrating bug or technical error that halts your work. What do you do?",
         options: [
-          { text: "Paste the error and ask: 'Fix this for me.'", points: 3 },
-          { text: "Try to guess the cause first, then ask AI why it happened.", points: 0 },
-          { text: "Paste the whole file and say: 'Find and fix the issue.'", points: 3 }
+          { text: "Paste the error code and prompt AI to give me the direct fix.", points: 3 },
+          { text: "Form a quick hypothesis first, then ask AI why that error might occur.", points: 0 },
+          { text: "Drop in the entire file or context and let AI find and solve the issue.", points: 3 }
         ]
       },
       {
-        title: "3. You have to choose between two options (like jobs or laptops).",
+        title: "You're deciding between two good options, like job offers or new laptops. What's your approach?",
         options: [
-          { text: "Ask AI: 'Which one should I pick?' and trust its answer.", points: 2 },
-          { text: "List what matters to me and ask AI for facts to compare.", points: 0 },
-          { text: "Ask AI: 'What would you do if you were me?'", points: 2 }
+          { text: "Share both options with AI and ask it to make the recommendation for me.", points: 2 },
+          { text: "List the specific criteria I care about and ask AI for an objective comparison.", points: 0 },
+          { text: "Ask AI: 'What would you do if you were in my shoes?' to see how it weighs them.", points: 2 }
         ]
       },
       {
-        title: "4. You run into a tricky riddle or brain teaser.",
+        title: "A friend shares a tricky brain teaser or logic riddle with you. What do you do?",
         options: [
-          { text: "Ask AI right away: 'Give me the answer.'", points: 3 },
-          { text: "Try solving it myself first, then check if I was right.", points: 0 },
-          { text: "Ask AI for a tiny hint without giving it away.", points: 1 }
+          { text: "Ask AI for the solution right away so I don't get stuck spinning my wheels.", points: 3 },
+          { text: "Spend a couple of minutes trying to solve it myself before checking if I'm right.", points: 0 },
+          { text: "Ask AI to give me a gentle hint without spoiling the final answer.", points: 1 }
         ]
       }
     ];
@@ -474,34 +455,53 @@
     let currentQuestion = 0;
     let totalPoints = 0;
 
-    const startTestBtn = document.getElementById('start-test-btn');
-    const quizSection = document.getElementById('quiz-section');
+    const introView = document.getElementById('intro-view');
+    const quizView = document.getElementById('quiz-view');
+    const resultsView = document.getElementById('results-view');
+    
+    const startBtn = document.getElementById('start-btn');
+    const retakeBtn = document.getElementById('retake-btn');
+    
     const quizContent = document.getElementById('quiz-content');
     const quizProgress = document.getElementById('quiz-progress');
-    const resultsSection = document.getElementById('results-section');
+    const stepLabel = document.getElementById('step-label');
+    
+    const scoreBox = document.getElementById('score-box');
     const scoreNumber = document.getElementById('score-number');
-    const scoreTitle = document.getElementById('score-title');
+    const scoreTierLabel = document.getElementById('score-tier-label');
     const scoreDesc = document.getElementById('score-desc');
-    const scoreCircle = document.getElementById('score-circle');
-    const retakeBtn = document.getElementById('retake-btn');
 
     function renderQuestion() {
       const q = QUIZ_QUESTIONS[currentQuestion];
+      
+      // Step counter & Progress Bar
+      stepLabel.textContent = `${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}`;
       quizProgress.style.width = `${((currentQuestion + 1) / QUIZ_QUESTIONS.length) * 100}%`;
 
+      // Render Question with smooth animation
+      quizContent.className = '';
+      void quizContent.offsetWidth; // Trigger reflow for CSS animation
+      quizContent.className = 'fade-in';
+
       quizContent.innerHTML = `
-        <h3 class="question-title">${q.title}</h3>
+        <h2 class="question-title">${q.title}</h2>
         <div class="quiz-options">
           ${q.options.map(opt => `
-            <button class="quiz-opt-btn" data-points="${opt.points}">${opt.text}</button>
+            <button class="quiz-opt-btn" data-points="${opt.points}">
+              <span>${opt.text}</span>
+              <span class="opt-arrow">→</span>
+            </button>
           `).join('')}
         </div>
       `;
 
+      // Attach clicks
       document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          totalPoints += parseInt(e.currentTarget.dataset.points, 10);
+          const points = parseInt(e.currentTarget.dataset.points, 10);
+          totalPoints += points;
           currentQuestion++;
+
           if (currentQuestion < QUIZ_QUESTIONS.length) {
             renderQuestion();
           } else {
@@ -512,45 +512,49 @@
     }
 
     function showResults() {
-      quizSection.classList.add('hidden');
-      resultsSection.classList.remove('hidden');
+      quizView.classList.add('hidden');
+      resultsView.classList.remove('hidden');
 
-      const dependencyPercent = Math.round((totalPoints / 11) * 100);
-      scoreNumber.textContent = `${dependencyPercent}%`;
+      // Calculate out of max possible points (11)
+      const score = Math.round((totalPoints / 11) * 100);
+      scoreNumber.textContent = `${score}%`;
 
-      if (dependencyPercent >= 60) {
-        scoreCircle.style.borderColor = 'var(--flag)';
-        scoreTitle.textContent = "High AI Reliance";
-        scoreDesc.textContent = "You often let AI think for you before trying on your own. Try taking a few seconds to think through problems first.";
-      } else if (dependencyPercent >= 25) {
-        scoreCircle.style.borderColor = 'var(--warn)';
-        scoreTitle.textContent = "Moderate AI Reliance";
-        scoreDesc.textContent = "You use AI well, but you sometimes lean on it for quick answers instead of working through the problem.";
+      // Apply friendly, non-judgmental tiers
+      if (score >= 60) {
+        scoreTierLabel.textContent = "Higher reliance";
+        scoreDesc.textContent = "You tend to reach for AI when you're stuck, making a decision, or facing a difficult problem. That can be useful — the interesting question is whether AI is helping you think or doing the thinking for you.";
+        setTierStyle('var(--tier-high-bg)', 'var(--tier-high-text)', 'var(--tier-high-border)');
+      } else if (score >= 25) {
+        scoreTierLabel.textContent = "Moderate reliance";
+        scoreDesc.textContent = "You generally use AI as a tool, but sometimes hand over the harder parts when there's friction.";
+        setTierStyle('var(--tier-mod-bg)', 'var(--tier-mod-text)', 'var(--tier-mod-border)');
       } else {
-        scoreCircle.style.borderColor = 'var(--pass)';
-        scoreTitle.textContent = "Independent Thinker";
-        scoreDesc.textContent = "Great job! You use AI as a helpful assistant, not as a replacement for your own brain.";
+        scoreTierLabel.textContent = "Low reliance";
+        scoreDesc.textContent = "You tend to use AI as a thinking partner — getting explanations, comparisons, and feedback without immediately handing over the whole problem.";
+        setTierStyle('var(--tier-low-bg)', 'var(--tier-low-text)', 'var(--tier-low-border)');
       }
-
-      resultsSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-    startTestBtn.addEventListener('click', () => {
+    function setTierStyle(bg, text, border) {
+      scoreBox.style.backgroundColor = bg;
+      scoreBox.style.borderColor = border;
+      scoreBox.style.color = text;
+    }
+
+    startBtn.addEventListener('click', () => {
       currentQuestion = 0;
       totalPoints = 0;
-      quizSection.classList.remove('hidden');
-      resultsSection.classList.add('hidden');
+      introView.classList.add('hidden');
+      quizView.classList.remove('hidden');
       renderQuestion();
-      quizSection.scrollIntoView({ behavior: 'smooth' });
     });
 
     retakeBtn.addEventListener('click', () => {
       currentQuestion = 0;
       totalPoints = 0;
-      resultsSection.classList.add('hidden');
-      quizSection.classList.remove('hidden');
+      resultsView.classList.add('hidden');
+      quizView.classList.remove('hidden');
       renderQuestion();
-      quizSection.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
