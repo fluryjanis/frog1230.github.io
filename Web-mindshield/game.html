@@ -31,6 +31,8 @@
       --danger-glow: rgba(248, 113, 113, 0.5);
       --sky: #38bdf8;
       --sky-dim: rgba(56, 189, 248, 0.16);
+      --synergy-gold: #facc15;
+      --synergy-dim: rgba(250, 204, 21, 0.18);
 
       --ai-bubble: #1f2535;
       --user-bubble: #0e3a59;
@@ -89,12 +91,7 @@
       50% { transform: scale(1.06); box-shadow: 0 0 28px var(--danger-glow); }
     }
 
-    @keyframes pulseBleed {
-      0%, 100% { color: var(--warn); }
-      50% { color: var(--danger); transform: scale(1.03); }
-    }
-
-    /* Floating Feedback (+15 Brain, -2m Time, etc.) */
+    /* Floating Feedback */
     .floating-text {
       position: fixed;
       font-family: var(--font-mono);
@@ -109,6 +106,7 @@
     .floating-text.heal { color: var(--teal); text-shadow: 0 0 12px var(--teal-glow); }
     .floating-text.decay { color: var(--warn); text-shadow: 0 0 12px rgba(251, 191, 36, 0.6); }
     .floating-text.time-deduct { color: #f87171; text-shadow: 0 0 14px rgba(248, 113, 113, 0.8); }
+    .floating-text.synergy { color: var(--synergy-gold); text-shadow: 0 0 14px rgba(250, 204, 21, 0.9); }
 
     @keyframes floatUp {
       0% { opacity: 0; transform: translateY(0) scale(0.85); }
@@ -203,7 +201,6 @@
     }
     .health-val { color: var(--teal); }
     .task-val { color: var(--sky); }
-    .task-val.bleeding { animation: pulseBleed 0.8s infinite ease-in-out; }
 
     .meter-bar {
       width: 100%;
@@ -864,27 +861,99 @@
       transform: scale(1.02);
     }
 
-    /* Task Auditor Minigame */
+    /* Task Auditor Minigame with Efficiency Boost System */
     .task-minigame {
       background: #151824;
       border: 1.5px solid var(--teal);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 16px;
       margin: 10px 0;
       width: 100%;
     }
 
+    .auditor-metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: #1b202e;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .auditor-metric-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .auditor-metric-val {
+      font-size: 13.5px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+    .auditor-metric-val.synergy-val { color: var(--synergy-gold); }
+    .auditor-metric-val.net-val { color: var(--teal); }
+
     .task-item {
       background: var(--panel-elevated);
       border: 1px solid var(--border);
-      padding: 12px 14px;
-      border-radius: 6px;
+      padding: 10px 14px;
+      border-radius: 8px;
       margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 13.5px;
       gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .task-item.has-synergy {
+      border-color: rgba(250, 204, 21, 0.6);
+      background: rgba(250, 204, 21, 0.07);
+    }
+
+    .task-left-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .task-group-tag {
+      font-size: 9.5px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag-trash { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .tag-laundry { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .tag-bed { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.4); }
+    .tag-junk { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.4); }
+
+    .synergy-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9.5px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: var(--synergy-gold);
+      background: var(--synergy-dim);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: 6px;
     }
 
     .task-controls {
@@ -1067,8 +1136,6 @@
     let neuralAnimFrame = null;
     let secondsRemaining = 600;
     let idleSeconds = 0;
-    let taskAuditComplete = false;
-    let decayWarned = false;
 
     // Room Status State with visual icons and status tags
     let roomStatus = {
@@ -1103,7 +1170,7 @@
       const el = document.createElement('div');
       el.className = `floating-text ${type}`;
       el.textContent = text;
-      el.style.left = `${window.innerWidth - 250 + (Math.random() * 40 - 20)}px`;
+      el.style.left = `${window.innerWidth - 260 + (Math.random() * 40 - 20)}px`;
       el.style.top = `64px`;
 
       document.body.appendChild(el);
@@ -1231,8 +1298,6 @@
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
       secondsRemaining = totalSeconds;
-      taskAuditComplete = false;
-      decayWarned = false;
       simTimerBadge.style.display = 'flex';
       updateTimerDisplay();
       startIdleMonitor();
@@ -1243,23 +1308,6 @@
       timerInterval = setInterval(() => {
         secondsRemaining--;
         updateTimerDisplay();
-
-        const elapsed = totalSeconds - secondsRemaining;
-
-        // Task Decay starts after 60s
-        if (elapsed > 60 && !taskAuditComplete) {
-          const decayRate = (elapsed - 60) / (totalSeconds - 60);
-          taskCompletion = Math.max(0, Math.round(100 - (decayRate * 100)));
-          updateHUD();
-
-          if (!decayWarned) {
-            decayWarned = true;
-            taskText.classList.add('bleeding');
-            taskLabel.textContent = "TASK (BLEEDING)";
-            spawnFloatingText("TIME DECAY", "decay");
-            mindshieldSpeak("1 minute passed without editing your plan! You're losing Task Completion every second!", "rush");
-          }
-        }
 
         if (secondsRemaining === Math.floor(totalSeconds / 2) && !warnedHalf) {
           warnedHalf = true;
@@ -1286,7 +1334,6 @@
       }
       stopIdleMonitor();
       if (simTimerBadge) simTimerBadge.classList.remove('urgent');
-      taskText.classList.remove('bleeding');
       taskLabel.textContent = "🎯 TASK COMPLETION";
     }
 
@@ -1505,7 +1552,7 @@
           
           <p class="hero-goal-statement">
             Your room is a mess, and someone is coming over in 10 minutes. 
-            Completed tasks eat into your remaining time. Filter out AI time-wasters and finish before your guest arrives!
+            Completed tasks eat into your remaining time. Filter out AI distractions and chain complementary tasks together for maximum speed!
           </p>
 
           <div class="cta-row">
@@ -1522,13 +1569,13 @@
             <div class="info-card">
               <span class="card-num">01</span>
               <div class="card-title">REAL-TIME CLOCK</div>
-              <p class="card-desc">Every action you complete consumes realistic cleaning minutes from your clock.</p>
+              <p class="card-desc">Every action you perform consumes realistic cleaning minutes from your clock.</p>
             </div>
 
             <div class="info-card">
               <span class="card-num">02</span>
-              <div class="card-title">TIME DECAY</div>
-              <p class="card-desc">After 1 minute, you lose completion over time unless you edit your plan.</p>
+              <div class="card-title">⚡ EFFICIENCY BOOST</div>
+              <p class="card-desc">Placing complementary tasks consecutively gives a synergy bonus that cuts task time!</p>
             </div>
 
             <div class="info-card">
@@ -1540,7 +1587,7 @@
             <div class="info-card">
               <span class="card-num">04</span>
               <div class="card-title">TASK AUDITOR</div>
-              <p class="card-desc">Cut out useless suggestions to save precious minutes and lock 100%.</p>
+              <p class="card-desc">Prune useless deep-cleaning tasks and group related jobs for 100% completion.</p>
             </div>
           </div>
         </div>
@@ -1593,7 +1640,7 @@
       setupScenarioLayout("Goal: Clean your room before your guest arrives in 10 minutes!");
       startTimer(600);
 
-      mindshieldSpeak("10 minutes on the clock! Tasks you execute will consume time. Watch the clock!", "rush");
+      mindshieldSpeak("10 minutes on the clock! Executed tasks consume time. Group complementary tasks for Efficiency Boosts!", "rush");
       injectMessage('ai', 'Hello! How can I help you clean your room?');
 
       renderChoices([
@@ -1618,9 +1665,9 @@
     // --- PROMPT 1 PATHWAYS ---
     function s1_prompt1_strategy() {
       injectMessage('user', 'Give me a 10 minute cleaning strategy.');
-      injectMessage('ai', 'Here is your 10-minute cleaning plan:\n\n1. Throw visible trash into a bag (2 min)\n2. Put clothes in hamper (2 min)\n3. Make the bed (2 min)\n4. Alphabetize your entire bookshelf by genre (3 min)\n5. Wipe surfaces (1 min)');
+      injectMessage('ai', 'Here is your comprehensive cleaning plan:\n\n1. Bag visible wrappers & empty soda cans (2 min)\n2. Take trash bag out to kitchen bin (1 min)\n3. Pick up dirty clothes scattered across floor (2 min)\n4. Stash laundry inside closet & hamper (1 min)\n5. Make bed & straighten duvet (2 min)\n6. Fluff & arrange bed pillows (1 min)\n7. Alphabetize entire bookshelf by genre (3 min)\n8. Scrub floor tile grout with toothbrush (4 min)\n9. Color-code closet hangers (3 min)');
 
-      mindshieldSpeak("Look at step 4! Why is the AI telling you to alphabetize books for 3 minutes when you only have 10?!", "lecture");
+      mindshieldSpeak("Look at steps 7, 8, and 9! Why is the AI telling you to scrub grout and organize DVDs when you have 10 minutes?!", "lecture");
 
       renderChoices([
         {
@@ -1732,9 +1779,9 @@
 
     function s1_p1_reprioritize_step2() {
       injectMessage('user', 'Prioritize what matters most.');
-      injectMessage('ai', 'Priority list:\n1. Trash and floor clothes (Main)\n2. Make bed (Important)\n3. Bookshelf sorting (Optional)\n4. Wipe desk (Extra)');
+      injectMessage('ai', 'Priority list:\n1. Trash & floor clothes (Critical)\n2. Make bed & pillows (High Impact)\n3. Bookshelf sorting (Optional)\n4. Baseboard grout scrub (Extra)');
 
-      mindshieldSpeak("You needed an AI to tell you trash matters more than dusting. Open the Task Auditor to fix the plan yourself!", "neutral");
+      mindshieldSpeak("Open the Task Auditor to group complementary tasks together for maximum speed!", "neutral");
 
       renderChoices([
         {
@@ -1744,7 +1791,7 @@
         },
         {
           tag: "[TAKE CONTROL]",
-          text: 'Open Task Auditor to cut out useless tasks and stop time decay.',
+          text: 'Open Task Auditor to prune tasks and trigger Efficiency Boosts.',
           action: () => s1_launchAuditorMinigame(false)
         },
         {
@@ -1796,7 +1843,7 @@
       applyDamage(20, "Asked AI to review AI under a short deadline.");
       mindshieldSpeak("You're asking the AI to review its own bad plan. Just fix it yourself!", "lecture");
       injectMessage('user', 'Can you review your plan and fix any mistakes?');
-      injectMessage('ai', 'Self-Audit: Alphabetizing books is a waste of time right now. Skip it.');
+      injectMessage('ai', 'Self-Audit: Alphabetizing books and scrubbing tile grout are wastes of time right now. Skip them.');
 
       renderChoices([
         {
@@ -1833,7 +1880,7 @@
         },
         {
           tag: "[TAKE CONTROL]",
-          text: 'Stop chatting! Open Task Auditor and cut bad tasks manually.',
+          text: 'Stop chatting! Open Task Auditor and build combos manually.',
           action: () => s1_launchAuditorMinigame(false)
         }
       ]);
@@ -1841,9 +1888,9 @@
 
     function s1_p1_rankTasks_step2() {
       injectMessage('user', 'Rank tasks from most important to least important.');
-      injectMessage('ai', 'Ranking:\n1. Alphabetize bookshelf (Creates visual order)\n2. Make bed\n3. Pick up floor\n4. Take out trash');
+      injectMessage('ai', 'Ranking:\n1. Alphabetize bookshelf (Creates visual order)\n2. Scrub tile grout\n3. Make bed\n4. Pick up floor\n5. Take out trash');
 
-      mindshieldSpeak("The AI just told you to sort books BEFORE picking up trash! Spot the bad advice!", "lecture");
+      mindshieldSpeak("The AI just told you to sort books and scrub grout BEFORE picking up trash! Spot the bad advice!", "lecture");
 
       renderChoices([
         {
@@ -1866,7 +1913,7 @@
         },
         {
           tag: "[DIRECT CONTROL]",
-          text: 'Reject the ranking and fix the task order yourself in the Task Auditor.',
+          text: 'Reject ranking and organize complementary tasks in Task Auditor.',
           action: () => s1_launchAuditorMinigame(true)
         }
       ]);
@@ -1881,7 +1928,7 @@
       renderChoices([
         {
           tag: "[TAKE CONTROL]",
-          text: 'Open Task Auditor to cut bad tasks and lock completion.',
+          text: 'Open Task Auditor to chain tasks for Efficiency Boosts.',
           action: () => s1_launchAuditorMinigame(false)
         },
         {
@@ -1902,7 +1949,7 @@
       applyDamage(20, "Told AI 1 hour when you only have 10 minutes.");
       mindshieldSpeak("You told the AI you have an HOUR when you only have 10 MINUTES! Look at this massive list it gave you!", "lecture");
       injectMessage('user', 'I need to clean my room in one hour.');
-      injectMessage('ai', '60-Minute Plan:\n• 0-15m: Strip bed sheets & start laundry\n• 15-35m: Pull everything out of closet to organize\n• 35-50m: Deep vacuum & mop baseboards\n• 50-60m: Polish furniture');
+      injectMessage('ai', '60-Minute Deep Plan:\n• 0-15m: Strip bed sheets & start laundry\n• 15-35m: Pull everything out of closet to organize\n• 35-50m: Deep vacuum & mop baseboards\n• 50-60m: Polish furniture');
 
       renderChoices([
         {
@@ -2047,71 +2094,125 @@
       ]);
     }
 
-    // --- TASK AUDITOR MINIGAME ---
+    // --- EXPANDED 9-ITEM TASK AUDITOR WITH EFFICIENCY BOOST SYSTEM ---
     function s1_launchAuditorMinigame(fromRankingBranch) {
-      mindshieldSpeak("TASK AUDITOR ACTIVE: Remove the useless tasks! Cutting bad tasks saves time!", "rush");
+      mindshieldSpeak("TASK AUDITOR ACTIVE: Cut useless junk & group complementary tasks consecutively for ⚡ EFFICIENCY BOOSTS!", "praise");
       
       const controlTitle = document.getElementById('control-title');
       const choiceContainer = document.getElementById('choice-container');
-      controlTitle.textContent = "TASK AUDITOR (CUT BAD TASKS TO STOP TIME DECAY):";
+      controlTitle.textContent = "TASK AUDITOR (CHAIN COMPLEMENTARY TASKS FOR EFFICIENCY BOOSTS):";
 
+      // 9 Tasks with Synergy Groups
       let taskItems = [
-        { id: 1, text: "Throw visible trash into a bag (2 min)", duration: 120, isCrucial: true },
-        { id: 2, text: "Put dirty clothes in hamper (2 min)", duration: 120, isCrucial: true },
-        { id: 3, text: "Alphabetize books & sort DVD cases (3 min)", duration: 180, isCrucial: false },
-        { id: 4, text: "Make bed & straighten pillows (2 min)", duration: 120, isCrucial: true },
-        { id: 5, text: "Scrub floor tile grout with toothbrush (4 min)", duration: 240, isCrucial: false }
+        { id: 1, text: "Bag soda cans & food wrappers on desk", duration: 120, group: "trash", groupLabel: "TRASH", isCrucial: true },
+        { id: 2, text: "Alphabetize entire DVD & book shelf", duration: 180, group: "junk", groupLabel: "JUNK", isCrucial: false },
+        { id: 3, text: "Take full trash bag out to kitchen bin", duration: 60, group: "trash", groupLabel: "TRASH", isCrucial: true },
+        { id: 4, text: "Pick up dirty laundry scattered on rug", duration: 120, group: "laundry", groupLabel: "LAUNDRY", isCrucial: true },
+        { id: 5, text: "Scrub floor tile grout with toothbrush", duration: 240, group: "junk", groupLabel: "JUNK", isCrucial: false },
+        { id: 6, text: "Stash clothes into hamper & shut closet", duration: 60, group: "laundry", groupLabel: "LAUNDRY", isCrucial: true },
+        { id: 7, text: "Straighten bed duvet & tuck sheets", duration: 120, group: "bed", groupLabel: "BED", isCrucial: true },
+        { id: 8, text: "Color-code wardrobe hangers by season", duration: 180, group: "junk", groupLabel: "JUNK", isCrucial: false },
+        { id: 9, text: "Fluff & arrange bed pillows", duration: 60, group: "bed", groupLabel: "BED", isCrucial: true }
       ];
+
+      function calculatePlanStats() {
+        let baseSeconds = 0;
+        let synergyDiscount = 0;
+        let combos = 0;
+
+        taskItems.forEach((item, idx) => {
+          baseSeconds += item.duration;
+          if (idx > 0 && item.group !== "junk" && item.group === taskItems[idx - 1].group) {
+            synergyDiscount += 45; // 45 seconds saved per synergy combo
+            combos++;
+          }
+        });
+
+        const effectiveSeconds = Math.max(30, baseSeconds - synergyDiscount);
+        return { baseSeconds, synergyDiscount, effectiveSeconds, combos };
+      }
 
       function renderList() {
         activeChoices = []; // disable 1-3 keys during list editor
+        const stats = calculatePlanStats();
+
         choiceContainer.innerHTML = `
-          <div class="task-minigame" id="task-list-box"></div>
-          <div style="display:flex; gap:10px; margin-top:12px;">
-            <button id="btn-exec-plan" class="btn-action" style="flex:1;">✓ EXECUTE PLAN & CONSUME CLEANING TIME</button>
+          <div class="task-minigame">
+            <div class="auditor-metrics-bar">
+              <div>
+                <div class="auditor-metric-title">BASE PLAN TIME</div>
+                <div class="auditor-metric-val">${Math.floor(stats.baseSeconds / 60)}m ${stats.baseSeconds % 60}s</div>
+              </div>
+              <div>
+                <div class="auditor-metric-title">⚡ SYNERGY SAVINGS</div>
+                <div class="auditor-metric-val synergy-val">-${Math.floor(stats.synergyDiscount / 60)}m ${stats.synergyDiscount % 60}s (${stats.combos}x Boost)</div>
+              </div>
+              <div>
+                <div class="auditor-metric-title">NET TASK TIME</div>
+                <div class="auditor-metric-val net-val">${Math.floor(stats.effectiveSeconds / 60)}m ${stats.effectiveSeconds % 60}s</div>
+              </div>
+            </div>
+
+            <div id="task-list-box"></div>
+
+            <div style="display:flex; gap:10px; margin-top:14px;">
+              <button id="btn-exec-plan" class="btn-action" style="flex:1;">⚡ EXECUTE OPTIMIZED WORKFLOW & CONSUME TIME</button>
+            </div>
           </div>
         `;
 
         const box = document.getElementById('task-list-box');
-        box.innerHTML = taskItems.map((item, idx) => `
-          <div class="task-item">
-            <span><strong>[${idx + 1}]</strong> ${item.text}</span>
-            <div class="task-controls">
-              <button class="task-btn-action" onclick="s1_moveTask(${idx}, -1)">▲</button>
-              <button class="task-btn-action" onclick="s1_moveTask(${idx}, 1)">▼</button>
-              <button class="task-btn-delete" onclick="s1_removeTask(${item.id})">✕ Cut</button>
+        box.innerHTML = taskItems.map((item, idx) => {
+          const hasSynergy = idx > 0 && item.group !== "junk" && item.group === taskItems[idx - 1].group;
+          return `
+            <div class="task-item ${hasSynergy ? 'has-synergy' : ''}">
+              <div class="task-left-info">
+                <span class="task-group-tag tag-${item.group}">${item.groupLabel}</span>
+                <span><strong>[${idx + 1}]</strong> ${item.text} (${Math.floor(item.duration / 60)}m${item.duration % 60 ? '30s' : ''})</span>
+                ${hasSynergy ? `<span class="synergy-indicator">⚡ +BOOST (-45s)</span>` : ''}
+              </div>
+              <div class="task-controls">
+                <button class="task-btn-action" onclick="s1_moveTask(${idx}, -1)">▲</button>
+                <button class="task-btn-action" onclick="s1_moveTask(${idx}, 1)">▼</button>
+                <button class="task-btn-delete" onclick="s1_removeTask(${item.id})">✕ Cut</button>
+              </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
 
         document.getElementById('btn-exec-plan').addEventListener('click', () => {
           stopTimer();
-          taskAuditComplete = true; // STOPS DECAY
-          taskText.classList.remove('bleeding');
-          taskLabel.textContent = "🎯 TASK COMPLETION";
 
-          // Calculate total cleaning time of the tasks you kept:
-          const totalCleaningSeconds = taskItems.reduce((acc, t) => acc + t.duration, 0);
-          deductTime(totalCleaningSeconds, `Audited Plan (-${Math.floor(totalCleaningSeconds/60)}m)`);
+          const finalStats = calculatePlanStats();
+          deductTime(finalStats.effectiveSeconds, `Workflow Execution (${finalStats.combos}x Synergies)`);
 
-          const remainingBad = taskItems.filter(t => !t.isCrucial).length;
+          const remainingJunk = taskItems.filter(t => !t.isCrucial).length;
           const crucialKept = taskItems.filter(t => t.isCrucial).length;
 
-          if (remainingBad === 0 && crucialKept === 3) {
-            addHealth(15, "Perfect plan audit.");
-            updateRoomZone('bed', 'Bed Made', true);
-            updateRoomZone('floor', 'Floor Clear', true);
-            updateRoomZone('trash', 'Trash Empty', true);
+          if (finalStats.combos > 0) {
+            spawnFloatingText(`⚡ ${finalStats.combos}x EFFICIENCY BOOST!`, 'synergy');
+          }
+
+          if (remainingJunk === 0 && crucialKept === 6) {
+            if (finalStats.combos >= 3) {
+              addHealth(20, "Masterclass synergy workflow.");
+              mindshieldSpeak("MASTERCLASS! You pruned all junk and chained all complementary tasks together for maximum speed!", "praise");
+            } else {
+              addHealth(15, "Clean plan audit.");
+              mindshieldSpeak("Excellent! You cut out the junk tasks and executed a clean plan!", "praise");
+            }
+            updateRoomZone('bed', 'Bed & Pillows Made', true);
+            updateRoomZone('floor', 'Floor & Laundry Clean', true);
+            updateRoomZone('trash', 'Trash Bagged & Dumped', true);
             updateRoomZone('books', 'Left for Later', true);
-            mindshieldSpeak("FLAWLESS AUDIT! You executed the 3 essential tasks, spent only 6 minutes, and locked 100%!", "praise");
             setTaskCompletion(100);
-          } else if (crucialKept < 3) {
-            applyDamage(15, "Accidentally removed an important task.");
-            mindshieldSpeak("You deleted an essential task! Bed or trash still needed to be done!", "lecture");
+          } else if (crucialKept < 6) {
+            applyDamage(15, "Accidentally removed an essential task.");
+            mindshieldSpeak("You deleted an essential cleaning step! Bed, floor, or trash was left unfinished!", "lecture");
             setTaskCompletion(70);
           } else {
-            applyDamage(10, `Left ${remainingBad} useless tasks in the plan.`);
-            mindshieldSpeak(`You still left ${remainingBad} useless tasks on your list and wasted extra minutes.`, "lecture");
+            applyDamage(10, `Left ${remainingJunk} useless tasks in the plan.`);
+            mindshieldSpeak(`You still left ${remainingJunk} useless tasks on your list and burned extra time.`, "lecture");
             setTaskCompletion(85);
           }
           finishGame();
@@ -2134,7 +2235,7 @@
           mindshieldSpeak(`Good catch! Cutting "${target.text}" saved ${Math.floor(target.duration / 60)} minutes.`, "praise");
         } else {
           applyDamage(10, `Deleted important task: "${target.text}"`);
-          mindshieldSpeak(`Watch out! "${target.text}" is an important task!`, "lecture");
+          mindshieldSpeak(`Watch out! "${target.text}" is an essential task!`, "lecture");
         }
         taskItems = taskItems.filter(t => t.id !== id);
         renderList();
@@ -2152,20 +2253,20 @@
       setTimeout(() => {
         let badgeClass = 'profile-good';
         let badgeText = 'SOVEREIGN THINKER';
-        let summaryText = 'Great job! You managed your time effectively, skipped bad AI advice, and finished before your guest arrived.';
+        let summaryText = 'Great job! You chained complementary tasks together, filtered out useless AI advice, and finished before your guest arrived.';
 
         if (brainHealth < 50 || taskCompletion < 50 || secondsRemaining <= 0) {
           badgeClass = 'profile-bad';
           badgeText = 'HEAVY AI DEPENDENCE';
           summaryText = 'You relied way too much on the AI. You accepted bad suggestions, burned through all your time, and left your room messy.';
-          mindshieldSpeak("SIMULATION FAILED. You relied on the AI for everything instead of managing your time.", "lecture");
+          mindshieldSpeak("SIMULATION FAILED. You relied on the AI for everything instead of managing your workflow.", "lecture");
         } else if (brainHealth < 80 || taskCompletion < 80) {
           badgeClass = 'profile-med';
           badgeText = 'MODERATE DEPENDENCE';
-          summaryText = 'Decent run, but you still leaned on the AI a bit too much and wasted precious cleaning time.';
+          summaryText = 'Decent run, but you still leaned on the AI a bit too much and missed some workflow synergies.';
           mindshieldSpeak("You passed, but you hesitated and relied on the AI more than you needed to.", "neutral");
         } else {
-          mindshieldSpeak("OUTSTANDING! You stayed in control and used the AI as an efficient tool.", "praise");
+          mindshieldSpeak("OUTSTANDING! You stayed in control, built workflow combos, and used the AI effectively.", "praise");
         }
 
         mainContent.innerHTML = `
