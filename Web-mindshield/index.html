@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* --- CSS Reset & Foolproof Centering --- */
+    /* --- Base & Centering --- */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -30,7 +30,6 @@
       padding: 32px 16px;
     }
 
-    /* --- Centered Main Card Container --- */
     .container {
       width: 100%;
       max-width: 560px;
@@ -184,12 +183,8 @@
     .model-status {
       font-size: 12px;
       color: #64748b;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    /* Clean modern dark button */
     .btn {
       font-family: inherit;
       font-size: 14px;
@@ -234,15 +229,46 @@
       align-items: center;
     }
 
+    /* --- BADGE STYLES: GREEN / ORANGE / RED --- */
     .badge {
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 6px;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      background: #dcfce7;
-      color: #166534;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+
+    /* 🟢 PASS = GREEN */
+    .badge,
+    .badge.pass,
+    .badge.tier-pass,
+    .badge[data-status="pass"] {
+      background-color: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* 🟠 WARNING = ORANGE */
+    .badge.warning,
+    .badge.warn,
+    .badge.tier-warning,
+    .badge[data-status="warning"] {
+      background-color: #ffedd5;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    /* 🔴 FLAGGED = RED */
+    .badge.flagged,
+    .badge.flag,
+    .badge.tier-flagged,
+    .badge[data-status="flagged"] {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
     }
 
     .latency {
@@ -340,6 +366,28 @@
     </footer>
 
   </main>
+
+  <!-- Auto-Badge Color Detector (Updates badge color based on text) -->
+  <script>
+    const badge = document.getElementById('tier-badge');
+    if (badge) {
+      const updateBadgeColor = () => {
+        const text = badge.textContent.trim().toUpperCase();
+        badge.classList.remove('pass', 'warning', 'flagged');
+        if (text.includes('WARN')) {
+          badge.classList.add('warning');
+        } else if (text.includes('FLAG') || text.includes('FAIL') || text.includes('BLOCK')) {
+          badge.classList.add('flagged');
+        } else {
+          badge.classList.add('pass');
+        }
+      };
+
+      const observer = new MutationObserver(updateBadgeColor);
+      observer.observe(badge, { childList: true, characterData: true, subtree: true });
+      updateBadgeColor();
+    }
+  </script>
 
   <script type="module" src="sandbox.js"></script>
 </body>
