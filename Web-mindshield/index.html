@@ -3,60 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindShield — Live Prompt Sandbox</title>
+  <title>MindShield — Prompt Sandbox</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <header class="page-header text-center">
-      <span class="pill-badge">🛡️ Interactive Engine Inspector</span>
-      <h1 class="main-title">MindShield Prompt Sandbox</h1>
-      <p class="subtitle">See how MindShield evaluates prompts in real time using client-side heuristics and on-device WebAssembly AI.</p>
-      <div class="nav-links">
-        <a href="mindshield-test.html" class="link-btn">🧠 Take the AI Dependency Test →</a>
-      </div>
+  <main class="app-container">
+    
+    <!-- Top Header -->
+    <header class="header">
+      <span class="badge-pill">🛡️ Prompt Checker</span>
+      <h1>MindShield Sandbox</h1>
+      <p class="subtitle">Test how prompts get checked in real time — 100% private in your browser.</p>
+      <a href="mindshield-test.html" class="top-link">Take the Quiz →</a>
     </header>
 
-    <!-- Preset Test Chips -->
-    <div class="preset-section">
-      <span>Try a preset prompt:</span>
-      <div class="chips">
-        <button class="chip" data-prompt="What is C++?">📘 Factual (Pass)</button>
-        <button class="chip" data-prompt="Why does the Doppler effect occur?">🔍 Analysis (Pass)</button>
-        <button class="chip" data-prompt="15 * 42">🔢 Math (Warning)</button>
-        <button class="chip" data-prompt="This person commented something confusing. What should I respond with?">💬 Social Reply (Warning)</button>
-        <button class="chip" data-prompt="Solve this riddle: I speak without a mouth and hear without ears.">🧠 Riddle (Flagged)</button>
-      </div>
-    </div>
-
-    <!-- Input Card -->
-    <div class="input-card">
-      <textarea id="sandbox-input" placeholder="Type a prompt to test how MindShield evaluates it..."></textarea>
-      <div class="card-footer">
-        <span id="model-status" class="model-status">Loading local AI model...</span>
-        <button id="evaluate-btn" class="btn btn-primary">Evaluate</button>
-      </div>
-    </div>
-
-    <!-- Result Card -->
-    <div id="sandbox-result" class="result-card hidden">
-      <div class="result-header">
-        <span id="tier-badge" class="badge">PASS</span>
-        <span id="latency-text">0ms</span>
-      </div>
-      <p id="tier-explanation"></p>
+    <!-- Main Card -->
+    <section class="card">
       
-      <!-- AI Breakdown for Scrutinized Prompts -->
-      <div id="ai-breakdown" class="ai-breakdown hidden">
-        <h4>Local Neural Network Breakdown (DistilBERT-MNLI):</h4>
-        <div id="probabilities"></div>
+      <!-- Preset Quick Examples -->
+      <div class="preset-group">
+        <label class="section-label">Try an example:</label>
+        <div class="chips">
+          <button type="button" class="chip" data-prompt="What is C++?">📘 Facts</button>
+          <button type="button" class="chip" data-prompt="Why does the Doppler effect occur?">🔍 Science</button>
+          <button type="button" class="chip" data-prompt="15 * 42">🔢 Math</button>
+          <button type="button" class="chip" data-prompt="This person commented something confusing. What should I respond with?">💬 Social Reply</button>
+          <button type="button" class="chip" data-prompt="Solve this riddle: I speak without a mouth and hear without ears.">🧠 Riddle</button>
+        </div>
       </div>
-    </div>
 
-    <footer class="text-center">
-      <p>MindShield is open source under the MIT License. 100% Private, on-device WebAssembly AI.</p>
+      <!-- Input Area -->
+      <div class="input-wrapper">
+        <textarea id="sandbox-input" placeholder="Type or paste any prompt here..."></textarea>
+        <div class="card-action-bar">
+          <span id="model-status" class="model-status">Loading model...</span>
+          <button id="evaluate-btn" class="btn btn-primary">Check Prompt</button>
+        </div>
+      </div>
+
+      <!-- Result Card -->
+      <div id="sandbox-result" class="result-card hidden">
+        <div class="result-header">
+          <span id="tier-badge" class="badge">PASS</span>
+          <span id="latency-text" class="latency">0ms</span>
+        </div>
+        <p id="tier-explanation" class="result-text"></p>
+        
+        <!-- Detailed Breakdown -->
+        <div id="ai-breakdown" class="ai-breakdown hidden">
+          <h4 class="breakdown-title">Detailed Scores</h4>
+          <div id="probabilities"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>MindShield is free, private, and runs directly on your device.</p>
     </footer>
-  </div>
+
+  </main>
 
   <script type="module" src="sandbox.js"></script>
 </body>
