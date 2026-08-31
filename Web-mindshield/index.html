@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* --- Base Reset & Foolproof Centering --- */
+    /* --- Base Reset & Clean Centering --- */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -123,7 +123,9 @@
 
     .quick-nav {
       display: flex;
-      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
       font-size: 13px;
       margin-top: 4px;
     }
@@ -518,9 +520,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-size: 12.5px;
       color: #94a3b8;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
     }
 
     .footer a {
@@ -546,7 +555,7 @@
         when it genuinely helps.
       </p>
 
-      <!-- Updated Action Buttons -->
+      <!-- Action Buttons -->
       <div class="btn-group">
         <a
           href="https://addons.mozilla.org/en-US/firefox/addon/mindshield/"
@@ -576,10 +585,12 @@
         </a>
       </div>
 
+      <!-- Quick Navigation with Game Link -->
       <div class="quick-nav">
         <a href="#sandbox">Live Sandbox ↓</a>
         <a href="#about">What Is MindShield? ↓</a>
-        <a href="mindshield-test.html">Take the Quiz →</a>
+        <a href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/game.html" target="_blank" rel="noopener noreferrer">🎮 Play the Game →</a>
+        <a href="mindshield-test.html">🧠 Take the Quiz →</a>
       </div>
     </header>
 
@@ -749,14 +760,16 @@
     <!-- Footer -->
     <footer class="footer">
       <p>Free · Privacy-first · Local AI · Open source under MIT License</p>
-      <p>
-        <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer">View Source on GitHub</a>
-      </p>
+      <div class="footer-links">
+        <a href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/game.html" target="_blank" rel="noopener noreferrer">🎮 Play the Game</a>
+        <a href="mindshield-test.html">🧠 Take the Quiz</a>
+        <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer">⭐ GitHub</a>
+      </div>
     </footer>
 
   </main>
 
-  <!-- Auto-Badge Color Detector (Updates badge color to Green / Orange / Red based on text) -->
+  <!-- Auto-Badge Color Detector (Green / Orange / Red) -->
   <script>
     const badge = document.getElementById('tier-badge');
     if (badge) {
