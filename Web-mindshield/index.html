@@ -3,38 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Do you rely on AI too much? — MindShield</title>
-  
-  <!-- Inter Font -->
+  <title>MindShield — Prompt Thinking Analyzer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* --- CSS Variables & Theme --- */
-    :root {
-      --bg-page: #f8fafc;
-      --card-bg: #ffffff;
-      --card-border: #e2e8f0;
-      
-      --text-main: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #64748b;
-      --text-subtle: #94a3b8;
-      
-      --primary: #0f172a;
-      --primary-hover: #1e293b;
-      --indigo: #4f46e5;
-      --indigo-subtle: #e0e7ff;
-      --indigo-text: #4338ca;
-
-      /* Status Colors */
-      --pass: #15803d;
-      --warn: #c2410c;
-      --flag: #b91c1c;
-    }
-
-    /* --- Base Reset & Centering --- */
+    /* --- Base & Centering --- */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -43,8 +18,8 @@
 
     html, body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-page);
-      color: var(--text-main);
+      background-color: #f8fafc;
+      color: #0f172a;
       -webkit-font-smoothing: antialiased;
       line-height: 1.6;
     }
@@ -60,258 +35,289 @@
       max-width: 660px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
     }
 
-    .text-center {
-      text-align: center;
-    }
-
-    /* --- Hero Header --- */
-    .hero-section {
+    /* --- Tool Header --- */
+    .header {
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .badge-pill {
       font-size: 12px;
       font-weight: 600;
-      color: var(--indigo-text);
-      background: var(--indigo-subtle);
+      color: #4338ca;
+      background: #e0e7ff;
       padding: 4px 12px;
       border-radius: 9999px;
       letter-spacing: 0.02em;
-      display: inline-block;
     }
 
-    .main-title {
-      font-size: 32px;
+    .header h1 {
+      font-size: 30px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: var(--text-main);
-      line-height: 1.25;
+      color: #0f172a;
     }
 
     .subtitle {
       font-size: 15px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      max-width: 500px;
+      color: #64748b;
+      max-width: 520px;
       line-height: 1.5;
     }
 
-    .science-tagline {
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
       font-size: 13px;
-      color: var(--text-subtle);
       margin-top: 4px;
     }
 
-    /* --- Shared Card Style --- */
+    .quick-nav a {
+      color: #4f46e5;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .quick-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- Main Sandbox Card --- */
     .card {
-      background: var(--card-bg);
+      background: #ffffff;
       border-radius: 16px;
-      border: 1px solid var(--card-border);
+      border: 1px solid #e2e8f0;
       box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -2px rgba(15, 23, 42, 0.02);
       padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 18px;
-      animation: fadeIn 0.25s ease forwards;
     }
 
     .card-title {
       font-size: 18px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #0f172a;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    /* --- Buttons --- */
+    /* --- Preset Examples --- */
+    .presets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .presets-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #0f172a;
+      transform: translateY(-1px);
+    }
+
+    /* --- Input Area --- */
+    .input-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #0f172a;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    textarea:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    .input-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .model-status {
+      font-size: 12px;
+      color: #64748b;
+    }
+
     .btn {
       font-family: inherit;
       font-size: 14px;
       font-weight: 600;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 9px;
       border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-    }
-
-    .btn-large {
-      padding: 12px 28px;
-      font-size: 15px;
-    }
-
-    .btn-primary {
-      background: var(--primary);
+      background: #0f172a;
       color: #ffffff;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
+    .btn:hover {
+      background: #1e293b;
     }
 
-    .btn-primary:active {
+    .btn:active {
       transform: scale(0.98);
     }
 
-    .btn-secondary {
-      background: #ffffff;
-      color: var(--text-secondary);
-      border: 1px solid #cbd5e1;
-    }
-
-    .btn-secondary:hover {
-      background: #f1f5f9;
-      border-color: #94a3b8;
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
-
-    /* --- Interactive Quiz Card --- */
-    .quiz-progress-bar {
-      width: 100%;
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .quiz-progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--indigo);
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
-
-    .question-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-main);
-      line-height: 1.5;
-      margin-top: 4px;
-      margin-bottom: 12px;
-    }
-
-    .quiz-options {
+    /* --- Result Box --- */
+    .result-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      animation: fadeIn 0.2s ease;
     }
 
-    .quiz-opt-btn {
-      width: 100%;
-      padding: 14px 16px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      color: var(--text-secondary);
-      font-family: inherit;
-      font-size: 14px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* --- BADGES: GREEN (Pass), ORANGE (Warning), RED (Flagged) --- */
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    /* 🟢 PASS = GREEN */
+    .badge,
+    .badge.pass,
+    .badge.tier-pass,
+    .badge[data-status="pass"] {
+      background-color: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* 🟠 WARNING = ORANGE */
+    .badge.warning,
+    .badge.warn,
+    .badge.tier-warning,
+    .badge[data-status="warning"] {
+      background-color: #ffedd5;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    /* 🔴 FLAGGED = RED */
+    .badge.flagged,
+    .badge.flag,
+    .badge.tier-flagged,
+    .badge[data-status="flagged"] {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .latency {
+      font-size: 12px;
+      color: #94a3b8;
       font-weight: 500;
-      text-align: left;
+    }
+
+    .result-text {
+      font-size: 14px;
+      color: #334155;
       line-height: 1.5;
-      cursor: pointer;
-      transition: all 0.15s ease;
     }
 
-    .quiz-opt-btn:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-      color: var(--text-main);
-      transform: translateY(-1px);
+    .ai-breakdown {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      margin-top: 4px;
     }
 
-    .quiz-opt-btn:active {
-      transform: scale(0.99);
+    .ai-breakdown h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 6px;
     }
 
-    /* --- Results Card --- */
-    .results-card {
-      align-items: center;
-      text-align: center;
-      padding: 32px 24px;
+    .hidden {
+      display: none !important;
     }
 
-    .score-circle {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 6px solid var(--pass);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 6px auto 14px;
-      background: #f8fafc;
-      transition: border-color 0.4s ease;
-    }
-
-    #score-number {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-    }
-
-    #score-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .score-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.55;
-      max-width: 480px;
-      margin: 4px auto 16px;
-    }
-
-    .cta-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    /* --- Science Info Section --- */
-    .lead-text {
-      font-size: 14px;
-      color: #475569;
-      line-height: 1.55;
-    }
-
-    .lead-text strong {
-      color: var(--text-main);
-    }
-
-    .grid-2 {
+    /* --- Evaluation Breakdown Cards --- */
+    .tier-cards-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
-    @media (max-width: 560px) {
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .info-item {
+    .tier-card {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
@@ -321,16 +327,78 @@
       gap: 4px;
     }
 
-    .info-item h3 {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text-main);
+    .tier-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .info-item p {
-      font-size: 12.5px;
-      color: var(--text-muted);
+    .tier-card.pass .tier-card-header { color: #15803d; }
+    .tier-card.warning .tier-card-header { color: #c2410c; }
+    .tier-card.flagged .tier-card-header { color: #b91c1c; }
+
+    .tier-card-desc {
+      font-size: 13px;
+      color: #64748b;
       line-height: 1.45;
+    }
+
+    /* --- About MindShield Extension Card --- */
+    .extension-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .info-p {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-link-primary {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .btn-link-primary:hover {
+      background: #1e293b;
+    }
+
+    .btn-link-secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .btn-link-secondary:hover {
+      background: #e2e8f0;
+      color: #0f172a;
     }
 
     /* --- Footer --- */
@@ -339,29 +407,21 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
       font-size: 12.5px;
-      color: var(--text-subtle);
+      color: #94a3b8;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
     }
 
     .footer a {
-      color: var(--indigo);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .footer a:hover {
+      color: #64748b;
       text-decoration: underline;
-    }
-
-    /* --- Utility --- */
-    .hidden {
-      display: none !important;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -369,189 +429,175 @@
 
   <main class="container">
     
-    <!-- Hero Header -->
-    <header class="hero-section">
-      <span class="badge-pill">🧠 1-Minute Quiz</span>
-      <h1 class="main-title">Do you rely on AI too much?</h1>
-      <p class="subtitle">See if you're letting chatbots do your thinking for you, or using them the smart way.</p>
-      
-      <div>
-        <button id="start-test-btn" class="btn btn-primary btn-large">Start Quiz</button>
-      </div>
-      
-      <p class="science-tagline">🔬 Based on research in learning and memory</p>
-    </header>
-
-    <!-- Interactive Quiz Card -->
-    <section id="quiz-section" class="card hidden">
-      <div class="quiz-progress-bar">
-        <div id="quiz-progress" class="quiz-progress-fill"></div>
-      </div>
-      <div id="quiz-content"></div>
-    </section>
-
-    <!-- Results Screen -->
-    <section id="results-section" class="card results-card hidden">
-      <div id="score-circle" class="score-circle">
-        <span id="score-number">0%</span>
-      </div>
-      <h2 id="score-title">Your Result</h2>
-      <p id="score-desc" class="score-desc"></p>
-
-      <div class="cta-actions">
-        <a href="web-demo-mindshield.html" class="btn btn-primary">Try Live Prompt Sandbox →</a>
-        <button id="retake-btn" class="btn btn-secondary">Retake Quiz</button>
-      </div>
-    </section>
-
-    <!-- Science Section -->
-    <section class="card">
-      <h2 class="card-title">🔬 Why This Matters</h2>
-      <p class="lead-text">
-        When we ask AI for answers right away, our brains skip the effort of thinking. Over time, that makes hard problems feel even harder.
+    <!-- HEADER: TOOL-FOCUSED -->
+    <header class="header">
+      <span class="badge-pill">🛡️ Cognitive Offloading Analyzer</span>
+      <h1>Are You Outsourcing Your Thinking?</h1>
+      <p class="subtitle">
+        Test your prompt below to see if you're using AI productively or bypassing thinking you could easily do yourself.
       </p>
 
-      <div class="grid-2">
-        <div class="info-item">
-          <h3>📉 Use It or Lose It</h3>
-          <p>
-            Skipping the hard thinking part weakens your memory and makes it harder to focus over time.
+      <div class="quick-nav">
+        <a href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/game.html" target="_blank" rel="noopener noreferrer">🎮 Play the Game</a>
+        <a href="mindshield-test.html">🧠 Take the Quiz</a>
+        <a href="#about-extension">About the Browser Extension ↓</a>
+      </div>
+    </header>
+
+    <!-- SECTION 1: PROMPT ANALYZER (PRIMARY DEMO) -->
+    <section class="card">
+      <h2 class="card-title">🔍 Prompt Analyzer Sandbox</h2>
+      
+      <!-- Preset Quick Buttons -->
+      <div class="presets">
+        <span class="presets-label">Try a sample prompt</span>
+        <div class="chips-grid">
+          <button type="button" class="chip" data-prompt="What is C++?">📘 Facts (Productive)</button>
+          <button type="button" class="chip" data-prompt="Why does the Doppler effect occur?">🔍 Science (Productive)</button>
+          <button type="button" class="chip" data-prompt="15 * 42">🔢 Math (Mental Shortcut)</button>
+          <button type="button" class="chip" data-prompt="This person commented something confusing. What should I respond with?">💬 Social (Decision Offload)</button>
+          <button type="button" class="chip" data-prompt="Solve this riddle: I speak without a mouth and hear without ears.">🧠 Riddle (Cognitive Bypass)</button>
+        </div>
+      </div>
+
+      <!-- Text Input & Evaluate -->
+      <div class="input-box">
+        <textarea id="sandbox-input" placeholder="Type or paste a prompt to analyze whether it offloads thinking..."></textarea>
+        <div class="input-footer">
+          <span id="model-status" class="model-status">Loading local analyzer...</span>
+          <button id="evaluate-btn" class="btn">Analyze Prompt</button>
+        </div>
+      </div>
+
+      <!-- Live Analysis Result -->
+      <div id="sandbox-result" class="result-card hidden">
+        <div class="result-header">
+          <span id="tier-badge" class="badge">PASS</span>
+          <span id="latency-text" class="latency">0ms</span>
+        </div>
+        <p id="tier-explanation" class="result-text"></p>
+        
+        <div id="ai-breakdown" class="ai-breakdown hidden">
+          <h4>Local AI Score Breakdown (DistilBERT-MNLI)</h4>
+          <div id="probabilities"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: HOW THIS ANALYZER EVALUATES COGNITIVE OFFLOADING -->
+    <section class="card">
+      <h2 class="card-title">📊 How Prompts Are Classified</h2>
+      <p class="info-p">
+        This web demo runs a lightweight, on-device AI model in your browser (compiled via WebAssembly) that scores prompt intent into three distinct categories:
+      </p>
+
+      <div class="tier-cards-grid">
+        <!-- Pass Tier -->
+        <div class="tier-card pass">
+          <div class="tier-card-header">
+            <span>🟢 PASS</span> — Productive AI Use
+          </div>
+          <p class="tier-card-desc">
+            Deep research, code architecture, technical debugging, synthesis, and learning concepts. You are driving the work and using AI as a tool.
           </p>
         </div>
-        <div class="info-item">
-          <h3>⚡ The 5-Second Rule</h3>
-          <p>
-            Thinking for just <strong>5 seconds</strong> before checking the answer helps your brain remember it much longer.
+
+        <!-- Warning Tier -->
+        <div class="tier-card warning">
+          <div class="tier-card-header">
+            <span>🟠 WARNING</span> — Mental Shortcut
+          </div>
+          <p class="tier-card-desc">
+            Quick arithmetic, routine formulation, or questions you could easily recall or compute with minimal effort.
+          </p>
+        </div>
+
+        <!-- Flagged Tier -->
+        <div class="tier-card flagged">
+          <div class="tier-card-header">
+            <span>🔴 FLAGGED</span> — Direct Cognitive Offloading
+          </div>
+          <p class="tier-card-desc">
+            Riddles, social decision-making ("what should I say?"), or asking AI to problem-solve before you've attempted it yourself.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
+    <!-- SECTION 3: THE BROWSER EXTENSION (FOCUSED ABOUT SECTION) -->
+    <section id="about-extension" class="extension-card">
+      <h2 class="card-title">🛡️ What is the MindShield Extension?</h2>
+      
+      <p class="info-p">
+        This sandbox runs the same classification engine used in <strong>MindShield</strong>, a lightweight browser extension for ChatGPT, Claude, Google Gemini, and Grok.
+      </p>
+
+      <p class="info-p">
+        Instead of blocking AI, the extension automatically intercepts mental shortcuts in real time and inserts a brief <strong>reflection pause</strong>: asking <em>"Do you actually need AI for this?"</em> before you submit. Everything runs 100% locally on your machine with zero server telemetry.
+      </p>
+
+      <div class="btn-group">
+        <a
+          href="https://addons.mozilla.org/en-US/firefox/addon/mindshield/"
+          class="btn-link btn-link-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🦊 Add to Firefox
+        </a>
+        <a
+          href="https://github.com/fluryjanis/Mind-Shield/releases/tag/v1.2.0"
+          class="btn-link btn-link-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🌐 Chrome v1.2.0 (ZIP)
+        </a>
+        <a
+          href="https://github.com/fluryjanis/Mind-Shield"
+          class="btn-link btn-link-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ⭐ GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="footer">
-      <p>MindShield is free and open source under the MIT License.</p>
-      <p><a href="web-demo-mindshield.html">Open Live Prompt Sandbox →</a></p>
+      <p>100% Private Web Demo · Analyzed locally in your browser with WebAssembly</p>
+      <div class="footer-links">
+        <a href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/game.html" target="_blank" rel="noopener noreferrer">🎮 Play the Game</a>
+        <a href="mindshield-test.html">🧠 Take the Quiz</a>
+        <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer">⭐ Source Code</a>
+      </div>
     </footer>
 
   </main>
 
+  <!-- Auto-Badge Color Detector (PASS -> Green, WARNING -> Orange, FLAGGED -> Red) -->
   <script>
-    const QUIZ_QUESTIONS = [
-      {
-        title: "1. You get a confusing or critical comment on your project. What do you do first?",
-        options: [
-          { text: "Paste it into AI: 'What should I reply?'", points: 3 },
-          { text: "Write my own draft, then ask AI to check the tone.", points: 0 },
-          { text: "Ask AI to explain the terms mentioned so I understand it.", points: 0 }
-        ]
-      },
-      {
-        title: "2. You hit an annoying bug or error in your work.",
-        options: [
-          { text: "Paste the error and ask: 'Fix this for me.'", points: 3 },
-          { text: "Try to guess the cause first, then ask AI why it happened.", points: 0 },
-          { text: "Paste the whole file and say: 'Find and fix the issue.'", points: 3 }
-        ]
-      },
-      {
-        title: "3. You have to choose between two options (like jobs or laptops).",
-        options: [
-          { text: "Ask AI: 'Which one should I pick?' and trust its answer.", points: 2 },
-          { text: "List what matters to me and ask AI for facts to compare.", points: 0 },
-          { text: "Ask AI: 'What would you do if you were me?'", points: 2 }
-        ]
-      },
-      {
-        title: "4. You run into a tricky riddle or brain teaser.",
-        options: [
-          { text: "Ask AI right away: 'Give me the answer.'", points: 3 },
-          { text: "Try solving it myself first, then check if I was right.", points: 0 },
-          { text: "Ask AI for a tiny hint without giving it away.", points: 1 }
-        ]
-      }
-    ];
+    const badge = document.getElementById('tier-badge');
+    if (badge) {
+      const updateBadgeColor = () => {
+        const text = badge.textContent.trim().toUpperCase();
+        badge.classList.remove('pass', 'warning', 'flagged');
+        if (text.includes('WARN')) {
+          badge.classList.add('warning');
+        } else if (text.includes('FLAG') || text.includes('FAIL') || text.includes('BLOCK')) {
+          badge.classList.add('flagged');
+        } else {
+          badge.classList.add('pass');
+        }
+      };
 
-    let currentQuestion = 0;
-    let totalPoints = 0;
-
-    const startTestBtn = document.getElementById('start-test-btn');
-    const quizSection = document.getElementById('quiz-section');
-    const quizContent = document.getElementById('quiz-content');
-    const quizProgress = document.getElementById('quiz-progress');
-    const resultsSection = document.getElementById('results-section');
-    const scoreNumber = document.getElementById('score-number');
-    const scoreTitle = document.getElementById('score-title');
-    const scoreDesc = document.getElementById('score-desc');
-    const scoreCircle = document.getElementById('score-circle');
-    const retakeBtn = document.getElementById('retake-btn');
-
-    function renderQuestion() {
-      const q = QUIZ_QUESTIONS[currentQuestion];
-      quizProgress.style.width = `${((currentQuestion + 1) / QUIZ_QUESTIONS.length) * 100}%`;
-
-      quizContent.innerHTML = `
-        <h3 class="question-title">${q.title}</h3>
-        <div class="quiz-options">
-          ${q.options.map(opt => `
-            <button class="quiz-opt-btn" data-points="${opt.points}">${opt.text}</button>
-          `).join('')}
-        </div>
-      `;
-
-      document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          totalPoints += parseInt(e.currentTarget.dataset.points, 10);
-          currentQuestion++;
-          if (currentQuestion < QUIZ_QUESTIONS.length) {
-            renderQuestion();
-          } else {
-            showResults();
-          }
-        });
-      });
+      const observer = new MutationObserver(updateBadgeColor);
+      observer.observe(badge, { childList: true, characterData: true, subtree: true });
+      updateBadgeColor();
     }
-
-    function showResults() {
-      quizSection.classList.add('hidden');
-      resultsSection.classList.remove('hidden');
-
-      const dependencyPercent = Math.round((totalPoints / 11) * 100);
-      scoreNumber.textContent = `${dependencyPercent}%`;
-
-      if (dependencyPercent >= 60) {
-        scoreCircle.style.borderColor = 'var(--flag)';
-        scoreTitle.textContent = "High AI Reliance";
-        scoreDesc.textContent = "You often let AI think for you before trying on your own. Try taking a few seconds to think through problems first.";
-      } else if (dependencyPercent >= 25) {
-        scoreCircle.style.borderColor = 'var(--warn)';
-        scoreTitle.textContent = "Moderate AI Reliance";
-        scoreDesc.textContent = "You use AI well, but you sometimes lean on it for quick answers instead of working through the problem.";
-      } else {
-        scoreCircle.style.borderColor = 'var(--pass)';
-        scoreTitle.textContent = "Independent Thinker";
-        scoreDesc.textContent = "Great job! You use AI as a helpful assistant, not as a replacement for your own brain.";
-      }
-
-      resultsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    startTestBtn.addEventListener('click', () => {
-      currentQuestion = 0;
-      totalPoints = 0;
-      quizSection.classList.remove('hidden');
-      resultsSection.classList.add('hidden');
-      renderQuestion();
-      quizSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    retakeBtn.addEventListener('click', () => {
-      currentQuestion = 0;
-      totalPoints = 0;
-      resultsSection.classList.add('hidden');
-      quizSection.classList.remove('hidden');
-      renderQuestion();
-      quizSection.scrollIntoView({ behavior: 'smooth' });
-    });
   </script>
+
+  <script type="module" src="sandbox.js"></script>
 </body>
 </html>
