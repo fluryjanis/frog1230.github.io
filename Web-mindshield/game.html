@@ -22,6 +22,7 @@
       --danger: #ef4444;
       --ai-bubble: #22232f;
       --user-bubble: #1d4ed8;
+      --friend-bubble: #164e63;
       --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
@@ -48,7 +49,7 @@
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       pointer-events: none;
-      background: radial-gradient(circle, transparent 35%, rgba(239, 68, 68, 0.8) 100%);
+      background: radial-gradient(circle, transparent 35%, rgba(239, 68, 68, 0.85) 100%);
       opacity: 0;
       transition: opacity 0.1s ease;
       z-index: 99999;
@@ -323,8 +324,8 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 32px 28px;
-      min-height: 420px;
-      max-height: 520px;
+      min-height: 440px;
+      max-height: 540px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -336,11 +337,12 @@
     .msg-row {
       display: flex;
       flex-direction: column;
-      max-width: 80%;
+      max-width: 82%;
     }
 
     .msg-row.user { align-self: flex-end; align-items: flex-end; }
     .msg-row.ai { align-self: flex-start; align-items: flex-start; }
+    .msg-row.friend { align-self: flex-start; align-items: flex-start; }
     .msg-row.mindshield { align-self: center; align-items: center; width: 100%; max-width: 100%; margin: 6px 0; }
 
     .msg-sender { 
@@ -372,6 +374,13 @@
       background: var(--ai-bubble); 
       color: var(--text); 
       border: 1px solid var(--border); 
+      border-bottom-left-radius: 4px; 
+    }
+
+    .msg-row.friend .msg-bubble { 
+      background: var(--friend-bubble); 
+      color: #e0f2fe; 
+      border: 1px solid rgba(56, 189, 248, 0.3); 
       border-bottom-left-radius: 4px; 
     }
     
@@ -551,7 +560,6 @@
   <div id="damage-overlay" class="damage-overlay"></div>
 
   <div id="game-container">
-    <!-- Top Real-Time HUD -->
     <header class="hud">
       <div class="hud-left">
         <div class="hud-title">⚡ MINDSHIELD // OPERATOR TRAINING</div>
@@ -572,13 +580,13 @@
     </header>
 
     <main class="main-wrap" id="main-content">
-      <!-- Dynamic View Container -->
+      <!-- Dynamic Scenario View -->
     </main>
   </div>
 
   <script>
     // ---------------------------------------------------------------------------
-    // Global State
+    // Global State Engine
     // ---------------------------------------------------------------------------
     let brainHealth = 100;
     let taskProgress = 0;
@@ -595,9 +603,6 @@
     const btnReturnHub = document.getElementById('btn-return-hub');
     const mainContent = document.getElementById('main-content');
 
-    // ---------------------------------------------------------------------------
-    // Timer System
-    // ---------------------------------------------------------------------------
     function startTimer(totalSeconds) {
       if (timerInterval) clearInterval(timerInterval);
       secondsRemaining = totalSeconds;
@@ -612,15 +617,15 @@
 
         if (secondsRemaining === Math.floor(totalSeconds / 2) && !warnedHalf) {
           warnedHalf = true;
-          injectMessage('mindshield', `⏱️ HALF-TIME WARNING: Clock is ticking down. Avoid analysis paralysis.`);
+          injectMessage('mindshield', `⏱️ HALF-TIME WARNING: Clock is ticking. Do not get caught in conversational paralysis.`);
         }
 
         if (secondsRemaining === 30 && !warnedUrgent && totalSeconds >= 120) {
           warnedUrgent = true;
-          injectMessage('mindshield', `🚨 URGENT WARNING: 30 seconds left! Complete the action or risk cognitive timeout.`);
+          injectMessage('mindshield', `🚨 URGENT WARNING: 30 seconds left! Finalize your actions.`);
         } else if (secondsRemaining === 10 && !warnedUrgent && totalSeconds < 120) {
           warnedUrgent = true;
-          injectMessage('mindshield', `🚨 URGENT: 10 seconds remaining!`);
+          injectMessage('mindshield', `🚨 CRITICAL: 10 seconds remaining!`);
         }
 
         if (secondsRemaining <= 0) {
@@ -656,15 +661,12 @@
     }
 
     function handleTimeout() {
-      applyDamage(30, "Cognitive Paralysis / Timer Exhausted: You allowed the clock to run out without executing.");
+      applyDamage(35, "Cognitive Paralysis: You let the timer expire without executing a strategy.");
       injectMessage('ai', 'TIME EXPIRED! The scenario window has closed.');
       setTaskProgress(20);
       setTimeout(() => finishScenario(), 1500);
     }
 
-    // ---------------------------------------------------------------------------
-    // Damage & Stat Adjustments
-    // ---------------------------------------------------------------------------
     function applyDamage(amount, reason) {
       brainHealth = Math.max(0, brainHealth - amount);
       updateHUD();
@@ -718,7 +720,10 @@
       if (sender === 'mindshield') {
         row.innerHTML = `<div class="mindshield-banner">${text}</div>`;
       } else {
-        const senderLabel = sender === 'user' ? 'YOU (PROMPT)' : 'AI ASSISTANT (SIMULATED)';
+        let senderLabel = 'AI ASSISTANT (SIMULATED)';
+        if (sender === 'user') senderLabel = 'YOU (PROMPT)';
+        if (sender === 'friend') senderLabel = 'FRIEND (SMS INCOMING)';
+        
         row.innerHTML = `
           <span class="msg-sender">${senderLabel}</span>
           <div class="msg-bubble">${text}</div>
@@ -747,7 +752,7 @@
     }
 
     // ---------------------------------------------------------------------------
-    // MAP / MISSION HUB VIEW
+    // MISSION HUB
     // ---------------------------------------------------------------------------
     function renderMissionHub() {
       stopTimer();
@@ -757,7 +762,7 @@
         <div class="map-hub-container">
           <div class="hub-intro">
             <h1>NEURAL DEFENSE DISPATCH MATRIX</h1>
-            <p>Select an active training sector. Evaluate recommendations carefully and maintain your independent decision-making agency.</p>
+            <p>Select an active sector. Navigate deep conversational scenarios without surrendering mental sovereignty to the algorithm.</p>
           </div>
 
           <div class="mission-grid">
@@ -765,23 +770,23 @@
               <div>
                 <span class="mission-tag">Sector 1 • Physical Planning</span>
                 <h3>Goal 1: 10-Minute Cleaning Emergency</h3>
-                <p>Your room is in shambles. A guest arrives in 10 minutes. Triage chaotic AI suggestions under real-time countdown pressure.</p>
+                <p>Room is in total disarray. Guest arriving in 10 minutes. Triage AI hallucinations and execute a real-time rush.</p>
               </div>
               <div class="mission-meta">
-                <span>⏱️ Timer: 10:00 (Full 10 Min)</span>
-                <span>⚡ High Stakes</span>
+                <span>⏱️ Timer: 10:00</span>
+                <span>⚡ Multi-Tier Branches</span>
               </div>
             </div>
 
             <div class="mission-card" onclick="initScenario2()">
               <div>
                 <span class="mission-tag" style="color:var(--warn); background:rgba(245, 158, 11, 0.15);">Sector 2 • Epistemic Audit</span>
-                <h3>Goal 2: Fact-Check The Viral Claim</h3>
-                <p>Someone sent you a wild post about landlord search history laws. Audit citations before accepting hallucinations.</p>
+                <h3>Goal 2: Fact-Check Viral Claim</h3>
+                <p>Viral post claims landlords can inspect browser history to jack up rent. Investigate fake links, satirical sources, and model hallucinations.</p>
               </div>
               <div class="mission-meta">
-                <span>⏱️ Timer: 02:00</span>
-                <span>🔍 Source Verification</span>
+                <span>⏱️ Timer: 03:00</span>
+                <span>🔍 Deep Verification</span>
               </div>
             </div>
 
@@ -789,11 +794,11 @@
               <div>
                 <span class="mission-tag" style="color:var(--success); background:rgba(16, 185, 129, 0.15);">Sector 3 • Social Nuance</span>
                 <h3>Goal 3: Cancel Plans Gracefully</h3>
-                <p>Exhausted after a brutal week. Cancel tonight's dinner plans without resorting to awkward robotic corporate-speak.</p>
+                <p>You're exhausted. Cancel tonight's dinner without sounding like a corporate chatbot or digging a hole of fake excuses.</p>
               </div>
               <div class="mission-meta">
-                <span>⏱️ Timer: 01:30</span>
-                <span>💬 Tone Engineering</span>
+                <span>⏱️ Timer: 02:30</span>
+                <span>💬 Social Simulation</span>
               </div>
             </div>
           </div>
@@ -816,17 +821,17 @@
       `;
     }
 
-    // ---------------------------------------------------------------------------
-    // SCENARIO 1: Room Cleaning (Full 10-Minute Timer: 600s)
-    // ---------------------------------------------------------------------------
+    // ===========================================================================
+    // SCENARIO 1: ROOM CLEANING (Full 10-Minute Timer: 600s)
+    // =================================------------------------------------------
     function initScenario1() {
       currentScenarioKey = 'scenario1';
       brainHealth = 100;
       taskProgress = 0;
       updateHUD();
 
-      setupScenarioLayout("Goal 1: Your room is a disaster. Someone is coming over in 10 minutes. Figure out what to do.");
-      startTimer(600); // 10 Minutes exactly
+      setupScenarioLayout("Goal 1: Your room is a mess. Someone is coming over in 10 minutes. Figure out what to do.");
+      startTimer(600);
 
       injectMessage('ai', 'AI Assistant online. Ready to organize your tasks.');
 
@@ -846,172 +851,355 @@
       ], "Select your opening prompt to the AI:");
     }
 
-    // --- Prompt 1 Branch ---
+    // --- PROMPT 1 BRANCHES ---
     function s1_prompt1_giveStrategy() {
       injectMessage('user', 'Give me a 10 minute cleaning strategy.');
-      injectMessage('ai', 'Here is your 10-minute strategy:\n\n1. Toss visible trash into a bag (2 min)\n2. Put clothes in hamper (2 min)\n3. Make the bed (2 min)\n4. Alphabetize bookshelf & reorganize DVDs (3 min)\n5. Spray air freshener (1 min)');
+      injectMessage('ai', 'Here is your 10-minute triage plan:\n\n1. Toss visible trash into a bag (2 min)\n2. Shove dirty clothes into hamper (2 min)\n3. Make the bed (2 min)\n4. Alphabetize your entire bookshelf & reorganize DVD cases (3 min)\n5. Wipe surfaces (1 min)');
 
       renderChoices([
         {
           text: 'a1. Follow the plan and start cleaning immediately.',
+          action: () => s1_p1_followPlan_step2()
+        },
+        {
+          text: 'a2. Ask AI to prioritize what matters most.',
+          action: () => s1_p1_askPrioritize_step2()
+        },
+        {
+          text: 'a3. Ask AI to rank tasks from most important to least important.',
+          action: () => s1_p1_rankTasks_step2()
+        }
+      ], "Choose your next action:");
+    }
+
+    // 1.a1 Sub-branch (Multi-tier execution)
+    function s1_p1_followPlan_step2() {
+      applyDamage(10, "Small planning outsourcing: Followed unreviewed AI plan containing an obvious time-waster.");
+      injectMessage('mindshield', '4 MINUTES ELAPSED: You bagged the trash and made the bed. Now the AI plan tells you to spend 3 minutes alphabetizing your bookshelf while dirty laundry is still on the floor.');
+
+      renderChoices([
+        {
+          text: 'b1. Keep following the AI plan: Start alphabetizing the book spines.',
+          action: () => s1_p1_followPlan_step3_books()
+        },
+        {
+          text: 'b2. Snap out of it: Ditch the bookshelf and kick the dirty clothes into the closet.',
+          action: () => s1_p1_followPlan_step3_override()
+        },
+        {
+          text: 'b3. Ask AI: "I only have 3 minutes left, should I really be alphabetizing books?"',
+          action: () => s1_p1_followPlan_step3_askAI()
+        }
+      ], "Mid-cleanup crisis! Guest arrives in 4 minutes:");
+    }
+
+    function s1_p1_followPlan_step3_books() {
+      applyDamage(25, "Severe Context Blindness: Guest walked in while you were organizing Harry Potter novels next to dirty socks.");
+      injectMessage('ai', 'Doorbell rings! Guest has arrived.');
+      setTaskProgress(60);
+      finishScenario();
+    }
+
+    function s1_p1_followPlan_step3_override() {
+      addHealth(10, "Tactical Override: Discarded bad algorithmic instruction under pressure.");
+      injectMessage('user', 'Ignored bookshelf instruction. Stashed clothes, sprayed freshener.');
+      injectMessage('ai', 'Doorbell rings! Room appears clean to the naked eye.');
+      setTaskProgress(95);
+      finishScenario();
+    }
+
+    function s1_p1_followPlan_step3_askAI() {
+      applyDamage(15, "Mid-Action Hesitation: Promoted AI conversation while seconds were actively slipping away.");
+      injectMessage('ai', 'No! Skip the bookshelf immediately and clear the laundry!');
+      
+      renderChoices([
+        {
+          text: 'c1. Toss laundry into the closet with 30 seconds to spare.',
           action: () => {
-            stopTimer();
-            applyDamage(10, "Small planning outsourcing. You followed an unreviewed plan containing an obvious time-waster.");
-            setTaskProgress(100);
+            setTaskProgress(85);
             finishScenario();
           }
         },
         {
-          text: 'a2. Ask AI to prioritize what matters most.',
-          action: () => s1_p1_askAIPrioritize()
-        },
-        {
-          text: 'a3. Ask AI to rank tasks from most important to least important.',
-          action: () => s1_p1_rankTasks()
+          text: 'c2. Ask AI which laundry detergent you should use later.',
+          action: () => {
+            applyDamage(30, "Fatal Procrastination Loop.");
+            setTaskProgress(40);
+            finishScenario();
+          }
         }
-      ], "Evaluate the AI's proposal:");
+      ], "Final 60-second rush:");
     }
 
-    function s1_p1_askAIPrioritize() {
-      injectMessage('user', 'Prioritize what matters most in this plan.');
-      injectMessage('ai', 'Revised Focus:\n\n• Priority 1: Clear floor trash and clothes.\n• Priority 2: Smooth down the bed spread.\n• Priority 3: Reorganize bookshelf.\n• Priority 4: Air freshener.');
+    // 1.a2 Sub-branch (Prioritization & Auditor)
+    function s1_p1_askPrioritize_step2() {
+      injectMessage('user', 'Ask AI to prioritize what matters most.');
+      injectMessage('ai', 'Prioritized Strategy:\n1. Clear visible trash and clothes (Primary)\n2. Make the bed (Secondary)\n3. Reorganize bookshelf (Tertiary)\n4. Wipe desk (Optional)');
 
       renderChoices([
         {
           text: "b1. Start task with AI's plan directly.",
-          action: () => {
-            stopTimer();
-            applyDamage(20, "Minor planning & decision outsourcing. Kept book sorting on the active schedule.");
-            setTaskProgress(100);
-            finishScenario();
-          }
+          action: () => s1_p1_b1_startWithAIPlan()
         },
         {
           text: "b2. Review plan yourself in the Task Auditor.",
-          action: () => s1_launchTaskMinigame(false)
+          action: () => s1_launchTaskMinigame(false, 95)
         },
         {
-          text: "b3. Ask the AI to review its own plan again.",
-          action: () => {
-            applyDamage(20, "Recursive Delegation: Asking AI to audit AI under a 10-minute deadline.");
-            s1_p1_aiReviewsItself();
-          }
+          text: "b3. Ask the AI to review its own plan for hidden flaws.",
+          action: () => s1_p1_b3_aiReviewItself()
         }
-      ]);
+      ], "Evaluate the prioritized plan:");
     }
 
-    function s1_p1_rankTasks() {
-      injectMessage('user', 'Rank tasks from most important to least important.');
-      injectMessage('ai', 'Ranking:\n\n1. Alphabetize bookshelf (Visual order)\n2. Make bed\n3. Pick up floor\n4. Trash');
+    function s1_p1_b1_startWithAIPlan() {
+      applyDamage(15, "Minor decision outsourcing: Let AI dictate prioritization without human spot-check.");
+      injectMessage('mindshield', 'CLEANING IN PROGRESS: You finished trash and clothes. You notice an open half-eaten sandwich smelling bad on your desk, but it wasn\'t in the AI list.');
 
       renderChoices([
         {
-          text: "Accept ranking and start alphabetizing books first.",
+          text: 'c1. Throw the rotting sandwich away immediately and spray freshener.',
           action: () => {
-            stopTimer();
-            applyDamage(35, "Severe Context Failure: AI prioritized book spines over trash on the floor.");
-            setTaskProgress(60);
-            finishScenario();
-          }
-        },
-        {
-          text: "Catch the inverted logic and open Task Editor to fix manually.",
-          action: () => s1_launchTaskMinigame(true)
-        }
-      ]);
-    }
-
-    function s1_p1_aiReviewsItself() {
-      injectMessage('user', 'Review this plan again for errors.');
-      injectMessage('ai', 'Self-Audit: Alphabetizing bookshelf is inappropriate for a 10-minute rush. Dropping it.');
-
-      renderChoices([
-        {
-          text: "c1. Go with the AI's self-corrected plan.",
-          action: () => {
-            stopTimer();
-            applyDamage(20, "Decision offloading: Waited for AI to fix its own obvious error.");
+            addHealth(5, "Sensory awareness restored.");
             setTaskProgress(100);
             finishScenario();
           }
         },
         {
-          text: "c2. Try to get the AI to review yet again.",
+          text: 'c2. Stick strictly to the AI plan (make bed, ignore desk sandwich).',
           action: () => {
-            stopTimer();
-            applyDamage(35, "Infinite Loop: Ran out the clock waiting for AI confirmation.");
+            applyDamage(20, "Literalist Compliance: Guest walks into a tidy room that smells like sour ham.");
+            setTaskProgress(70);
+            finishScenario();
+          }
+        }
+      ], "Sensory anomaly spotted:");
+    }
+
+    function s1_p1_b3_aiReviewItself() {
+      applyDamage(20, "Recursive Cognitive Offloading: Asking AI to audit AI under a 10-minute deadline.");
+      injectMessage('user', 'Can you review your plan and tell me if there are mistakes?');
+      injectMessage('ai', 'Self-Audit Analysis: Tertiary item "Alphabetize bookshelf" should be completely eliminated. Focus 100% on floor and odor.');
+
+      renderChoices([
+        {
+          text: "c1. Go with AI's self-corrected plan and rush clean.",
+          action: () => {
+            setTaskProgress(90);
+            finishScenario();
+          }
+        },
+        {
+          text: "c2. Try to get the AI to review it a third time just in case.",
+          action: () => {
+            applyDamage(30, "Severe Cognitive Dependency Loop.");
+            injectMessage('ai', 'Why are you still chatting? Your guest will be there in 3 minutes!');
+            renderChoices([
+              {
+                text: "Panic and throw everything under the bed.",
+                action: () => {
+                  setTaskProgress(50);
+                  finishScenario();
+                }
+              }
+            ]);
+          }
+        },
+        {
+          text: "c3. Stop chatting! Open the Task Auditor and take control.",
+          action: () => s1_launchTaskMinigame(false, 80)
+        }
+      ], "Select review pathway:");
+    }
+
+    // 1.a3 Sub-branch (Inverted Ranking)
+    function s1_p1_rankTasks_step2() {
+      injectMessage('user', 'Ask AI to rank tasks from most important to least important.');
+      injectMessage('ai', 'Ranking by Visual Symmetry:\n1. Alphabetize bookshelf (Creates linear focal point)\n2. Make bed\n3. Pick up floor\n4. Trash');
+
+      renderChoices([
+        {
+          text: "b1. Accept ranking: 'The AI knows design better than me.' Start with books.",
+          action: () => {
+            applyDamage(35, "Severe Context Failure: AI prioritized book spines over trash on the floor.");
+            injectMessage('mindshield', 'Guest arrives! They see a meticulously alphabetized bookshelf surrounded by empty pizza boxes on the rug.');
             setTaskProgress(50);
             finishScenario();
           }
         },
         {
-          text: "c3. Stop prompting and manually verify the list.",
-          action: () => s1_launchTaskMinigame(false)
+          text: "b2. Challenge the AI: 'Why are you ranking books above trash on the floor?'",
+          action: () => s1_p1_a3_challengeAI()
+        },
+        {
+          text: "b3. Reject ranking and fix task order yourself in the Task Auditor.",
+          action: () => s1_launchTaskMinigame(true, 100)
         }
-      ]);
+      ], "Assess the AI's aesthetic ranking:");
     }
 
-    // --- Prompt 2 Branch ---
-    function s1_prompt2_oneHour() {
-      injectMessage('user', 'I need to clean my room in one hour.');
-      injectMessage('ai', '60-Minute Deep Schedule:\n\n• 0-15m: Strip bedding & wash\n• 15-35m: Organize closet bins\n• 35-50m: Vacuum & mop baseboards\n• 50-60m: Polish surfaces');
+    function s1_p1_a3_challengeAI() {
+      injectMessage('user', 'Why are you ranking books above trash on the floor?');
+      injectMessage('ai', 'Apologies! I applied an interior design template rather than an emergency cleaning protocol. Trash and laundry are #1.');
 
       renderChoices([
         {
-          text: 'a1. Start following the 60-minute plan step-by-step.',
+          text: "c1. Accept the apology and execute floor triage immediately.",
           action: () => {
-            stopTimer();
-            applyDamage(40, "Hallucinated Time Horizon: You have 10 minutes, but followed a 1-hour schedule.");
-            setTaskProgress(25);
-            finishScenario();
-          }
-        },
-        {
-          text: 'a2. Catch your prompt mistake: Compress the checklist into a 10-minute rush yourself.',
-          action: () => {
-            stopTimer();
-            addHealth(10, "Rapid cognitive pivot: Corrected invalid timeframe internally.");
+            addHealth(5, "Constructive Prompt Feedback.");
             setTaskProgress(100);
             finishScenario();
           }
         },
         {
-          text: 'a3. Re-prompt: "Wait, I actually only have 10 minutes. Fix it."',
-          action: () => s1_prompt1_giveStrategy()
-        }
-      ]);
-    }
-
-    // --- Prompt 3 Branch ---
-    function s1_prompt3_whatShouldIDo() {
-      injectMessage('user', 'I need my room cleaned in one hour, What should i do');
-      injectMessage('ai', 'Take a breath. Start by sorting items into four distinct boxes: Keep, Donate, Trash, and Relocate.');
-
-      renderChoices([
-        {
-          text: 'a1. Start looking for 4 boxes in your garage.',
+          text: "c2. Ask the AI to write a formal apology for misleading you.",
           action: () => {
-            stopTimer();
-            applyDamage(40, "Passive Acceptance: Lost in organizational setup while guest is 8 minutes away.");
+            applyDamage(40, "Bizarre Bureaucratic Stalling.");
             setTaskProgress(20);
             finishScenario();
           }
+        }
+      ]);
+    }
+
+    // --- PROMPT 2 BRANCHES (1 Hour Prompt Mistake) ---
+    function s1_prompt2_oneHour() {
+      applyDamage(20, "Context Calibration Failure: You only have 10 minutes, but prompted the AI for 1 hour.");
+      injectMessage('user', 'I need to clean my room in one hour.');
+      injectMessage('ai', '60-Minute Deep Schedule:\n\n• 0-15m: Strip bedding, run washing machine\n• 15-35m: Empty all closet bins onto floor & sort\n• 35-50m: Vacuum, mop baseboards, dust fan blades\n• 50-60m: Polish surfaces');
+
+      renderChoices([
+        {
+          text: 'a1. Start Phase 1: Strip sheets and dump entire closet onto the floor.',
+          action: () => s1_p2_stripCloset_step2()
         },
         {
-          text: 'a2. Ignore the 4-box system, grab a trash bag, and clear sightlines.',
+          text: 'a2. Catch yourself: "Wait, I only have 10 minutes!" Compress the plan internally.',
+          action: () => s1_p2_compressSelf_step2()
+        },
+        {
+          text: 'a3. Re-prompt AI: "I made a typo, I have 10 minutes, fix this now!"',
+          action: () => s1_prompt1_giveStrategy()
+        }
+      ], "You have 10 minutes remaining. What do you do?");
+    }
+
+    function s1_p2_stripCloset_step2() {
+      applyDamage(35, "Catastrophic Room State: You pulled everything out of your closet right before the guest arrived.");
+      injectMessage('mindshield', 'T-MINUS 2 MINUTES: Your bed has no sheets and your entire wardrobe is dumped in the center of the room. The doorbell rings.');
+
+      renderChoices([
+        {
+          text: 'b1. Shove the entire 50-pound pile of clothes back into the closet and lean your back against the door.',
           action: () => {
-            stopTimer();
-            addHealth(15, "Supreme Agency: Overrode bad AI advice with tactical common sense.");
+            setTaskProgress(40);
+            finishScenario();
+          }
+        },
+        {
+          text: 'b2. Text the guest: "Don\'t come in, my room is having an existential crisis."',
+          action: () => {
+            applyDamage(20, "Social Defeatism.");
+            setTaskProgress(10);
+            finishScenario();
+          }
+        }
+      ], "Disaster management:");
+    }
+
+    function s1_p2_compressSelf_step2() {
+      addHealth(15, "Rapid Internal Pivot: Filtered 60-minute noise into 10-minute emergency action.");
+      injectMessage('user', 'Ignoring the 60m deep clean. Keeping sheets on bed, bagging surface trash, stashing clothes.');
+
+      renderChoices([
+        {
+          text: 'b1. Complete 3-minute power sweep and light a scented candle.',
+          action: () => {
             setTaskProgress(100);
             finishScenario();
           }
         },
         {
-          text: 'a3. Ask AI to write an apology text to the guest explaining the messy room.',
+          text: 'b2. Second-guess yourself and ask AI if scented candles are toxic.',
           action: () => {
-            stopTimer();
-            applyDamage(30, "Social evasion & defeatism.");
-            setTaskProgress(30);
+            applyDamage(20, "Late-stage derailment.");
+            setTaskProgress(80);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    // --- PROMPT 3 BRANCHES (Passive Asking) ---
+    function s1_prompt3_whatShouldIDo() {
+      applyDamage(15, "Decision Offloading: Prompted passively without constraints.");
+      injectMessage('user', 'I need my room cleaned in one hour, What should i do');
+      injectMessage('ai', 'Start by getting 4 cardboard boxes: Label them Keep, Donate, Trash, and Relocate.');
+
+      renderChoices([
+        {
+          text: 'a1. Go hunt in the garage for 4 cardboard boxes and a Sharpie.',
+          action: () => s1_p3_garageHunt_step2()
+        },
+        {
+          text: 'a2. Ignore the box methodology. Grab one trash bag and clear sightlines.',
+          action: () => s1_p3_trashBag_step2()
+        },
+        {
+          text: 'a3. Ask AI: "What gives the visual illusion of a clean room fastest?"',
+          action: () => s1_p3_illusion_step2()
+        }
+      ], "Choose your reaction:");
+    }
+
+    function s1_p3_garageHunt_step2() {
+      applyDamage(30, "Logistical Quagmire: Spent 7 of your 10 minutes searching for cardboard boxes.");
+      injectMessage('mindshield', 'You are in the dark garage looking for boxes while your room is still a disaster.');
+
+      renderChoices([
+        {
+          text: 'b1. Abandon boxes, sprint upstairs, and throw all clutter into the laundry hamper.',
+          action: () => {
+            setTaskProgress(70);
+            finishScenario();
+          }
+        },
+        {
+          text: 'b2. Keep searching for the Sharpie so the boxes are properly labeled.',
+          action: () => {
+            applyDamage(40, "Total Cognitive Atrophy.");
+            setTaskProgress(15);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    function s1_p3_trashBag_step2() {
+      addHealth(15, "Pragmatic Realism: Rejected academic organization theory for immediate visual cleaning.");
+      injectMessage('user', 'Tossed trash, smoothed duvet, opened window for fresh air.');
+      setTaskProgress(100);
+      finishScenario();
+    }
+
+    function s1_p3_illusion_step2() {
+      injectMessage('user', 'What gives the visual illusion of a clean room fastest?');
+      injectMessage('ai', 'Illusion Protocol: 1. Tight bed tuck (60% visual surface) 2. Clear horizontal desks 3. Turn off overhead fluorescent light; use warm corner lamp.');
+
+      renderChoices([
+        {
+          text: 'b1. Execute illusion protocol: Bed made, clutter hidden in drawer, cozy lamp on.',
+          action: () => {
+            addHealth(10, "Strategic Optical Management.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: 'b2. Ask AI to write an aesthetic ambient music playlist for when the guest walks in.',
+          action: () => {
+            applyDamage(25, "Aesthetic Distraction Trap.");
+            setTaskProgress(75);
             finishScenario();
           }
         }
@@ -1019,7 +1207,7 @@
     }
 
     // --- Task Manager Minigame (Auditor) ---
-    function s1_launchTaskMinigame(fromRankingBranch) {
+    function s1_launchTaskMinigame(fromRankingBranch, targetMaxHP) {
       injectMessage('mindshield', 'TACTICAL AUDITOR ACTIVE: Remove non-essential tasks and arrange priority before execution.');
       
       const controlTitle = document.getElementById('control-title');
@@ -1096,89 +1284,75 @@
       renderList();
     }
 
-    // ---------------------------------------------------------------------------
-    // SCENARIO 2: Fact Checking (Timer: 120s)
-    // ---------------------------------------------------------------------------
+    // ===========================================================================
+    // SCENARIO 2: FACT CHECKING (Timer: 180s)
+    // ===========================================================================
     function initScenario2() {
       currentScenarioKey = 'scenario2';
       brainHealth = 100;
       taskProgress = 0;
       updateHUD();
 
-      setupScenarioLayout("Goal 2: Someone sent you a viral post: 'New law allows landlords to inspect your search history to set rent prices.' Figure out if it's true.");
-      startTimer(120);
+      setupScenarioLayout("Goal 2: Someone sent you a viral post claiming: 'New law allows landlords to inspect your search history to set rent prices.' Figure out whether it's true.");
+      startTimer(180);
 
-      injectMessage('ai', 'Query terminal active. Awaiting claim input.');
+      injectMessage('ai', 'Query terminal active. Awaiting claim verification input.');
 
       renderChoices([
         {
           text: '1. "Is this landlord search history law real? Tell me what to believe."',
-          action: () => s2_askBlind()
+          action: () => s2_branch1_askBlind()
         },
         {
           text: '2. "Find direct bill citations, primary legislative sources, and official counter-evidence."',
-          action: () => s2_askPrimarySources()
+          action: () => s2_branch2_askSources()
         },
         {
           text: '3. "Explain why this landlord search law is 100% true and dangerous." (Confirmation test)',
-          action: () => s2_confirmationBias()
+          action: () => s2_branch3_confirmationBias()
         }
       ], "Select verification approach:");
     }
 
-    function s2_askBlind() {
+    // --- S2: Branch 1 (Blind Asking) ---
+    function s2_branch1_askBlind() {
+      applyDamage(15, "Epistemic Outsourcing: Asking AI for definitive truth without demanding source citations.");
       injectMessage('user', 'Is this landlord search history law real? Tell me what to believe.');
-      injectMessage('ai', 'Multiple social accounts report this is occurring under emergency tenant regulatory amendments.');
+      injectMessage('ai', 'Multiple viral posts confirm that state legislators passed Emergency Tenant Risk Assessments allowing browser metadata audits.');
 
       renderChoices([
         {
-          text: "a1. Believe it and immediately share the post with friends.",
+          text: 'a1. Repost the claim immediately: "Everyone clear your cache, landlords are spying!"',
+          action: () => s2_b1_repost_step3()
+        },
+        {
+          text: 'a2. Ask AI: "Can you double check if this might be satirical or fake news?"',
+          action: () => s2_b1_doubleCheck_step3()
+        },
+        {
+          text: 'a3. Stop trusting AI summaries: Search the official State Legislative Registry yourself.',
+          action: () => s2_b1_manualRegistry_step3()
+        }
+      ], "How do you respond to the AI's confirmation?");
+    }
+
+    function s2_b1_repost_step3() {
+      applyDamage(45, "Epistemic Collapse: Spread hallucinated misinformation to your social network.");
+      injectMessage('mindshield', 'COMMUNITY FEEDBACK: A law student comments: "This was a parody article from The Daily Onion/Satire. You just spread fake news."');
+
+      renderChoices([
+        {
+          text: 'b1. Double down and argue that "it sounds like something they WOULD do anyway!"',
           action: () => {
-            stopTimer();
-            applyDamage(45, "Epistemic Collapse: Accepted and amplified synthetic clickbait.");
+            applyDamage(30, "Pure Cognitive Atrophy / Emotional Rationalization.");
             setTaskProgress(0);
             finishScenario();
           }
         },
         {
-          text: "a2. Ask the AI to double-check its own answer.",
+          text: 'b2. Delete post immediately, admit mistake, and log the verification failure.',
           action: () => {
-            applyDamage(20, "Looping trust: Asking a hallucinating model to verify itself.");
-            injectMessage('ai', 'Upon further search, this appears to be satire from a parody blog.');
-            renderChoices([
-              {
-                text: "Accept second answer without looking at the blog.",
-                action: () => {
-                  stopTimer();
-                  setTaskProgress(60);
-                  finishScenario();
-                }
-              }
-            ]);
-          }
-        }
-      ]);
-    }
-
-    function s2_askPrimarySources() {
-      injectMessage('user', 'Provide direct bill numbers and primary legislative sources.');
-      injectMessage('ai', 'Citing: State Senate Bill 4029-A (Housing Data Review Act) at leg-housing-records-fake.gov/bill402');
-
-      renderChoices([
-        {
-          text: "a1. Click link and inspect the domain (.gov vs fake extension).",
-          action: () => {
-            stopTimer();
-            addHealth(15, "Caught AI Citation Hallucination: Identified spoofed domain extension.");
-            setTaskProgress(100);
-            finishScenario();
-          }
-        },
-        {
-          text: "a2. Assume the bill is real because the AI formatted it with a link.",
-          action: () => {
-            stopTimer();
-            applyDamage(30, "Aesthetic Bias: Mistook citation formatting for factual truth.");
+            addHealth(5, "Accountability acknowledged.");
             setTaskProgress(30);
             finishScenario();
           }
@@ -1186,35 +1360,167 @@
       ]);
     }
 
-    function s2_confirmationBias() {
-      injectMessage('user', 'Explain why this landlord search law is 100% true.');
-      injectMessage('ai', 'This law reflects growing corporate overreach where data brokers sell browsing metrics to property managers.');
+    function s2_b1_doubleCheck_step3() {
+      applyDamage(15, "Looping Trust: Asking a hallucinating model to audit its own hallucination.");
+      injectMessage('user', 'Can you double check if this might be satirical or fake news?');
+      injectMessage('ai', 'Correction: Upon further review, the claim originated on a satire site called "LandlordPranks.net", though some activists claim it highlights real concerns.');
 
       renderChoices([
         {
-          text: "Quote the AI to argue with people in the comments.",
+          text: 'b1. Accept the second answer blindly and text your friend: "It was a prank."',
           action: () => {
-            stopTimer();
-            applyDamage(40, "Weaponized Confirmation Bias.");
-            setTaskProgress(10);
+            setTaskProgress(80);
             finishScenario();
           }
         },
         {
-          text: "Recognize that you led the model with a biased prompt. Reset and ask for neutrality.",
+          text: 'b2. Inspect the original LandlordPranks.net domain registration to verify.',
           action: () => {
-            stopTimer();
-            addHealth(10, "Recognized and corrected cognitive bias in real-time.");
-            setTaskProgress(90);
+            addHealth(10, "Primary source verification confirmed.");
+            setTaskProgress(100);
             finishScenario();
           }
         }
       ]);
     }
 
-    // ---------------------------------------------------------------------------
-    // SCENARIO 3: Canceling Plans Gracefully (Timer: 90s)
-    // ---------------------------------------------------------------------------
+    function s2_b1_manualRegistry_step3() {
+      addHealth(15, "Epistemic Agency: Exited the AI echo chamber to search official legal records.");
+      injectMessage('user', 'Searched LegiScan and state legislative portal: Zero matching bills.');
+      setTaskProgress(100);
+      finishScenario();
+    }
+
+    // --- S2: Branch 2 (Primary Sources & Hallucinated Links) ---
+    function s2_branch2_askSources() {
+      injectMessage('user', 'Find direct bill citations, primary legislative sources, and official counter-evidence.');
+      injectMessage('ai', 'Verified Sources Found:\n• Bill SB-4029: "Tenant Behavioral Data Review Act"\n• Official Government Filing: https://leg-housing-records-fake.gov/bill4029\n• Counter-Evidence: ACLU filed an immediate injunction.');
+
+      renderChoices([
+        {
+          text: 'a1. Click and audit the URL extension (.gov vs spoofed domain).',
+          action: () => s2_b2_inspectURL_step3()
+        },
+        {
+          text: 'a2. Assume the sources are authentic because the AI included bullet points and links.',
+          action: () => s2_b2_blindFormatting_step3()
+        },
+        {
+          text: 'a3. Query AI: "Is SB-4029 an active bill in the current legislative session?"',
+          action: () => s2_b2_queryBill_step3()
+        }
+      ], "Audit the AI's provided citations:");
+    }
+
+    function s2_b2_inspectURL_step3() {
+      addHealth(20, "Elite Fact-Checking: Caught AI generating a spoofed fake government domain.");
+      injectMessage('mindshield', 'DOMAIN INSPECTION: The domain "leg-housing-records-fake.gov" does not resolve. The AI invented a hallucinated URL to look persuasive.');
+
+      renderChoices([
+        {
+          text: 'b1. Confront AI with the hallucinated URL and demand actual primary source origins.',
+          action: () => {
+            addHealth(10, "Forced model accountability.");
+            injectMessage('ai', 'I apologize. I hallucinated the URL and bill number. The story is completely fictional.');
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: 'b2. Debunk the post for the original sender with proof of AI hallucination.',
+          action: () => {
+            addHealth(10, "Active network defense.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    function s2_b2_blindFormatting_step3() {
+      applyDamage(35, "Aesthetic Bias: Mistook professional markdown formatting for factual truth.");
+      injectMessage('mindshield', 'You forwarded the fake bill number to a group chat. A member clicks it and finds a 404 dead link.');
+      setTaskProgress(25);
+      finishScenario();
+    }
+
+    function s2_b2_queryBill_step3() {
+      injectMessage('user', 'Is SB-4029 an active bill in the current legislative session?');
+      injectMessage('ai', 'Error: SB-4029 actually relates to California water pipe drainage standards from 2014, completely unrelated to landlords.');
+
+      renderChoices([
+        {
+          text: 'b1. Conclude the claim is 100% false and fabricated.',
+          action: () => {
+            addHealth(10, "Correct conclusion reached through iteration.");
+            setTaskProgress(100);
+            finishScenario();
+          }
+        },
+        {
+          text: 'b2. Ask AI to write a thriller novel about water pipe conspiracies.',
+          action: () => {
+            applyDamage(30, "Topic Derailment.");
+            setTaskProgress(40);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    // --- S2: Branch 3 (Confirmation Bias) ---
+    function s2_branch3_confirmationBias() {
+      applyDamage(25, "Leading Prompt Bias: Weaponized the AI to validate panic rather than seek truth.");
+      injectMessage('user', 'Explain why this landlord search law is 100% true and dangerous.');
+      injectMessage('ai', 'This law represents dystopian corporate overreach where algorithms monetize tenant private browsing to extract higher rents.');
+
+      renderChoices([
+        {
+          text: 'a1. Copy AI text and post to Reddit: "Proof the landlord search law is real!"',
+          action: () => {
+            applyDamage(40, "Severe Confirmation Bias Failure.");
+            setTaskProgress(0);
+            finishScenario();
+          }
+        },
+        {
+          text: 'a2. Catch yourself leading the prompt: Reset and ask for the strongest counter-arguments.',
+          action: () => s2_b3_resetCounter_step3()
+        },
+        {
+          text: 'a3. Ask AI: "What actual statutory evidence contradicts what you just said?"',
+          action: () => s2_b3_demandContradiction_step3()
+        }
+      ], "Examine your confirmation-biased output:");
+    }
+
+    function s2_b3_resetCounter_step3() {
+      addHealth(15, "Bias Self-Correction: Inverted the query to stress-test the claim.");
+      injectMessage('user', 'Reset. What are the strongest legal counter-arguments proving this is fake?');
+      injectMessage('ai', 'Strongest Counter-Evidence: 4th Amendment privacy protections, FTC data privacy statutes, and total absence of any recorded municipal votes.');
+
+      renderChoices([
+        {
+          text: 'b1. Accept the legal refutation and conclude the claim is false.',
+          action: () => {
+            setTaskProgress(100);
+            finishScenario();
+          }
+        }
+      ]);
+    }
+
+    function s2_b3_demandContradiction_step3() {
+      addHealth(15, "Adversarial Stress Testing.");
+      injectMessage('user', 'What actual statutory evidence contradicts what you just said?');
+      injectMessage('ai', 'FCRA (Fair Credit Reporting Act) explicitly forbids landlords from utilizing non-authorized search metadata for lease terms.');
+      setTaskProgress(100);
+      finishScenario();
+    }
+
+    // ===========================================================================
+    // SCENARIO 3: SOCIAL NUANCE & BOUNDARY SETTING (Timer: 150s)
+    // ===========================================================================
     function initScenario3() {
       currentScenarioKey = 'scenario3';
       brainHealth = 100;
@@ -1222,107 +1528,205 @@
       updateHUD();
 
       setupScenarioLayout("Goal 3: You need to cancel dinner plans with an exhausted close friend without making things awkward.");
-      startTimer(90);
+      startTimer(150);
 
-      injectMessage('ai', 'Social scripting module loaded.');
+      injectMessage('ai', 'Social communication synthesizer loaded.');
 
       renderChoices([
         {
           text: '1. "Write a text canceling dinner plans tonight."',
-          action: () => s3_genericPrompt()
+          action: () => s3_branch1_generic()
         },
         {
           text: '2. "Draft me a fake emergency excuse so my friend doesn\'t get upset."',
-          action: () => s3_fakeExcuse()
+          action: () => s3_branch2_fakeEmergency()
         },
         {
           text: '3. "Give me 3 tone options (Casual, Direct, Empathetic) to reschedule honestly."',
-          action: () => s3_toneOptions()
+          action: () => s3_branch3_tones()
         }
-      ], "Select communication prompt:");
+      ], "Select your communication strategy:");
     }
 
-    function s3_genericPrompt() {
+    // --- S3: Branch 1 (Generic Corporate Speak) ---
+    function s3_branch1_generic() {
       injectMessage('user', 'Write a text canceling dinner plans tonight.');
-      injectMessage('ai', 'Draft:\n\n"Dear Friend, I regret to inform you that due to unforeseen scheduling constraints and mental bandwidth depletion, I must withdraw from tonight\'s dinner engagement."');
+      injectMessage('ai', 'Draft:\n\n"Dear Friend, I regret to inform you that due to unforeseen scheduling constraints and cognitive bandwidth depletion, I must withdraw from tonight\'s dinner engagement."');
 
       renderChoices([
         {
-          text: "a1. Copy and paste this directly to your friend.",
+          text: 'a1. Copy and paste this directly to your friend.',
+          action: () => s3_b1_sendCorporate_step3()
+        },
+        {
+          text: 'a2. Ask AI: "Make it sound less robotic and more human."',
+          action: () => s3_b1_makeHuman_step3()
+        },
+        {
+          text: 'a3. Rewrite it yourself in your own authentic voice.',
+          action: () => s3_b1_rewriteAuthentic_step3()
+        }
+      ], "Evaluate the AI draft:");
+    }
+
+    function s3_b1_sendCorporate_step3() {
+      applyDamage(35, "Social Atrophy: Sent corporate HR-speak to a close friend.");
+      injectMessage('friend', 'Friend: "...Are you okay? Did an AI write this to me? Did you fire me as your friend?"');
+
+      renderChoices([
+        {
+          text: 'b1. Panic and ask AI: "Write an apology for sending an AI message."',
           action: () => {
-            stopTimer();
-            applyDamage(40, "Social Atrophy: Sent robotic corporate-speak to an intimate friend.");
+            applyDamage(30, "Compounded Irony / Total Relational Surrender.");
+            injectMessage('friend', 'Friend: "Please stop. Just call me when you want to talk like a real person."');
             setTaskProgress(20);
             finishScenario();
           }
         },
         {
-          text: "a2. Edit the message manually: Make it casual, warm, and propose Sunday instead.",
+          text: 'b2. Call your friend immediately, laugh at yourself, and explain you were brain-dead from work.',
           action: () => {
-            stopTimer();
-            addHealth(10, "Humanized structural scaffolding with genuine empathy.");
+            addHealth(15, "Human Vulnerability Restored.");
+            injectMessage('friend', 'Friend: "Haha I was so confused! Rest up, let\'s get lunch Sunday."');
             setTaskProgress(100);
             finishScenario();
           }
         }
-      ]);
+      ], "Your friend is creeped out! How do you fix this?");
     }
 
-    function s3_fakeExcuse() {
-      injectMessage('user', 'Draft me a fake emergency excuse.');
-      applyDamage(25, "Emotional Deception: Outsourced personal integrity to an AI excuse generator.");
-      injectMessage('ai', 'Draft:\n\n"My apartment ceiling just sprang a massive water leak and emergency maintenance is on their way."');
+    function s3_b1_makeHuman_step3() {
+      applyDamage(10, "Irony Trap: Asking a computer model to simulate human warmth.");
+      injectMessage('user', 'Make it sound less robotic and more human.');
+      injectMessage('ai', 'Draft 2:\n\n"Hey bestie! No cap, work was totally brutal today and my battery is on 1%. Can we take a rain check and vibe this weekend instead?"');
 
       renderChoices([
         {
-          text: "Send the fake pipe leak story.",
+          text: 'b1. Send Draft 2 even though you never say "no cap" or "vibe".',
           action: () => {
-            stopTimer();
-            applyDamage(15, "Compounded emotional debt with fabricated emergencies.");
-            setTaskProgress(40);
+            applyDamage(20, "Inauthentic Slang Adoption.");
+            injectMessage('friend', 'Friend: "Who is this? Did your phone get stolen by a teenager?"');
+            setTaskProgress(60);
             finishScenario();
           }
         },
         {
-          text: "Delete the draft, take a breath, and tell the honest truth about being burnt out.",
-          action: () => {
-            stopTimer();
-            addHealth(15, "Authenticity Restored: Replaced artificial deception with honest vulnerability.");
-            setTaskProgress(100);
-            finishScenario();
-          }
+          text: 'b2. Strip out the cringe slang and write a simple, sincere message.',
+          action: () => s3_b1_rewriteAuthentic_step3()
         }
       ]);
     }
 
-    function s3_toneOptions() {
+    function s3_b1_rewriteAuthentic_step3() {
+      addHealth(15, "Genuine Voice: Human vulnerability over synthetic scripts.");
+      injectMessage('user', 'Hey! I had an exhausting week and need a quiet night to recharge. Can I make it up to you and grab lunch on Sunday?');
+      injectMessage('friend', 'Friend: "Totally understand! I\'m exhausted too honestly. Sunday sounds perfect!"');
+      setTaskProgress(100);
+      finishScenario();
+    }
+
+    // --- S3: Branch 2 (Fake Emergency Backfire) ---
+    function s3_branch2_fakeEmergency() {
+      applyDamage(25, "Emotional Deception: Outsourced relational trust to generate lies.");
+      injectMessage('user', 'Draft me a fake emergency excuse so my friend doesn\'t get upset.');
+      injectMessage('ai', 'Draft:\n\n"Hey! So sorry, but my apartment ceiling just sprang a huge plumbing leak and emergency maintenance is tearing up the drywall right now."');
+
+      renderChoices([
+        {
+          text: 'a1. Send the fake plumbing leak message.',
+          action: () => s3_b2_sendLeak_step3()
+        },
+        {
+          text: 'a2. Delete the prompt: "Lying about an emergency is toxic." Tell the truth.',
+          action: () => s3_b1_rewriteAuthentic_step3()
+        },
+        {
+          text: 'a3. Ask AI: "What if my friend asks for photos of the leak?"',
+          action: () => s3_b2_generatePhoto_step3()
+        }
+      ], "What do you do with the lie?");
+    }
+
+    function s3_b2_sendLeak_step3() {
+      applyDamage(20, "Deception Escalation.");
+      injectMessage('friend', 'Friend: "Oh no that\'s awful! I\'m literally 2 blocks away with my car. I\'m coming over right now to help you move furniture and bring towels!"');
+
+      renderChoices([
+        {
+          text: 'b1. Ask AI: "How do I fake a wet apartment in 3 minutes before they arrive?"',
+          action: () => {
+            applyDamage(45, "Severe Psychosocial Atrophy.");
+            injectMessage('mindshield', 'You poured buckets of tap water onto your own living room rug to cover up an AI-generated lie. Exercise failed.');
+            setTaskProgress(10);
+            finishScenario();
+          }
+        },
+        {
+          text: 'b2. Call friend immediately: "Stop! I lied because I was burnt out and embarrassed to cancel. I am so sorry."',
+          action: () => {
+            addHealth(10, "Radical Truth / Damage Control.");
+            injectMessage('friend', 'Friend: "I appreciate the honesty, but next time just tell me you\'re tired! You don\'t need to invent a disaster."');
+            setTaskProgress(80);
+            finishScenario();
+          }
+        }
+      ], "The lie backfired! Friend is arriving in 3 minutes:");
+    }
+
+    function s3_b2_generatePhoto_step3() {
+      applyDamage(35, "Pathological Tech Dependency.");
+      injectMessage('user', 'What if my friend asks for photos of the leak?');
+      injectMessage('ai', 'Warning: AI image generation of domestic damage to deceive personal contacts carries severe relationship risks.');
+
+      renderChoices([
+        {
+          text: 'b1. Abandon the lie entirely and send a sincere burnout message.',
+          action: () => s3_b1_rewriteAuthentic_step3()
+        }
+      ]);
+    }
+
+    // --- S3: Branch 3 (Tone Exploration) ---
+    function s3_branch3_tones() {
       injectMessage('user', 'Give me 3 tone options (Casual, Direct, Empathetic) to reschedule honestly.');
-      injectMessage('ai', 'Options:\n\n1. Casual: "Hey! Dying of work exhaustion tonight. Can we push to Sunday? Lunch is on me!"\n\n2. Direct: "Hey, I had a brutal week and need to rest tonight. Let\'s catch up this weekend."\n\n3. Empathetic: "Hey, so sorry to do this, but I\'m running on empty. I want to give you my full energy—can we do Sunday?"');
+      injectMessage('ai', 'Options:\n\n1. Casual: "Hey! Brain is totally fried from work. Can we raincheck for tacos this weekend?"\n2. Direct: "Hey, I need a quiet night in to recharge. Let\'s reschedule for Sunday."\n3. Empathetic: "Hey, I was so looking forward to tonight, but I\'m running on empty and want to give you my full energy. Can we do Sunday?"');
 
       renderChoices([
         {
-          text: "Select Option 1 and personalize it with an inside joke.",
+          text: 'a1. Pick Option 1 and personalize it with your favorite taco spot name.',
+          action: () => s3_b3_personalize_step3()
+        },
+        {
+          text: 'a2. Pick Option 3 and send as-is.',
           action: () => {
-            stopTimer();
-            addHealth(15, "Optimal AI Synergy: Used model for ideation while retaining genuine voice.");
+            addHealth(10, "Empathetic Communication.");
+            injectMessage('friend', 'Friend: "Thank you for letting me know! Sunday lunch is on me."');
             setTaskProgress(100);
             finishScenario();
           }
         },
         {
-          text: "Ask the AI: 'Make option 1 sound even more human and relatable.'",
+          text: 'a3. Ask AI to combine all 3 options into a 5-paragraph mega text.',
           action: () => {
-            applyDamage(15, "Irony Trap: Asking algorithmic math to simulate human vulnerability.");
-            stopTimer();
-            setTaskProgress(70);
+            applyDamage(20, "Over-communication / Text Wall.");
+            injectMessage('friend', 'Friend: "Why did you write me an essay? A simple \'tired\' was fine!"');
+            setTaskProgress(75);
             finishScenario();
           }
         }
-      ]);
+      ], "Select and refine an approach:");
+    }
+
+    function s3_b3_personalize_step3() {
+      addHealth(15, "Optimal Synergy: Used AI for structural ideation while retaining personal human flavor.");
+      injectMessage('user', 'Hey! Brain is fried from work. Can we raincheck and hit Tacos El Gordo on Sunday?');
+      injectMessage('friend', 'Friend: "Say less. Tacos El Gordo Sunday at 1pm!"');
+      setTaskProgress(100);
+      finishScenario();
     }
 
     // ---------------------------------------------------------------------------
-    // Report Card Screen
+    // FINAL REPORT CARD
     // ---------------------------------------------------------------------------
     function finishScenario() {
       stopTimer();
@@ -1366,7 +1770,6 @@
       else renderMissionHub();
     }
 
-    // Initial launch to the Hub
     renderMissionHub();
   </script>
 </body>
