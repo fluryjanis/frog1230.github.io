@@ -196,7 +196,7 @@
 
     .game-layout.full-width {
       grid-template-columns: 1fr;
-      max-width: 880px;
+      max-width: 900px;
     }
 
     .main-wrap {
@@ -204,9 +204,13 @@
       min-width: 0;
     }
 
-    /* Start Screen (Clean Typography & Natural Alignment) */
+    /* Start Screen (Fully Centered Alignment & Clean Typography) */
     .start-screen-container {
-      padding: 20px 0 60px;
+      padding: 30px 0 60px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .hero-kicker {
@@ -217,34 +221,42 @@
       color: var(--primary);
       font-family: var(--font-mono);
       margin-bottom: 12px;
+      text-align: center;
     }
 
     .hero-title {
-      font-size: 34px;
+      font-size: 36px;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: #fff;
-      margin: 0 0 16px;
+      margin: 0 0 18px;
       line-height: 1.25;
+      text-align: center;
     }
 
     .hero-goal-statement {
       font-size: 18px;
       line-height: 1.7;
       color: #e4e4e7;
-      margin: 0 0 32px;
-      max-width: 800px;
+      margin: 0 auto 36px;
+      max-width: 760px;
       font-weight: 400;
+      text-align: center;
     }
 
     .cta-row {
       margin-bottom: 56px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
     }
 
     .divider-line {
       height: 1px;
       background: var(--border);
-      margin-bottom: 48px;
+      margin: 0 auto 48px;
+      width: 100%;
+      max-width: 700px;
     }
 
     .briefing-heading {
@@ -254,19 +266,24 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       font-family: var(--font-mono);
-      margin: 0 0 32px;
+      margin: 0 0 36px;
+      text-align: center;
     }
 
     .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 36px 48px;
+      width: 100%;
+      text-align: center;
     }
 
     .category-block {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
     }
 
     .category-header {
@@ -275,7 +292,9 @@
       color: #fff;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
+      text-align: center;
     }
 
     .category-icon {
@@ -287,6 +306,8 @@
       line-height: 1.7;
       color: var(--muted);
       margin: 0;
+      text-align: center;
+      max-width: 400px;
     }
 
     /* MindShield Character Side Panel */
@@ -445,6 +466,7 @@
       color: #f1f2f6;
       font-weight: 500;
       margin: 0;
+      text-align: center;
     }
 
     .mindshield-bubble-time {
@@ -691,12 +713,12 @@
     .rank-F { color: var(--danger); border: 3px solid var(--danger); background: rgba(239, 68, 68, 0.1); }
 
     .btn-action {
-      padding: 16px 36px;
+      padding: 16px 40px;
       background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 12px;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 16px;
       cursor: pointer;
       font-family: var(--font-main);
@@ -704,7 +726,7 @@
       display: inline-block;
       transition: all 0.2s ease;
       box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
     }
     .btn-action:hover { 
       background: var(--primary-hover);
@@ -999,7 +1021,7 @@
     }
 
     // ---------------------------------------------------------------------------
-    // CLEAN START SCREEN (Un-boxed & Category Aligned)
+    // CENTERED START SCREEN
     // ---------------------------------------------------------------------------
     function renderStartScreen() {
       stopTimer();
@@ -1023,7 +1045,7 @@
 
           <!-- Primary CTA Button -->
           <div class="cta-row">
-            <button class="btn-action" onclick="initSimulation()">Begin Game</button>
+            <button class="btn-action" onclick="initSimulation()">Start Game</button>
           </div>
 
           <div class="divider-line"></div>
@@ -1625,7 +1647,7 @@
       }, 1200);
     }
 
-    // Launch to clean start screen
+    // Launch to centered start screen
     renderStartScreen();
   </script>
 </body>
