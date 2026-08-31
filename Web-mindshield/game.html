@@ -77,20 +77,31 @@
       50% { transform: scale(1.05); opacity: 0.75; }
     }
 
-    @keyframes avatarPulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)); }
-      50% { transform: scale(1.04); filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.8)); }
+    /* Dynamic MindShield Dialogue Box Animations (Pivots, Shrinks, Grows) */
+    @keyframes lectureSnap {
+      0% { transform: scale(0.92) rotate(0deg); }
+      30% { transform: scale(1.08) rotate(-4.5deg) translateY(-4px); }
+      60% { transform: scale(1.03) rotate(-2.5deg) translateY(-2px); }
+      100% { transform: scale(1.04) rotate(-3deg); }
     }
 
-    @keyframes avatarRage {
-      0%, 100% { transform: translate(0,0) scale(1.02); filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.8)); }
-      25% { transform: translate(-3px, 2px); }
-      75% { transform: translate(3px, -2px); }
+    @keyframes rushVibrate {
+      0% { transform: scale(0.97) rotate(2deg); }
+      25% { transform: scale(1.03) rotate(-2deg) translateY(-3px); }
+      50% { transform: scale(0.99) rotate(2.5deg); }
+      75% { transform: scale(1.04) rotate(-1.5deg) translateY(2px); }
+      100% { transform: scale(1.02) rotate(1.5deg); }
     }
 
-    @keyframes bubblePop {
-      0% { transform: scale(0.92) translateY(8px); opacity: 0; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
+    @keyframes praiseSwell {
+      0% { transform: scale(0.95) rotate(0deg); }
+      50% { transform: scale(1.07) rotate(0deg) translateY(-4px); }
+      100% { transform: scale(1.03) rotate(0deg); }
+    }
+
+    @keyframes neutralPulse {
+      0% { transform: scale(0.98); }
+      100% { transform: scale(1); }
     }
 
     /* Top HUD */
@@ -310,172 +321,107 @@
       max-width: 400px;
     }
 
-    /* MindShield Character Side Panel */
+    /* Reactive MindShield Dialogue Panel (No giant box, dynamic transforms) */
     .mindshield-side-panel {
       position: sticky;
       top: 100px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
       z-index: 90;
     }
 
-    .mindshield-character-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
+    .mindshield-bubble-box {
+      background: #181924;
+      border: 1.5px solid rgba(59, 130, 246, 0.4);
       border-radius: 20px;
-      padding: 24px 20px;
+      padding: 22px 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      transform-origin: top center;
+    }
+
+    .mindshield-dialogue-header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      text-align: center;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.4);
-      position: relative;
-      transition: border-color 0.3s ease;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
     }
 
-    .mindshield-character-card.lecture-mode {
-      border-color: var(--danger);
-      background: linear-gradient(180deg, #1b1216 0%, #13141c 100%);
-    }
-
-    .mindshield-character-card.rush-mode {
-      border-color: var(--warn);
-      background: linear-gradient(180deg, #1b1812 0%, #13141c 100%);
-    }
-
-    .mindshield-character-card.praise-mode {
-      border-color: var(--success);
-      background: linear-gradient(180deg, #121b16 0%, #13141c 100%);
-    }
-
-    .avatar-wrapper {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: #1a1b26;
-      border: 2px solid var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 12px;
-      animation: avatarPulse 3s infinite ease-in-out;
-      position: relative;
-    }
-
-    .mindshield-character-card.lecture-mode .avatar-wrapper {
-      border-color: var(--danger);
-      animation: avatarRage 0.3s infinite ease-in-out;
-    }
-    .mindshield-character-card.rush-mode .avatar-wrapper {
-      border-color: var(--warn);
-      animation: avatarPulse 1s infinite ease-in-out;
-    }
-    .mindshield-character-card.praise-mode .avatar-wrapper {
-      border-color: var(--success);
-    }
-
-    .avatar-icon {
-      width: 52px;
-      height: 52px;
-      transition: transform 0.2s ease;
-    }
-
-    .mindshield-name {
+    .mindshield-name-tag {
       font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: #fff;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--primary);
       font-family: var(--font-mono);
-      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .mindshield-role {
+    .mindshield-name-tag::before {
+      content: '🛡️';
+      font-size: 14px;
+    }
+
+    .mindshield-tone-tag {
       font-size: 10.5px;
-      color: var(--muted);
+      font-weight: 800;
+      font-family: var(--font-mono);
       text-transform: uppercase;
       letter-spacing: 1px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .mindshield-status-badge {
-      font-size: 11px;
-      font-weight: 700;
-      font-family: var(--font-mono);
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--primary);
-    }
-    .mindshield-character-card.lecture-mode .mindshield-status-badge {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--danger);
-    }
-    .mindshield-character-card.rush-mode .mindshield-status-badge {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--warn);
-    }
-    .mindshield-character-card.praise-mode .mindshield-status-badge {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--success);
-    }
-
-    .mindshield-bubble-box {
-      background: #191b26;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 20px;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      animation: bubblePop 0.3s ease-out;
-    }
-
-    .mindshield-bubble-box::before {
-      content: '';
-      position: absolute;
-      top: -9px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 0 9px 9px 9px;
-      border-style: solid;
-      border-color: transparent transparent #191b26 transparent;
-    }
-
-    .mindshield-character-card.lecture-mode + .mindshield-bubble-box {
-      border-color: var(--danger);
-      background: #201317;
-    }
-    .mindshield-character-card.lecture-mode + .mindshield-bubble-box::before {
-      border-color: transparent transparent #201317 transparent;
-    }
-
-    .mindshield-character-card.rush-mode + .mindshield-bubble-box {
-      border-color: var(--warn);
-      background: #201b13;
-    }
-    .mindshield-character-card.rush-mode + .mindshield-bubble-box::before {
-      border-color: transparent transparent #201b13 transparent;
+      color: var(--muted);
     }
 
     .mindshield-bubble-text {
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: #f1f2f6;
+      font-size: 14px;
+      line-height: 1.65;
+      color: #f4f4f7;
       font-weight: 500;
-      margin: 0;
-      text-align: center;
+      margin: 0 0 14px;
+      font-style: italic;
     }
 
     .mindshield-bubble-time {
       display: block;
-      margin-top: 8px;
-      font-size: 10.5px;
+      font-size: 10px;
       color: var(--muted);
       font-family: var(--font-mono);
       text-align: right;
+      letter-spacing: 0.5px;
+    }
+
+    /* Dynamic Tone Modifiers (Shrink, Grow, Pivot, Shake) */
+    .mindshield-bubble-box.tone-lecture {
+      border-color: var(--danger);
+      background: #1f1216;
+      box-shadow: 0 18px 48px rgba(239, 68, 68, 0.35);
+      animation: lectureSnap 0.4s ease-out forwards;
+    }
+    .mindshield-bubble-box.tone-lecture .mindshield-name-tag { color: var(--danger); }
+    .mindshield-bubble-box.tone-lecture .mindshield-tone-tag { color: var(--danger); }
+
+    .mindshield-bubble-box.tone-rush {
+      border-color: var(--warn);
+      background: #1f1911;
+      box-shadow: 0 18px 48px rgba(245, 158, 11, 0.35);
+      animation: rushVibrate 0.4s ease-in-out forwards;
+    }
+    .mindshield-bubble-box.tone-rush .mindshield-name-tag { color: var(--warn); }
+    .mindshield-bubble-box.tone-rush .mindshield-tone-tag { color: var(--warn); }
+
+    .mindshield-bubble-box.tone-praise {
+      border-color: var(--success);
+      background: #101c15;
+      box-shadow: 0 18px 48px rgba(16, 185, 129, 0.35);
+      animation: praiseSwell 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    .mindshield-bubble-box.tone-praise .mindshield-name-tag { color: var(--success); }
+    .mindshield-bubble-box.tone-praise .mindshield-tone-tag { color: var(--success); }
+
+    .mindshield-bubble-box.tone-neutral {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: #181924;
+      animation: neutralPulse 0.3s ease-out forwards;
     }
 
     /* Scenario Header & Timer */
@@ -777,22 +723,13 @@
         <!-- Dynamic Content -->
       </main>
 
-      <!-- MindShield Side Deck -->
+      <!-- Streamlined Reactive MindShield Dialogue Panel -->
       <aside class="mindshield-side-panel" id="mindshield-panel" style="display: none;">
-        <div class="mindshield-character-card" id="mindshield-card">
-          <div class="avatar-wrapper">
-            <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(59,130,246,0.15)"/>
-              <circle cx="12" cy="11" r="3" stroke="#fff" fill="#3b82f6"/>
-              <path d="M9 11h6" stroke="#fff"/>
-            </svg>
-          </div>
-          <div class="mindshield-name">MINDSHIELD</div>
-          <div class="mindshield-role">COGNITIVE SOVEREIGNTY GUARDIAN</div>
-          <div class="mindshield-status-badge" id="mindshield-status">MONITORING</div>
-        </div>
-
         <div class="mindshield-bubble-box" id="mindshield-bubble">
+          <div class="mindshield-dialogue-header">
+            <span class="mindshield-name-tag">MINDSHIELD</span>
+            <span class="mindshield-tone-tag" id="mindshield-tone-tag">MONITORING</span>
+          </div>
           <p class="mindshield-bubble-text" id="mindshield-speech">"Training simulation online. I am observing your decision architecture. Do not disappoint me."</p>
           <span class="mindshield-bubble-time" id="mindshield-timestamp">SYSTEM ACTIVE</span>
         </div>
@@ -820,29 +757,31 @@
     const btnReturnHub = document.getElementById('btn-return-hub');
     const mainContent = document.getElementById('main-content');
     const mindshieldPanel = document.getElementById('mindshield-panel');
-    const mindshieldCard = document.getElementById('mindshield-card');
-    const mindshieldStatus = document.getElementById('mindshield-status');
+    const mindshieldBubble = document.getElementById('mindshield-bubble');
+    const mindshieldToneTag = document.getElementById('mindshield-tone-tag');
     const mindshieldSpeech = document.getElementById('mindshield-speech');
     const mindshieldTimestamp = document.getElementById('mindshield-timestamp');
     const layoutContainer = document.getElementById('layout-container');
 
     // ---------------------------------------------------------------------------
-    // MindShield Character Speech
+    // Reactive Dynamic Speech Engine (Shrink, Grow, Pivot, Vibrate)
     // ---------------------------------------------------------------------------
     function mindshieldSpeak(text, mood = 'neutral') {
-      mindshieldCard.classList.remove('lecture-mode', 'rush-mode', 'praise-mode');
-      
+      mindshieldBubble.classList.remove('tone-lecture', 'tone-rush', 'tone-praise', 'tone-neutral');
+      void mindshieldBubble.offsetWidth; // Trigger CSS reflow to re-play animations smoothly
+
       if (mood === 'lecture') {
-        mindshieldCard.classList.add('lecture-mode');
-        mindshieldStatus.textContent = 'LECTURING';
+        mindshieldBubble.classList.add('tone-lecture');
+        mindshieldToneTag.textContent = '● LECTURING';
       } else if (mood === 'rush') {
-        mindshieldCard.classList.add('rush-mode');
-        mindshieldStatus.textContent = 'RUSHING';
+        mindshieldBubble.classList.add('tone-rush');
+        mindshieldToneTag.textContent = '▲ RUSHING';
       } else if (mood === 'praise') {
-        mindshieldCard.classList.add('praise-mode');
-        mindshieldStatus.textContent = 'SOVEREIGN';
+        mindshieldBubble.classList.add('tone-praise');
+        mindshieldToneTag.textContent = '★ SOVEREIGN';
       } else {
-        mindshieldStatus.textContent = 'MONITORING';
+        mindshieldBubble.classList.add('tone-neutral');
+        mindshieldToneTag.textContent = '■ MONITORING';
       }
 
       mindshieldSpeech.textContent = `"${text}"`;
@@ -1096,7 +1035,7 @@
 
     function setupScenarioLayout(goalText) {
       btnReturnHub.style.display = 'flex';
-      mindshieldPanel.style.display = 'flex';
+      mindshieldPanel.style.display = 'block';
       layoutContainer.classList.remove('full-width');
 
       mainContent.innerHTML = `
@@ -1647,7 +1586,7 @@
       }, 1200);
     }
 
-    // Launch to centered start screen
+    // Launch to clean centered start screen
     renderStartScreen();
   </script>
 </body>
