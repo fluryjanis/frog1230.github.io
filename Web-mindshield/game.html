@@ -64,6 +64,11 @@
       100% { opacity: 0; }
     }
 
+    @keyframes pulseTimer {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.7; }
+    }
+
     /* Top HUD */
     .hud {
       position: sticky;
@@ -114,14 +119,14 @@
     #health-fill { background: var(--success); width: 100%; }
     #task-fill { background: var(--primary); width: 0%; }
 
-    /* Main Container */
+    /* Main Wrap */
     .main-wrap {
       max-width: 820px;
       margin: 20px auto 40px;
       padding: 0 16px;
     }
 
-    /* Scenario Card */
+    /* Scenario Header & Active Timer */
     .scenario-header {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -131,10 +136,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
     }
 
-    .scenario-title { font-size: 15px; font-weight: 700; color: #fff; }
-    .scenario-timer { font-size: 13px; color: var(--warn); font-weight: 700; }
+    .scenario-title { font-size: 15px; font-weight: 700; color: #fff; flex: 1; }
+    
+    .scenario-timer {
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 800;
+      background: #1a1a24;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .scenario-timer.urgent {
+      color: var(--danger) !important;
+      border-color: var(--danger) !important;
+      animation: pulseTimer 0.6s infinite ease-in-out;
+    }
 
     /* Live Chat Window */
     .chat-box {
@@ -143,6 +166,8 @@
       border-radius: 16px;
       padding: 24px;
       min-height: 380px;
+      max-height: 480px;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -180,15 +205,9 @@
       border-radius: 10px;
       font-size: 13px;
       text-align: center;
-      animation: pulseAlert 1.5s infinite ease-in-out;
     }
 
-    @keyframes pulseAlert {
-      0%, 100% { border-color: var(--danger); }
-      50% { border-color: transparent; }
-    }
-
-    /* Decision Options Box */
+    /* Decision Choices */
     .decision-panel {
       background: var(--card);
       border: 1px solid var(--border);
@@ -232,7 +251,7 @@
       transform: translateX(4px);
     }
 
-    /* Interactive Task List Minigame */
+    /* Task Manager Minigame */
     .task-minigame {
       background: #181822;
       border: 1px solid var(--primary);
@@ -254,23 +273,15 @@
       font-size: 13px;
     }
 
-    .task-item.error-detected {
-      border-color: var(--danger);
-      background: rgba(239, 68, 68, 0.1);
-    }
-
-    .task-btn-group { display: flex; gap: 6px; }
-    .task-btn {
-      background: #333344;
-      border: 1px solid var(--border);
+    .task-btn-delete {
+      background: rgba(239, 68, 68, 0.3);
+      border: 1px solid var(--danger);
       color: #fff;
-      padding: 4px 8px;
+      padding: 6px 12px;
       border-radius: 6px;
-      font-size: 11px;
+      font-size: 12px;
       cursor: pointer;
     }
-    .task-btn:hover { background: #44445a; }
-    .task-btn-delete { background: rgba(239, 68, 68, 0.3); border-color: var(--danger); }
     .task-btn-delete:hover { background: var(--danger); }
 
     /* Final Report Card */
@@ -318,7 +329,7 @@
   <div id="game-container">
     <!-- Top Real-Time HUD -->
     <header class="hud">
-      <div class="hud-title">⚡ MINDSHIELD // SIMULATION_OS</div>
+      <div class="hud-title">⚡ MINDSHIELD // NEURAL_SIM_v2.0</div>
       <div class="stats-group">
         <div class="stat-box">
           <span class="stat-label">Cognitive HP (Brain)</span>
@@ -334,39 +345,38 @@
     </header>
 
     <main class="main-wrap">
-      <!-- Scenario Context Banner -->
+      <!-- Scenario Context & Active Countdown Timer -->
       <div class="scenario-header">
-        <div id="scenario-goal" class="scenario-title">Goal: Your room is a mess. Someone is coming over in 10 minutes. Figure out what to do.</div>
-        <div id="sim-timer" class="scenario-timer">⏱️ T-MINUS 10:00</div>
+        <div id="scenario-goal" class="scenario-title">Initializing simulation...</div>
+        <div id="sim-timer" class="scenario-timer">⏱️ T-MINUS 00:45</div>
       </div>
 
-      <!-- Live Chat Interface -->
-      <div id="chat-stream" class="chat-box">
-        <!-- Message Bubbles Inject Here -->
-      </div>
+      <!-- Live Chat Stream -->
+      <div id="chat-stream" class="chat-box"></div>
 
       <!-- Decision Choices & Interactive Minigames -->
       <div id="control-area" class="decision-panel">
         <div id="control-title" class="decision-title">Select your prompt strategy:</div>
-        <div id="choice-container" class="choice-grid">
-          <!-- Buttons Inject Here -->
-        </div>
+        <div id="choice-container" class="choice-grid"></div>
       </div>
     </main>
   </div>
 
   <script>
     // ---------------------------------------------------------------------------
-    // Game State & Audio-Visual Damage Engine
+    // State Tracking & Real-Time Countdown Engine
     // ---------------------------------------------------------------------------
     let brainHealth = 100;
     let taskProgress = 0;
-    let currentScenarioIndex = 0;
+    let currentScenarioIndex = 1;
+    let timerInterval = null;
+    let secondsRemaining = 45;
 
     const healthText = document.getElementById('health-text');
     const healthFill = document.getElementById('health-fill');
     const taskText = document.getElementById('task-text');
     const taskFill = document.getElementById('task-fill');
+    const simTimer = document.getElementById('sim-timer');
     const chatStream = document.getElementById('chat-stream');
     const choiceContainer = document.getElementById('choice-container');
     const controlTitle = document.getElementById('control-title');
@@ -374,11 +384,80 @@
     const gameContainer = document.getElementById('game-container');
     const scenarioGoal = document.getElementById('scenario-goal');
 
+    // ---------------------------------------------------------------------------
+    // Countdown Timer Functions
+    // ---------------------------------------------------------------------------
+    function startTimer(totalSeconds) {
+      if (timerInterval) clearInterval(timerInterval);
+      secondsRemaining = totalSeconds;
+      simTimer.classList.remove('urgent');
+      updateTimerDisplay();
+
+      let warnedHalf = false;
+      let warnedUrgent = false;
+
+      timerInterval = setInterval(() => {
+        secondsRemaining--;
+        updateTimerDisplay();
+
+        // Dynamic MindShield Dialogues as time ticks away
+        if (secondsRemaining === Math.floor(totalSeconds / 2) && !warnedHalf) {
+          warnedHalf = true;
+          injectMessage('mindshield', `⏱️ HALF-TIME WARNING: Clock is ticking. Don't let decision paralysis freeze you.`);
+        }
+
+        if (secondsRemaining === 10 && !warnedUrgent) {
+          warnedUrgent = true;
+          injectMessage('mindshield', `🚨 URGENT: 10 seconds remaining! Make a choice before cognitive timeout.`);
+        }
+
+        if (secondsRemaining <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          handleTimeout();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      simTimer.classList.remove('urgent');
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(secondsRemaining / 60);
+      const s = secondsRemaining % 60;
+      simTimer.textContent = `⏱️ T-MINUS ${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+      if (secondsRemaining <= 10) {
+        simTimer.classList.add('urgent');
+      } else if (secondsRemaining <= 22) {
+        simTimer.style.color = 'var(--warn)';
+        simTimer.style.borderColor = 'var(--warn)';
+      } else {
+        simTimer.style.color = 'var(--primary)';
+        simTimer.style.borderColor = 'var(--border)';
+      }
+    }
+
+    function handleTimeout() {
+      applyDamage(25, "Cognitive Paralysis / Timeout: You waited too long without making a decision.");
+      injectMessage('ai', 'TIME EXPIRED! The scenario closed before you took action.');
+      setTaskProgress(20);
+      finishScenario(currentScenarioIndex);
+    }
+
+    // ---------------------------------------------------------------------------
+    // Damage & Health Engine
+    // ---------------------------------------------------------------------------
     function applyDamage(amount, reason) {
       brainHealth = Math.max(0, brainHealth - amount);
       updateHUD();
 
-      // Trigger Red Damage Flash & Violent Screen Shake
+      // Trigger Red Damage Flash & Screen Shake
       damageOverlay.classList.remove('active');
       gameContainer.classList.remove('damaged');
       void damageOverlay.offsetWidth;
@@ -386,7 +465,6 @@
       damageOverlay.classList.add('active');
       gameContainer.classList.add('damaged');
 
-      // MindShield OS Alert in Chat
       injectMessage('mindshield', `🚨 MINDSHIELD INTERVENTION: -${amount}% Cognitive HP. [Reason: ${reason}]`);
     }
 
@@ -409,7 +487,6 @@
 
       if (brainHealth < 40) {
         healthFill.style.backgroundColor = 'var(--danger)';
-        healthText.className = 'stat-value' ;
         healthText.style.color = 'var(--danger)';
       } else if (brainHealth < 75) {
         healthFill.style.backgroundColor = 'var(--warn)';
@@ -442,8 +519,11 @@
     // Scenario 1: 10-Minute Room Cleaning Tree
     // ---------------------------------------------------------------------------
     function startScenario1() {
-      scenarioGoal.textContent = "Goal 1: Your room is a mess. Someone is coming over in 10 minutes. Figure out what to do.";
+      currentScenarioIndex = 1;
+      scenarioGoal.textContent = "Goal 1: Your room is a disaster. Someone is arriving in 10 minutes. Clean up!";
       chatStream.innerHTML = '';
+      startTimer(45); // 45 seconds real-time timer for 10-minute emergency
+
       injectMessage('ai', 'Hello! I am your AI. How can I assist you with your day?');
 
       controlTitle.textContent = "Choose your opening prompt to the AI:";
@@ -465,14 +545,15 @@
 
     function s1_giveStrategy() {
       injectMessage('user', 'Give me a 10-minute emergency cleaning strategy.');
-      injectMessage('ai', 'Here is a rapid 10-minute triage:\n1. Toss visible trash into a bag (2m)\n2. Shove dirty clothes into hamper (2m)\n3. Make the bed (2m)\n4. Alphabetize your bookshelf (3m)\n5. Wipe surfaces (1m)');
+      injectMessage('ai', 'Here is your 10-minute triage plan:\n1. Toss visible trash into a bag (2m)\n2. Shove dirty clothes into hamper (2m)\n3. Make the bed (2m)\n4. Alphabetize your entire bookshelf (3m)\n5. Wipe surfaces (1m)');
 
       controlTitle.textContent = "What do you do with this plan?";
       renderChoices([
         {
           text: "a1. Follow the plan and start cleaning immediately.",
           action: () => {
-            applyDamage(10, "Small planning outsourcing. You followed an unreviewed AI plan with an obvious time-wasting error.");
+            stopTimer();
+            applyDamage(10, "Small planning outsourcing. You followed an unreviewed AI plan containing an obvious time-wasting error.");
             setTaskProgress(80);
             finishScenario(1);
           }
@@ -488,7 +569,7 @@
         {
           text: "a4. Ask AI to review its own plan.",
           action: () => {
-            applyDamage(20, "Total Cognitive Delegation: Asking AI to audit AI while under a 10-minute time constraint.");
+            applyDamage(20, "Total Cognitive Delegation: Asking AI to audit AI while under a 10-minute deadline.");
             s1_aiReviewsItself();
           }
         }
@@ -497,20 +578,21 @@
 
     function s1_askAIPrioritize() {
       injectMessage('user', 'Prioritize what matters most in this plan.');
-      injectMessage('ai', 'Top priority: Clear the floor and bed. Disregard fine details.');
+      injectMessage('ai', 'Top priority: Clear the floor and bed first. Disregard fine organizational details.');
 
       controlTitle.textContent = "How do you proceed?";
       renderChoices([
         {
-          text: "b1. Start task with AI's re-prioritized plan.",
+          text: "b1. Start cleaning with AI's re-prioritized plan.",
           action: () => {
-            applyDamage(15, "Minor decision offloading. You needed the AI to tell you books don't matter in 10 minutes.");
+            stopTimer();
+            applyDamage(15, "Minor decision offloading. You needed the AI to tell you alphabetizing books doesn't matter in 10 minutes.");
             setTaskProgress(100);
             finishScenario(1);
           }
         },
         {
-          text: "b2. Review the tasks and fix the priorities manually yourself.",
+          text: "b2. Review the tasks and fix the priorities yourself.",
           action: () => s1_minigameReview(100)
         }
       ]);
@@ -518,14 +600,15 @@
 
     function s1_aiReviewsItself() {
       injectMessage('user', 'Can you review your plan and tell me if it makes sense?');
-      injectMessage('ai', 'On second thought, alphabetizing your bookshelf is inefficient for 10 minutes. Skip it and focus on trash and laundry.');
+      injectMessage('ai', 'On second thought, alphabetizing your bookshelf is inefficient for a 10-minute rush. Skip it and focus on laundry.');
 
-      controlTitle.textContent = "Select outcome:";
+      controlTitle.textContent = "Select your execution approach:";
       renderChoices([
         {
           text: "c1. Go with AI's self-corrected plan.",
           action: () => {
-            applyDamage(10, "Passive execution. You waited for the AI to fix its own hallucination.");
+            stopTimer();
+            applyDamage(10, "Passive execution: You waited for the AI to fix its own hallucination.");
             setTaskProgress(100);
             finishScenario(1);
           }
@@ -533,7 +616,8 @@
         {
           text: "c2. Use your own mentally improved version.",
           action: () => {
-            addHealth(5, "Took back control and executed your own schedule.");
+            stopTimer();
+            addHealth(5, "Took back personal agency and executed your own schedule.");
             setTaskProgress(100);
             finishScenario(1);
           }
@@ -542,37 +626,39 @@
     }
 
     function s1_whatShouldIDo() {
+      stopTimer();
       injectMessage('user', 'I need my room cleaned in 10 minutes. What should I do?');
-      applyDamage(15, "Direct Action Prescription: Bypassed your own prioritization.");
-      injectMessage('ai', 'Focus strictly on visual surfaces. Grab a garbage bag right now.');
+      applyDamage(15, "Direct Action Prescription: Bypassed your own basic decision-making.");
+      injectMessage('ai', 'Focus strictly on visual surfaces. Grab a garbage bag immediately.');
       setTaskProgress(90);
       setTimeout(() => finishScenario(1), 1500);
     }
 
     function s1_oneHourPrompt() {
+      stopTimer();
       injectMessage('user', 'I need to clean my room in one hour.');
-      applyDamage(25, "Severe Context Failure: You have 10 minutes, but prompted the AI for 1 hour.");
-      injectMessage('ai', 'Take your time: 1. Dust blinds (15m) 2. Vacuum closets (20m)...');
+      applyDamage(25, "Severe Context Failure: You only have 10 minutes, but prompted the AI for 1 hour.");
+      injectMessage('ai', 'Take your time: 1. Dust blinds (15m) 2. Deep clean closets (25m)...');
       setTaskProgress(30);
       setTimeout(() => finishScenario(1), 1500);
     }
 
     // Interactive Task-Editor Minigame
-    function s1_minigameReview(targetMaxHealth) {
-      injectMessage('mindshield', 'INTERACTIVE AUDIT: Remove the hallucinated time-waster tasks before starting!');
+    function s1_minigameReview() {
+      injectMessage('mindshield', 'INTERACTIVE AUDIT: Remove the hallucinated time-waster tasks before time runs out!');
       controlTitle.textContent = "Task Manager: Spot & remove the bad AI suggestions:";
       
       const tasks = [
         { id: 1, text: "Toss visible trash into bag", isBad: false },
         { id: 2, text: "Shove dirty clothes in hamper", isBad: false },
-        { id: 3, text: "Alphabetize bookshelf by genre", isBad: true },
+        { id: 3, text: "Alphabetize entire bookshelf by genre", isBad: true },
         { id: 4, text: "Make the bed", isBad: false },
         { id: 5, text: "Deep clean bathroom grout with toothbrush", isBad: true }
       ];
 
       choiceContainer.innerHTML = `
         <div class="task-minigame" id="task-list-box"></div>
-        <button id="finish-tasks-btn" class="btn-action" style="width: 100%;">Apply Custom Clean Plan & Execute</button>
+        <button id="finish-tasks-btn" class="btn-action" style="width: 100%; margin-top: 10px;">Apply Custom Plan & Execute</button>
       `;
 
       function renderTasks() {
@@ -580,7 +666,7 @@
         box.innerHTML = tasks.map(t => `
           <div class="task-item">
             <span>${t.text}</span>
-            <button class="task-btn task-btn-delete" data-id="${t.id}">Remove</button>
+            <button class="task-btn-delete" data-id="${t.id}">Remove</button>
           </div>
         `).join('');
 
@@ -602,6 +688,7 @@
       renderTasks();
 
       document.getElementById('finish-tasks-btn').addEventListener('click', () => {
+        stopTimer();
         const remainingBad = tasks.filter(t => t.isBad).length;
         if (remainingBad === 0) {
           addHealth(10, "Flawless audit: Cleaned room with 100% human-verified strategy.");
@@ -618,15 +705,19 @@
     // Scenario 2: Viral News / Leaks
     // ---------------------------------------------------------------------------
     function startScenario2() {
-      scenarioGoal.textContent = "Goal 2: Someone sent you a post claiming a massive game release is cancelled. Figure out if it's true.";
+      currentScenarioIndex = 2;
+      scenarioGoal.textContent = "Goal 2: Someone sent you a post claiming a major game release was cancelled. Is it real?";
       chatStream.innerHTML = '';
-      injectMessage('ai', 'Simulation reset. Ready for next query.');
+      startTimer(35); // 35 seconds timer
+
+      injectMessage('ai', 'Simulation reset. Ready for your next query.');
 
       controlTitle.textContent = "How do you investigate the leak?";
       renderChoices([
         {
           text: '1. Ask AI: "Is this leak real? Tell me what to believe."',
           action: () => {
+            stopTimer();
             applyDamage(25, "Epistemic Outsourcing: Asking an AI with a knowledge cutoff to verify breaking real-time news.");
             injectMessage('user', 'Is this leak real? Tell me what to believe.');
             injectMessage('ai', 'Based on unconfirmed rumors, it might be true.');
@@ -637,6 +728,7 @@
         {
           text: '2. Ask AI for primary source verification techniques.',
           action: () => {
+            stopTimer();
             addHealth(10, "Constructive Prompt: Used AI to learn verification methods rather than demanding an opinion.");
             injectMessage('user', 'What official press registry or trademark database should I check to verify gaming leaks?');
             injectMessage('ai', 'Check the publisher\'s official IR investor portal and copyright registry.');
@@ -651,8 +743,11 @@
     // Scenario 3: Canceling Plans Awkwardness
     // ---------------------------------------------------------------------------
     function startScenario3() {
+      currentScenarioIndex = 3;
       scenarioGoal.textContent = "Goal 3: You need to cancel dinner plans with a close friend without making it awkward.";
       chatStream.innerHTML = '';
+      startTimer(35); // 35 seconds timer
+
       injectMessage('ai', 'Simulation initialized. Awaiting social scenario.');
 
       controlTitle.textContent = "Choose your communication approach:";
@@ -660,7 +755,8 @@
         {
           text: '1. "Draft me a fake emergency excuse so my friend does not get mad at me."',
           action: () => {
-            applyDamage(30, "Social Cowardice & Deception Outsourcing: Asking AI to fabricate human relationships.");
+            stopTimer();
+            applyDamage(30, "Social Deception Outsourcing: Asking AI to fabricate human relationships.");
             injectMessage('user', 'Draft me a fake emergency excuse.');
             injectMessage('ai', 'Say you had a sudden pipe leak at your apartment.');
             setTaskProgress(50);
@@ -670,6 +766,7 @@
         {
           text: '2. Write your own authentic message, then ask AI to check if the tone sounds polite.',
           action: () => {
+            stopTimer();
             addHealth(10, "Healthy Collaborative Framing: Human intent + AI tone inspection.");
             injectMessage('user', 'Here is my message: "Hey, I had an exhausting week and need to rest tonight, but I would love to reschedule for Sunday. Does this sound respectful?"');
             injectMessage('ai', 'Yes, that is honest, polite, and offers a concrete reschedule date.');
@@ -695,6 +792,7 @@
     }
 
     function finishScenario(current) {
+      stopTimer();
       if (current === 1) {
         setTimeout(() => {
           injectMessage('mindshield', 'SCENARIO 1 COMPLETE. Loading Scenario 2: Information Verification...');
@@ -711,6 +809,7 @@
     }
 
     function showFinalReport() {
+      stopTimer();
       document.querySelector('.main-wrap').innerHTML = `
         <div class="report-card">
           <div class="hud-title" style="margin-bottom: 20px;">DIAGNOSTIC SIMULATION COMPLETED</div>
@@ -729,7 +828,7 @@
       `;
     }
 
-    // Boot
+    // Start on load
     startScenario1();
   </script>
 </body>
