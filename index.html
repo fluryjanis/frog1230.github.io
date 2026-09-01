@@ -47,26 +47,26 @@
     }
 
     .repo-corner-link {
-  position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--card-bg);
-  border: 1px solid var(--border);
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-  z-index: 1000;
-}
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 50%;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      z-index: 1000;
+    }
 
-.repo-corner-link:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
+    .repo-corner-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
 
     body {
       font-family:
@@ -212,6 +212,11 @@
       font-weight: 600;
     }
 
+    .tag-experimental {
+      background-color: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+
     .links {
       display: flex;
       gap: 1rem;
@@ -243,6 +248,140 @@
       opacity: 0.9;
     }
 
+    /* BLOG CATEGORIES & VERTICAL SCROLLING */
+    .blog-section {
+      margin-top: 4rem;
+    }
+
+    .blog-category-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .blog-category-col {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .category-heading {
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .category-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    .blog-scroll-container {
+      max-height: 480px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-right: 0.5rem;
+    }
+
+    /* Sleek Custom Scrollbar */
+    .blog-scroll-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .blog-scroll-container::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 8px;
+    }
+
+    .blog-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 8px;
+    }
+
+    .blog-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    .blog-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .blog-tag {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .blog-title {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.35;
+    }
+
+    .blog-title a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .blog-title a:hover {
+      color: var(--accent);
+    }
+
+    .blog-description {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0 0 1rem 0;
+    }
+
+    .read-more {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+    }
+
     footer {
       margin-top: 4rem;
       text-align: center;
@@ -262,652 +401,411 @@
       .grid {
         grid-template-columns: 1fr;
       }
+
+      .blog-category-layout {
+        grid-template-columns: 1fr;
+      }
     }
-
-    .repo-corner-link {
-  position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--card-bg);
-  border: 1px solid var(--border);
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-  z-index: 1000;
-}
-
-.repo-corner-link:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
   </style>
 </head>
 
 <body>
 
   <a 
-  href="https://github.com/fluryjanis/frog1230.github.io" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  class="repo-corner-link" 
-  aria-label="View repository on GitHub"
->
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-  </svg>
-</a>
+    href="https://github.com/fluryjanis/frog1230.github.io" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="repo-corner-link" 
+    aria-label="View repository on GitHub"
+  >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+    </svg>
+  </a>
 
   <div class="container">
 
     <!-- HEADER -->
-
     <header>
-
       <h1>Frog1230</h1>
-
       <p class="subtitle">
         Lightweight, privacy-first software built around better ways to work.
       </p>
 
       <nav class="social-links" aria-label="Social and developer profiles">
-
-        <a
-          href="https://github.com/fluryjanis"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-        </a>
-
-        <a
-          href="https://frog1230.itch.io/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          itch.io
-        </a>
-
-        <a
-          href="https://addons.mozilla.org/en-US/firefox/user/20036258/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Firefox Add-ons
-        </a>
-
-        <a
-          href="https://bsky.app/profile/frog1230.bsky.social"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Bluesky
-        </a>
-
-        <a
-          href="https://x.com/Frog1230taken"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          X / Twitter
-        </a>
-
-        <a
-          href="https://www.youtube.com/@frog1230-i1v/videos"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          YouTube
-        </a>
-
-        <a
-          href="https://www.reddit.com/user/A_Bias_Frog/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Reddit
-        </a>
-
-        <a
-          href="https://sourceforge.net/u/frog1230/profile/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          SourceForge
-        </a>
-
+        <a href="https://github.com/fluryjanis" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://frog1230.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
+        <a href="https://addons.mozilla.org/en-US/firefox/user/20036258/" target="_blank" rel="noopener noreferrer">Firefox Add-ons</a>
+        <a href="https://bsky.app/profile/frog1230.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
+        <a href="https://x.com/Frog1230taken" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+        <a href="https://www.youtube.com/@frog1230-i1v/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://www.reddit.com/user/A_Bias_Frog/" target="_blank" rel="noopener noreferrer">Reddit</a>
+        <a href="https://sourceforge.net/u/frog1230/profile/" target="_blank" rel="noopener noreferrer">SourceForge</a>
       </nav>
-
     </header>
 
-
     <!-- ABOUT -->
-
     <section class="about-section">
-
       <h2>About</h2>
-
       <p>
         I build small software products that solve specific problems
         without unnecessary complexity. My projects focus on privacy,
         local-first software, productivity, research, and more
         intentional use of technology.
       </p>
-
       <p style="margin-top: 0.75rem;">
         Most projects are open source and available to try.
       </p>
-
     </section>
 
-
     <!-- FEATURED PROJECTS -->
-
     <h2 class="section-title">Featured Projects</h2>
-
     <p class="section-subtitle">
       Current projects and tools you can try.
     </p>
 
     <main class="grid">
-
       <!-- Research Wheel -->
-
       <article class="card">
-
         <div>
-
           <h3>Research Wheel</h3>
-
           <div class="tags">
             <span class="tag">Browser Extension</span>
             <span class="tag">Research</span>
             <span class="tag">Open Source</span>
           </div>
-
           <p>
             Research the web without constantly switching tabs.
             Save quotes, find research sources, generate citations,
             and organize your findings.
           </p>
-
         </div>
-
         <div class="links">
-
-          <a
-            class="primary-link"
-            href="https://fluryjanis.github.io/ResearchWheel/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a class="primary-link" href="https://fluryjanis.github.io/ResearchWheel/" target="_blank" rel="noopener noreferrer">
             Try Research Wheel →
           </a>
-
-          <a
-            href="https://addons.mozilla.org/en-US/firefox/addon/researchwheel/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Firefox
-          </a>
-
-          <a
-            href="https://github.com/fluryjanis/ResearchWheel/releases/tag/v2.0.0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Chrome
-          </a>
-
-          <a
-            href="https://github.com/fluryjanis/ResearchWheel"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-
+          <a href="https://addons.mozilla.org/en-US/firefox/addon/researchwheel/" target="_blank" rel="noopener noreferrer">Firefox</a>
+          <a href="https://github.com/fluryjanis/ResearchWheel/releases/tag/v2.0.0" target="_blank" rel="noopener noreferrer">Chrome</a>
+          <a href="https://github.com/fluryjanis/ResearchWheel" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-
       </article>
 
-
       <!-- MindShield -->
-
       <article class="card">
-
         <div>
-
           <h3>MindShield</h3>
-
           <div class="tags">
             <span class="tag">Browser Extension</span>
             <span class="tag">Local AI</span>
             <span class="tag">Open Source</span>
           </div>
-
           <p>
             Use AI without letting it do your thinking for you.
             MindShield adds a brief reflection pause when you use
             AI for simple tasks you could potentially handle yourself.
           </p>
-
         </div>
-
         <div class="links">
-
-          <a
-            class="primary-link"
-            href="https://fluryjanis.github.io/Mind-Shield/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a class="primary-link" href="https://fluryjanis.github.io/Mind-Shield/" target="_blank" rel="noopener noreferrer">
             Try MindShield →
           </a>
-
-          <a
-            href="https://github.com/fluryjanis/Mind-Shield/releases/tag/v1.0.2"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Chrome
-          </a>
-
-          <a
-            href="https://github.com/fluryjanis/Mind-Shield-Firefox/releases/tag/v1.0.2"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Firefox
-          </a>
-
-          <a
-            href="https://github.com/fluryjanis/Mind-Shield"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-
-                    <a
-            href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Web Demo
-          </a>
-
+          <a href="https://github.com/fluryjanis/Mind-Shield/releases/tag/v1.0.2" target="_blank" rel="noopener noreferrer">Chrome</a>
+          <a href="https://github.com/fluryjanis/Mind-Shield-Firefox/releases/tag/v1.0.2" target="_blank" rel="noopener noreferrer">Firefox</a>
+          <a href="https://github.com/fluryjanis/Mind-Shield" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-
       </article>
 
-
       <!-- Content Chef -->
-
       <article class="card">
-
         <div>
-
           <h3>Content Chef</h3>
-
           <div class="tags">
             <span class="tag">Browser Extension</span>
             <span class="tag">Privacy</span>
           </div>
-
           <p>
             A privacy-first browser extension that helps you filter
             and curate YouTube recommendations based on the content
             you actually want to see.
           </p>
-
         </div>
-
         <div class="links">
-
-          <a
-            class="primary-link"
-            href="https://frog1230.itch.io/content-chef"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a class="primary-link" href="https://frog1230.itch.io/content-chef" target="_blank" rel="noopener noreferrer">
             Try Content Chef →
           </a>
-
-          <a
-            href="https://addons.mozilla.org/en-US/firefox/addon/content-chef/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Firefox
-          </a>
-
-          <a
-            href="https://github.com/fluryjanis/Content-Chef"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-
+          <a href="https://addons.mozilla.org/en-US/firefox/addon/content-chef/" target="_blank" rel="noopener noreferrer">Firefox</a>
+          <a href="https://github.com/fluryjanis/Content-Chef" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-
       </article>
-
     </main>
 
-
     <!-- OTHER PROJECTS -->
-
     <section style="margin-top: 4rem;">
-
       <h2 class="section-title">Other Projects</h2>
-
       <p class="section-subtitle">
-        Smaller tools and experiments.
+        Smaller tools and applications.
       </p>
 
       <div class="grid">
-
         <!-- Remind Me -->
-
         <article class="card">
-
           <div>
-
             <h3>Remind Me</h3>
-
             <div class="tags">
               <span class="tag">Desktop App</span>
               <span class="tag">Productivity</span>
             </div>
-
             <p>
               A keyboard-driven 24-hour desktop planner and calendar
               designed for fast scheduling.
             </p>
-
           </div>
-
           <div class="links">
-
-            <a
-              class="primary-link"
-              href="https://frog1230.itch.io/remind-me"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a class="primary-link" href="https://frog1230.itch.io/remind-me" target="_blank" rel="noopener noreferrer">
               Try Remind Me →
             </a>
-
           </div>
-
         </article>
 
-
         <!-- Your Pomodoro -->
-
         <article class="card">
-
           <div>
-
             <h3>Your Pomodoro</h3>
-
             <div class="tags">
               <span class="tag">Desktop App</span>
               <span class="tag">Productivity</span>
             </div>
-
             <p>
               A standalone Pomodoro timer designed for simple,
               focused work sessions.
             </p>
-
           </div>
-
           <div class="links">
-
-            <a
-              class="primary-link"
-              href="https://frog1230.itch.io/your-pomodoro"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a class="primary-link" href="https://frog1230.itch.io/your-pomodoro" target="_blank" rel="noopener noreferrer">
               Try Your Pomodoro →
             </a>
-
-            <a
-              href="https://github.com/fluryjanis/Your-Pomodoro"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-
+            <a href="https://github.com/fluryjanis/Your-Pomodoro" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
+        </article>
+      </div>
+    </section>
 
+    <!-- EXPERIMENTAL & DEMOS -->
+    <section style="margin-top: 4rem;">
+      <h2 class="section-title">Experimental & Demos</h2>
+      <p class="section-subtitle">
+        Prototypes, interactive browser demos, and web experiments.
+      </p>
+
+      <div class="grid">
+        <!-- Web MindShield -->
+        <article class="card">
+          <div>
+            <h3>Web MindShield</h3>
+            <div class="tags">
+              <span class="tag tag-experimental">Interactive Demo</span>
+              <span class="tag">Web</span>
+            </div>
+            <p>
+              An in-browser interactive showcase and demo version of the MindShield reflection engine.
+            </p>
+          </div>
+          <div class="links">
+            <a class="primary-link" href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/" target="_blank" rel="noopener noreferrer">
+              Open Demo →
+            </a>
+          </div>
         </article>
 
-      </div>
+        <!-- MindShield Game -->
+        <article class="card">
+          <div>
+            <h3>MindShield Game</h3>
+            <div class="tags">
+              <span class="tag tag-experimental">Experimental Game</span>
+              <span class="tag">Gamified</span>
+            </div>
+            <p>
+              An interactive mini-game exploring cognitive reflection, decision friction, and awareness.
+            </p>
+          </div>
+          <div class="links">
+            <a class="primary-link" href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/game.html" target="_blank" rel="noopener noreferrer">
+              Play Game →
+            </a>
+          </div>
+        </article>
 
+        <!-- MindShield Test Bench -->
+        <article class="card">
+          <div>
+            <h3>MindShield Test Suite</h3>
+            <div class="tags">
+              <span class="tag tag-experimental">Benchmark / Testing</span>
+              <span class="tag">Evaluation</span>
+            </div>
+            <p>
+              Interactive testing suite and prompt evaluator for testing MindShield's local behavior.
+            </p>
+          </div>
+          <div class="links">
+            <a class="primary-link" href="https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/mindshield-test.html" target="_blank" rel="noopener noreferrer">
+              Run Tests →
+            </a>
+          </div>
+        </article>
+      </div>
     </section>
-    <!-- BLOG -->
 
-<section class="blog-section">
-  <h2 class="section-title">Blog & Updates</h2>
-  
-  <div class="blog-grid">
-
-    <!-- Post 1 -->
-    <article class="blog-card">
-      <div class="blog-meta">
-        <span class="blog-date">8/21/26</span>
-      </div>
-      <h3 class="blog-title">
-        <a href="blog/Stop-Cognitive-Offloading-to-AI.html">How to Stop Cognitive Offloading to AI</a>
-      </h3>
-      <p class="blog-description">
-        Practical strategies and frameworks to reclaim active reasoning and prevent automatic AI reliance.
+    <!-- BLOG & UPDATES -->
+    <section class="blog-section">
+      <h2 class="section-title">Blog & Updates</h2>
+      <p class="section-subtitle">
+        Scroll through articles, research writeups, and release notes by category.
       </p>
-      <a href="blog/Stop-Cognitive-Offloading-to-AI.html" class="read-more">Read Article →</a>
-    </article>
 
-    <!-- Post 2 -->
-    <article class="blog-card">
-      <div class="blog-meta">
-        <span class="blog-date">8/20/26</span>
+      <div class="blog-category-layout">
+
+        <!-- Category: Articles & Insights -->
+        <div class="blog-category-col">
+          <div class="category-heading">
+            <span>Articles & Research</span>
+            <span class="category-count">7 Posts</span>
+          </div>
+
+          <div class="blog-scroll-container">
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/27/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/When-Should-You-Trust-AI.html">When Should You Trust AI?</a>
+              </h3>
+              <p class="blog-description">
+                Four evidence-based boundaries for appropriate AI reliance: demonstrated capability, verifiability, calibrated confidence, and improved performance.
+              </p>
+              <a href="blog/When-Should-You-Trust-AI.html" class="read-more">Read Article →</a>
+            </article>
+
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/26/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/when-not-to-use-ai.html">When Not to Use AI</a>
+              </h3>
+              <p class="blog-description">
+                An analysis of five research-backed boundaries for AI delegation—from avoiding skill loss and unvetted judgment to task limits.
+              </p>
+              <a href="blog/when-not-to-use-ai.html" class="read-more">Read Article →</a>
+            </article>
+
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/23/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/AI's-Impact-on-Reason-vs-Knowledge.html">AI's Impact on Reason vs. Knowledge</a>
+              </h3>
+              <p class="blog-description">
+                An empirical look at whether AI affects critical thinking more than factual retrieval—and how delegating problem-solving changes effort.
+              </p>
+              <a href="blog/AI's-Impact-on-Reason-vs-Knowledge.html" class="read-more">Read Article →</a>
+            </article>
+
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/22/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/cognitive-offloading-examples-in-learning.html">Cognitive Offloading Examples in Learning</a>
+              </h3>
+              <p class="blog-description">
+                Real-world examples of cognitive offloading in coding, writing, and STEM—and balancing AI convenience with skill retention.
+              </p>
+              <a href="blog/cognitive-offloading-examples-in-learning.html" class="read-more">Read Article →</a>
+            </article>
+
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/21/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/Stop-Cognitive-Offloading-to-AI.html">How to Stop Cognitive Offloading to AI</a>
+              </h3>
+              <p class="blog-description">
+                Practical strategies and frameworks to reclaim active reasoning and prevent automatic AI reliance.
+              </p>
+              <a href="blog/Stop-Cognitive-Offloading-to-AI.html" class="read-more">Read Article →</a>
+            </article>
+
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/20/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/Using-AI-More-Intentionally.html">Using AI More Intentionally</a>
+              </h3>
+              <p class="blog-description">
+                Mindful prompting techniques and balancing AI speed with independent problem solving.
+              </p>
+              <a href="blog/Using-AI-More-Intentionally.html" class="read-more">Read Article →</a>
+            </article>
+
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/20/26</span>
+                <span class="blog-tag">Article</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/AI-and-Critical-Thinking.html">AI and Critical Thinking: What Should We Worry About?</a>
+              </h3>
+              <p class="blog-description">
+                An analysis of how friction-free tools shift mental habits and why intentional friction matters.
+              </p>
+              <a href="blog/AI-and-Critical-Thinking.html" class="read-more">Read Article →</a>
+            </article>
+          </div>
+        </div>
+
+        <!-- Category: Releases & Changelogs -->
+        <div class="blog-category-col">
+          <div class="category-heading">
+            <span>Releases & Updates</span>
+            <span class="category-count">1 Post</span>
+          </div>
+
+          <div class="blog-scroll-container">
+            <article class="blog-card">
+              <div class="blog-meta">
+                <span class="blog-date">8/17/26</span>
+                <span class="blog-tag">Release</span>
+              </div>
+              <h3 class="blog-title">
+                <a href="blog/v1.1.0.html">MindShield v1.1.0 Release Notes</a>
+              </h3>
+              <p class="blog-description">
+                New local evaluation improvements, model latency optimizations, and UI updates for MindShield.
+              </p>
+              <a href="blog/v1.1.0.html" class="read-more">Read Release Notes →</a>
+            </article>
+          </div>
+        </div>
+
       </div>
-      <h3 class="blog-title">
-        <a href="blog/Using-AI-More-Intentionally.html">Using AI More Intentionally</a>
-      </h3>
-      <p class="blog-description">
-        Exploring mindful prompting techniques and balancing AI speed with independent problem solving.
-      </p>
-      <a href="blog/Using-AI-More-Intentionally.html" class="read-more">Read Article →</a>
-    </article>
+    </section>
 
-    <!-- Post 3 -->
-    <article class="blog-card">
-      <div class="blog-meta">
-        <span class="blog-date">8/20/26</span>
-      </div>
-      <h3 class="blog-title">
-        <a href="blog/AI-and-Critical-Thinking.html">AI and Critical Thinking: What Should We Worry About?</a>
-      </h3>
-      <p class="blog-description">
-        An analysis of how friction-free tools shift mental habits and why intentional friction matters.
-      </p>
-      <a href="blog/AI-and-Critical-Thinking.html" class="read-more">Read Article →</a>
-    </article>
-
-    <!-- Post 4 -->
-    <article class="blog-card">
-      <div class="blog-meta">
-        <span class="blog-date">8/17/26</span>
-        <span class="blog-tag">Release</span>
-      </div>
-      <h3 class="blog-title">
-        <a href="blog/v1.1.0.html">MindShield v1.1.0 Release Notes</a>
-      </h3>
-      <p class="blog-description">
-        New local evaluation improvements, model latency optimizations, and UI updates for MindShield.
-      </p>
-      <a href="blog/v1.1.0.html" class="read-more">Read Release Notes →</a>
-    </article>
-
-<article class="blog-card">
-      <div class="blog-meta">
-        <span class="blog-date">8/22/26</span>
-        <span class="blog-tag">Article</span>
-      </div>
-      <h3 class="blog-title">
-        <a href="blog/cognitive-offloading-examples-in-learning.html">Cognitive Offloading Examples in Learning</a>
-      </h3>
-      <p class="blog-description">
-        Real-world examples of cognitive offloading in coding, writing, and STEM—and how to balance AI convenience with deep skill retention.
-      </p>
-      <a href="blog/cognitive-offloading-examples-in-learning.html" class="read-more">Read Article →</a>
-    </article>
-
-<article class="blog-card">
-  <div class="blog-meta">
-    <span class="blog-date">8/23/26</span>
-    <span class="blog-tag">Article</span>
-  </div>
-  <h3 class="blog-title">
-    <a href="blog/AI's-Impact-on-Reason-vs-Knowledge.html">AI's Impact on Reason vs. Knowledge</a>
-  </h3>
-  <p class="blog-description">
-    An empirical look at whether AI affects critical thinking more than factual retrieval—and how delegating problem-solving changes cognitive effort.
-  </p>
-  <a href="blog/AI's-Impact-on-Reason-vs-Knowledge.html" class="read-more">Read Article →</a>
-</article>
-
-<article class="blog-card">
-  <div class="blog-meta">
-    <span class="blog-date">8/26/26</span>
-    <span class="blog-tag">Article</span>
-  </div>
-  <h3 class="blog-title">
-    <a href="blog/when-not-to-use-ai.html">When Not to Use AI</a>
-  </h3>
-  <p class="blog-description">
-    An analysis of five research-backed boundaries for AI delegation—from avoiding skill loss and unvetted judgment to managing task limits and sensitive data.
-  </p>
-  <a href="blog/when-not-to-use-ai.html" class="read-more">Read Article →</a>
-</article>
-
-<article class="blog-card">
-  <div class="blog-meta">
-    <span class="blog-date">8/27/26</span>
-    <span class="blog-tag">Article</span>
-  </div>
-  <h3 class="blog-title">
-    <a href="blog/When-Should-You-Trust-AI.html">When Should You Trust AI?</a>
-  </h3>
-  <p class="blog-description">
-    When should you trust AI? Learn four evidence-based boundaries for appropriate AI reliance: demonstrated capability, verifiability, calibrated confidence, and improved human performance.
-  </p>
-  <a href="blog/When-Should-You-Trust-AI.html" class="read-more">Read Article →</a>
-</article>
-    
-  </div>
-</section>
-<style>
-  .blog-section {
-    margin: 3rem 0;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
-    color: var(--text, #f8fafc);
-  }
-
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .blog-card {
-    background: var(--card, #1e293b);
-    border: 1px solid var(--border, #334155);
-    border-radius: 12px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-
-  .blog-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent, #38bdf8);
-  }
-
-  .blog-meta {
-    display: flex;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--muted, #94a3b8);
-    margin-bottom: 0.5rem;
-  }
-
-  .blog-tag {
-    background: rgba(56, 189, 248, 0.1);
-    color: var(--accent, #38bdf8);
-    padding: 0.1rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-  }
-
-  .blog-title {
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.35;
-  }
-
-  .blog-title a {
-    color: var(--text, #f8fafc);
-    text-decoration: none;
-  }
-
-  .blog-title a:hover {
-    color: var(--accent, #38bdf8);
-  }
-
-  .blog-description {
-    color: var(--muted, #94a3b8);
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0 0 1.25rem 0;
-  }
-
-  .read-more {
-    color: var(--accent, #38bdf8);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-
-  .read-more:hover {
-    text-decoration: underline;
-  }
-</style>
     <!-- FOOTER -->
-
     <footer>
-
       <p>
         © Frog1230. Built with plain HTML/CSS on GitHub Pages.
       </p>
-
     </footer>
 
   </div>
