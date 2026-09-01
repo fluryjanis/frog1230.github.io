@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>How to Use AI Without Losing Critical Thinking</title>
+
+<meta
+ name="description"
+ content="Learn how to use AI without losing critical thinking. Research suggests that the timing and structure of AI assistance can affect learning, independent performance, and reliance on AI."
+/>
+
+  <link rel="canonical" href="[INSERT-CANONICAL-URL]" />
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --text: #1d232c;
+      --muted: #5f6975;
+      --border: #dfe4e9;
+      --accent: #315f8c;
+      --accent-soft: #edf4fa;
+      --strong: #16202a;
+      --warning-soft: #fff8e8;
+      --warning-border: #e8cf8a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.72;
+    }
+
+    .styled-article {
+      width: min(760px, calc(100% - 32px));
+      margin: 56px auto 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 48px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--strong);
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 5vw, 3.1rem);
+      letter-spacing: -0.035em;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin: 56px 0 18px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 28px 0 10px;
+    }
+
+    p {
+      margin: 0 0 20px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.12rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .lead {
+      font-size: 1.18rem;
+      line-height: 1.75;
+    }
+
+    strong {
+      color: var(--strong);
+    }
+
+    .citation {
+      font-size: 0.78em;
+      vertical-align: super;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 2px;
+    }
+
+    .thesis {
+      margin: 32px 0;
+      padding: 24px 26px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      font-size: 1.08rem;
+    }
+
+    .thesis p:last-child {
+      margin-bottom: 0;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .comparison-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .comparison-card h3 {
+      margin-top: 0;
+    }
+
+    .comparison-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .evidence {
+      margin: 28px 0;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fbfcfd;
+    }
+
+    .evidence-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .evidence p:last-child {
+      margin-bottom: 0;
+    }
+
+    blockquote {
+      margin: 28px 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--border);
+      color: #3e4853;
+      font-size: 1.08rem;
+    }
+
+    .workflow-section {
+      margin: 64px -8px 40px;
+      padding: 34px 30px;
+      background: var(--strong);
+      color: #fff;
+      border-radius: 14px;
+    }
+
+    .workflow-section h2 {
+      color: #fff;
+      margin-top: 0;
+    }
+
+    .workflow-intro {
+      color: #dbe2e9;
+    }
+
+    .workflow {
+      display: grid;
+      gap: 10px;
+      margin: 28px 0 24px;
+    }
+
+    .workflow-step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 15px;
+      align-items: start;
+      padding: 17px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9px;
+    }
+
+    .workflow-number {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--strong);
+      font-weight: 800;
+    }
+
+    .workflow-step h3 {
+      color: #fff;
+      margin: 2px 0 5px;
+    }
+
+    .workflow-step p {
+      color: #dbe2e9;
+      margin: 0;
+    }
+
+    .workflow-note {
+      margin: 22px 0 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      color: #dbe2e9;
+      font-size: 0.94rem;
+    }
+
+    .checklist {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      margin: 12px 0;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .warning {
+      margin: 28px 0;
+      padding: 22px 24px;
+      background: var(--warning-soft);
+      border: 1px solid var(--warning-border);
+      border-radius: 10px;
+    }
+
+    .research-summary {
+      display: grid;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .research-card {
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .research-card h3 {
+      margin-top: 0;
+    }
+
+    .research-card ul {
+      margin-bottom: 0;
+    }
+
+    .sources {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sources li {
+      margin-bottom: 12px;
+    }
+
+    .closing {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 650px) {
+      .styled-article {
+        width: min(100% - 20px, 760px);
+        margin: 20px auto 40px;
+        padding: 28px 20px;
+        border-radius: 10px;
+      }
+
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-section {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 28px 20px;
+      }
+
+      h2 {
+        margin-top: 44px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<article class="styled-article">
+
+  <header>
+    <h1>How to Use AI Without Losing Critical Thinking</h1>
+
+```
+<p class="subtitle">
+  Generative AI can make difficult tasks easier. But an easier task does
+  not necessarily mean more learning or better independent performance.
+  Recent experiments suggest that the way AI is integrated into a task can
+  affect what people learn and how they perform without AI.
+</p>
+```
+
+  </header>
+
+  <section id="introduction">
+
+```
+<p class="lead">
+  The question is not simply whether you should use AI.
+  A more useful question is:
+  <strong>which parts of the thinking process should remain yours?</strong>
+</p>
+
+<p>
+  Research does not support a simple conclusion that AI either improves or
+  destroys critical thinking. Different studies have found different
+  outcomes depending on the task and the way AI is used.
+</p>
+
+<div class="thesis">
+  <p>
+    <strong>AI versus no AI is not the whole story.</strong>
+  </p>
+
+  <p>
+    A useful distinction is whether AI is
+    <strong>replacing</strong> cognitive work or
+    <strong>supporting</strong> the person's continued participation in it.
+  </p>
+</div>
+
+<p>
+  You don't need to reject AI. You need to preserve the part of the task
+  you are trying to learn.
+</p>
+```
+
+  </section>
+
+  <section id="replacement-scaffolding">
+
+```
+<h2>The Problem Isn't AI — It's What You Outsource</h2>
+
+<p>
+  In this article, <strong>cognitive replacement</strong> means using AI
+  to perform a substantial part of the reasoning, generation, or decision
+  that the person would otherwise need to perform. <strong>Cognitive
+  scaffolding</strong> means using AI while retaining an active role in
+  the relevant thinking.
+</p>
+
+<p>
+  This distinction provides a useful way to interpret findings from
+  experiments comparing different forms of AI assistance, although the
+  evidence comes from particular tasks rather than every possible use of
+  AI.
+</p>
+
+<div class="comparison">
+
+  <div class="comparison-card">
+    <h3>Replacement</h3>
+
+    <p>
+      AI produces the solution and the person mainly accepts or uses the
+      result.
+    </p>
+
+    <p>
+      <strong>Example:</strong>
+      “Solve this problem for me.”
+    </p>
+  </div>
+
+  <div class="comparison-card">
+    <h3>Scaffolding</h3>
+
+    <p>
+      AI provides information, criticism, alternatives, or feedback while
+      the person continues to perform relevant reasoning and evaluation.
+    </p>
+
+    <p>
+      <strong>Example:</strong>
+      “Here is my reasoning. Identify weaknesses and counterarguments.
+      Don't solve it for me.”
+    </p>
+  </div>
+
+</div>
+
+<p>
+  The distinction should not be treated as a perfect binary. A single task
+  can contain both replacement and support. The practical question is
+  <strong>which cognitive steps the person still performs</strong>.
+</p>
+```
+
+  </section>
+
+  <section id="think-first">
+
+```
+<h2>Think Before You Ask AI</h2>
+
+<p>
+  If the task requires you to generate ideas or reason independently,
+  consider making an initial attempt before asking AI for a solution.
+  This is not presented as a universal rule; it is a strategy supported by
+  research in specific learning and creativity contexts.
+</p>
+
+<div class="evidence">
+
+  <span class="evidence-label">Wong &amp; Qiu, 2026</span>
+
+  <p>
+    Wong and Qiu studied 196 university students performing creative
+    product tasks. Students were assigned to a human-only group, a
+    free-use ChatGPT group, or a regulated-AI group. The regulated group
+    first generated its own ideas and then used ChatGPT to improve,
+    develop, and evaluate those ideas.
+  </p>
+
+  <p>
+    On the first task, the free-use AI group produced more creative
+    solutions than the human-only and regulated groups. On a later task
+    completed without AI, however, the regulated group outperformed both
+    other groups, while the free-use group's <strong>creativity</strong>
+    fell to a level comparable to the human-only group.
+  </p>
+
+</div>
+
+<p>
+  That study examined creative problem solving, so it does not establish
+  that “think first” will improve every form of reasoning. What it does
+  provide is direct experimental evidence that <strong>the timing and
+  structure of AI assistance can matter for later independent
+  performance</strong> in at least one creative-learning context.
+</p>
+
+<blockquote>
+  Don't always make AI your starting point. Sometimes make your own
+  thinking the starting point.
+</blockquote>
+```
+
+  </section>
+
+  <section id="react">
+
+```
+<h2>Give AI Something to React To</h2>
+
+<p>
+  A practical extension of the evidence above is to give AI your own
+  starting point when the task involves generating or developing ideas.
+  Instead of asking AI to begin the task from nothing, provide your initial
+  reasoning, ideas, or criteria and ask it to work with them.
+</p>
+
+<div class="evidence">
+
+  <span class="evidence-label">Direct evidence</span>
+
+  <p>
+    This approach closely matches the regulated condition in Wong and
+    Qiu's experiment: participants generated their own ideas before using
+    ChatGPT to improve, develop, and evaluate them.
+  </p>
+
+</div>
+
+<p>
+  A second study provides related evidence about interaction style. Urban
+  et al. analyzed ChatGPT interactions from 77 university students solving
+  a complex creative problem. Higher-performing students tended to use
+  richer context, clearer evaluation criteria, specific feedback, and
+  iterative dialogue. The study found associations between these
+  prompting behaviors and creative problem-solving performance; because it
+  was a process-mining study rather than a randomized intervention, it does
+  not establish that these behaviors caused the higher performance.
+</p>
+
+<blockquote>
+  <strong>
+    Give AI something to react to when your own thinking is part of what
+    the task is meant to develop.
+  </strong>
+</blockquote>
+```
+
+  </section>
+
+  <section id="challenge">
+
+```
+<h2>Ask AI to Challenge Your Thinking</h2>
+
+<p>
+  Another way to keep yourself involved is to ask AI for counterarguments,
+  weaknesses, or alternative explanations rather than asking it only for a
+  conclusion.
+</p>
+
+<p>
+  There is some empirical support for this type of structured interaction.
+  Kawai, Ito, and Itabashi reported a university teaching intervention in
+  which students discussed ideas with ChatGPT and used it to generate
+  counterarguments. The study found significant changes in the measured
+  critical-thinking-attitude scale.
+</p>
+
+<p>
+  Another randomized controlled trial involving 61 first-year engineering
+  students compared a peer-assessment approach using ChatGPT with
+  conventional ChatGPT use. The peer-assessment group showed greater gains
+  on measured critical-thinking, problem-solving, creativity, and knowledge
+  construction outcomes over the eight-week intervention.
+</p>
+
+<div class="warning">
+  <strong>
+    These studies do not show that asking AI for criticism automatically
+    makes someone a better critical thinker.
+  </strong>
+
+  <p>
+    Kawai et al. focused on critical-thinking attitudes, while the Wu et
+    al. study used a particular structured peer-assessment intervention in
+    an engineering course. Neither establishes a universal prompting
+    formula.
+  </p>
+</div>
+
+<p>
+  The practical principle is therefore narrower:
+  <strong>use AI's criticism as material that you have to evaluate, not as
+  an authority whose criticism you automatically accept.</strong>
+</p>
+```
+
+  </section>
+
+  <section id="judgment">
+
+```
+<h2>Keep the Judgment Yours</h2>
+
+<p>
+  AI-assisted decision making creates a different problem from simply
+  generating text or ideas: people can rely on an AI recommendation even
+  when other information suggests that recommendation should be questioned.
+</p>
+
+<div class="evidence">
+
+  <span class="evidence-label">Klingbeil et al., 2024</span>
+
+  <p>
+    In an interactive behavioral experiment involving financially risky
+    decisions, participants sometimes followed AI advice that conflicted
+    with contextual information and their own assessments. The study found
+    that merely knowing advice was AI-generated could increase reliance on
+    that advice, and higher trust in the AI adviser was associated with
+    higher reliance.
+  </p>
+
+</div>
+
+<p>
+  Lu, Wang, and Yin's three preregistered randomized experiments add an
+  important qualification. Giving people a second opinion alongside AI
+  reduced overreliance but also increased underreliance. When people could
+  choose when to request a second opinion, active solicitation could
+  mitigate overreliance without producing the same increase in
+  underreliance in some conditions.
+</p>
+
+<p>
+  Together, these findings support a more precise goal than “trust AI” or
+  “distrust AI”: <strong>calibrate reliance to the quality of the evidence
+  and the situation.</strong>
+</p>
+
+<p>
+  In practice, that means treating AI output as an input to your judgment,
+  not as the judgment itself.
+</p>
+```
+
+  </section>
+
+  <section id="feedback">
+
+```
+<h2>Use AI for Feedback Instead of Automatic Completion</h2>
+
+<p>
+  If you are learning a skill, one evidence-based reason to distinguish
+  assistance from completion is that better performance on the immediate
+  task does not necessarily produce equivalent gains in knowledge or
+  transfer.
+</p>
+
+<div class="evidence">
+
+  <span class="evidence-label">Fan et al., 2025</span>
+
+  <p>
+    Fan et al. conducted a randomized experiment with 117 university
+    students performing a reading and writing task. The ChatGPT-supported
+    group showed greater improvement in essay scores, but the researchers
+    found no significant difference in knowledge gain and transfer between
+    the groups.
+  </p>
+
+  <p>
+    The authors therefore recommend that learners actively engage in
+    evaluation, monitoring, and orientation rather than simply following
+    ChatGPT feedback to complete tasks efficiently.
+  </p>
+
+</div>
+
+<p>
+  A useful application is therefore to ask AI for feedback on an attempt
+  you have already made when the underlying skill is what you are trying to
+  develop.
+</p>
+
+<p>
+  That is a recommendation derived from the evidence, not a claim that
+  every feedback-based interaction will produce better learning.
+</p>
+```
+
+  </section>
+
+  <section id="learning">
+
+```
+<h2>Don't Outsource the Skill You're Trying to Learn</h2>
+
+<p>
+  Research provides several reasons to be cautious about unrestricted AI
+  assistance during learning.
+</p>
+
+<div class="evidence">
+
+  <span class="evidence-label">Barcaui, 2025</span>
+
+  <p>
+    A randomized controlled trial with 120 undergraduates compared
+    ChatGPT-assisted studying with traditional, non-AI study methods.
+    On a surprise retention test 45 days later, the ChatGPT group scored
+    57.5% compared with 68.5% for the traditional-learning group
+    (<em>p</em> = .002; <em>d</em> = .68).
+  </p>
+
+  <p>
+    This was one study involving undergraduate students learning AI
+    material. It therefore does not establish that all AI use harms
+    retention. <strong>This study does provide randomized evidence that
+    ChatGPT-assisted studying can produce different long-term retention
+    outcomes from traditional, non-AI studying under the conditions
+    tested.</strong>
+  </p>
+
+</div>
+
+<p>
+  Fan et al.'s randomized writing study points in a similar direction:
+  ChatGPT improved immediate essay performance without a corresponding
+  significant difference in knowledge gain and transfer.
+</p>
+
+<p>
+  The practical implication is straightforward:
+  <strong>when the skill itself is the learning objective, be cautious
+  about handing that skill over to AI.</strong>
+</p>
+```
+
+  </section>
+
+  <section id="verify">
+
+```
+<h2>Verify When It Actually Matters</h2>
+
+<p>
+  Research on AI-assisted decision making shows that people can sometimes
+  rely on AI even when its recommendation conflicts with available
+  contextual information or their own assessment.
+</p>
+
+<p>
+  That makes verification particularly important when an AI error could
+  materially affect the decision. It is also consistent with the evidence
+  that additional advice does not automatically solve reliance problems:
+  second opinions can reduce overreliance in some circumstances while also
+  increasing underreliance in others.
+</p>
+
+<p>
+  A practical rule derived from these findings is to spend more effort
+  checking AI output when:
+</p>
+
+<ul class="checklist">
+  <li>the answer will affect an important decision</li>
+  <li>the information has meaningful consequences if it is wrong</li>
+  <li>the claim depends on specific facts, statistics, or sources</li>
+  <li>you do not have enough knowledge to recognize an obvious error</li>
+</ul>
+
+<p>
+  These are practical risk-management recommendations, not categories
+  directly tested as a single list in the studies above.
+</p>
+```
+
+  </section>
+
+  <section id="when-not-to-use-ai">
+
+```
+<h2>When You Shouldn't Use AI</h2>
+
+<p>
+  The research does not justify a universal rule that people should stop
+  using AI. It does, however, provide reasons to be cautious when AI is
+  taking over processes that are themselves being learned or evaluated.
+</p>
+
+<p>
+  For example, independent work can be useful when:
+</p>
+
+<ul class="checklist">
+  <li>
+    you are testing what you can currently do without assistance
+  </li>
+  <li>
+    the independent performance itself is the outcome being measured
+  </li>
+  <li>
+    you are deliberately practicing the skill AI would otherwise perform
+  </li>
+</ul>
+
+<p>
+  This recommendation follows from findings on independent creativity and
+  knowledge retention, but the exact amount of AI use that is appropriate
+  will depend on the task and learning objective.
+</p>
+```
+
+  </section>
+
+  <section id="workflow" class="workflow-section">
+
+```
+<h2>
+  The Practical Workflow:
+  Think → Attempt → Ask → Challenge → Verify → Decide
+</h2>
+
+<p class="workflow-intro">
+  This is not a scientifically validated six-step formula. It is a
+  practical synthesis of the findings above: preserve independent thinking
+  where it matters, use AI to provide useful input, and retain human
+  evaluation and decision-making.
+</p>
+
+<div class="workflow">
+
+  <div class="workflow-step">
+    <div class="workflow-number">1</div>
+    <div>
+      <h3>Think</h3>
+      <p>
+        Identify what you currently believe, know, or would try before
+        asking AI when the task requires your own reasoning.
+      </p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="workflow-number">2</div>
+    <div>
+      <h3>Attempt</h3>
+      <p>
+        Make an initial attempt when independent performance or skill
+        development is part of the goal.
+      </p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="workflow-number">3</div>
+    <div>
+      <h3>Ask</h3>
+      <p>
+        Give AI your reasoning, ideas, context, or criteria when doing so
+        helps keep you involved in the task.
+      </p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="workflow-number">4</div>
+    <div>
+      <h3>Challenge</h3>
+      <p>
+        Ask for alternatives, weaknesses, counterarguments, or feedback
+        that gives you material to evaluate.
+      </p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="workflow-number">5</div>
+    <div>
+      <h3>Verify</h3>
+      <p>
+        Check important AI claims against appropriate evidence when the
+        consequences of an error justify the effort.
+      </p>
+    </div>
+  </div>
+
+  <div class="workflow-step">
+    <div class="workflow-number">6</div>
+    <div>
+      <h3>Decide</h3>
+      <p>
+        Make the final judgment yourself rather than treating AI's output
+        as the final authority.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<p class="workflow-note">
+  The evidence does not establish that every task requires all six steps.
+  The workflow is a practical framework for deciding when to preserve
+  independent reasoning, when to use AI support, and when to verify the
+  result.
+</p>
+```
+
+  </section>
+
+  <section id="research">
+
+```
+<h2>What the Research Actually Says</h2>
+
+<p>
+  The evidence is more nuanced than either “AI destroys critical thinking”
+  or “AI makes people think better.” The strongest conclusions are tied to
+  particular tasks and study conditions.
+</p>
+
+<div class="research-summary">
+
+  <div class="research-card">
+
+    <h3>Supported by experimental evidence</h3>
+
+    <ul>
+      <li>
+        ChatGPT can improve immediate task performance without producing
+        equivalent gains in <strong>knowledge or transfer</strong> in at
+        least one randomized writing study.
+      </li>
+
+      <li>
+        A regulated “think first, ChatGPT later” approach produced better
+        later independent creative performance than free AI use in Wong and
+        Qiu's experiment.
+      </li>
+
+      <li>
+        AI advice can produce overreliance in decision-making, including
+        situations where the advice conflicts with contextual information
+        or participants' own assessments.
+      </li>
+
+      <li>
+        Different structures for AI-supported learning can produce different
+        learning and higher-order-thinking outcomes.
+      </li>
+    </ul>
+
+  </div>
+
+
+  <div class="research-card">
+
+    <h3>Promising but limited</h3>
+
+    <ul>
+      <li>
+        Iterative, context-rich interaction with AI is associated with
+        better creative problem-solving performance in process-mining
+        research.
+      </li>
+
+      <li>
+        ChatGPT-based discussion and counterargument activities have been
+        associated with improvements in measured critical-thinking
+        attitudes in a university teaching intervention.
+      </li>
+
+      <li>
+        Structured peer-assessment use of ChatGPT produced stronger
+        measured outcomes than conventional ChatGPT use in one randomized
+        STEM education study.
+      </li>
+    </ul>
+
+  </div>
+
+
+  <div class="research-card">
+
+    <h3>What the evidence does not establish</h3>
+
+    <ul>
+      <li>
+        That AI inherently destroys critical thinking.
+      </li>
+
+      <li>
+        That AI inherently improves critical thinking.
+      </li>
+
+      <li>
+        That one prompting strategy works across every task and learner.
+      </li>
+
+      <li>
+        That asking AI for criticism automatically improves independent
+        reasoning.
+      </li>
+
+      <li>
+        That a short pause or reflection exercise by itself prevents
+        cognitive offloading.
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <section id="mindshield">
+
+```
+<h2>Where MindShield Fits</h2>
+
+<p>
+  MindShield is a practical project built around the principle that some
+  AI requests can replace cognitive work that a person may still need to
+  perform.
+</p>
+
+<p>
+  Its approach is an application of the framework in this article rather
+  than a finding established by the studies above.
+</p>
+
+<div class="warning">
+
+  <strong>
+    The goal is not to claim that MindShield has been scientifically proven
+    to improve critical thinking. It has not.
+  </strong>
+
+  <p>
+    The research supports investigating how AI assistance is structured and
+    how much independent reasoning remains in the process. It does not
+    validate MindShield itself.
+  </p>
+
+</div>
+
+<p>
+  That distinction is important: a research finding can support a principle
+  without proving that every product based on that principle works.
+</p>
+```
+
+  </section>
+
+  <section id="conclusion" class="closing">
+
+```
+<h2>How to Use AI Without Losing Critical Thinking</h2>
+
+<p>
+  The research does not point toward a simple rule to use AI as much as
+  possible or as little as possible.
+</p>
+
+<p>
+  Instead, several experiments suggest that <strong>how AI is integrated
+  into a task can affect immediate performance, learning, independent
+  performance, and reliance on AI</strong>.
+</p>
+
+<p>
+  So when the thinking itself matters, preserve your role in it.
+  Start with your own reasoning when appropriate. Give AI something to
+  react to. Use it to generate alternatives or criticism. Evaluate what it
+  gives you. Verify important information. Then make the final decision
+  yourself.
+</p>
+
+<div class="thesis">
+
+  <p>
+    <strong>
+      The goal isn't necessarily to use AI less.
+      It's to avoid outsourcing the thinking that matters.
+    </strong>
+  </p>
+
+  <p>
+    <strong>
+      Think → Attempt → Ask → Challenge → Verify → Decide.
+    </strong>
+  </p>
+
+</div>
+
+<p>
+  That is not a proven universal formula. It is a practical way to apply
+  what the current evidence can reasonably tell us:
+  <strong>preserve the cognitive work you still need to learn,
+  perform, or judge.</strong>
+</p>
+```
+
+  </section>
+
+  <section class="sources" id="sources">
+
+```
+<h2>Research Used</h2>
+
+<ol>
+
+  <li id="source-1">
+    Wong, S. S. H., &amp; Qiu, S. X. (2026).
+    <em>
+      Think First, ChatGPT Later: Guiding Human–AI Collaboration for
+      Learning Gains in Independent Human Creativity.
+    </em>
+    <em>Educational Psychology Review, 38</em>, 45.
+    DOI: 10.1007/s10648-026-10118-7.
+  </li>
+
+  <li id="source-2">
+    Fan, Y., Tang, L., Le, H., Shen, K., Tan, S., Zhao, Y., Shen, Y.,
+    Li, X., &amp; Gašević, D. (2025).
+    <em>
+      Beware of metacognitive laziness: Effects of generative artificial
+      intelligence on learning motivation, processes, and performance.
+    </em>
+    <em>British Journal of Educational Technology, 56</em>, 489–530.
+    DOI: 10.1111/bjet.13544.
+    First published online December 10, 2024.
+  </li>
+
+  <li id="source-3">
+    Urban, M., et al. (2025).
+    <em>
+      Prompting for creative problem-solving: A process-mining study.
+    </em>
+    <em>Learning and Instruction, 99</em>, 102156.
+    DOI: 10.1016/j.learninstruc.2025.102156.
+  </li>
+
+  <li id="source-4">
+    Kawai, R., Ito, T., &amp; Itabashi, S. (2025).
+    <em>
+      Developing Critical Thinking Attitudes in University Students Using
+      ChatGPT.
+    </em>
+    <em>Journal of the Japan Society of Technology Education, 67</em>(1),
+    51–58.
+    DOI: 10.32309/jjste.67.1_51.
+  </li>
+
+  <li id="source-5">
+    Wu, T.-T., Lee, H.-Y., Chen, P.-H., Lin, C.-J., &amp; Huang, Y.-M.
+    (2025).
+    <em>
+      Integrating peer assessment cycle into ChatGPT for STEM education:
+      A randomised controlled trial on knowledge, skills, and attitudes
+      enhancement.
+    </em>
+    <em>Journal of Computer Assisted Learning, 41</em>(1), e13085.
+    DOI: 10.1111/jcal.13085.
+  </li>
+
+  <li id="source-6">
+    Klingbeil, A., Grützner, C., &amp; Schreck, P. (2024).
+    <em>
+      Trust and reliance on AI — An experimental study on the extent and
+      costs of overreliance on AI.
+    </em>
+    <em>Computers in Human Behavior, 160</em>, 108352.
+    DOI: 10.1016/j.chb.2024.108352.
+  </li>
+
+  <li id="source-7">
+    Lu, Z., Wang, D., &amp; Yin, M. (2024).
+    <em>
+      Does More Advice Help? The Effects of Second Opinions in AI-Assisted
+      Decision Making.
+    </em>
+    <em>Proceedings of the ACM on Human-Computer Interaction, 8</em>,
+    CSCW1, Article 217.
+    DOI: 10.1145/3653708.
+  </li>
+
+  <li id="source-8">
+    Barcaui, A. (2025).
+    <em>
+      ChatGPT as a cognitive crutch: Evidence from a randomized controlled
+      trial on knowledge retention.
+    </em>
+    <em>Social Sciences &amp; Humanities Open, 12</em>, 102287.
+    DOI: 10.1016/j.ssaho.2025.102287.
+  </li>
+
+</ol>
+```
+
+  </section>
+
+</article>
+
+</body>
+</html>
