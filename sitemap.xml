@@ -48,6 +48,13 @@
 
   <!-- Blog Posts: Articles & Research -->
   <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/blog/How-to-Use-AI-Without-Losing-Critical-Thinking.html</loc>
+    <lastmod>2026-09-1</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/When-Should-You-Trust-AI.html</loc>
     <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
