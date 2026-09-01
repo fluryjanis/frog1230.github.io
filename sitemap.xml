@@ -1,54 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Portfolio Page -->
+
+  <!-- Homepage / Portfolio -->
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Blog Posts -->
+  <!-- Experimental & Web Demos -->
+  <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/game.html</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/Web-mindshield/mindshield-test.html</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Posts: Releases & Updates -->
+  <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/blog/MindShield-v1.2.0-Update.html</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/blog/v1.1.0.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Posts: Articles & Research -->
+  <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/blog/When-Should-You-Trust-AI.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/when-not-to-use-ai.html</loc>
     <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/AI's-Impact-on-Reason-vs-Knowledge.html</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/cognitive-offloading-examples-in-learning.html</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/Stop-Cognitive-Offloading-to-AI.html</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/Using-AI-More-Intentionally.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/AI-and-Critical-Thinking.html</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://fluryjanis.github.io/frog1230.github.io/blog/v1.1.0.html</loc>
-    <lastmod>2026-08-17</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.5</priority>
-  </url>
+
 </urlset>
