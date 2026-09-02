@@ -6,8 +6,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MindShield: AI Dependency Simulation Game | Critical Thinking</title>
   <style>
     :root {
@@ -487,6 +485,55 @@
       line-height: 1.5;
       color: var(--text-secondary);
       margin: 0;
+    }
+
+    /* About Section */
+    .about-section {
+      margin-top: 48px;
+      width: 100%;
+      max-width: 840px;
+      text-align: left;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .about-badge {
+      font-size: 10.5px;
+      font-weight: 900;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .about-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 14px;
+      line-height: 1.4;
+    }
+
+    .about-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin: 0 0 14px;
+    }
+
+    .about-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-text strong {
+      color: #ffffff;
     }
 
     /* Scenario Mission Banner */
@@ -1084,7 +1131,7 @@
       <div class="stats-group">
         <div class="status-module">
           <div class="module-header">
-            <span>🧠 BRAIN HEALTH</span>
+            <span>🧠 COGNITIVE CONTROL</span>
             <span id="health-text" class="module-val health-val">100%</span>
           </div>
           <div class="meter-bar"><div id="health-fill" class="meter-fill"></div></div>
@@ -1367,7 +1414,7 @@
     function applyDamage(amount, reason) {
       brainHealth = Math.max(0, brainHealth - amount);
       updateHUD();
-      spawnFloatingText(`-${amount} Brain`, 'damage');
+      spawnFloatingText(`-${amount} Cognitive Control`, 'damage');
 
       damageOverlay.classList.remove('active');
       gameContainer.classList.remove('damaged');
@@ -1380,7 +1427,7 @@
     function addHealth(amount, reason) {
       brainHealth = Math.min(100, brainHealth + amount);
       updateHUD();
-      spawnFloatingText(`+${amount} Brain`, 'heal');
+      spawnFloatingText(`+${amount} Cognitive Control`, 'heal');
     }
 
     function setTaskCompletion(amount) {
@@ -1595,6 +1642,21 @@
               <p class="card-desc">Prune useless deep-cleaning tasks and group related jobs for 100% completion.</p>
             </div>
           </div>
+
+          <!-- SEO Optimized About Section -->
+          <section class="about-section">
+            <div class="about-badge">🛡️ MISSION & RESEARCH BRIEF</div>
+            <h2 class="about-heading">MindShield: The Ultimate AI Dependency Simulation Game</h2>
+            <p class="about-text">
+              MindShield is an interactive <strong>AI dependency simulation game</strong> created to examine the real-world friction between machine recommendations and human judgment. In high-pressure situations, it is dangerously tempting to default to unreflective <strong>cognitive offloading</strong>—passively allowing chatbots and automation algorithms to dictate our priorities, timelines, and execution paths without scrutiny.
+            </p>
+            <p class="about-text">
+              Built as both an engaging <strong>critical thinking game</strong> and a high-stakes <strong>AI overreliance game</strong>, MindShield puts your agency to the test. When time is critical, blindly accepting fluent but misaligned AI output leads to disastrous detours, missed deadlines, and lost autonomy. Players must continually interrogate recommendations, spot hallucinations, and refine their <strong>AI decision-making</strong> under strict deadlines.
+            </p>
+            <p class="about-text">
+              By monitoring your Cognitive Control meter against completed objectives, the simulation cultivates lasting <strong>AI critical thinking</strong>. Master the discipline of <strong>using AI without losing critical thinking</strong>—harnessing artificial intelligence as an efficiency multiplier while staying guarded against debilitating <strong>AI overreliance</strong> and long-term <strong>AI dependency</strong>.
+            </p>
+          </section>
         </div>
       `;
 
@@ -2278,7 +2340,7 @@
           <div class="report-card">
             <div class="hud-title" style="justify-content: center; margin-bottom: 12px;">SIMULATION COMPLETE // DEBRIEF</div>
             <div class="profile-badge ${badgeClass}">${badgeText}</div>
-            <h2 style="margin: 0 0 6px; font-size: 22px; font-family: var(--font-mono); color: #fff;">BRAIN HEALTH: ${brainHealth}%</h2>
+            <h2 style="margin: 0 0 6px; font-size: 22px; font-family: var(--font-mono); color: #fff;">COGNITIVE CONTROL: ${brainHealth}%</h2>
             <h3 style="margin: 0 0 8px; font-size: 15px; color: var(--sky); font-weight: 700; font-family: var(--font-mono);">TASK COMPLETION: ${taskCompletion}%</h3>
             <h4 style="margin: 0 0 16px; font-size: 13.5px; color: var(--teal); font-weight: 700; font-family: var(--font-mono);">TIME REMAINING: ${Math.floor(secondsRemaining/60)}m ${secondsRemaining%60}s</h4>
             <p style="color: var(--text-secondary); max-width: 560px; margin: 0 auto 24px; line-height: 1.7; font-size: 14.5px;">
