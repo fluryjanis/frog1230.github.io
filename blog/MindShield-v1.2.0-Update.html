@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MindShield v1.2.0 Technical Dev Log</title>
+  <title>MindShield v1.2.0 — AI Critical Thinking Browser Extension Dev Log</title>
   <style>:root {
       --bg: #0d1117;
       --card-bg: #161b22;
@@ -229,6 +229,37 @@
       <li><strong>Human-in-the-Loop Pass:</strong> Explicit validation requests (<em>"Can you review my argument for logical fallacies?"</em>) pass directly without friction.</li>
     </ul>
 
+    <section>
+  <h2>What Is MindShield?</h2>
+
+  <p>
+    <strong>MindShield</strong> is a privacy-first browser extension designed
+    to help people maintain critical thinking while using AI. It introduces
+    a brief moment of reflection when a prompt appears to ask AI to perform
+    a simple task the user could reasonably think through themselves.
+  </p>
+
+  <p>
+    MindShield does not try to stop people from using AI. Instead, it is
+    designed to make AI use more intentional by distinguishing between
+    requests that benefit from AI assistance and requests that may simply
+    outsource reasoning, problem-solving, or decision-making.
+  </p>
+
+  <p>
+    MindShield currently supports AI interfaces including ChatGPT, Claude,
+    Google Gemini, and Grok. Prompt evaluation is performed locally in the
+    browser using an on-device machine-learning model, rather than sending
+    prompts to an external classification server.
+  </p>
+
+  <p>
+    Version 1.2.0 focuses on improving this system through a three-tier
+    intent classification system, local AI inference, cross-browser
+    compatibility, and more reliable prompt interception.
+  </p>
+</section>
+
     <h2>2. Local AI Engine Optimization (ONNX / WASM)</h2>
     <p>Running zero-shot classification via <code>@xenova/transformers</code> locally inside the browser presents strict memory and latency boundaries.</p>
 
@@ -267,6 +298,54 @@
       <li><strong>Network &amp; WASM Configuration:</strong> Added explicit <code>host_permissions</code> for HuggingFace and jsDelivr CDN endpoints to eliminate network aborts. Set <code>env.allowLocalModels = false;</code> and constrained WASM threads (<code>env.backends.onnx.wasm.numThreads = 1</code>) to bypass <code>SharedArrayBuffer</code> cross-origin isolation requirements.</li>
       <li><strong>AMO Compliance &amp; XSS Prevention:</strong> Completely replaced <code>innerHTML</code> assignments in <code>showToast()</code> with strict <code>document.createElement()</code> and <code>textContent</code> DOM nodes. Manifest configurations updated with <code>"data_collection_permissions": { "required": ["none"] }</code> and a <code>strict_min_version</code> of <code>112.0</code>.</li>
     </ul>
+
+    <hr>
+
+<section>
+  <h2>MindShield Resources</h2>
+
+  <p>
+    Explore the MindShield project, previous development work, source code,
+    release information, and the Firefox extension:
+  </p>
+
+  <ul>
+    <li>
+      <a href="https://fluryjanis.github.io/frog1230.github.io/blog/v1.1.0.html">
+        MindShield v1.1.0 Development Log
+      </a>
+      — Previous development update covering detection, classification,
+      and user-experience improvements.
+    </li>
+
+    <li>
+      <a href="https://github.com/fluryjanis/Mind-Shield"
+         target="_blank"
+         rel="noopener noreferrer">
+        MindShield Source Code on GitHub
+      </a>
+      — Explore the open-source implementation.
+    </li>
+
+    <li>
+      <a href="https://github.com/fluryjanis/Mind-Shield/releases/tag/v1.2.0"
+         target="_blank"
+         rel="noopener noreferrer">
+        MindShield v1.2.0 Release
+      </a>
+      — View the release notes and available builds.
+    </li>
+
+    <li>
+      <a href="https://addons.mozilla.org/en-US/firefox/addon/mindshield/"
+         target="_blank"
+         rel="noopener noreferrer">
+        MindShield on Firefox Add-ons
+      </a>
+      — Install MindShield for Firefox.
+    </li>
+  </ul>
+</section>
 
     <div class="footer-cta">
       <h3>Ready to test the latest release?</h3>
