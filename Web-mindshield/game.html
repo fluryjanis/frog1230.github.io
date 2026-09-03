@@ -536,6 +536,48 @@
       color: #ffffff;
     }
 
+    .about-links {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+    }
+
+    .about-link {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .about-link:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .about-link.secondary {
+      color: var(--muted);
+    }
+
+    .about-link.secondary:hover {
+      color: var(--text-secondary);
+    }
+
+    .game-footer {
+      margin-top: 36px;
+      font-size: 11.5px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+
     /* Scenario Mission Banner */
     .scenario-header {
       background: var(--panel);
@@ -1661,9 +1703,22 @@
             </p>
 
             <p class="about-text">
-              This game is part of the broader MindShield project, which explores more intentional ways of using AI without automatically handing over reasoning and decision-making to AI tools.
+              This game is part of the broader MindShield project by Janis Flury. MindShield is an open-source project that explores more intentional ways of using AI without automatically handing over reasoning and decision-making to AI tools.
             </p>
+
+            <div class="about-links">
+              <a class="about-link" href="https://fluryjanis.github.io/Mind-Shield/" target="_blank" rel="noopener noreferrer">
+                <span>🛡️</span> Explore the MindShield project &rarr;
+              </a>
+              <a class="about-link secondary" href="https://fluryjanis.github.io/frog1230.github.io/" target="_blank" rel="noopener noreferrer">
+                <span>↗</span> More projects by Janis Flury
+              </a>
+            </div>
           </section>
+
+          <footer class="game-footer">
+            Part of the open-source MindShield project by Janis Flury
+          </footer>
         </div>
       `;
 
