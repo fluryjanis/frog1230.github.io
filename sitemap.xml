@@ -32,6 +32,14 @@
   </url>
 
   <!-- Blog Posts: Releases & Updates -->
+
+    <url>
+    <loc>https://fluryjanis.github.io/frog1230.github.io/blog/Is-AI-the-Cigarette-of-Today.html</loc>
+    <lastmod>2026-09-4</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <url>
     <loc>https://fluryjanis.github.io/frog1230.github.io/blog/MindShield-v1.2.0-Update.html</loc>
     <lastmod>2026-08-28</lastmod>
