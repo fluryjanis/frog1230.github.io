@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Is AI the Cigarette of Today? | History, Risk, and AI Research</title>
+
+  <meta name="description" content="Is AI the cigarette of today? This evidence-based comparison examines what cigarette history can teach us about AI adoption, normalization, uncertainty, commercial incentives, cognitive offloading, and the limits of the analogy.">
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border-color: #e2e8f0;
+      --bg-alt: #f8fafc;
+      --card-bg: #f1f5f9;
+      --card-border: #cbd5e1;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0f172a;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --accent: #3b82f6;
+        --accent-hover: #60a5fa;
+        --border-color: #334155;
+        --bg-alt: #1e293b;
+        --card-bg: #1e293b;
+        --card-border: #475569;
+      }
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.7;
+      margin: 0;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    article.styled-article {
+      max-width: 760px;
+      width: 100%;
+    }
+
+    article h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    article h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    article h3 {
+      font-size: 1.15rem;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    article p {
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    article strong {
+      font-weight: 600;
+    }
+
+    article a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    article a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    article ul,
+    article ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    article li {
+      margin-bottom: 0.75rem;
+      font-size: 1.05rem;
+    }
+
+    blockquote {
+      margin: 1.75rem 0;
+      padding: 1rem 1.25rem;
+      border-left: 4px solid var(--accent);
+      background-color: var(--bg-alt);
+      border-radius: 6px;
+      font-size: 1.08rem;
+    }
+
+    .answer-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .answer-box p {
+      margin-bottom: 0;
+    }
+
+    /* Responsive Styled Table */
+    .table-container {
+      overflow-x: auto;
+      margin: 2rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: var(--bg-alt);
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* MindShield Box Theme */
+    .mindshield-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .mindshield-section h2 {
+      margin-top: 0;
+    }
+
+    .source-list {
+      padding-left: 1.5rem;
+    }
+
+    .source-list li {
+      margin-bottom: 1rem;
+    }
+
+    .source-list em {
+      color: var(--text-main);
+    }
+  </style>
+</head>
+
+<body>
+
+<article class="styled-article">
+
+  <h1>Is AI the Cigarette of Today?</h1>
+
+  <div class="answer-box">
+    <p>
+      <strong>Not really—but the comparison can still teach us something.</strong>
+      AI is not equivalent to cigarettes, and there is no evidence that using AI causes harms on the scale of smoking.
+      AI also has real, measurable benefits. But the history of cigarettes can help us think about what happens when
+      a powerful new technology spreads quickly, becomes normal, and raises questions that science and society have
+      not fully answered yet. The important comparison is therefore not <strong>“AI is as harmful as cigarettes.”</strong>
+      It is <strong>“Could society normalize AI before it fully understands the effects of how we use it?”</strong>
+    </p>
+  </div>
+
+  <h2>Why compare AI and cigarettes?</h2>
+
+  <p>
+    At first, comparing artificial intelligence with cigarettes sounds strange.
+  </p>
+
+  <p>
+    One is a collection of technologies that can write, calculate, explain, translate, code, tutor and analyze information.
+    The other is a product that delivers tobacco and nicotine and is now known to cause severe disease.
+  </p>
+
+  <p>
+    So this article is not arguing that AI is the new tobacco.
+  </p>
+
+  <p>
+    Instead, the comparison is about <strong>how societies respond to new technologies and products when adoption,
+    commercial incentives and social acceptance move quickly while scientific understanding is still developing.</strong>
+  </p>
+
+  <p>
+    There are some genuine similarities.
+  </p>
+
+  <p>
+    Both cigarettes and modern AI experienced rapid adoption. Both became deeply integrated into everyday life.
+    Both were associated with useful or desirable qualities. And both raise an important question about whether the
+    consequences of widespread use can be understood as quickly as the technology itself spreads.
+  </p>
+
+  <p>
+    But the differences are just as important.
+  </p>
+
+  <p>
+    The scientific case against cigarettes eventually became extraordinarily strong. Smoking causes cancer and
+    contributes to cardiovascular, respiratory and other diseases, and the causal evidence accumulated over decades.
+    <a href="https://www.cdc.gov/nchs/hus/topics/tobacco-use.htm" target="_blank" rel="noopener noreferrer">CDC</a>
+  </p>
+
+  <p>
+    AI is nowhere near that kind of evidence base. Research on AI is still relatively young, and its effects depend
+    heavily on the task, the user and the way the system is designed. Some studies find substantial benefits.
+    Others find meaningful costs.
+  </p>
+
+  <p>
+    That difference is the key to the entire comparison.
+  </p>
+
+  <h2>The cigarette story was more complicated than “nobody knew”</h2>
+
+  <p>
+    A common version of cigarette history goes something like this:
+  </p>
+
+  <p>
+    People smoked for decades, nobody knew cigarettes were dangerous, and then the 1964 Surgeon General's report
+    suddenly revealed the truth.
+  </p>
+
+  <p>
+    That is not quite what happened.
+  </p>
+
+  <p>
+    Cigarette smoking became widespread in the United States during the first half of the twentieth century.
+    Historical research describes the 1930s and 1940s as a period in which smoking became normal for both men and women.
+    By 1965, about <strong>42.4% of American adults smoked</strong>.
+    <a href="https://www.cdc.gov/mmwr/preview/mmwrhtml/mm4843a2.htm" target="_blank" rel="noopener noreferrer">CDC historical data</a>
+  </p>
+
+  <p>
+    The reasons were not simply that people suddenly decided to smoke. Technological changes made cigarette manufacturing
+    and distribution easier, while advertising helped turn smoking into a socially desirable behavior.
+  </p>
+
+  <p>
+    Cigarettes were advertised using ideas such as attractiveness, independence, sophistication, relaxation and slimness.
+    Some companies even used physicians in advertisements. Gardner and Brandt's historical analysis found that cigarette
+    companies used doctors to reassure consumers about the safety of particular brands during the 1930s through the early 1950s.
+    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1470496/" target="_blank" rel="noopener noreferrer">Gardner &amp; Brandt</a>
+  </p>
+
+  <p>
+    At the same time, scientific concerns were already emerging.
+  </p>
+
+  <p>
+    In 1950, Richard Doll and Austin Bradford Hill published a landmark study examining the relationship between smoking
+    and lung cancer. That same year, Wynder and Graham published a study involving <strong>684 lung-cancer cases</strong>
+    that also implicated smoking.
+    <a href="https://www.bmj.com/content/2/4682/739" target="_blank" rel="noopener noreferrer">Doll &amp; Hill</a>
+    and
+    <a href="https://pubmed.ncbi.nlm.nih.gov/15415260/" target="_blank" rel="noopener noreferrer">Wynder &amp; Graham</a>
+  </p>
+
+  <p>
+    More evidence followed.
+  </p>
+
+  <p>
+    The important point is that <strong>1964 was not the year scientists first suspected smoking was dangerous.</strong>
+    It was a major institutional turning point in which the U.S. Surgeon General's committee synthesized a massive
+    body of evidence and concluded that smoking was a major health hazard and that there was a causal relationship
+    with lung cancer in men.
+    <a href="https://www.ncbi.nlm.nih.gov/books/NBK294317/" target="_blank" rel="noopener noreferrer">U.S. Surgeon General historical review</a>
+  </p>
+
+  <p>
+    In other words, the story was not simply scientific ignorance.
+  </p>
+
+  <p>
+    It was a much more complicated process involving <strong>emerging evidence, public uncertainty, cultural normalization,
+    commercial interests and institutional response.</strong>
+  </p>
+
+  <p>
+    That is where the cigarette comparison starts to become useful.
+  </p>
+
+  <h2>Cigarettes show how normalization can happen before consequences are fully understood</h2>
+
+  <p>
+    One of the most interesting lessons from cigarette history is how easily a behavior can become ordinary.
+  </p>
+
+  <p>
+    Once smoking became widespread, it was no longer a strange or unusual behavior. It appeared in movies, advertisements,
+    workplaces, social gatherings and family life. The fact that millions of people were doing it helped make the behavior feel normal.
+  </p>
+
+  <p>
+    Advertising reinforced that normality.
+  </p>
+
+  <p>
+    Cigarette marketing did not simply say “buy our product.” It attached smoking to identities people wanted:
+    independence, attractiveness, confidence, sophistication and social acceptance.
+    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1470496/" target="_blank" rel="noopener noreferrer">Historical advertising research</a>
+  </p>
+
+  <p>
+    The tobacco industry's response to emerging health concerns also provides a particularly important historical lesson.
+  </p>
+
+  <p>
+    Research examining internal tobacco-industry documents found a large gap between some companies' public statements
+    and what their own scientists understood privately. Public statements continued to argue that smoking had not been
+    proven harmful long after internal evidence had raised serious concerns. The same research found evidence that some
+    findings implicating smoking were not publicly disclosed.
+    <a href="https://pubmed.ncbi.nlm.nih.gov/11893821/" target="_blank" rel="noopener noreferrer">Cummings, Morley &amp; Hyland</a>
+  </p>
+
+  <p>
+    The World Health Organization has also documented decades of tobacco-industry efforts involving lobbying, marketing,
+    media influence and attempts to weaken or delay tobacco-control policies.
+    <a href="https://www.who.int/publications/i/item/9789241597340" target="_blank" rel="noopener noreferrer">World Health Organization</a>
+  </p>
+
+  <p>
+    This history gives us a useful warning:
+  </p>
+
+  <blockquote>
+    <strong>A commercially successful product can become culturally normal while important questions about its consequences are still being debated.</strong>
+  </blockquote>
+
+  <p>
+    But there is an enormous caveat.
+  </p>
+
+  <p>
+    That history does <strong>not</strong> prove that AI companies are behaving like tobacco companies.
+  </p>
+
+  <p>
+    There is no evidence presented here that would justify making that claim.
+  </p>
+
+  <h2>AI is being adopted extremely quickly</h2>
+
+  <p>
+    This is probably the strongest factual similarity between the two cases.
+  </p>
+
+  <p>
+    Generative AI has spread extraordinarily quickly.
+  </p>
+
+  <p>
+    A nationally representative U.S. study by Bick, Blandin and Deming found that by late 2024,
+    <strong>45% of Americans aged 18–64 had used generative AI</strong>, while 27% of employed respondents
+    had used it for work during the previous week. The researchers found that overall adoption had outpaced
+    the early adoption of the personal computer and the internet.
+    <a href="https://doi.org/10.1287/mnsc.2025.02523" target="_blank" rel="noopener noreferrer">Bick, Blandin &amp; Deming</a>
+  </p>
+
+  <p>
+    Stanford's 2026 AI Index reports that generative AI reached approximately <strong>53% population adoption
+    within three years</strong>, faster than the personal computer or the internet, while organizational AI adoption
+    reached 88% in its surveyed sample.
+    <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Stanford AI Index 2026</a>
+  </p>
+
+  <p>
+    That does not tell us whether AI is good or bad.
+  </p>
+
+  <p>
+    It tells us something different:
+  </p>
+
+  <p>
+    <strong>AI is spreading faster than society can easily study every consequence of its widespread use.</strong>
+  </p>
+
+  <p>
+    Scientific research is usually slower than product adoption.
+  </p>
+
+  <p>
+    A new system can reach millions of people before researchers have enough time to conduct long-term studies
+    on how its use changes behavior.
+  </p>
+
+  <p>
+    That does not mean those changes will necessarily be harmful.
+  </p>
+
+  <p>
+    It means we should not confuse <strong>“widely used”</strong> with <strong>“fully understood.”</strong>
+  </p>
+
+  <h2>And unlike cigarettes, AI clearly has major benefits</h2>
+
+  <p>
+    This is where the analogy starts to break down.
+  </p>
+
+  <p>
+    There is strong evidence that generative AI can improve human performance on some tasks.
+  </p>
+
+  <p>
+    In a preregistered experiment published in <em>Science</em>, Noy and Zhang randomly assigned
+    <strong>453 college-educated professionals</strong> to writing tasks with or without ChatGPT.
+    The participants using ChatGPT completed the tasks about <strong>40% faster</strong>, while the quality
+    of their work increased by about <strong>18%</strong>.
+    <a href="https://pubmed.ncbi.nlm.nih.gov/37440646/" target="_blank" rel="noopener noreferrer">Noy &amp; Zhang, 2023</a>
+  </p>
+
+  <p>
+    Another major study looked at <strong>5,172 customer-support agents</strong> using an AI assistant.
+    Researchers found that AI increased issues resolved per hour by about <strong>15% on average</strong>.
+    The gains were especially large for less experienced workers, although effects varied substantially across workers.
+    <a href="https://academic.oup.com/qje/article/140/2/889/7990658" target="_blank" rel="noopener noreferrer">Brynjolfsson, Li &amp; Raymond</a>
+  </p>
+
+  <p>
+    This is important because it prevents an overly simple story.
+  </p>
+
+  <p>
+    AI is not merely a harmful exposure whose consequences are being hidden.
+  </p>
+
+  <p>
+    <strong>It can make people more productive.</strong>
+  </p>
+
+  <p>
+    There are also circumstances in which AI appears to improve learning.
+  </p>
+
+  <p>
+    A randomized controlled trial at Harvard involving <strong>194 undergraduate physics students</strong> compared
+    an AI tutor designed around educational principles with active classroom learning. The AI tutoring condition
+    produced larger learning gains while students spent less time on the material.
+    <a href="https://www.nature.com/articles/s41598-025-97652-6" target="_blank" rel="noopener noreferrer">Kestin et al., 2025</a>
+  </p>
+
+  <p>
+    The crucial detail is the design.
+  </p>
+
+  <p>
+    The researchers did not simply tell students to use an unrestricted chatbot however they wanted.
+    The system was deliberately designed around principles from pedagogy and educational psychology.
+  </p>
+
+  <p>
+    That distinction turns out to be extremely important.
+  </p>
+
+  <h2>The same technology can help learning—or interfere with it</h2>
+
+  <p>
+    One of the strongest findings in the current AI literature is that <strong>the way AI is used can change the outcome dramatically.</strong>
+  </p>
+
+  <p>
+    A 2025 PNAS field experiment involving nearly <strong>1,000 high-school mathematics students</strong>
+    tested two different forms of AI assistance.
+  </p>
+
+  <p>
+    Students using a standard GPT-4 interface performed much better while they had access to the AI.
+    Their practice grades increased by about <strong>48%</strong>.
+  </p>
+
+  <p>
+    But there was a problem.
+  </p>
+
+  <p>
+    When the AI was removed and students had to solve problems independently, students in the unrestricted GPT-4
+    group performed about <strong>17% worse</strong> than students who had never received the AI assistance.
+  </p>
+
+  <p>
+    The researchers also tested a specially designed “GPT Tutor.” This version was built with safeguards intended
+    to support learning rather than simply provide answers. The negative effect on later performance was largely eliminated.
+    <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">Bastani et al., 2025</a>
+  </p>
+
+  <p>
+    This is one of the most important studies for understanding the AI debate.
+  </p>
+
+  <p>
+    It does <strong>not</strong> show that AI makes students worse.
+  </p>
+
+  <p>
+    It shows something more interesting:
+  </p>
+
+  <blockquote>
+    <strong>AI can improve performance while it is being used without necessarily improving the underlying skill that produced that performance.</strong>
+  </blockquote>
+
+  <p>
+    And the study suggests that better design can change that outcome.
+  </p>
+
+  <p>
+    That is very different from cigarettes.
+  </p>
+
+  <p>
+    A cigarette's central health problem does not disappear because you redesign the advertising or teach people to use it more thoughtfully.
+  </p>
+
+  <p>
+    AI is different because the <strong>relationship between the human and the technology can itself be redesigned.</strong>
+  </p>
+
+  <h2>This is where cognitive offloading becomes important</h2>
+
+  <p>
+    Imagine two students solving the same math problem.
+  </p>
+
+  <p>
+    Student A asks an AI for the answer, copies the solution and moves on.
+  </p>
+
+  <p>
+    Student B attempts the problem first, asks the AI for a hint, checks their reasoning and then solves it themselves.
+  </p>
+
+  <p>
+    Both students used AI.
+  </p>
+
+  <p>
+    But they did not use it in the same way.
+  </p>
+
+  <p>
+    That difference is the basis of the concern about <strong>cognitive offloading</strong>: allowing a tool to perform
+    mental work that the person might otherwise have practiced themselves.
+  </p>
+
+  <p>
+    Research is beginning to find evidence that this can matter.
+  </p>
+
+  <p>
+    A 2025 randomized controlled trial involving 120 university students compared ChatGPT-assisted studying with
+    traditional study methods. In a surprise retention test 45 days later, the ChatGPT group scored
+    <strong>57.5%</strong>, compared with <strong>68.5%</strong> for the traditional-learning group.
+    <a href="https://www.sciencedirect.com/science/article/pii/S2590291125010186" target="_blank" rel="noopener noreferrer">
+      Read the study
+    </a>
+  </p>
+
+  <p>
+    That is a concerning finding.
+  </p>
+
+  <p>
+    But it is also a <strong>specific finding</strong>.
+  </p>
+
+  <p>
+    It does not prove that ChatGPT generally damages memory. It tells us that in this particular learning situation,
+    the way ChatGPT was used was associated with poorer later retention.
+  </p>
+
+  <p>
+    Other evidence points in the opposite direction when AI is designed as a learning partner.
+  </p>
+
+  <p>
+    The OECD's 2026 <em>Digital Education Outlook</em> makes essentially this same distinction:
+    generative AI can improve performance without producing real learning when it simply replaces cognitive work,
+    while AI designed with clear pedagogical goals can support learning and skills.
+    <a href="https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html"
+       target="_blank" rel="noopener noreferrer">
+      OECD Digital Education Outlook 2026
+    </a>
+  </p>
+
+  <p>
+    That is becoming one of the clearest themes in the research:
+  </p>
+
+  <blockquote>
+    <strong>The question is increasingly not “AI or no AI?” but “What is the AI actually doing for the human?”</strong>
+  </blockquote>
+
+  <h2>What about critical thinking?</h2>
+
+  <p>
+    This question has received enormous attention, but the evidence needs to be handled carefully.
+  </p>
+
+  <p>
+    A 2025 study presented at the CHI Conference surveyed <strong>319 knowledge workers</strong> and collected
+    936 examples of AI use at work. The researchers found that greater confidence in AI was associated with less
+    reported critical-thinking effort, while greater confidence in one's own abilities was associated with more.
+    They also found that AI changed the nature of critical thinking toward activities such as checking information,
+    integrating AI output and supervising tasks.
+    <a href="https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/"
+       target="_blank" rel="noopener noreferrer">
+      Microsoft Research
+    </a>
+  </p>
+
+  <p>
+    That is interesting evidence.
+  </p>
+
+  <p>
+    But it is not the same thing as proving that AI causes a permanent decline in critical-thinking ability.
+  </p>
+
+  <p>
+    The study relies on people's reports of their own behavior, rather than showing that years of AI use permanently
+    reduced their reasoning abilities.
+  </p>
+
+  <p>
+    There is a big difference between:
+  </p>
+
+  <blockquote>
+    <strong>“People report doing less thinking on some AI-assisted tasks.”</strong>
+  </blockquote>
+
+  <p>
+    and:
+  </p>
+
+  <blockquote>
+    <strong>“AI permanently makes people worse thinkers.”</strong>
+  </blockquote>
+
+  <p>
+    The first has some evidence behind it.
+  </p>
+
+  <p>
+    The second has not been established.
+  </p>
+
+  <h2>Sometimes humans and AI together are not even better</h2>
+
+  <p>
+    It might seem obvious that combining human intelligence with AI should produce the best of both worlds.
+  </p>
+
+  <p>
+    But a 2024 systematic review and meta-analysis examined <strong>106 experiments</strong> involving human-AI combinations.
+    Across the studies, human-AI combinations performed, on average, worse than the better-performing of the human alone
+    or AI alone. The researchers found that outcomes varied by task, with losses particularly apparent in decision-making
+    tasks and greater gains in some creative tasks.
+    <a href="https://www.nature.com/articles/s41562-024-02024-1" target="_blank" rel="noopener noreferrer">
+      Nature Human Behaviour
+    </a>
+  </p>
+
+  <p>
+    Again, this does not mean humans and AI are a bad combination.
+  </p>
+
+  <p>
+    It means that simply adding AI does not automatically produce better decisions.
+  </p>
+
+  <p>
+    <strong>The design of the collaboration matters.</strong>
+  </p>
+
+  <h2>AI is not one behavior</h2>
+
+  <p>
+    This may be the biggest problem with the cigarette analogy.
+  </p>
+
+  <p>
+    Smoking is a relatively specific behavior.
+  </p>
+
+  <p>
+    “Using AI” is not.
+  </p>
+
+  <p>
+    It could mean asking a chatbot to explain a difficult concept.
+  </p>
+
+  <p>
+    It could mean having AI solve your homework.
+  </p>
+
+  <p>
+    It could mean using an AI coding assistant.
+  </p>
+
+  <p>
+    It could mean asking for feedback on an essay.
+  </p>
+
+  <p>
+    It could mean generating an image.
+  </p>
+
+  <p>
+    It could mean using an AI medical system as a decision-support tool.
+  </p>
+
+  <p>
+    It could mean allowing an autonomous system to make a decision on your behalf.
+  </p>
+
+  <p>
+    These uses are not interchangeable.
+  </p>
+
+  <p>
+    An AI tutor that asks questions and gives hints is doing something very different from an AI system that simply
+    gives students complete answers.
+  </p>
+
+  <p>
+    A coding assistant that helps a programmer understand unfamiliar code is different from one that writes an entire
+    project without the programmer understanding it.
+  </p>
+
+  <p>
+    An AI system that helps a doctor compare possibilities is different from an AI system that makes a medical decision
+    without meaningful human review.
+  </p>
+
+  <p>
+    So treating “AI” as one single exposure would be like treating every use of a computer as the same activity.
+  </p>
+
+  <p>
+    It isn't.
+  </p>
+
+  <h2>The cigarette analogy also fails on the evidence itself</h2>
+
+  <p>
+    This is perhaps the most important difference.
+  </p>
+
+  <p>
+    The scientific evidence surrounding cigarettes eventually became overwhelming.
+  </p>
+
+  <p>
+    Smoking was linked to lung cancer through major epidemiological studies beginning decades before the 1964
+    Surgeon General's report, and the evidence eventually expanded to cardiovascular, respiratory and other diseases.
+    <a href="https://www.cdc.gov/nchs/hus/topics/tobacco-use.htm" target="_blank" rel="noopener noreferrer">
+      CDC
+    </a>
+  </p>
+
+  <p>
+    The evidence surrounding AI is nowhere near that mature.
+  </p>
+
+  <p>
+    Researchers have found measurable effects on productivity, learning, retention, task performance and human-AI collaboration.
+  </p>
+
+  <p>
+    But the results vary.
+  </p>
+
+  <p>
+    Some are positive.
+  </p>
+
+  <p>
+    Some are negative.
+  </p>
+
+  <p>
+    Some are mixed.
+  </p>
+
+  <p>
+    And many studies are short-term.
+  </p>
+
+  <p>
+    We do not yet have decades of longitudinal evidence telling us what happens to a population that routinely uses
+    generative AI throughout education, work and everyday life.
+  </p>
+
+  <p>
+    The OECD has emphasized the importance of distinguishing immediate AI-assisted performance from actual human skill
+    development and notes that longer-term evidence remains an important research need.
+    <a href="https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html"
+       target="_blank" rel="noopener noreferrer">
+      OECD
+    </a>
+  </p>
+
+  <p>
+    That uncertainty is real.
+  </p>
+
+  <p>
+    But uncertainty cuts both ways.
+  </p>
+
+  <p>
+    It does not mean AI will eventually prove harmless.
+  </p>
+
+  <p>
+    It also does not mean AI will eventually prove harmful.
+  </p>
+
+  <p>
+    <strong>We do not know yet.</strong>
+  </p>
+
+  <h2>Commercial incentives are another interesting similarity—but don't go too far</h2>
+
+  <p>
+    AI has enormous commercial incentives behind it.
+  </p>
+
+  <p>
+    The technology is being developed and deployed by companies that have strong reasons to increase adoption,
+    usage and investment.
+  </p>
+
+  <p>
+    That is not controversial.
+  </p>
+
+  <p>
+    But this is where comparisons to tobacco companies need to be handled very carefully.
+  </p>
+
+  <p>
+    The tobacco industry sold a product whose central exposure ultimately proved physically harmful.
+  </p>
+
+  <p>
+    AI companies sell systems that can produce both benefits and harms depending on how those systems are built and used.
+  </p>
+
+  <p>
+    The distinction is enormous.
+  </p>
+
+  <p>
+    There is currently no evidence that would justify saying:
+  </p>
+
+  <blockquote>
+    <strong>“AI companies are doing what Big Tobacco did.”</strong>
+  </blockquote>
+
+  <p>
+    The historical tobacco evidence demonstrates that commercial incentives <em>can</em> conflict with public health.
+    It does not establish that the same pattern is occurring in AI.
+  </p>
+
+  <p>
+    The useful lesson is more general:
+  </p>
+
+  <blockquote>
+    <strong>
+      When a technology has enormous commercial value, society should be willing to examine its risks independently
+      rather than assuming that successful products must therefore be safe.
+    </strong>
+  </blockquote>
+
+  <h2>Society may be adapting faster than research</h2>
+
+  <p>
+    There is another genuine parallel.
+  </p>
+
+  <p>
+    AI is spreading into schools, workplaces and daily life while researchers are still trying to determine which
+    patterns of use are beneficial.
+  </p>
+
+  <p>
+    That creates a difficult situation.
+  </p>
+
+  <p>
+    By the time a long-term study is finished, the technology being studied may have already changed.
+  </p>
+
+  <p>
+    And institutions can struggle to keep up.
+  </p>
+
+  <p>
+    Stanford's 2026 AI Index reports that more than 80% of U.S. high-school and college students use AI for
+    school-related tasks, while only about half of middle and high schools have AI policies and just 6% of teachers
+    report that those policies are clear.
+    <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">
+      Stanford AI Index
+    </a>
+  </p>
+
+  <p>
+    This does not mean institutions are doing nothing.
+  </p>
+
+  <p>
+    Regulation is already developing. The European Union's AI Act, for example, is being implemented in stages.
+    <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+       target="_blank" rel="noopener noreferrer">
+      European Commission
+    </a>
+  </p>
+
+  <p>
+    But there is still a gap between the speed of technological change and the speed at which institutions can
+    understand, test and respond to every new use.
+  </p>
+
+  <p>
+    That is not unique to AI.
+  </p>
+
+  <p>
+    It is a recurring problem with rapidly changing technology.
+  </p>
+
+  <h2>Unlike cigarettes, AI can potentially be redesigned</h2>
+
+  <p>
+    This is perhaps the biggest reason the cigarette analogy should not be taken too literally.
+  </p>
+
+  <p>
+    Cigarette history is largely a story about discovering that the product itself was dangerous.
+  </p>
+
+  <p>
+    AI presents a different problem.
+  </p>
+
+  <p>
+    Researchers can change the system.
+  </p>
+
+  <p>
+    They can change how it gives answers.
+  </p>
+
+  <p>
+    They can change whether it gives answers at all.
+  </p>
+
+  <p>
+    They can build systems that ask users to explain their reasoning.
+  </p>
+
+  <p>
+    They can make educational AI provide hints rather than solutions.
+  </p>
+
+  <p>
+    They can add verification mechanisms.
+  </p>
+
+  <p>
+    They can require human approval.
+  </p>
+
+  <p>
+    They can redesign interfaces to discourage unnecessary delegation.
+  </p>
+
+  <p>
+    And, importantly, research is already showing that these design choices can affect outcomes.
+  </p>
+
+  <p>
+    The Bastani study is a clear example. The standard GPT-4 interface produced a negative post-AI learning effect,
+    while the specially designed tutor largely avoided it.
+    <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">
+      Bastani et al.
+    </a>
+  </p>
+
+  <p>
+    That means the future of AI is not necessarily fixed by the properties of today's systems.
+  </p>
+
+  <p>
+    <strong>The technology can change as we learn.</strong>
+  </p>
+
+  <p>
+    That is a major difference from the historical cigarette case.
+  </p>
+
+  <h2>So, is AI the cigarette of today?</h2>
+
+  <p>
+    <strong>No—not in the literal sense.</strong>
+  </p>
+
+  <p>
+    The scientific evidence does not support saying that AI has cigarette-like health harms.
+  </p>
+
+  <p>
+    It does not support saying that AI is inherently harmful.
+  </p>
+
+  <p>
+    It does not support saying that people who use AI are inevitably damaging their ability to think.
+  </p>
+
+  <p>
+    And it certainly does not prove that AI companies are repeating the history of the tobacco industry.
+  </p>
+
+  <p>
+    But that does not make the comparison useless.
+  </p>
+
+  <p>
+    The cigarette story can still teach us something about <strong>normalization</strong>.
+  </p>
+
+  <p>
+    A technology can spread quickly.
+  </p>
+
+  <p>
+    People can become comfortable with it.
+  </p>
+
+  <p>
+    Its immediate benefits can be obvious.
+  </p>
+
+  <p>
+    Commercial incentives can encourage further adoption.
+  </p>
+
+  <p>
+    And some consequences can be difficult to see because they develop gradually rather than appearing immediately.
+  </p>
+
+  <p>
+    That last point is particularly relevant to AI.
+  </p>
+
+  <p>
+    A student can get a better answer today while learning less for tomorrow.
+  </p>
+
+  <p>
+    A worker can complete a task faster without developing the skill needed to perform it independently.
+  </p>
+
+  <p>
+    A person can make a decision more efficiently while becoming more dependent on an external system to make that decision.
+  </p>
+
+  <p>
+    None of these outcomes is inevitable.
+  </p>
+
+  <p>
+    But they are worth studying.
+  </p>
+
+  <h2>The more useful question</h2>
+
+  <p>
+    The most interesting lesson from the cigarette analogy is therefore not:
+  </p>
+
+  <blockquote>
+    <strong>“Is AI dangerous like cigarettes?”</strong>
+  </blockquote>
+
+  <p>
+    It is:
+  </p>
+
+  <blockquote>
+    <strong>“Can a technology become normal faster than society learns how to use it safely?”</strong>
+  </blockquote>
+
+  <p>
+    That is a much harder question.
+  </p>
+
+  <p>
+    And unlike the cigarette analogy itself, it does not assume the answer.
+  </p>
+
+  <p>
+    The research so far suggests that AI can produce real benefits. It can increase productivity, support learning
+    and help people perform tasks that would otherwise take more time.
+    <a href="https://pubmed.ncbi.nlm.nih.gov/37440646/" target="_blank" rel="noopener noreferrer">Noy &amp; Zhang</a>
+  </p>
+
+  <p>
+    The research also suggests that some forms of AI use can interfere with learning, encourage cognitive offloading,
+    or produce weaker independent performance when the technology is removed.
+    <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">Bastani et al.</a>
+  </p>
+
+  <p>
+    And the effects are not consistent enough to reduce the entire technology to a single label.
+  </p>
+
+  <p>
+    The strongest conclusion available today is therefore a cautious one:
+  </p>
+
+  <div class="answer-box">
+    <p>
+      <strong>AI is not the cigarette of today.</strong>
+    </p>
+
+    <p>
+      But the history of cigarettes can remind us that <strong>rapid adoption and normalization do not automatically
+      mean that every consequence is already understood.</strong>
+    </p>
+
+    <p>
+      The goal should not be to reject AI. It should be to understand <strong>which uses help people, which uses replace
+      skills that matter, and how AI can be designed so that its benefits do not come at the cost of abilities we still
+      need ourselves.</strong>
+    </p>
+
+    <p>
+      The cigarette analogy may be useful as a warning about <strong>uncertainty, normalization and delayed recognition of risk.</strong>
+      It is not evidence that AI has cigarette-like harms.
+    </p>
+  </div>
+
+  <h2>Bibliography</h2>
+
+  <h3>Cigarette history and scientific evidence</h3>
+
+  <ul class="source-list">
+
+    <li>
+      <strong>Doll, R. &amp; Hill, A. B. (1950).</strong>
+      <em>Smoking and Carcinoma of the Lung.</em>
+      <br>
+      Landmark epidemiological research linking smoking and lung cancer.
+      <br>
+      <a href="https://www.bmj.com/content/2/4682/739" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>Wynder, E. L. &amp; Graham, E. A. (1950).</strong>
+      <em>Tobacco Smoking as a Possible Etiologic Factor in Bronchiogenic Carcinoma.</em>
+      <br>
+      Major 1950 case-control study involving 684 lung-cancer cases.
+      <br>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/15415260/" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>Centers for Disease Control and Prevention.</strong>
+      <em>Achievements in Public Health, 1900–1999: Tobacco Use.</em>
+      <br>
+      Historical U.S. smoking prevalence, including 42.4% adult smoking prevalence in 1965.
+      <br>
+      <a href="https://www.cdc.gov/mmwr/preview/mmwrhtml/mm4843a2.htm" target="_blank" rel="noopener noreferrer">
+        Read the CDC report
+      </a>
+    </li>
+
+    <li>
+      <strong>Centers for Disease Control and Prevention.</strong>
+      <em>Tobacco Use — Health, United States.</em>
+      <br>
+      Background on the established health effects of cigarette smoking.
+      <br>
+      <a href="https://www.cdc.gov/nchs/hus/topics/tobacco-use.htm" target="_blank" rel="noopener noreferrer">
+        Read the CDC data
+      </a>
+    </li>
+
+    <li>
+      <strong>Gardner, M. N. &amp; Brandt, A. M. (2006).</strong>
+      <em>The Doctors' Choice Is America's Choice.</em>
+      <br>
+      Historical analysis of physicians and health claims in cigarette advertising.
+      <br>
+      <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1470496/" target="_blank" rel="noopener noreferrer">
+        Read the article
+      </a>
+    </li>
+
+    <li>
+      <strong>Cummings, K. M., Morley, C. P. &amp; Hyland, A. (2002).</strong>
+      <em>Failed Promises of the Cigarette Industry.</em>
+      <br>
+      Analysis of tobacco-industry public statements and internal documents.
+      <br>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/11893821/" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>World Health Organization (2008).</strong>
+      <em>Tobacco Industry Interference with Tobacco Control.</em>
+      <br>
+      Documentation of tobacco-industry lobbying, marketing and efforts to influence policy and scientific debate.
+      <br>
+      <a href="https://www.who.int/publications/i/item/9789241597340" target="_blank" rel="noopener noreferrer">
+        Read the WHO report
+      </a>
+    </li>
+
+  </ul>
+
+  <h3>AI productivity and benefits</h3>
+
+  <ul class="source-list">
+
+    <li>
+      <strong>Noy, S. &amp; Zhang, W. (2023).</strong>
+      <em>Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence.</em>
+      <em>Science.</em>
+      <br>
+      Preregistered experiment involving 453 college-educated professionals.
+      <br>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/37440646/" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>Brynjolfsson, E., Li, D. &amp; Raymond, L. R. (2025).</strong>
+      <em>Generative AI at Work.</em>
+      <em>Quarterly Journal of Economics.</em>
+      <br>
+      Field study involving 5,172 customer-support agents.
+      <br>
+      <a href="https://academic.oup.com/qje/article/140/2/889/7990658" target="_blank" rel="noopener noreferrer">
+        Read the paper
+      </a>
+    </li>
+
+    <li>
+      <strong>Kestin, G. et al. (2025).</strong>
+      <em>AI Tutoring Outperforms In-Class Active Learning.</em>
+      <em>Scientific Reports.</em>
+      <br>
+      Randomized controlled trial involving 194 undergraduate physics students.
+      <br>
+      <a href="https://www.nature.com/articles/s41598-025-97652-6" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+  </ul>
+
+  <h3>AI learning, cognitive offloading and critical thinking</h3>
+
+  <ul class="source-list">
+
+    <li>
+      <strong>Bastani, H. et al. (2025).</strong>
+      <em>Generative AI Without Guardrails Can Harm Learning.</em>
+      <em>Proceedings of the National Academy of Sciences.</em>
+      <br>
+      Field experiment involving nearly 1,000 high-school mathematics students.
+      <br>
+      <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>2025 randomized controlled trial on ChatGPT and knowledge retention.</strong>
+      <br>
+      Study examining later knowledge retention after ChatGPT-assisted learning.
+      <br>
+      <a href="https://www.sciencedirect.com/science/article/pii/S2590291125010186"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>Gerlich (2025).</strong>
+      <em>AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking.</em>
+      <em>Societies.</em>
+      <br>
+      Study examining AI use, cognitive offloading and critical-thinking measures.
+      <br>
+      <a href="https://doi.org/10.3390/soc15010006" target="_blank" rel="noopener noreferrer">
+        Read the study
+      </a>
+    </li>
+
+    <li>
+      <strong>Lee et al. (2025).</strong>
+      <em>The Impact of Generative AI on Critical Thinking.</em>
+      <br>
+      Survey of 319 knowledge workers and 936 examples of GenAI use.
+      <br>
+      <a href="https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the research
+      </a>
+    </li>
+
+    <li>
+      <strong>Vaccaro, M., Almaatouq, A. &amp; Malone, T. (2024).</strong>
+      <em>When Combinations of Humans and AI Are Useful.</em>
+      <em>Nature Human Behaviour.</em>
+      <br>
+      Systematic review and meta-analysis of 106 experiments involving human-AI collaboration.
+      <br>
+      <a href="https://www.nature.com/articles/s41562-024-02024-1"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the paper
+      </a>
+    </li>
+
+    <li>
+      <strong>OECD (2026).</strong>
+      <em>OECD Digital Education Outlook 2026.</em>
+      <br>
+      Review of evidence concerning AI, learning, cognitive offloading, educational design and human skill development.
+      <br>
+      <a href="https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the OECD report
+      </a>
+    </li>
+
+  </ul>
+
+  <h3>AI adoption and societal adaptation</h3>
+
+  <ul class="source-list">
+
+    <li>
+      <strong>Bick, A., Blandin, A. &amp; Deming, D. J. (2026).</strong>
+      <em>The Rapid Adoption of Generative AI.</em>
+      <em>Management Science.</em>
+      <br>
+      Nationally representative U.S. survey of generative-AI adoption.
+      <br>
+      <a href="https://doi.org/10.1287/mnsc.2025.02523"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the paper
+      </a>
+    </li>
+
+    <li>
+      <strong>Stanford Institute for Human-Centered Artificial Intelligence (2026).</strong>
+      <em>AI Index Report 2026.</em>
+      <br>
+      Data on AI adoption, organizational use, education and investment.
+      <br>
+      <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the AI Index
+      </a>
+    </li>
+
+    <li>
+      <strong>European Commission.</strong>
+      <em>AI Act — Regulatory Framework for Artificial Intelligence.</em>
+      <br>
+      Official information on the European Union's AI regulatory framework and implementation.
+      <br>
+      <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+         target="_blank"
+         rel="noopener noreferrer">
+        Read the official information
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="mindshield-section">
+    <h2>MindShield</h2>
+
+    <p>
+      If you want to experiment with using AI while retaining more deliberate control over what you delegate,
+      <a href="https://fluryjanis.github.io/Mind-Shield/" target="_blank" rel="noopener noreferrer">
+        <strong>MindShield</strong>
+      </a>
+      is an open-source browser extension designed to encourage users to pause before delegating certain types
+      of cognitive work to AI.
+    </p>
+
+    <p>
+      MindShield is a practical tool inspired by the cognitive-offloading question discussed in this article.
+      It is not presented as scientifically proven to prevent cognitive decline or improve critical-thinking ability.
+    </p>
+  </div>
+
+</article>
+
+</body>
+</html>
