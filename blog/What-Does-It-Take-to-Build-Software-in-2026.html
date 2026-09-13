@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="../favicon.png" />
@@ -258,6 +259,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -267,7 +269,7 @@
   <header>
     <h1>What Does It Take to Build Software in 2026?</h1>
     <p class="lead">
-      Software is becoming easier to produce. That does not necessarily mean successful software is becoming easier to create. In 2026, the work stretches from choosing a useful problem and engineering a reliable solution to designing the experience, earning trust, finding users, and learning what to change next.
+      Software is becoming easier to produce in some respects. That does not necessarily mean successful software is becoming easier to create. In 2026, the work stretches from choosing a useful problem and engineering a reliable solution to designing the experience, earning trust, finding users, and learning what to change next.
     </p>
   </header>
 
@@ -276,7 +278,7 @@
   </p>
 
   <p>
-    AI coding assistants, cloud services, open-source packages, managed databases, APIs, automated testing, and increasingly capable development environments have reduced friction in many parts of software production. GitHub reported more than 36 million new developers joining its platform during 2025, bringing the platform to more than 180 million developers. It also reported more than 4.3 million AI-related repositories. These figures do not measure commercial products, but they show how large and active the software-production ecosystem has become.<sup><a class="citation" href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">[1]</a></sup>
+    AI coding assistants, cloud services, open-source packages, managed databases, APIs, automated testing, and increasingly capable development environments can reduce friction in many parts of software production. GitHub reported more than 36 million new developers joining its platform during 2025, bringing the platform to more than 180 million developers. It also reported more than 4.3 million AI-related repositories. These figures do not measure commercial products, but they show how large and active the software-production ecosystem has become.<sup><a class="citation" href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">[1]</a></sup>
   </p>
 
   <p>
@@ -310,7 +312,7 @@
   </ol>
 
   <p>
-    Coding is central to this chain, but it is not the entire chain. A technically correct application can fail because it solves an unimportant problem, is confusing, is difficult to trust, or never reaches its intended users.
+    Coding is central to this chain, but it is not the entire chain. A technically correct application can still fail if it solves a weak problem, has poor product-market fit, or never reaches enough potential users.
   </p>
 
   <div class="source-note">
@@ -318,14 +320,14 @@
   </div>
 
   <p>
-    CB Insights' March 2026 analysis of 431 VC-backed companies that shut down since 2023 found that 43% cited poor product-market fit, 29% bad timing, and 19% unsustainable unit economics. Multiple causes could apply to one company, and the sample is limited to companies with public post-mortems. Still, it is useful evidence that technical completion and market success are different problems.<sup><a class="citation" href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/">[3]</a></sup>
+    CB Insights' March 2026 analysis of 431 VC-backed companies that shut down since 2023 found that 43% cited poor product-market fit, 29% bad timing, and 19% unsustainable unit economics. Multiple causes could apply to one company, and the analysis is based on publicly documented company failures, including post-mortems, founder interviews, and shutdown announcements. Still, it is useful evidence that technical completion and market success are different problems.<sup><a class="citation" href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/">[3]</a></sup>
   </p>
 
   <h2>The Technical Skills Still Matter</h2>
 
-  <p>
-    The biggest change in 2026 is not that technical knowledge has disappeared. It is that more technical work can be assisted, accelerated, or partially delegated to tools.
-  </p>
+<p>
+  One of the biggest changes visible in software development in 2026 is how much technical work can be assisted, accelerated, or partially delegated to tools.
+</p>
 
   <p>
     JetBrains' 2025 Developer Ecosystem Survey, based on 24,534 developers across 194 countries, found that 85% regularly use AI tools for coding and development and 62% rely on at least one AI coding assistant, agent, or AI-enabled editor.<sup><a class="citation" href="https://blog.jetbrains.com/research/2025/10/state-of-developer-ecosystem-2025/">[4]</a></sup>
@@ -338,7 +340,11 @@
   <h3>Generating code is not the same as understanding software</h3>
 
   <p>
-    A 2025 randomized controlled trial by METR involved 16 experienced open-source developers completing 246 tasks in mature repositories. In that study, allowing early-2025 AI tools made the developers take 19% longer on average. METR explicitly cautioned that the result should not be generalized to all developers or all software work.<sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[5]</a></sup>
+    A 2025 randomized controlled trial by METR involved 16 experienced open-source developers completing 246 tasks in mature repositories. In that study, allowing early-2025 AI tools made the developers take 19% longer on average. METR cautioned that the result should not be generalized to all developers or all software work.<sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[5]</a></sup>
+  </p>
+
+  <p>
+    By February 2026, however, METR reported that its newer evidence suggested developers were likely getting more speedup from AI than they had in early 2025, although selection effects made the size of that improvement difficult to measure reliably. This highlights how quickly the measured effect of AI on software development is changing.<sup><a class="citation" href="https://metr.org/blog/2026-02-24-uplift-update/">[14]</a></sup>
   </p>
 
   <p>
@@ -346,7 +352,7 @@
   </p>
 
   <p>
-    This makes fundamentals valuable even when less code is typed manually. A developer who understands data flow, state, APIs, error handling, testing, and architecture can inspect an AI-generated solution and recognize when it does not fit the system.
+    This makes fundamentals valuable even when less code is typed manually. In practice, developers still need enough understanding of a system to evaluate whether generated code fits its data flow, state management, APIs, error handling, testing, architecture, and other constraints.
   </p>
 
   <h3>Security is still part of building</h3>
@@ -356,7 +362,7 @@
   </p>
 
   <p>
-    NIST's Secure Software Development Framework treats secure development as a set of practices that can be integrated into the software development lifecycle. The December 2025 draft of SSDF 1.2 describes new and improved practices, tasks, and examples for the secure and reliable development, delivery, and improvement of software.<sup><a class="citation" href="https://csrc.nist.gov/projects/ssdf">[7]</a></sup> AI can assist with security work, but it does not remove the responsibility for getting security right.
+    NIST's Secure Software Development Framework treats secure development as a set of practices that can be integrated into the software development lifecycle. The December 2025 draft of SSDF 1.2 describes new and improved practices, tasks, and examples for the secure and reliable development, delivery, and improvement of software.<sup><a class="citation" href="https://csrc.nist.gov/projects/ssdf">[7]</a></sup> AI can assist with security-related development work, but secure development practices still require appropriate human and organizational oversight.
   </p>
 
   <h2>Finding the Right Problem</h2>
@@ -368,7 +374,7 @@
   </p>
 
   <p>
-    If implementation becomes cheaper, a builder can respond to more ideas by building them. But the ability to build more ideas does not increase the number of problems people are willing to solve. That is why the CB Insights finding on product-market fit matters: in its defined sample, demand remained a major constraint even when companies had enough resources to build software.<sup><a class="citation" href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/">[3]</a></sup>
+    If implementation becomes cheaper, a builder can respond to more ideas by building them. But the ability to build more ideas does not increase the number of problems people are willing to solve. That is why the CB Insights finding on product-market fit matters: its analysis shows that companies can receive substantial investment and still fail to achieve product-market fit.<sup><a class="citation" href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/">[3]</a></sup>
   </p>
 
   <p>
@@ -388,7 +394,7 @@
   </p>
 
   <p>
-    Good UX can reduce unnecessary explanation, make information easier to recognize, prevent some user errors, and make system feedback easier to understand. These are established usability principles rather than claims that every redesign will improve business results. Trust is also affected by clear feedback and understandable interactions.
+    Good UX can reduce unnecessary explanation, make information easier to recognize, prevent some user errors, and make system feedback easier to understand. These are established usability principles rather than claims that every redesign will improve business results. Trust can also be supported by clear feedback and understandable interactions.
   </p>
 
   <div class="source-note">
@@ -410,13 +416,13 @@
   </div>
 
   <p>
-    This distinction matters because availability is not awareness. Putting software online makes it possible to use; it does not make potential users notice it, understand it, or trust it.
+    This distinction matters because putting software online solves availability, but it does not automatically solve discovery, comprehension, or trust.
   </p>
 
   <h2>When Everyone Can Build, Attention Becomes Scarce</h2>
 
   <p>
-    There is evidence that the supply of people capable of producing software is expanding, although developer growth should not be treated as a direct count of competing products.
+    There is evidence that participation in software development platforms is expanding, although developer growth should not be treated as a direct count of competing products.
   </p>
 
   <p>
@@ -424,7 +430,7 @@
   </p>
 
   <p>
-    AI adds another layer. GitHub reported more than 4.3 million AI-related repositories in 2025.<sup><a class="citation" href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">[1]</a></sup> These numbers do not prove that marketing has become more important than engineering. They do support a narrower inference: production capacity is growing, so finding the right users can become a more visible constraint.
+    AI adds another layer. GitHub reported more than 4.3 million AI-related repositories in 2025.<sup><a class="citation" href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">[1]</a></sup> These numbers do not prove that marketing has become more important than engineering, or that human attention has objectively become scarcer. They do support a narrower observation: participation in software production is growing, which can make user discovery a more visible constraint.
   </p>
 
   <h2>Is Software Becoming Brand Building?</h2>
@@ -432,11 +438,11 @@
   <p>This is the article's central hypothesis, and the evidence is mixed.</p>
 
   <p>
-    There is a plausible case for it. When many products provide similar functionality, users still need reasons to choose one. Reputation can reduce perceived risk. A recognizable creator can provide context. Community can provide support and social proof. Consistent communication can make a product easier to understand.
+    There is a plausible case for it. When many products provide similar functionality, users still need reasons to choose one. A plausible explanation is that reputation can reduce perceived risk, while community and social proof can make an unfamiliar product easier to trust. Consistent communication can also make a product easier to understand.
   </p>
 
   <p>
-    But brand should not be confused with social-media popularity. Some software spreads because it solves an urgent problem, fits an existing workflow, ranks well in a marketplace, or is recommended by a trusted person. In those cases, utility may be the primary growth mechanism even when the creator has little public identity.
+    But brand should not be confused with social-media popularity. Some software can spread because it solves an urgent problem, fits an existing workflow, ranks well in a marketplace, or is recommended by a trusted person. In those cases, utility may be the primary growth mechanism even when the creator has little public identity.
   </p>
 
   <p>
@@ -447,7 +453,7 @@
     <strong>Evidence:</strong> The following case studies are used as examples, not as representative samples of software companies.<sup><a class="citation" href="https://techcrunch.com/2026/01/16/ai-cloud-startup-runpod-hits-120m-in-arr-and-it-started-with-a-reddit-post/">[9]</a></sup> <sup><a class="citation" href="https://www.indiehackers.com/post/tech/launching-an-app-builder-in-2-weeks-and-hitting-10k-mrr-within-a-year-gRWT2S68TIQwMvb6Xxt4">[10]</a></sup> <sup><a class="citation" href="https://www.indiehackers.com/post/tech/building-a-5k-mrr-app-while-freelancing-to-keep-the-lights-on-JhX6p14De0nagI0j1Xg1">[11]</a></sup>
   </div>
 
-  <h2>Three Software Success Stories From 2026</h2>
+  <h2>Three Software Success Stories Documented in 2026</h2>
 
   <section class="case">
     <span class="label">Case study 1</span>
@@ -478,7 +484,7 @@
       Personal Best is an iOS workout-tracking application created by software engineer Shaun Donnelly. In a September 2026 Indie Hackers interview, Donnelly reported more than 500,000 downloads, about 50,000 monthly active users, several App Store features, and about $5,000 in monthly recurring revenue. He said the app began as a basic hobby project in 2020 and that he had not formally validated the idea before building it.<sup><a class="citation" href="https://www.indiehackers.com/post/tech/building-a-5k-mrr-app-while-freelancing-to-keep-the-lights-on-JhX6p14De0nagI0j1Xg1">[11]</a></sup>
     </p>
     <p>
-      These are founder-reported figures. More importantly, the story challenges a brand-first theory. Donnelly says growth was almost entirely organic, accelerated after Apple began featuring the app, and was also supported by product-led sharing and word of mouth. He does maintain social accounts, but the interview does not present a large personal brand as the main growth mechanism.
+      These are founder-reported figures. More importantly, the story challenges a brand-first theory. Donnelly says growth was almost entirely organic, accelerated after Apple began featuring the app, and was also supported by product-led sharing and direct user referrals. He does maintain social accounts, but the interview does not present a large personal brand as the main growth mechanism.
     </p>
   </section>
 
@@ -503,8 +509,8 @@
       <tr>
         <td><strong>Distribution</strong></td>
         <td>Reddit, users, relationships</td>
-        <td>Reddit, X, word of mouth</td>
-        <td>App Store features, product-led sharing, word of mouth</td>
+        <td>Reddit, X, social sharing, referrals</td>
+        <td>App Store features, product-led sharing, referrals</td>
       </tr>
       <tr>
         <td><strong>Founder brand</strong></td>
@@ -522,7 +528,7 @@
         <td><strong>What it shows</strong></td>
         <td>Community can become distribution</td>
         <td>Fast production does not remove market work</td>
-        <td>Personal branding is not universally required</td>
+        <td>A large personal brand is not necessarily required</td>
       </tr>
     </tbody>
   </table>
@@ -555,7 +561,7 @@
   <p>Commercial software also requires pricing, cost awareness, retention, and an understanding of whether the business can support the product. Personal Best, for example, describes repeated pricing and trial-length experiments, while CB Insights identifies unsustainable unit economics as a cited failure cause in its 2026 shutdown analysis.<sup><a class="citation" href="https://www.indiehackers.com/post/tech/building-a-5k-mrr-app-while-freelancing-to-keep-the-lights-on-JhX6p14De0nagI0j1Xg1">[11]</a></sup> <sup><a class="citation" href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/">[3]</a></sup></p>
 
   <h3>8. Adaptability</h3>
-  <p>Tools are changing quickly. Stack Overflow found that more than a third of respondents had learned AI-enabled tools for their job or career in the previous year.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/developers">[12]</a></sup> A modern builder therefore needs to evaluate new tools without blindly trusting them.</p>
+  <p>Tools are changing quickly. Stack Overflow found that over 36% of respondents had learned AI-enabled tools for their job or career in the previous year.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/developers">[12]</a></sup> A modern builder therefore needs to evaluate new tools without blindly trusting them.</p>
 
   <div class="source-note">
     <strong>Evidence:</strong> Stack Overflow's developer survey provides the learning/adaptation statistic; its AI results also show that trust in AI output remains limited.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/developers">[12]</a></sup> <sup><a class="citation" href="https://survey.stackoverflow.co/2025/ai">[2]</a></sup>
@@ -599,7 +605,7 @@
       </tr>
       <tr>
         <td><strong>Verification</strong></td>
-        <td>Still essential because AI output can be plausible, incomplete, or wrong.</td>
+        <td>Still essential because developers report substantial concerns about AI output accuracy and debugging.</td>
       </tr>
       <tr>
         <td><strong>Architecture</strong></td>
@@ -627,7 +633,7 @@
       </tr>
       <tr>
         <td><strong>Brand</strong></td>
-        <td>Can reduce uncertainty and help distribution, but is not required for every successful product.</td>
+        <td>Can support trust and distribution, but is not required for every successful product.</td>
       </tr>
       <tr>
         <td><strong>Iteration</strong></td>
@@ -637,7 +643,7 @@
   </table>
 
   <div class="source-note">
-    <strong>Evidence:</strong> The technical and security rows are grounded in Stack Overflow, JetBrains, METR, OWASP, and NIST; the product, UX, and distribution rows synthesize the CB Insights, NN/g, GitHub, and case-study evidence. Statements about relative bottlenecks are explicitly inferences rather than measured universal laws.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/ai">[2]</a></sup> <sup><a class="citation" href="https://blog.jetbrains.com/research/2025/10/state-of-developer-ecosystem-2025/">[4]</a></sup> <sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[5]</a></sup> <sup><a class="citation" href="https://top10.owasp.org/2025/">[6]</a></sup> <sup><a class="citation" href="https://csrc.nist.gov/projects/ssdf">[7]</a></sup> <sup><a class="citation" href="https://www.nngroup.com/reports/ux-metrics-roi/">[8]</a></sup> <sup><a class="citation" href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">[1]</a></sup>
+    <strong>Evidence:</strong> The technical and security rows are grounded in Stack Overflow, JetBrains, METR, OWASP, and NIST; the product, UX, and distribution rows synthesize the CB Insights, NN/g, GitHub, and case-study evidence. Statements about relative bottlenecks are explicitly inferences rather than measured universal laws.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/ai">[2]</a></sup> <sup><a class="citation" href="https://blog.jetbrains.com/research/2025/10/state-of-developer-ecosystem-2025/">[4]</a></sup> <sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[5]</a></sup> <sup><a class="citation" href="https://metr.org/blog/2026-02-24-uplift-update/">[14]</a></sup> <sup><a class="citation" href="https://top10.owasp.org/2025/">[6]</a></sup> <sup><a class="citation" href="https://csrc.nist.gov/projects/ssdf">[7]</a></sup> <sup><a class="citation" href="https://www.nngroup.com/reports/ux-metrics-roi/">[8]</a></sup> <sup><a class="citation" href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/">[1]</a></sup>
   </div>
 
   <h2>The Answer</h2>
@@ -649,7 +655,7 @@
   </p>
 
   <p>
-    The technical side is changing quickly. AI assistants, agents, cloud infrastructure, open-source software, managed services, and automated tooling can reduce the effort required for many implementation tasks. Large developer surveys show that these tools are already normal parts of development workflows, while experimental research shows that their benefits depend heavily on context.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/ai">[2]</a></sup> <sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[5]</a></sup>
+    The technical side is changing quickly. AI assistants, agents, cloud infrastructure, open-source software, managed services, and automated tooling can reduce the effort required for many implementation tasks. Large developer surveys show that these tools are already normal parts of development workflows, while experimental research shows that their benefits depend heavily on context.<sup><a class="citation" href="https://survey.stackoverflow.co/2025/ai">[2]</a></sup> <sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[5]</a></sup> <sup><a class="citation" href="https://metr.org/blog/2026-02-24-uplift-update/">[14]</a></sup>
   </p>
 
   <p>
@@ -665,7 +671,7 @@
       <strong>A more defensible conclusion is that the relative bottlenecks are changing.</strong>
     </p>
     <p>
-      When implementation becomes faster, other constraints become easier to see. Product judgment can become more consequential. UX can become a stronger differentiator. Distribution can determine whether a technically excellent product is ever discovered. Reputation and community can reduce the trust required for someone to try something new.
+      When implementation becomes faster, it is reasonable to expect other constraints to become more visible. Product judgment can become more consequential. UX can become a stronger differentiator. Distribution can determine whether a technically excellent product is ever discovered. Reputation and community may also help reduce the uncertainty involved in trying something new.
     </p>
   </div>
 
@@ -692,13 +698,14 @@
       <li>JetBrains, <em>State of Developer Ecosystem 2025</em>, October 2025. Survey of 24,534 developers across 194 countries. <a href="https://blog.jetbrains.com/research/2025/10/state-of-developer-ecosystem-2025/">Original source</a>.</li>
       <li>METR, Becker, Rush, Barnes &amp; Rein, <em>Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity</em>, July 2025. RCT with 16 developers and 246 tasks. <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">Research page</a>.</li>
       <li>OWASP, <em>OWASP Top 10:2025</em>, 2025. <a href="https://top10.owasp.org/2025/">Original source</a>.</li>
-      <li>NIST, <em>Secure Software Development Framework</em>, project page updated April 2026; SSDF 1.2 remains listed as a draft released December 17, 2025. <a href="https://csrc.nist.gov/projects/ssdf">Original source</a>.</li>
+      <li>NIST, <em>Secure Software Development Framework</em>, including SSDF Version 1.2 initial public draft, published December 17, 2025. <a href="https://csrc.nist.gov/projects/ssdf">Original source</a>.</li>
       <li>Nielsen Norman Group, <em>UX Metrics and ROI, 5th Edition</em>, current edition. Includes 44 real-world case studies. <a href="https://www.nngroup.com/reports/ux-metrics-roi/">Original source</a>.</li>
       <li>TechCrunch, Julie Bort, <em>AI cloud startup Runpod hits $120M in ARR — and it started with a Reddit post</em>, January 2026. Revenue figures are founder/company claims reported by TechCrunch. <a href="https://techcrunch.com/2026/01/16/ai-cloud-startup-runpod-hits-120m-in-arr-and-it-started-with-a-reddit-post/">Article</a>.</li>
       <li>Indie Hackers, James Fleischmann, <em>Launching an app builder in 2 weeks and hitting $10k MRR within a year</em>, July 2026. Revenue figures are founder-reported. <a href="https://www.indiehackers.com/post/tech/launching-an-app-builder-in-2-weeks-and-hitting-10k-mrr-within-a-year-gRWT2S68TIQwMvb6Xxt4">Interview</a>.</li>
       <li>Indie Hackers, James Fleischmann, <em>Building a $5k MRR app while freelancing to keep the lights on</em>, September 2026. Download, user, and revenue figures are founder-reported. <a href="https://www.indiehackers.com/post/tech/building-a-5k-mrr-app-while-freelancing-to-keep-the-lights-on-JhX6p14De0nagI0j1Xg1">Interview</a>.</li>
       <li>Stack Overflow, <em>2025 Developer Survey — Developers</em>, 2025. <a href="https://survey.stackoverflow.co/2025/developers">Original source</a>.</li>
       <li>Nielsen Norman Group, <em>10 Usability Heuristics for User Interface Design</em>, reviewed January 2024. <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">Original source</a>.</li>
+      <li>METR, <em>We are Changing our Developer Productivity Experiment Design</em>, February 2026. Later evidence suggested AI was likely providing more developer speedup than in early 2025, but selection effects made the size of the effect difficult to estimate reliably. <a href="https://metr.org/blog/2026-02-24-uplift-update/">Original source</a>.</li>
     </ol>
   </section>
 
