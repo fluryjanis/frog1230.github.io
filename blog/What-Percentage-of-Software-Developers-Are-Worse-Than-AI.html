@@ -1,0 +1,3105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>What Percentage of Software Developers Are Worse Than AI?</title>
+  <meta
+    name="description"
+    content="What percentage of software developers are worse than AI? Research through 2026 shows AI can outperform humans on some software tasks, but there is no credible global percentage for developers overall."
+  />
+  <link
+    rel="canonical"
+    href="https://fluryjanis.github.io/frog1230.github.io/blog/What-Percentage-of-Software-Developers-Are-Worse-Than-AI.html"
+  />
+
+  <style>
+    .back-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .back-nav:hover {
+      color: var(--strong);
+      text-decoration: none;
+    }
+
+    .back-nav-bottom {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    :root {
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --text: #1d232c;
+      --muted: #5f6975;
+      --border: #dfe4e9;
+      --accent: #315f8c;
+      --accent-soft: #edf4fa;
+      --strong: #16202a;
+      --warning-soft: #fff8e8;
+      --warning-border: #e8cf8a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.72;
+    }
+
+    .styled-article {
+      width: min(760px, calc(100% - 32px));
+      margin: 56px auto 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 48px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--strong);
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 5vw, 3.1rem);
+      letter-spacing: -0.035em;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin: 56px 0 18px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 28px 0 10px;
+    }
+
+    p {
+      margin: 0 0 20px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    a:hover {
+      color: var(--strong);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.12rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .lead {
+      font-size: 1.18rem;
+      line-height: 1.75;
+      border-left: 4px solid var(--strong);
+      padding-left: 20px;
+      margin: 28px 0 36px;
+      color: var(--strong);
+    }
+
+    strong {
+      color: var(--strong);
+    }
+
+    .citation {
+      font-size: 0.8em;
+      vertical-align: super;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 2px;
+    }
+
+    .thesis {
+      margin: 32px 0;
+      padding: 24px 26px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      font-size: 1.08rem;
+    }
+
+    .thesis p:last-child {
+      margin-bottom: 0;
+    }
+
+    .evidence,
+    .note {
+      margin: 28px 0;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fbfcfd;
+    }
+
+    .evidence-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .evidence p:last-child,
+    .note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .source-note {
+      font-size: 0.92rem;
+      color: var(--muted);
+      padding: 12px 16px;
+      border-left: 3px solid var(--border);
+      margin: 18px 0 26px;
+      background: #fafbfc;
+      border-radius: 0 6px 6px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 28px 0 34px;
+      font-size: 0.95rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--accent-soft);
+      color: var(--strong);
+      font-weight: 700;
+    }
+
+    ol,
+    ul {
+      margin: 0 0 24px 20px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    blockquote {
+      margin: 28px 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);
+      color: #3e4853;
+      font-size: 1.08rem;
+      background: var(--accent-soft);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .sources {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 2px solid var(--strong);
+    }
+
+    .sources li {
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 650px) {
+      .styled-article {
+        width: min(100% - 20px, 760px);
+        margin: 20px auto 40px;
+        padding: 28px 20px;
+        border-radius: 10px;
+      }
+
+      h2 {
+        margin-top: 44px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<article class="styled-article">
+
+  <a href="https://fluryjanis.github.io/frog1230.github.io/" class="back-nav">
+    &larr; Back to main page
+  </a>
+
+  <header>
+    <h1>What Percentage of Software Developers Are Worse Than AI?</h1>
+
+ 
+<p class="lead">
+  There is currently no credible global percentage. Research available through
+  2026 shows that AI can outperform human developers on some
+  software-development tasks, while humans remain competitive or stronger on
+  other measured dimensions.
+</p>
+ 
+
+  </header>
+
+  <p>
+    The question sounds like it should have a simple answer:
+  </p>
+
+  <blockquote>
+    What percentage of software developers are worse than AI?
+  </blockquote>
+
+  <p>
+    But there is a problem with the question itself.
+  </p>
+
+  <p>
+    There is no single test called <strong>“software development.”</strong>
+    Developers perform many different kinds of work: writing code, debugging,
+    testing, reviewing changes, understanding existing systems, interpreting
+    requirements, designing architecture, planning projects, and maintaining
+    software over time.
+  </p>
+
+  <p>
+    AI systems can perform very differently across those tasks.
+  </p>
+
+  <p>
+    A model can outperform a developer at generating an implementation while
+    being less reliable at a non-functional refactoring task. An AI coding
+    assistant can increase the amount of work a developer completes while also
+    creating additional verification work. An AI agent can solve a repository
+    issue that would take a human expert substantial time while still failing on
+    another task of similar apparent difficulty.
+  </p>
+
+  <p>
+    Research available through 2026 provides increasingly strong evidence that
+    AI can outperform humans on some software-development tasks. It also
+    provides evidence that human developers retain important advantages on
+    other dimensions.
+  </p>
+
+  <p>
+    What the research does <strong>not</strong> provide is a scientifically
+    defensible number such as:
+  </p>
+
+  <blockquote>
+    “35% of software developers are worse than AI.”
+  </blockquote>
+
+  <p>
+    That number cannot currently be calculated from the available evidence.
+  </p>
+
+  <p>
+    The more useful question is:
+  </p>
+
+  <blockquote>
+    <strong>
+      On which software-development tasks can AI outperform humans, and what
+      does the evidence actually tell us about human and AI performance?
+    </strong>
+  </blockquote>
+
+  <div class="note">
+    <span class="evidence-label">Research Note</span>
+    <p>
+      This article distinguishes task-level experiments, productivity studies,
+      benchmark results, survey findings, and population-level claims. A result
+      from one benchmark or experiment is not automatically a statement about
+      the entire software-development profession.
+    </p>
+  </div>
+
+  <h2>The Short Answer</h2>
+
+  <p>
+    As of 2026, <strong>there is no credible global statistic for the
+    percentage of software developers who are worse than AI overall.</strong>
+  </p>
+
+  <p>
+    Research can establish more specific findings.
+  </p>
+
+  <p>
+    A large randomized field study published as a <strong>June 2025
+    preprint</strong>, involving <strong>4,867 developers</strong> at Microsoft,
+    Accenture, and an anonymous Fortune 100 company, found that developers
+    given an AI coding assistant completed <strong>26.08% more tasks</strong>
+    than developers in the control groups. The study also found that
+    less-experienced developers had higher adoption and greater measured
+    productivity gains.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <p>
+    The paper was later published online in <em>Management Science</em> in
+    2026, but the underlying field experiments and publicly released preprint
+    date to 2025. It is therefore treated here as <strong>2025 baseline
+    evidence</strong>, rather than as a newly conducted 2026 experiment.<sup><a class="citation" href="https://pubsonline.informs.org/doi/10.1287/mnsc.2025.00535">[1]</a></sup>
+  </p>
+
+  <p>
+    A separate 2026 ACM CHI experiment with <strong>60 participants</strong>
+    found that AI assistance reduced programming time by about
+    <strong>22%</strong> and improved correctness on three Python tasks. The
+    AI conditions included 36 participants, compared with 24 in the no-AI
+    control. The experiment used GPT-4o without web or external tools, so it
+    measured a controlled form of AI assistance rather than the full
+    capabilities of today's autonomous coding agents.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup>
+  </p>
+
+  <p>
+    A 2026 IEEE Transactions on Software Engineering study involving
+    <strong>69 participants</strong>, including <strong>14 professional
+    developers</strong>, found that AI-assisted participants achieved more
+    than twice the median task completeness of participants working without
+    AI. However, participants using AI were less able to answer technical
+    questions about code they had produced, with a reported
+    <strong>12.5% reduction in code ownership</strong>.<sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <p>
+    A 2026 <em>Empirical Software Engineering</em> study involving
+    <strong>151 participants</strong>, approximately 95% of whom were
+    professional developers, found no statistically significant difference in
+    subsequent maintenance time or code quality when other developers later
+    evolved software that had been created with versus without AI
+    assistance.<sup><a class="citation" href="https://link.springer.com/article/10.1007/s10664-026-10889-1">[4]</a></sup>
+  </p>
+
+  <p>
+    METR's 2026 evaluations provide another perspective by calibrating AI
+    performance against the time experienced human professionals take to
+    complete software tasks. METR also emphasizes important limitations in
+    what those measurements mean for ordinary software-development work,
+    especially when tasks provide much less context than a developer has in a
+    familiar project.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <div class="thesis">
+    <p>
+      <strong>We do not know what percentage of software developers are worse
+      than AI.</strong>
+    </p>
+    <p>
+      We do know that AI already performs at or above human reference levels on
+      some defined software tasks, depending on the task and evaluation method.
+    </p>
+  </div>
+
+  <h2>What Does “Worse Than AI” Actually Mean?</h2>
+
+  <p>
+    Before comparing developers with AI, we have to define
+    <strong>worse</strong>.
+  </p>
+
+  <p>
+    Suppose an AI system writes a function in 30 seconds and a developer takes
+    five minutes.
+  </p>
+
+  <p>
+    The AI was faster.
+  </p>
+
+  <p>
+    That does not necessarily mean the AI was a better software developer.
+  </p>
+
+  <p>
+    Maybe the developer:
+  </p>
+
+  <ul>
+    <li>understood an undocumented business rule;</li>
+    <li>recognized a security problem;</li>
+    <li>noticed that the requirement was ambiguous;</li>
+    <li>designed a more maintainable solution;</li>
+    <li>or realized that the requested feature would create problems elsewhere.</li>
+  </ul>
+
+  <p>
+    Now imagine the opposite situation.
+  </p>
+
+  <p>
+    A developer spends three hours fixing a difficult issue in an unfamiliar
+    repository while an AI agent finds and fixes it in 25 minutes.
+  </p>
+
+  <p>
+    In that situation, the AI performed the task faster.
+  </p>
+
+  <p>
+    Both observations can be true.
+  </p>
+
+  <p>
+    They simply measure <strong>different things</strong>.
+  </p>
+
+  <p>
+    That is why this article treats “worse than AI” as
+    <strong>task-specific performance</strong>, rather than a judgment about
+    someone's overall ability as a software developer.
+  </p>
+
+  <h2>Three Different Questions</h2>
+
+  <p>
+    The phrase “AI is better than programmers” often mixes together three
+    separate questions.
+  </p>
+
+  <h3>1. Can AI outperform a developer on a task?</h3>
+
+  <p>
+    This is a task-level question.
+  </p>
+
+  <p>
+    Researchers can test it.
+  </p>
+
+  <p>
+    Give humans and AI the same task and compare their performance.
+  </p>
+
+  <h3>2. How often does AI outperform developers?</h3>
+
+  <p>
+    This is a comparative-performance question.
+  </p>
+
+  <p>
+    Researchers can measure differences in:
+  </p>
+
+  <ul>
+    <li>completion time;</li>
+    <li>correctness;</li>
+    <li>task completion;</li>
+    <li>code quality;</li>
+    <li>productivity;</li>
+    <li>or another defined metric.</li>
+  </ul>
+
+  <h3>3. What percentage of developers are worse than AI?</h3>
+
+  <p>
+    This is a population-level question.
+  </p>
+
+  <p>
+    To answer it, researchers would need to know how
+    <strong>individual developers</strong> compare with an AI system across the
+    same representative task distribution.
+  </p>
+
+  <p>
+    That requires substantially more data than a normal programming benchmark
+    provides.
+  </p>
+
+  <p>
+    This is the most important distinction in the entire question.
+  </p>
+
+  <h2>AI vs. Developers on Coding Tasks</h2>
+
+  <p>
+    The strongest evidence often comes from experiments where real developers
+    perform software-development tasks with and without AI.
+  </p>
+
+  <h2>A 4,867-Developer Field Experiment</h2>
+
+  <p>
+    One of the largest field experiments relevant to the 2026 discussion was
+    released as a <strong>June 2025 preprint</strong> and involved developers
+    at Microsoft, Accenture, and an anonymous Fortune 100 company.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <p>
+    The combined sample contained <strong>4,867 developers</strong>.
+  </p>
+
+  <p>
+    Across the experiments, developers given access to an AI coding assistant
+    completed <strong>26.08% more tasks</strong> than developers in the control
+    groups.
+  </p>
+
+  <p>
+    The study also found that less-experienced developers had higher AI
+    adoption and greater measured productivity gains.
+  </p>
+
+  <p>
+    The study was conducted as randomized field experiments in real
+    organizations rather than as a small classroom programming exercise.
+    That makes it useful evidence about AI-assisted professional work.
+  </p>
+
+  <p>
+    But it still does <strong>not</strong> answer the “what percentage of
+    developers are worse than AI?” question.
+  </p>
+
+  <p>
+    The experiment compares:
+  </p>
+
+  <blockquote>
+    <strong>developer + AI</strong><br />
+    against<br />
+    <strong>developer without AI.</strong>
+  </blockquote>
+
+  <p>
+    It does not compare:
+  </p>
+
+  <blockquote>
+    <strong>AI alone</strong><br />
+    against<br />
+    <strong>each individual developer.</strong>
+  </blockquote>
+
+  <p>
+    That distinction matters.
+  </p>
+
+  <p>
+    A productivity increase for a developer who has access to AI is evidence
+    about <strong>augmentation</strong>, not evidence that AI can replace a
+    particular percentage of the developer population.
+  </p>
+
+  <h2>A 2026 Controlled Programming Experiment</h2>
+
+  <p>
+    The ACM CHI 2026 paper
+    <em>“When Help Hurts: Verification Load and Fatigue with AI Coding
+    Assistants”</em> provides another controlled comparison.
+  </p>
+
+  <p>
+    The experiment included <strong>60 participants</strong>.
+  </p>
+
+  <p>
+    Researchers assigned:
+  </p>
+
+  <ul>
+    <li><strong>36 participants</strong> to AI-assisted conditions;</li>
+    <li><strong>24 participants</strong> to a no-AI control.</li>
+  </ul>
+
+  <p>
+    Participants completed three Python programming tasks.
+  </p>
+
+  <p>
+    The researchers held the underlying language model constant and used GPT-4o
+    without web or external tools. This allowed them to study the interaction
+    between the developer and the AI rather than comparing completely different
+    AI systems.
+  </p>
+
+  <p>
+    Compared with the control, pooled AI assistance:
+  </p>
+
+  <ul>
+    <li>reduced workload by <strong>18.2 points</strong> on the study's workload measure;</li>
+    <li>reduced completion time by <strong>22%</strong>;</li>
+    <li>and improved correctness, with an <strong>odds ratio of 1.71</strong>.</li>
+  </ul>
+
+  <p>
+    The reported pooled completion times were about
+    <strong>25.0 minutes with AI versus 32.1 minutes without AI</strong>.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup>
+  </p>
+
+  <p>
+    However, this study does not mean that AI independently outperformed
+    60 programmers.
+  </p>
+
+  <p>
+    The humans were still doing the programming.
+  </p>
+
+  <p>
+    The experiment asks:
+  </p>
+
+  <blockquote>
+    <strong>What happens to human performance when AI assistance is added?</strong>
+  </blockquote>
+
+  <p>
+    That is a different question from:
+  </p>
+
+  <blockquote>
+    <strong>Can an autonomous AI outperform the human developer?</strong>
+  </blockquote>
+
+  <h2>More Code, Less Understanding?</h2>
+
+  <p>
+    A 2026 study published in <strong>IEEE Transactions on Software
+    Engineering</strong> examined another dimension of AI-assisted
+    programming.
+  </p>
+
+  <p>
+    Researchers Alberto Martin-Lopez and colleagues recruited
+    <strong>69 participants</strong>:
+  </p>
+
+  <ul>
+    <li>34 BSc students;</li>
+    <li>13 MSc students;</li>
+    <li>8 researchers;</li>
+    <li>14 professional developers.</li>
+  </ul>
+
+  <p>
+    Each participant performed two code-writing tasks:
+  </p>
+
+  <ul>
+    <li>one with AI support;</li>
+    <li>one without AI support.</li>
+  </ul>
+
+  <p>
+    The tasks included both developing code from requirements and evolving
+    existing code to satisfy change requests.
+  </p>
+
+  <p>
+    The result was substantial.
+  </p>
+
+  <p>
+    AI-assisted participants achieved <strong>more than twice the median task
+    completeness</strong> of participants working without AI.
+  </p>
+
+  <p>
+    However, the benefit came with another measurable difference.
+  </p>
+
+  <p>
+    Participants who used AI were less able to answer questions about the code
+    they had implemented. The researchers report a
+    <strong>12.5% reduction in code ownership</strong>, using the ability to
+    answer technical questions as a proxy for ownership and understanding.<sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <p>
+    That does not prove that AI makes developers worse.
+  </p>
+
+  <p>
+    It shows something more subtle:
+  </p>
+
+  <blockquote>
+    <strong>
+      AI can make implementation more effective while changing how much of the
+      resulting code the developer personally understands.
+    </strong>
+  </blockquote>
+
+  <p>
+    That distinction matters when asking whether a developer has actually been
+    “outperformed.”
+  </p>
+
+  <h2>Real Software Maintenance Tells a Different Story</h2>
+
+  <p>
+    Producing new code is only part of software engineering.
+  </p>
+
+  <p>
+    A developer also has to maintain code later.
+  </p>
+
+  <p>
+    A 2026 study published in <em>Empirical Software Engineering</em>,
+    <em>“Echoes of AI: Investigating the downstream effects of AI assistants
+    on software maintainability,”</em> used a preregistered two-phase controlled
+    experiment involving <strong>151 participants</strong>.
+  </p>
+
+  <p>
+    Approximately <strong>95% were professional developers</strong>.
+  </p>
+
+  <p>
+    In the first phase, participants added a feature to a Java web application
+    with or without AI assistance.
+  </p>
+
+  <p>
+    In the second phase, new participants were asked to evolve those solutions
+    <strong>without AI assistance</strong>.
+  </p>
+
+  <p>
+    The researchers found:
+  </p>
+
+  <ul>
+    <li>no significant difference in subsequent completion time;</li>
+    <li>no significant difference in code quality;</li>
+    <li>and no systematic evidence that AI-assisted code was easier or harder to maintain under the tested conditions.</li>
+  </ul>
+
+  <p>
+    Bayesian analysis suggested that any differences in subsequent speed or
+    quality were small and highly uncertain.<sup><a class="citation" href="https://link.springer.com/article/10.1007/s10664-026-10889-1">[4]</a></sup>
+  </p>
+
+  <p>
+    This is useful because it challenges both extreme conclusions.
+  </p>
+
+  <p>
+    The results do not show that AI-generated or AI-assisted code is
+    automatically worse.
+  </p>
+
+  <p>
+    They also do not show that involving AI automatically creates a maintenance
+    advantage.
+  </p>
+
+  <p>
+    A more defensible conclusion is:
+  </p>
+
+  <blockquote>
+    <strong>
+      Within the tasks and measurements studied, the downstream maintainability
+      of AI-assisted code was not systematically different from code produced
+      without AI assistance.
+    </strong>
+  </blockquote>
+
+  <h2>AI vs. Developers on Real Software Engineering</h2>
+
+  <p>
+    There is a major difference between:
+  </p>
+
+  <blockquote>
+    “Write this function.”
+  </blockquote>
+
+  <p>
+    and:
+  </p>
+
+  <blockquote>
+    “Find the cause of this bug in a large existing repository, determine what
+    the software is supposed to do, modify the correct files, avoid breaking
+    other behavior, and produce a valid patch.”
+  </blockquote>
+
+  <p>
+    Modern coding agents increasingly attempt the second category.
+  </p>
+
+  <h2>METR's Human-Calibrated Approach</h2>
+
+  <p>
+    METR evaluates AI agents using software tasks for which researchers also
+    collect estimates of how long skilled human professionals take to complete
+    the same tasks.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    METR's current Time Horizon 1.1 measurements are calculated using
+    performance across <strong>more than 100 diverse software tasks</strong>.
+    The tasks are designed to be <strong>self-contained and well-specified</strong>,
+    with clear success criteria that can be automatically evaluated.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    METR first estimates how long a human expert takes to complete each task,
+    then fits a logistic curve that predicts an AI agent's success probability
+    as task difficulty increases.
+  </p>
+
+  <p>
+    This produces what METR calls a <strong>time horizon</strong>.
+  </p>
+
+  <p>
+    A 50% time horizon is the human-equivalent task duration at which the model
+    is predicted to succeed about half the time.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    This measurement is useful because a model succeeding on a five-minute fix
+    is very different from succeeding on a task that a skilled human would
+    normally need many hours to complete.
+  </p>
+
+  <p>
+    But there is an important limitation.
+  </p>
+
+  <p>
+    METR deliberately uses self-contained tasks with clear success criteria so
+    that the experiments can be measured consistently.
+  </p>
+
+  <p>
+    Those conditions are not the same as normal work inside a familiar
+    organization.
+  </p>
+
+  <p>
+    A developer on a real project may have:
+  </p>
+
+  <ul>
+    <li>years of knowledge about the codebase;</li>
+    <li>product and customer context;</li>
+    <li>undocumented architectural constraints;</li>
+    <li>access to colleagues;</li>
+    <li>knowledge of previous failures;</li>
+    <li>familiarity with production systems;</li>
+    <li>and an understanding of why apparently strange code exists.</li>
+  </ul>
+
+  <p>
+    METR states that its human task-duration estimates likely
+    <strong>overestimate how long an experienced professional would take</strong>
+    in normal day-to-day work because the humans and AI agents have much less
+    context for the task than professionals doing equivalent work in their
+    normal jobs.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    METR says it is more useful to think of its two-hour tasks as what someone
+    with low or no prior context, such as a new hire or remote contractor,
+    could accomplish in two hours, rather than what an experienced person
+    already familiar with the project would necessarily need two hours to
+    complete.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    So a strong AI time horizon is evidence of <strong>agent capability on a
+    defined task distribution</strong>.
+  </p>
+
+  <p>
+    It is not a percentage of developers who can be replaced.
+  </p>
+
+  <h2>Why METR Does Not Produce a Developer Percentage</h2>
+
+  <p>
+    METR's work is especially useful because it highlights why this question is
+    difficult.
+  </p>
+
+  <p>
+    The benchmark humans and the AI are operating under carefully specified
+    experimental conditions.
+  </p>
+
+  <p>
+    Real developers often are not.
+  </p>
+
+  <p>
+    A developer may know:
+  </p>
+
+  <ul>
+    <li>the history of a product;</li>
+    <li>why a particular workaround exists;</li>
+    <li>which customer is affected;</li>
+    <li>what another team is changing;</li>
+    <li>which architectural decision is commercially constrained;</li>
+    <li>or how an organization's production environment actually behaves.</li>
+  </ul>
+
+  <p>
+    A benchmark generally cannot reproduce all of that.
+  </p>
+
+  <p>
+    METR's February 2026 productivity update also shows another challenge:
+    measuring the effect of AI on experienced developers has become harder as
+    developers adopt increasingly agentic tools and change which tasks they do
+    with and without AI.
+  </p>
+
+  <p>
+    METR reported that its later productivity experiment suffered from
+    selection effects and concluded that its data was
+    <strong>not a reliable signal for the size of the current productivity
+    effect</strong>.<sup><a class="citation" href="https://metr.org/blog/2026-02-24-uplift-update/">[6]</a></sup>
+  </p>
+
+  <p>
+    That is an important finding in its own right.
+  </p>
+
+  <p>
+    It means even a carefully designed experiment can become harder to
+    interpret as developer behavior changes alongside the technology.
+  </p>
+
+  <h2>SWE-bench and Repository-Level Coding</h2>
+
+  <p>
+    SWE-bench became one of the most widely discussed ways of measuring AI
+    software-engineering ability.
+  </p>
+
+  <p>
+    The benchmark gives models real GitHub repositories and issue descriptions
+    and asks them to produce patches that resolve the problems.
+  </p>
+
+  <p>
+    That is much closer to repository-level engineering than a simple isolated
+    coding question.
+  </p>
+
+  <p>
+    But by 2026, benchmark validity itself had become an important
+    methodological issue.
+  </p>
+
+  <h2>SWE-bench Verified Has a Contamination Problem</h2>
+
+  <p>
+    In February 2026, OpenAI announced that it would no longer use SWE-bench
+    Verified as a frontier coding benchmark.
+  </p>
+
+  <p>
+    OpenAI reported that state-of-the-art performance had risen from
+    <strong>74.9% to 80.9%</strong> over the preceding six months, but its
+    investigation found evidence that the benchmark had significant
+    contamination and design limitations.<sup><a class="citation" href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">[7]</a></sup>
+  </p>
+
+  <p>
+    The concern is straightforward.
+  </p>
+
+  <p>
+    If a model has encountered a benchmark problem, its wording, or information
+    about the original solution during training, success on that benchmark no
+    longer cleanly measures generalization to unseen software-engineering
+    problems.
+  </p>
+
+  <p>
+    A benchmark score can then partially measure:
+  </p>
+
+  <blockquote>
+    “How much of this benchmark has the model effectively encountered?”
+  </blockquote>
+
+  <p>
+    rather than purely:
+  </p>
+
+  <blockquote>
+    “How well can the model solve new software problems?”
+  </blockquote>
+
+  <p>
+    OpenAI therefore recommended moving away from SWE-bench Verified for
+    frontier capability measurement.<sup><a class="citation" href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">[7]</a></sup>
+  </p>
+
+  <p>
+    The larger lesson is important:
+  </p>
+
+  <blockquote>
+    <strong>
+      A benchmark percentage is only meaningful to the extent that the
+      benchmark remains a valid measurement of the capability it is supposed
+      to represent.
+    </strong>
+  </blockquote>
+
+  <h2>SWE-Bench Pro Still Shows the Difficulty of Benchmarking</h2>
+
+  <p>
+    OpenAI subsequently encouraged the wider community to switch to SWE-Bench
+    Pro as a more difficult alternative to SWE-bench Verified.
+  </p>
+
+  <p>
+    But OpenAI's July 2026 audit found that roughly
+    <strong>30% of SWE-Bench Pro tasks were broken</strong>. Its automated
+    pipeline flagged 200 of 731 tasks, or 27.4%, while a human annotation
+    campaign identified 249 of 731, or 34.1%, as broken.<sup><a class="citation" href="https://openai.com/index/separating-signal-from-noise-coding-evaluations/">[8]</a></sup>
+  </p>
+
+  <p>
+    The problems primarily involved:
+  </p>
+
+  <ul>
+    <li>overly strict tests;</li>
+    <li>underspecified prompts;</li>
+    <li>low-coverage tests;</li>
+    <li>and misleading prompts that conflicted with expected behavior.</li>
+  </ul>
+
+  <p>
+    OpenAI said these findings led it to <strong>retract its earlier
+    recommendation to adopt SWE-Bench Pro</strong> and advised model developers
+    to examine benchmark results carefully.<sup><a class="citation" href="https://openai.com/index/separating-signal-from-noise-coding-evaluations/">[8]</a></sup>
+  </p>
+
+  <p>
+    The methodological lesson is broader than SWE-Bench:
+  </p>
+
+  <blockquote>
+    <strong>
+      Even a benchmark designed to improve on an older benchmark can contain
+      enough task-quality problems to complicate interpretation of its
+      headline scores.
+    </strong>
+  </blockquote>
+
+  <p>
+    This matters directly to the “percentage of developers” question because a
+    benchmark score cannot produce a population percentage unless the benchmark
+    itself is a reliable representation of the underlying ability being
+    compared.
+  </p>
+
+  <h2>A 2026 Benchmark Beyond Functional Correctness</h2>
+
+  <p>
+    Another 2026 study makes the benchmark problem even clearer.
+  </p>
+
+  <p>
+    The <strong>SWE-NFI</strong> benchmark was designed to evaluate
+    <strong>non-functional improvements</strong> rather than only whether
+    software passes functional tests.
+  </p>
+
+  <p>
+    The benchmark contains <strong>188 tasks</strong> constructed from real
+    merged pull requests in open-source Python projects.
+  </p>
+
+  <p>
+    The researchers translated developer-oriented non-functional improvements
+    into <strong>92 executable rules</strong> covering structural and
+    behavioral quality.
+  </p>
+
+  <p>
+    The best-performing evaluated agent achieved a
+    <strong>70.0% functional-correctness rate</strong>.
+  </p>
+
+  <p>
+    But when the researchers measured non-functional improvements, the
+    evaluated agents generally fell short of the human reference.
+  </p>
+
+  <p>
+    For structural code improvements, the reported agent scores ranged from
+    <strong>0.0 to 1.3</strong>, compared with <strong>1.5 for the human
+    reference</strong>.<sup><a class="citation" href="https://arxiv.org/abs/2607.27409">[9]</a></sup>
+  </p>
+
+  <p>
+    This is one of the most useful 2026 findings for the “AI versus
+    developers” question.
+  </p>
+
+  <p>
+    An AI system can have a strong functional-correctness score and still
+    perform less well on another important aspect of software engineering.
+  </p>
+
+  <p>
+    In other words:
+  </p>
+
+  <blockquote>
+    <strong>
+      “Does the code work?” is not the same measurement as “Was this good
+      software engineering?”
+    </strong>
+  </blockquote>
+
+  <p>
+    The study also does <strong>not</strong> provide a percentage of developers
+    who lose to AI.
+  </p>
+
+  <p>
+    Its human result is a reference point for a particular evaluation
+    dimension, not a representative worldwide distribution of developers.
+  </p>
+
+  <h2>Google Research: Project-Level Code Migration</h2>
+
+  <p>
+    Google Research published the <strong>FreshBrew</strong> benchmark to
+    evaluate AI agents on project-level Java code migration.
+  </p>
+
+  <p>
+    The benchmark contains <strong>228 repositories</strong>.
+  </p>
+
+  <p>
+    In the reported 2026 evaluation, the top-performing model,
+    <strong>Gemini 2.5 Flash</strong>, successfully migrated
+    <strong>56.5% of projects to JDK 17</strong>.<sup><a class="citation" href="https://research.google/pubs/freshbrew-a-benchmark-for-evaluating-ai-agents-on-java-code-migration-2/">[10]</a></sup>
+  </p>
+
+  <p>
+    That is a meaningful repository-level capability result.
+  </p>
+
+  <p>
+    It demonstrates that AI agents can carry out substantial changes across
+    real codebases.
+  </p>
+
+  <p>
+    But once again:
+  </p>
+
+  <blockquote>
+    <strong>56.5% of projects successfully migrated</strong>
+  </blockquote>
+
+  <p>
+    does <strong>not</strong> mean:
+  </p>
+
+  <blockquote>
+    <strong>56.5% of developers are worse than AI.</strong>
+  </blockquote>
+
+  <p>
+    There is no representative human developer distribution attached to that
+    percentage.
+  </p>
+
+  <h2>Does Developer Experience Matter?</h2>
+
+  <p>
+    The evidence suggests that experience matters, but the research does not
+    support a simple line separating developers whom AI can and cannot
+    outperform.
+  </p>
+
+  <p>
+    It is tempting to imagine a ladder:
+  </p>
+
+  <blockquote>
+    beginner &rarr; junior &rarr; mid-level &rarr; senior &rarr; expert
+  </blockquote>
+
+  <p>
+    and then ask where AI fits.
+  </p>
+
+  <p>
+    Current research does not support a single dividing line.
+  </p>
+
+  <h2>Less-Experienced Developers: The Evidence Is Mixed</h2>
+
+  <p>
+    Evidence about less-experienced developers is mixed.
+  </p>
+
+  <p>
+    The large 2025 field study involving <strong>4,867 developers</strong>
+    found higher AI adoption and greater measured productivity gains among
+    less-experienced developers.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <p>
+    But a separate 2026 <em>Science</em> study analyzed more than
+    <strong>30 million GitHub commits from 160,097 software developers</strong>
+    across six countries. In its studied GitHub population, the researchers
+    found measurable productivity benefits for senior-level developers but
+    <strong>no measurable productivity benefits for early-career developers</strong>,
+    even though early-career developers were the most frequent users of
+    generative AI.<sup><a class="citation" href="https://doi.org/10.1126/science.adz9311">[17]</a></sup>
+  </p>
+
+  <p>
+    These results are not necessarily contradictory. The studies use different
+    populations, data sources, AI-use measures, outcomes, and research
+    designs.
+  </p>
+
+  <p>
+    What they do show is that it would be too strong to say that AI produces a
+    uniform productivity advantage for junior or early-career developers.
+  </p>
+
+  <p>
+    Even when AI improves implementation output, that does not mean it has
+    replaced the underlying expertise.
+  </p>
+
+  <p>
+    A less-experienced developer may become faster at implementation while
+    still relying on more experienced engineers for architecture, review,
+    debugging strategy, or difficult tradeoffs.
+  </p>
+
+  <h2>Expertise Still Appears to Matter in Agentic Coding</h2>
+
+  <p>
+    Anthropic's June 2026 analysis examined approximately
+    <strong>400,000 Claude Code sessions</strong> between October 2025 and
+    April 2026.
+  </p>
+
+  <p>
+    The researchers examined the composition of tasks, human-AI collaboration,
+    and session success.
+  </p>
+
+  <p>
+    One recurring pattern was that people tended to make most of the
+    <strong>planning decisions</strong>, while Claude made most of the
+    <strong>execution decisions</strong>.
+  </p>
+
+  <p>
+    Anthropic also found that the greater the domain expertise a person brought
+    to a session, the more work Claude completed per instruction.
+  </p>
+
+  <p>
+    More domain expertise was also associated with higher session success
+    rates, although the gap between intermediate and expert users was described
+    as modest.<sup><a class="citation" href="https://www.anthropic.com/research/claude-code-expertise?hl=en-US">[11]</a></sup>
+  </p>
+
+  <p>
+    This is important because an AI agent may be highly capable at execution
+    while still benefiting from the person who understands:
+  </p>
+
+  <blockquote>
+    <strong>what the system is supposed to do.</strong>
+  </blockquote>
+
+  <h2>Humans and AI Are Increasingly Splitting the Job</h2>
+
+  <p>
+    Anthropic's findings suggest an emerging division in agentic software work:
+  </p>
+
+  <blockquote>
+    <strong>Human:</strong> What should happen?<br /><br />
+    <strong>AI:</strong> How should we execute it?
+  </blockquote>
+
+  <p>
+    That is not a universal rule, but it describes a substantial portion of
+    observed agentic coding behavior.<sup><a class="citation" href="https://www.anthropic.com/research/claude-code-expertise?hl=en-US">[11]</a></sup>
+  </p>
+
+  <p>
+    Microsoft Research found a related pattern.
+  </p>
+
+  <p>
+    In a 2026 study of <strong>860 Microsoft developers</strong>, researchers
+    examined what kinds of AI systems developers wanted beyond conventional
+    coding assistants.
+  </p>
+
+  <p>
+    The developers wanted AI support across much more of software development
+    than code writing alone, while also emphasizing constraints around:
+  </p>
+
+  <ul>
+    <li>authority;</li>
+    <li>provenance;</li>
+    <li>uncertainty;</li>
+    <li>quality signals;</li>
+    <li>and responsibility.</li>
+  </ul>
+
+  <p>
+    The researchers described this pattern as
+    <strong>“bounded delegation.”</strong><sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/to-copilot-and-beyond-22-ai-systems-developers-want-built/">[12]</a></sup>
+  </p>
+
+  <p>
+    That does not prove that humans are technically superior on every task.
+  </p>
+
+  <p>
+    It shows that professional developers do not view software engineering as
+    nothing more than code production.
+  </p>
+
+  <h2>Developer Acceptance of AI Autonomy</h2>
+
+  <p>
+    Another 2026 Microsoft Research study examined how much autonomy
+    professional developers were actually willing to grant AI.
+  </p>
+
+  <p>
+    The study involved <strong>448 professional developers at Microsoft</strong>.
+  </p>
+
+  <p>
+    Most participants accepted AI producing work under their oversight, but
+    acceptable levels of autonomy varied substantially across tasks and
+    individuals.
+  </p>
+
+  <p>
+    Acceptance was lower for identity-defining, human-facing, and
+    design-oriented work. Task accountability was also associated with lower
+    willingness to allow AI to act on behalf of the developer, while task
+    demands increased willingness to delegate some decision-making to AI.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/you-shall-not-pass-where-and-why-developers-draw-the-line-on-ai-autonomy/">[13]</a></sup>
+  </p>
+
+  <p>
+    This is evidence about <strong>developer attitudes toward autonomy</strong>,
+    not evidence that humans are objectively better at every task where they
+    prefer to remain in control.
+  </p>
+
+  <p>
+    It tells us where professionals want human oversight and responsibility to
+    remain.
+  </p>
+
+  <h2>Where AI Appears Stronger</h2>
+
+  <h3>Routine implementation</h3>
+
+  <p>
+    AI assistance can increase developer throughput on coding tasks.
+  </p>
+
+  <p>
+    The large randomized field study is strong evidence of this effect in
+    several professional environments.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <h3>Clearly specified tasks</h3>
+
+  <p>
+    AI tends to be easier to evaluate when success is objectively measurable.
+  </p>
+
+  <p>
+    That is one reason automated tests are so common in coding benchmarks.
+  </p>
+
+  <p>
+    METR deliberately creates self-contained tasks with clear success criteria
+    so that human and AI performance can be compared consistently.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <h3>Repository-level issue resolution</h3>
+
+  <p>
+    Modern AI agents can inspect repositories, edit multiple files, use
+    development tools, execute tests, and iterate.
+  </p>
+
+  <p>
+    METR's work shows increasing capability on longer software tasks, while
+    benchmarks such as FreshBrew demonstrate meaningful performance on
+    project-level Java migration.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+    <sup><a class="citation" href="https://research.google/pubs/freshbrew-a-benchmark-for-evaluating-ai-agents-on-java-code-migration-2/">[10]</a></sup>
+  </p>
+
+  <h3>Code generation</h3>
+
+  <p>
+    AI can generate implementation quickly.
+  </p>
+
+  <p>
+    The 2026 IEEE study found substantially greater task completeness with AI
+    assistance, while the ACM CHI experiment found lower completion times and
+    higher correctness under its controlled conditions.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup>
+    <sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <h2>Where Humans Still Have Important Advantages</h2>
+
+  <h3>Non-functional improvement</h3>
+
+  <p>
+    SWE-NFI found that the evaluated agents generally remained below the human
+    reference on non-functional improvements, particularly structural code
+    improvements.<sup><a class="citation" href="https://arxiv.org/abs/2607.27409">[9]</a></sup>
+  </p>
+
+  <h3>Understanding generated code</h3>
+
+  <p>
+    The IEEE 2026 study found that AI-assisted participants were less able to
+    answer technical questions about the code they had implemented.
+  </p>
+
+  <p>
+    That does not prove humans are universally better at understanding code.
+  </p>
+
+  <p>
+    It does show that:
+  </p>
+
+  <blockquote>
+    <strong>
+      Producing more code is not identical to understanding more code.
+    </strong>
+  </blockquote>
+
+  <p>
+    <sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <h3>Verification</h3>
+
+  <p>
+    The ACM CHI study found that AI assistance reduced overall time and
+    workload, while the researchers also specifically studied the effort
+    developers spend verifying model output.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup>
+  </p>
+
+  <p>
+    That matters because a system that generates code quickly can still shift
+    some of the work into:
+  </p>
+
+  <blockquote>
+    inspect &rarr; test &rarr; verify &rarr; correct
+  </blockquote>
+
+  <p>
+    So faster generation does not automatically mean faster end-to-end
+    engineering in every environment.
+  </p>
+
+  <h3>High-responsibility work</h3>
+
+  <p>
+    Microsoft's 2026 research shows that developers place different limits on
+    AI autonomy depending on the task, especially where responsibility,
+    professional identity, human interaction, and design are involved.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/you-shall-not-pass-where-and-why-developers-draw-the-line-on-ai-autonomy/">[13]</a></sup>
+  </p>
+
+  <p>
+    This is not proof of a universal human technical advantage.
+  </p>
+
+  <p>
+    It is evidence that software engineering includes responsibilities that
+    developers do not treat as interchangeable with code execution.
+  </p>
+
+  <h2>What Developers Actually Use AI For</h2>
+
+  <p>
+    It is also useful to distinguish AI capability from AI adoption.
+  </p>
+
+  <p>
+    JetBrains' <strong>2026 Developer Ecosystem Survey</strong> is based on
+    more than <strong>15,000 professional developers worldwide</strong>.
+  </p>
+
+  <p>
+    For May&ndash;July 2026, JetBrains reported that:
+  </p>
+
+  <ul>
+    <li><strong>90%</strong> of professional developers used AI coding agents at work at least weekly;</li>
+    <li><strong>68%</strong> used them daily.</li>
+  </ul>
+
+  <p>
+    This does <strong>not</strong> mean AI is better than 90% of developers.
+  </p>
+
+  <p>
+    It means something very different:
+  </p>
+
+  <blockquote>
+    <strong>
+      AI coding agents have become widely integrated into professional
+      development workflows.
+    </strong>
+  </blockquote>
+
+  <p>
+    Adoption is not evidence of superiority.<sup><a class="citation" href="https://blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026/">[14]</a></sup>
+  </p>
+
+  <h2>Why There Is No Single Percentage</h2>
+
+  <h3>Developers have different skills</h3>
+
+  <p>
+    Two developers can both have ten years of experience while having
+    completely different strengths.
+  </p>
+
+  <p>
+    One might specialize in:
+  </p>
+
+  <ul>
+    <li>distributed systems;</li>
+    <li>front-end development;</li>
+    <li>security;</li>
+    <li>embedded systems;</li>
+    <li>enterprise Java maintenance;</li>
+    <li>or game development.</li>
+  </ul>
+
+  <p>
+    Comparing all of them on one benchmark would not produce a universal
+    measure of software-engineering ability.
+  </p>
+
+  <h3>AI systems have different capabilities</h3>
+
+  <p>
+    There is no single “AI programmer.”
+  </p>
+
+  <p>
+    Different systems vary in:
+  </p>
+
+  <ul>
+    <li>reasoning;</li>
+    <li>coding;</li>
+    <li>tool use;</li>
+    <li>context length;</li>
+    <li>repository understanding;</li>
+    <li>speed;</li>
+    <li>reliability;</li>
+    <li>planning;</li>
+    <li>and ability to recover from errors.</li>
+  </ul>
+
+  <p>
+    A result for one model and tool configuration does not automatically
+    transfer to every other model.
+  </p>
+
+  <h3>Tasks have different difficulty distributions</h3>
+
+  <p>
+    A benchmark consisting mostly of short fixes tells us something different
+    from a benchmark containing multi-hour engineering projects.
+  </p>
+
+  <p>
+    That is one reason METR focuses on calibrated task difficulty rather than
+    treating every software task as equivalent.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    It is also why benchmark design matters so much.
+  </p>
+
+  <p>
+    If a benchmark contains contaminated examples, invalid tests,
+    underspecified requirements, or poor coverage, the headline percentage can
+    become misleading.
+  </p>
+
+  <p>
+    The history of SWE-bench illustrates this problem.<sup><a class="citation" href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">[7]</a></sup>
+  </p>
+
+  <h3>Tools change the comparison</h3>
+
+  <p>
+    Consider two experiments.
+  </p>
+
+  <h3>Experiment A</h3>
+
+  <p>
+    <strong>Human:</strong>
+  </p>
+
+  <ul>
+    <li>IDE;</li>
+    <li>documentation;</li>
+    <li>web search;</li>
+    <li>repository;</li>
+    <li>tests;</li>
+    <li>colleagues.</li>
+  </ul>
+
+  <p>
+    <strong>AI:</strong>
+  </p>
+
+  <ul>
+    <li>chat interface;</li>
+    <li>no tools.</li>
+  </ul>
+
+  <h3>Experiment B</h3>
+
+  <p>
+    <strong>Human:</strong>
+  </p>
+
+  <ul>
+    <li>IDE;</li>
+    <li>documentation.</li>
+  </ul>
+
+  <p>
+    <strong>AI:</strong>
+  </p>
+
+  <ul>
+    <li>repository access;</li>
+    <li>terminal;</li>
+    <li>file editing;</li>
+    <li>test execution;</li>
+    <li>multiple retries;</li>
+    <li>long context.</li>
+  </ul>
+
+  <p>
+    These are not equivalent comparisons.
+  </p>
+
+  <p>
+    A fair study has to specify what each side could access and how much
+    autonomy the AI received.
+  </p>
+
+  <h2>Benchmark Scores Are Not Developer Percentages</h2>
+
+  <p>
+    This is one of the most common mathematical mistakes in discussions of AI
+    coding.
+  </p>
+
+  <p>
+    Imagine an AI scores:
+  </p>
+
+  <blockquote>
+    <strong>80% on a benchmark.</strong>
+  </blockquote>
+
+  <p>
+    It does <strong>not</strong> follow that:
+  </p>
+
+  <blockquote>
+    <strong>80% of developers are worse than AI.</strong>
+  </blockquote>
+
+  <p>
+    To make that claim, researchers would need the performance distribution of
+    the relevant developer population on the <strong>same benchmark under
+    comparable conditions</strong>.
+  </p>
+
+  <p>
+    Suppose 1,000 representative developers took that benchmark and their
+    performance looked like this:
+  </p>
+
+  <ul>
+    <li>10% scored above 90%;</li>
+    <li>30% scored between 70% and 90%;</li>
+    <li>40% scored between 40% and 70%;</li>
+    <li>20% scored below 40%.</li>
+  </ul>
+
+  <p>
+    An AI scoring 80% would outperform some developers and perform below
+    others.
+  </p>
+
+  <p>
+    The AI percentage alone cannot tell us how many.
+  </p>
+
+  <p>
+    And there is another problem.
+  </p>
+
+  <p>
+    Even if we measured the human distribution perfectly, the benchmark might
+    not represent the actual software work those developers perform.
+  </p>
+
+  <h2>AI Success Rate Is Also Not Replacement Rate</h2>
+
+  <p>
+    Suppose an AI agent successfully resolves:
+  </p>
+
+  <blockquote>
+    <strong>70% of repository tasks.</strong>
+  </blockquote>
+
+  <p>
+    That does not imply:
+  </p>
+
+  <blockquote>
+    <strong>70% of programmers can be replaced.</strong>
+  </blockquote>
+
+  <p>
+    Why?
+  </p>
+
+  <p>
+    Because developers do far more than solve repository tasks.
+  </p>
+
+  <p>
+    They also:
+  </p>
+
+  <ul>
+    <li>determine requirements;</li>
+    <li>communicate with stakeholders;</li>
+    <li>prioritize work;</li>
+    <li>choose technical tradeoffs;</li>
+    <li>review AI output;</li>
+    <li>maintain systems;</li>
+    <li>investigate production problems;</li>
+    <li>decide when not to ship;</li>
+    <li>and remain responsible for the result.</li>
+  </ul>
+
+  <p>
+    A benchmark measures what the benchmark measures.
+  </p>
+
+  <p>
+    It cannot automatically be expanded into a measurement of the entire
+    occupation.
+  </p>
+
+  <h2>Productivity Gains Are Not Replacement Rates</h2>
+
+  <p>
+    The same mistake happens with productivity studies.
+  </p>
+
+  <p>
+    Suppose developers using AI complete:
+  </p>
+
+  <blockquote>
+    <strong>26.08% more tasks.</strong>
+  </blockquote>
+
+  <p>
+    That does not mean:
+  </p>
+
+  <blockquote>
+    <strong>26.08% of developers are unnecessary.</strong>
+  </blockquote>
+
+  <p>
+    The 2025 field study measured completed tasks among developers with and
+    without AI assistance.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <p>
+    A productivity gain could instead mean:
+  </p>
+
+  <ul>
+    <li>the same number of developers can produce more output;</li>
+    <li>developers can spend more time on difficult work;</li>
+    <li>organizations can attempt more projects;</li>
+    <li>or some existing work becomes cheaper while new work becomes economically viable.</li>
+  </ul>
+
+  <p>
+    Productivity and employment are different measurements.
+  </p>
+
+  <h2>The 2026 Research Also Shows Why Results Can Conflict</h2>
+
+  <p>
+    At first glance, the studies can seem inconsistent.
+  </p>
+
+  <p>
+    One study finds AI increases productivity.
+  </p>
+
+  <p>
+    Another finds no significant downstream maintainability difference.
+  </p>
+
+  <p>
+    Another finds a large increase in task completeness.
+  </p>
+
+  <p>
+    Another finds reduced code ownership.
+  </p>
+
+  <p>
+    The <em>Science</em> study finds measurable benefits for senior-level
+    developers but not early-career developers in its studied GitHub
+    population.<sup><a class="citation" href="https://doi.org/10.1126/science.adz9311">[17]</a></sup>
+  </p>
+
+  <p>
+    METR's research also shows why measuring productivity gets harder as
+    developers change their own workflows around increasingly capable agents.
+  </p>
+
+  <p>
+    These findings are not necessarily contradictions.
+  </p>
+
+  <p>
+    They are often measuring different things.
+  </p>
+
+  <p>
+    Consider the difference between:
+  </p>
+
+  <ul>
+    <li><strong>task speed</strong> and <strong>understanding</strong>;</li>
+    <li><strong>functional correctness</strong> and <strong>non-functional quality</strong>;</li>
+    <li><strong>individual output</strong> and <strong>downstream maintenance</strong>;</li>
+    <li><strong>AI alone</strong> and <strong>developer + AI</strong>.</li>
+  </ul>
+
+  <p>
+    Once these measurements are separated, much of the apparent disagreement
+    becomes easier to understand.
+  </p>
+
+  <h2>A Practical Evidence Table</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>What the evidence shows</th>
+        <th>What that actually tells us</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Code generation</strong></td>
+        <td>AI assistance can improve task completion and developer productivity.</td>
+        <td>Strong evidence of augmentation; not a population replacement measurement.</td>
+      </tr>
+
+ 
+  <tr>
+    <td><strong>Routine implementation</strong></td>
+    <td>AI can make developers faster and increase completed work.</td>
+    <td>Human + AI comparison is strong; autonomous AI vs. humans is less directly measured.</td>
+  </tr>
+
+  <tr>
+    <td><strong>Python programming</strong></td>
+    <td>A 2026 CHI study found lower time and higher correctness with AI assistance.</td>
+    <td>AI assistance improved human performance in the tested conditions.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Coding from requirements</strong></td>
+    <td>AI-assisted participants achieved more than twice the median task completeness in an IEEE experiment.</td>
+    <td>AI helped implementation; not evidence that AI alone beats the participants.<sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Repository-level coding</strong></td>
+    <td>Frontier agents can complete increasingly difficult software tasks.</td>
+    <td>Strong AI capability evidence, but not a representative global developer comparison.</td>
+  </tr>
+
+  <tr>
+    <td><strong>Code migration</strong></td>
+    <td>FreshBrew reported 56.5% project migration success for its top tested model.</td>
+    <td>Benchmark capability, not percentage of developers outperformed.<sup><a class="citation" href="https://research.google/pubs/freshbrew-a-benchmark-for-evaluating-ai-agents-on-java-code-migration-2/">[10]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Functional correctness</strong></td>
+    <td>Agents can achieve high success on some coding benchmarks.</td>
+    <td>Important but incomplete measure of software engineering.</td>
+  </tr>
+
+  <tr>
+    <td><strong>Non-functional improvement</strong></td>
+    <td>SWE-NFI found agents generally below the human reference.</td>
+    <td>Evidence of a measured area where human performance remained stronger.<sup><a class="citation" href="https://arxiv.org/abs/2607.27409">[9]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Maintainability</strong></td>
+    <td>A 151-person study found no significant downstream difference in time or quality.</td>
+    <td>No evidence of a systematic maintainability advantage or disadvantage in that experiment.<sup><a class="citation" href="https://link.springer.com/article/10.1007/s10664-026-10889-1">[4]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Code ownership</strong></td>
+    <td>AI-assisted participants were less able to answer technical questions about their code.</td>
+    <td>Implementation speed and understanding can diverge.<sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Planning</strong></td>
+    <td>Anthropic observed people making most planning decisions in typical Claude Code sessions.</td>
+    <td>Evidence about observed human-agent workflows, not proof that humans are universally better planners.<sup><a class="citation" href="https://www.anthropic.com/research/claude-code-expertise?hl=en-US">[11]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>AI autonomy</strong></td>
+    <td>Microsoft found accepted autonomy varied substantially across tasks and individuals.</td>
+    <td>Evidence about where developers want oversight and delegation boundaries.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/you-shall-not-pass-where-and-why-developers-draw-the-line-on-ai-autonomy/">[13]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Developer adoption</strong></td>
+    <td>JetBrains reported 90% weekly and 68% daily AI coding-agent use in its 2026 survey.</td>
+    <td>Strong evidence of adoption, not evidence of superiority.<sup><a class="citation" href="https://blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026/">[14]</a></sup></td>
+  </tr>
+
+  <tr>
+    <td><strong>Early-career productivity</strong></td>
+    <td>Evidence differs across studies: a 2025 field experiment reported larger gains for less-experienced developers, while a 2026 <em>Science</em> study found no measurable productivity benefit for early-career developers in its GitHub population.</td>
+    <td>There is no established universal AI productivity effect for early-career developers.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup> <sup><a class="citation" href="https://doi.org/10.1126/science.adz9311">[17]</a></sup></td>
+  </tr>
+</tbody>
+ 
+
+  </table>
+
+  <h2>Can AI Outperform Senior Developers?</h2>
+
+  <p>
+    The evidence shows that frontier AI systems can perform at levels
+    comparable to human experts on some defined software tasks, and can exceed
+    human reference performance on some measured dimensions.
+  </p>
+
+  <p>
+    That is different from a direct, representative head-to-head competition
+    between AI and senior software developers across the full range of their
+    work.
+  </p>
+
+  <p>
+    METR's time-horizon methodology provides a human-calibrated comparison by
+    estimating how long skilled human professionals take to complete defined
+    tasks and then modeling AI success probability on those tasks.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    The comparison becomes less straightforward when we move from defined
+    benchmark tasks to ordinary senior engineering work.
+  </p>
+
+  <p>
+    Senior developers often possess:
+  </p>
+
+  <ul>
+    <li>domain knowledge;</li>
+    <li>organizational context;</li>
+    <li>architectural experience;</li>
+    <li>knowledge of prior failures;</li>
+    <li>familiarity with the existing codebase;</li>
+    <li>and responsibility for the resulting system.</li>
+  </ul>
+
+  <p>
+    METR's experimental setup is intentionally more controlled and
+    self-contained than a normal workplace environment, and it explicitly
+    warns that its human-time estimates likely overstate what highly
+    contextualized professionals would need in ordinary work.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <p>
+    So the evidence supports:
+  </p>
+
+  <blockquote>
+    <strong>
+      AI can perform at or above human reference levels on some defined
+      software tasks, depending on the task and evaluation method.
+    </strong>
+  </blockquote>
+
+  <p>
+    It does not establish:
+  </p>
+
+  <blockquote>
+    <strong>
+      AI is generally better than senior software developers.
+    </strong>
+  </blockquote>
+
+  <h2>What About Junior Developers?</h2>
+
+  <p>
+    The evidence does not support a single universal answer for junior or
+    early-career developers.
+  </p>
+
+  <p>
+    The 2025 field study involving 4,867 developers found higher AI adoption
+    and greater measured productivity gains among less-experienced developers.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <p>
+    But the 2026 <em>Science</em> study of more than
+    <strong>30 million GitHub commits from 160,097 developers across six
+    countries</strong> reported no measurable productivity benefits for
+    early-career developers in its studied population, despite their being the
+    most frequent users of generative AI.<sup><a class="citation" href="https://doi.org/10.1126/science.adz9311">[17]</a></sup>
+  </p>
+
+  <p>
+    These studies examine different populations and use different methods, so
+    the disagreement should not be interpreted as proof that one group is
+    universally correct and the other universally wrong.
+  </p>
+
+  <p>
+    The safer conclusion is:
+  </p>
+
+  <blockquote>
+    <strong>
+      AI's measured productivity effect on less-experienced developers varies
+      across research settings, and current evidence does not establish a
+      universal benefit.
+    </strong>
+  </blockquote>
+
+  <p>
+    Even when AI improves implementation output, that is not the same as
+    replacing the underlying expertise.
+  </p>
+
+  <h2>What About Experienced Developers?</h2>
+
+  <p>
+    Experienced developers present a complicated picture.
+  </p>
+
+  <p>
+    They often have more context about the systems they maintain, but they can
+    also receive different benefits from AI because some of the tasks being
+    automated are already areas where they are highly efficient.
+  </p>
+
+  <p>
+    METR's research illustrates why the answer cannot be reduced to a simple
+    seniority ranking.
+  </p>
+
+  <p>
+    Its earlier experiment found that experienced open-source developers took
+    about <strong>19% longer</strong> when using AI under its 2025 study
+    conditions.<sup><a class="citation" href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">[16]</a></sup>
+  </p>
+
+  <p>
+    In its February 2026 update, METR reported that a later experiment produced
+    raw evidence of speedup but suffered from substantial selection effects.
+    METR concluded that the later experiment was <strong>not reliable enough
+    to determine the size of the current productivity effect</strong>.<sup><a class="citation" href="https://metr.org/blog/2026-02-24-uplift-update/">[6]</a></sup>
+  </p>
+
+  <p>
+    The important point is not that AI “hurts senior developers.”
+  </p>
+
+  <p>
+    It is:
+  </p>
+
+  <blockquote>
+    <strong>
+      The effect of AI depends on who is using it, what they are doing, how
+      familiar they are with the codebase, what tools are available, and how
+      the AI fits into the workflow.
+    </strong>
+  </blockquote>
+
+  <h2>Where Humans and AI Are Increasingly Working Together</h2>
+
+  <p>
+    The 2026 evidence increasingly points toward software development becoming
+    a <strong>human-agent system</strong> rather than a simple competition
+    between human and machine.
+  </p>
+
+  <p>
+    JetBrains reports that AI coding agents were used weekly by
+    <strong>90%</strong> of professional developers in its May&ndash;July
+    2026 survey.<sup><a class="citation" href="https://blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026/">[14]</a></sup>
+  </p>
+
+  <p>
+    Anthropic's large-scale Claude Code analysis found that people tended to
+    remain heavily involved in planning while the agent handled more of the
+    execution.<sup><a class="citation" href="https://www.anthropic.com/research/claude-code-expertise?hl=en-US">[11]</a></sup>
+  </p>
+
+  <p>
+    Microsoft's research with 860 developers found demand for AI systems that
+    support work surrounding coding while maintaining explicit boundaries
+    around authority, provenance, uncertainty, and responsibility.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/to-copilot-and-beyond-22-ai-systems-developers-want-built/">[12]</a></sup>
+  </p>
+
+  <p>
+    A separate Microsoft study of 448 developers found that accepted AI
+    autonomy varied by task and that accountability was associated with lower
+    willingness to allow AI to act on behalf of the developer.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/you-shall-not-pass-where-and-why-developers-draw-the-line-on-ai-autonomy/">[13]</a></sup>
+  </p>
+
+  <p>
+    Google Research has similarly argued that AI coding evaluation should move
+    beyond simple correctness toward behaviors involving standards and
+    processes, code quality and reliability, problem solving, and
+    collaboration.
+  </p>
+
+  <p>
+    Its 2026 CHI paper synthesized a taxonomy from
+    <strong>91 sets of developer-defined rules</strong> collected at Google in
+    July 2025, emphasizing standards and processes, code quality and
+    reliability, problem solving, and collaboration.<sup><a class="citation" href="https://research.google/pubs/from-correctness-to-collaboration-a-human-centered-taxonomy-of-ai-agent-behavior-in-software-engineering/">[15]</a></sup>
+  </p>
+
+  <p>
+    This suggests that the practical comparison is increasingly becoming:
+  </p>
+
+  <blockquote>
+    <strong>
+      human defines goals &rarr; AI executes parts of the work &rarr; human
+      verifies and steers the result.
+    </strong>
+  </blockquote>
+
+  <p>
+    That is not the same thing as saying either side is universally superior.
+  </p>
+
+  <h2>Why a Global Percentage Would Require a Very Different Study</h2>
+
+  <p>
+    To scientifically answer:
+  </p>
+
+  <blockquote>
+    “What percentage of software developers are worse than AI?”
+  </blockquote>
+
+  <p>
+    researchers would need to perform something much closer to a population
+    study.
+  </p>
+
+  <h3>Define the population</h3>
+
+  <p>
+    A representative sample of software developers across:
+  </p>
+
+  <ul>
+    <li>experience levels;</li>
+    <li>programming languages;</li>
+    <li>industries;</li>
+    <li>job roles;</li>
+    <li>and geographic regions.</li>
+  </ul>
+
+  <h3>Define the task distribution</h3>
+
+  <p>
+    The evaluation would need to include representative amounts of:
+  </p>
+
+  <ul>
+    <li>coding;</li>
+    <li>debugging;</li>
+    <li>testing;</li>
+    <li>refactoring;</li>
+    <li>code review;</li>
+    <li>planning;</li>
+    <li>architecture;</li>
+    <li>maintenance;</li>
+    <li>requirements interpretation;</li>
+    <li>and production engineering.</li>
+  </ul>
+
+  <h3>Give humans and AI comparable resources</h3>
+
+  <p>
+    Both sides would need clearly defined access to:
+  </p>
+
+  <ul>
+    <li>documentation;</li>
+    <li>source code;</li>
+    <li>search;</li>
+    <li>tooling;</li>
+    <li>tests;</li>
+    <li>and external information.</li>
+  </ul>
+
+  <h3>Measure individuals</h3>
+
+  <p>
+    Researchers would need to know how <strong>each developer</strong> performs.
+  </p>
+
+  <p>
+    That is essential.
+  </p>
+
+  <p>
+    Averages are not enough.
+  </p>
+
+  <p>
+    Suppose:
+  </p>
+
+  <blockquote>
+    <strong>AI average = 80</strong><br />
+    <strong>developer average = 70</strong>
+  </blockquote>
+
+  <p>
+    That still does not tell us what percentage of individual developers AI
+    outperforms.
+  </p>
+
+  <p>
+    Maybe:
+  </p>
+
+  <ul>
+    <li>20% of developers score 95;</li>
+    <li>30% score 85;</li>
+    <li>30% score 65;</li>
+    <li>20% score 40.</li>
+  </ul>
+
+  <p>
+    The AI average could be below some developers and above others.
+  </p>
+
+  <p>
+    The distribution matters.
+  </p>
+
+  <h2>What We Can Actually Estimate in 2026</h2>
+
+  <h3>AI task capability</h3>
+
+  <p>
+    Benchmarks can tell us how frequently an AI succeeds at particular classes
+    of software tasks.
+  </p>
+
+  <p>
+    Examples include:
+  </p>
+
+  <ul>
+    <li>repository issue resolution;</li>
+    <li>Java migration;</li>
+    <li>non-functional improvements;</li>
+    <li>terminal-based coding;</li>
+    <li>and longer-horizon software tasks.</li>
+  </ul>
+
+  <h3>Human-calibrated difficulty</h3>
+
+  <p>
+    METR can estimate software-task difficulty relative to human expert
+    completion time.<sup><a class="citation" href="https://metr.org/time-horizons/">[5]</a></sup>
+  </p>
+
+  <h3>Developer productivity effects</h3>
+
+  <p>
+    Randomized field experiments can measure how AI affects the work output of
+    real developers.
+  </p>
+
+  <p>
+    The 2025 field study involving <strong>4,867 developers</strong> is one of
+    the strongest examples available for measuring AI-assisted productivity
+    effects in professional environments.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <h3>Human performance on specific AI-assisted tasks</h3>
+
+  <p>
+    Controlled experiments can measure:
+  </p>
+
+  <ul>
+    <li>completion time;</li>
+    <li>correctness;</li>
+    <li>completeness;</li>
+    <li>workload;</li>
+    <li>and understanding.</li>
+  </ul>
+
+  <p>
+    The ACM and IEEE 2026 studies provide examples of this.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup>
+    <sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <h3>Maintenance effects</h3>
+
+  <p>
+    Controlled studies can examine what happens to AI-assisted code later when
+    another developer has to modify it.
+  </p>
+
+  <p>
+    The 151-person 2026 maintenance experiment found no statistically
+    significant downstream difference in the tested measures.<sup><a class="citation" href="https://link.springer.com/article/10.1007/s10664-026-10889-1">[4]</a></sup>
+  </p>
+
+  <h2>What We Cannot Calculate</h2>
+
+  <p>
+    The available research does not currently justify:
+  </p>
+
+  <blockquote>
+    <strong>“X% of software developers are worse than AI.”</strong>
+  </blockquote>
+
+  <p>
+    It does not provide reliable global percentages for:
+  </p>
+
+  <ul>
+    <li>all software developers;</li>
+    <li>all junior developers;</li>
+    <li>all senior developers;</li>
+    <li>all programmers;</li>
+    <li>or the entire software-engineering profession.</li>
+  </ul>
+
+  <p>
+    There is also no universal definition of “worse.”
+  </p>
+
+  <p>
+    Would the AI need to:
+  </p>
+
+  <ul>
+    <li>write code faster?</li>
+    <li>pass more tests?</li>
+    <li>introduce fewer defects?</li>
+    <li>produce better architecture?</li>
+    <li>maintain code better?</li>
+    <li>understand requirements better?</li>
+    <li>make better security decisions?</li>
+    <li>communicate better?</li>
+    <li>or deliver greater long-term product value?</li>
+  </ul>
+
+  <p>
+    Each definition could produce a different result.
+  </p>
+
+  <h2>The Most Important Distinction</h2>
+
+  <p>
+    It helps to keep three statements separate.
+  </p>
+
+  <h3>Statement 1</h3>
+
+  <blockquote>
+    <strong>AI outperformed humans on a particular task.</strong>
+  </blockquote>
+
+  <p>
+    This can be demonstrated experimentally.
+  </p>
+
+  <h3>Statement 2</h3>
+
+  <blockquote>
+    <strong>
+      AI outperformed humans more often on a particular class of tasks.
+    </strong>
+  </blockquote>
+
+  <p>
+    This can also be measured when enough comparable observations exist.
+  </p>
+
+  <h3>Statement 3</h3>
+
+  <blockquote>
+    <strong>AI outperformed X% of software developers.</strong>
+  </blockquote>
+
+  <p>
+    This requires a representative human population tested on the same task
+    distribution under comparable conditions.
+  </p>
+
+  <p>
+    Most current research does not provide that third measurement.
+  </p>
+
+  <p>
+    That is why converting AI benchmark scores into a percentage of developers
+    is scientifically unjustified.
+  </p>
+
+  <h2>What the Evidence Does Not Tell Us</h2>
+
+  <p>
+    The evidence available through 2026 does not tell us:
+  </p>
+
+  <ul>
+    <li>what percentage of programmers AI can replace;</li>
+    <li>what percentage of developers AI can outperform overall;</li>
+    <li>whether most senior developers are worse than AI;</li>
+    <li>whether most junior developers are worse than AI;</li>
+    <li>whether AI is a better software architect than humans;</li>
+    <li>whether AI is better at production engineering overall;</li>
+    <li>or whether the current AI-human performance boundary will remain stable.</li>
+  </ul>
+
+  <p>
+    The technology is evolving rapidly.
+  </p>
+
+  <p>
+    The measurement methods are evolving too.
+  </p>
+
+  <p>
+    OpenAI's 2026 work on SWE-bench Verified demonstrates why benchmark
+    methodology can itself become a limiting factor when models become strong
+    enough to encounter contamination or other validity problems.<sup><a class="citation" href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">[7]</a></sup>
+  </p>
+
+  <h2>What We Know</h2>
+
+  <p>
+    The strongest evidence available by 2026 supports several conclusions.
+  </p>
+
+  <h3>AI can make developers substantially more productive on some coding work.</h3>
+
+  <p>
+    A randomized field study released as a June 2025 preprint and involving
+    <strong>4,867 developers</strong> found a
+    <strong>26.08% increase in completed tasks</strong> when developers
+    received AI coding assistance.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+  </p>
+
+  <h3>AI can improve performance on controlled programming tasks.</h3>
+
+  <p>
+    A 60-participant ACM CHI experiment found lower completion times and higher
+    correctness when AI assistance was available under its tested
+    conditions.<sup><a class="citation" href="https://doi.org/10.1145/3772318.3791176">[2]</a></sup>
+  </p>
+
+  <h3>AI can dramatically increase implementation output.</h3>
+
+  <p>
+    The 2026 IEEE study found more than twice the median task completeness with
+    AI support in its coding experiments.<sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <h3>AI does not automatically dominate every software-quality dimension.</h3>
+
+  <p>
+    SWE-NFI found that evaluated agents generally remained below the human
+    reference on non-functional improvements.<sup><a class="citation" href="https://arxiv.org/abs/2607.27409">[9]</a></sup>
+  </p>
+
+  <h3>AI-assisted implementation and human understanding can diverge.</h3>
+
+  <p>
+    The IEEE study found lower code ownership alongside higher task
+    completeness.<sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+  </p>
+
+  <h3>AI does not automatically create downstream maintainability problems.</h3>
+
+  <p>
+    The 151-person maintenance experiment found no statistically significant
+    difference in later completion time or code quality in the tested
+    conditions.<sup><a class="citation" href="https://link.springer.com/article/10.1007/s10664-026-10889-1">[4]</a></sup>
+  </p>
+
+  <h3>AI's measured productivity effects depend heavily on the experimental setup.</h3>
+
+  <p>
+    METR's 2026 update shows that selection effects, changing tool use, and
+    increasingly agentic workflows can make productivity experiments difficult
+    to interpret.<sup><a class="citation" href="https://metr.org/blog/2026-02-24-uplift-update/">[6]</a></sup>
+  </p>
+
+  <h3>Early-career productivity results are not uniform across studies.</h3>
+
+  <p>
+    A 2025 field experiment found greater measured gains among less-experienced
+    developers, while a 2026 <em>Science</em> study found no measurable
+    productivity benefit for early-career developers in its studied GitHub
+    population.<sup><a class="citation" href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">[1]</a></sup>
+    <sup><a class="citation" href="https://doi.org/10.1126/science.adz9311">[17]</a></sup>
+  </p>
+
+  <h2>What We Can Estimate</h2>
+
+  <p>
+    We can estimate:
+  </p>
+
+  <ul>
+    <li>how often an AI system solves a defined class of tasks;</li>
+    <li>how difficult those tasks are relative to human expert effort;</li>
+    <li>how AI changes developer productivity;</li>
+    <li>how AI changes completion time;</li>
+    <li>how AI affects correctness on controlled tasks;</li>
+    <li>how developers use AI agents;</li>
+    <li>how domain expertise affects agent-assisted work;</li>
+    <li>and where current agents still fall behind human references.</li>
+  </ul>
+
+  <p>
+    These are meaningful measurements.
+  </p>
+
+  <p>
+    They describe <strong>capabilities and effects</strong> rather than
+    pretending that software developers can be reduced to one universal
+    ranking.
+  </p>
+
+  <h2>What We Cannot Calculate</h2>
+
+  <p>
+    The evidence available through 2026 does not provide a scientifically
+    defensible answer to:
+  </p>
+
+  <blockquote>
+    <strong>What percentage of software developers are worse than AI?</strong>
+  </blockquote>
+
+  <p>
+    The honest answer is:
+  </p>
+
+  <div class="thesis">
+    <p>
+      <strong>We don't know.</strong>
+    </p>
+  </div>
+
+  <p>
+    But that does not mean we know nothing.
+  </p>
+
+  <p>
+    We have increasingly strong evidence that AI can outperform human
+    developers on some tasks.
+  </p>
+
+  <p>
+    We also have evidence that developers can outperform AI or retain important
+    advantages on other tasks.
+  </p>
+
+  <p>
+    And we have growing evidence that the practical unit of comparison is
+    becoming:
+  </p>
+
+  <blockquote>
+    <strong>human + AI</strong>
+  </blockquote>
+
+  <p>
+    rather than:
+  </p>
+
+  <blockquote>
+    <strong>human vs. AI.</strong>
+  </blockquote>
+
+  <h2>Conclusion</h2>
+
+  <p>
+    So, what percentage of software developers are worse than AI?
+  </p>
+
+  <div class="thesis">
+    <p>
+      <strong>There is currently no credible global percentage.</strong>
+    </p>
+  </div>
+
+  <p>
+    The research available by 2026 does not support a statement such as:
+  </p>
+
+  <blockquote>
+    “40% of software developers are worse than AI.”
+  </blockquote>
+
+  <p>
+    There is no representative study that establishes that number.
+  </p>
+
+  <p>
+    What the research <em>does</em> establish is more useful.
+  </p>
+
+  <p>
+    AI can outperform humans on particular software-development tasks.
+  </p>
+
+  <p>
+    AI can increase the productivity of professional developers.
+  </p>
+
+  <p>
+    AI agents can now perform increasingly long and complex repository-level
+    tasks.
+  </p>
+
+  <p>
+    AI can achieve strong functional-correctness results on coding benchmarks.
+  </p>
+
+  <p>
+    But AI does not perform equally well across every aspect of software
+    engineering.
+  </p>
+
+  <p>
+    Research available in 2026 has found measurable gaps in areas such as
+    non-functional software improvement, as well as differences in developer
+    understanding and verification requirements. Other controlled studies have
+    found no significant downstream maintainability difference in the
+    conditions tested.<sup><a class="citation" href="https://arxiv.org/abs/2607.27409">[9]</a></sup>
+    <sup><a class="citation" href="https://ieeexplore.ieee.org/document/11458664/">[3]</a></sup>
+    <sup><a class="citation" href="https://link.springer.com/article/10.1007/s10664-026-10889-1">[4]</a></sup>
+  </p>
+
+  <p>
+    The result is not a single ladder with:
+  </p>
+
+  <blockquote>
+    <strong>AI at the top and developers below it.</strong>
+  </blockquote>
+
+  <p>
+    It is a changing boundary.
+  </p>
+
+  <p>
+    AI may be better at one task.
+  </p>
+
+  <p>
+    A developer may be better at another.
+  </p>
+
+  <p>
+    And very often, the actual system producing the result is:
+  </p>
+
+  <blockquote>
+    <strong>developer + AI.</strong>
+  </blockquote>
+
+  <p>
+    That is why the most scientifically defensible answer in 2026 is not a
+    percentage.
+  </p>
+
+  <p>
+    It is a set of task-specific measurements.
+  </p>
+
+  <p>
+    The question worth following is therefore not:
+  </p>
+
+  <blockquote>
+    <strong>“What percentage of developers are worse than AI?”</strong>
+  </blockquote>
+
+  <p>
+    It is:
+  </p>
+
+  <blockquote>
+    <strong>
+      “Which software-development tasks can AI perform better than humans,
+      under what conditions, and where does human expertise still change the
+      result?”
+    </strong>
+  </blockquote>
+
+  <p>
+    That is a question the current evidence can increasingly answer.
+  </p>
+
+  <section class="sources" id="sources">
+    <h2>Sources</h2>
+
+ 
+<ol>
+  <li>
+    Microsoft Research, Zheyuan (Kevin) Cui, Mert Demirer, Sonia Jaffe,
+    Leon Musolff, Sida Peng, and Tobias Salz,
+    <em>The Effects of Generative AI on High-Skilled Work: Evidence from
+    Three Field Experiments with Software Developers</em>, June 2025
+    preprint. Randomized field experiments at Microsoft, Accenture, and an
+    anonymous Fortune 100 company involving 4,867 developers and reporting
+    a 26.08% increase in completed tasks among developers using the AI
+    tool.
+    <a href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">
+      Original source
+    </a>.
+    Journal publication:
+    <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2025.00535">
+      Management Science
+    </a>.
+  </li>
+
+  <li>
+    ACM CHI 2026,
+    <em>When Help Hurts: Verification Load and Fatigue with AI Coding
+    Assistants</em>. Controlled experiment with 60 participants examining
+    completion time, correctness, workload, and verification effort.
+    <a href="https://doi.org/10.1145/3772318.3791176">
+      Original paper
+    </a>.
+  </li>
+
+  <li>
+    IEEE Transactions on Software Engineering,
+    <em>More Code, Less Understanding? On the Impact of AI Assistants on
+    Developers' Productivity and Code Ownership</em>. Controlled
+    experiment involving 69 participants, including 14 professional
+    developers.
+    <a href="https://ieeexplore.ieee.org/document/11458664/">
+      Original paper
+    </a>.
+  </li>
+
+  <li>
+    <em>Empirical Software Engineering</em>,
+    <em>Echoes of AI: Investigating the Downstream Effects of AI Assistants
+    on Software Maintainability</em>. Preregistered two-phase experiment
+    involving 151 participants, approximately 95% professional developers.
+    <a href="https://link.springer.com/article/10.1007/s10664-026-10889-1">
+      Original paper
+    </a>.
+  </li>
+
+  <li>
+    METR,
+    <em>Task-Completion Time Horizons of Frontier AI Models</em>, updated
+    May 8, 2026. Current Time Horizon 1.1 measurements using more than 100
+    diverse tasks, together with methodology and limitations concerning
+    human completion-time estimates and context.
+    <a href="https://metr.org/time-horizons/">
+      Original research page
+    </a>.
+  </li>
+
+  <li>
+    METR,
+    <em>We Are Changing Our Developer Productivity Experiment Design</em>,
+    February 2026. Discusses selection effects and uncertainty in estimating
+    the current AI productivity effect among developers.
+    <a href="https://metr.org/blog/2026-02-24-uplift-update/">
+      Original research update
+    </a>.
+  </li>
+
+  <li>
+    OpenAI,
+    <em>Why SWE-bench Verified No Longer Measures Frontier Coding
+    Capabilities</em>, February 2026. Discusses contamination and design
+    concerns surrounding SWE-bench Verified.
+    <a href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">
+      Original analysis
+    </a>.
+  </li>
+
+  <li>
+    OpenAI,
+    <em>Separating Signal From Noise in Coding Evaluations</em>, July 2026.
+    Audit of SWE-Bench Pro reporting 200 of 731 tasks, or 27.4%, flagged by
+    an automated pipeline and 249 of 731, or 34.1%, identified as broken in
+    the human annotation campaign. OpenAI estimated roughly 30% of tasks
+    were broken and retracted its earlier recommendation to adopt
+    SWE-Bench Pro.
+    <a href="https://openai.com/index/separating-signal-from-noise-coding-evaluations/">
+      Original analysis
+    </a>.
+  </li>
+
+  <li>
+    Pengyu Xue et al.,
+    <em>SWE-NFI: Studying and Benchmarking Coding Agents for
+    Non-Functional Improvements</em>, 2026. Benchmark containing 188 tasks
+    derived from real merged pull requests and evaluating non-functional
+    improvements in addition to functional correctness.
+    <a href="https://arxiv.org/abs/2607.27409">
+      Original paper
+    </a>.
+  </li>
+
+  <li>
+    Google Research,
+    <em>FreshBrew: A Benchmark for Evaluating AI Agents on Java Code
+    Migration</em>, 2026. Project-level Java migration benchmark covering
+    228 repositories.
+    <a href="https://research.google/pubs/freshbrew-a-benchmark-for-evaluating-ai-agents-on-java-code-migration-2/">
+      Original publication
+    </a>.
+  </li>
+
+  <li>
+    Anthropic,
+    <em>Agentic Coding and Persistent Returns to Expertise</em>, June
+    2026. Analysis of approximately 400,000 Claude Code sessions examining
+    expertise, planning, execution, and session success.
+    <a href="https://www.anthropic.com/research/claude-code-expertise?hl=en-US">
+      Original analysis
+    </a>.
+  </li>
+
+  <li>
+    Microsoft Research,
+    <em>To Copilot and Beyond: 22 AI Systems Developers Want Built</em>,
+    April 2026. Study of 860 Microsoft developers examining desired AI
+    assistance, authority, provenance, uncertainty, and responsibility.
+    <a href="https://www.microsoft.com/en-us/research/publication/to-copilot-and-beyond-22-ai-systems-developers-want-built/">
+      Original research
+    </a>.
+  </li>
+
+  <li>
+    Microsoft Research,
+    <em>You Shall Not Pass! Where and Why Developers Draw the Line on AI
+    Autonomy</em>, July 2026. Study of 448 professional Microsoft
+    developers examining acceptable levels of AI autonomy.
+    <a href="https://www.microsoft.com/en-us/research/publication/you-shall-not-pass-where-and-why-developers-draw-the-line-on-ai-autonomy/">
+      Original research
+    </a>.
+  </li>
+
+  <li>
+    JetBrains,
+    <em>AI Coding Agents: Adoption Trends</em>, August 2026.
+    Developer Ecosystem Survey analysis based on more than 15,000
+    professional developers worldwide.
+    <a href="https://blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026/">
+      Original analysis
+    </a>.
+  </li>
+
+  <li>
+    Google Research, Tao Dong, Sherry Shi, Harini Sampath, and Andrew
+    Macvean,
+    <em>From Correctness to Collaboration: A Human-Centered Taxonomy of AI
+    Agent Behavior in Software Engineering</em>, CHI 2026. The taxonomy
+    emphasizes standards and processes, code quality and reliability,
+    problem solving, and collaboration and was synthesized from 91 sets of
+    developer-defined rules collected at Google in July 2025.
+    <a href="https://research.google/pubs/from-correctness-to-collaboration-a-human-centered-taxonomy-of-ai-agent-behavior-in-software-engineering/">
+      Original publication
+    </a>.
+  </li>
+
+  <li>
+    METR,
+    <em>Measuring the Impact of Early-2025 AI on Experienced Open-Source
+    Developer Productivity</em>, July 2025. Randomized controlled study
+    involving 16 experienced developers and 246 software tasks.
+    <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">
+      Research page
+    </a>.
+  </li>
+
+  <li>
+    Daniotti et al.,
+    <em>Who is using AI to code? Global diffusion and impact of generative
+    AI</em>, <em>Science</em>, 2026. Analysis of more than 30 million GitHub
+    commits from 160,097 developers across six countries, reporting
+    measurable productivity benefits for senior-level developers but no
+    measurable benefits for early-career developers in the studied
+    population.
+    <a href="https://doi.org/10.1126/science.adz9311">
+      Original paper
+    </a>.
+  </li>
+</ol>
+ 
+
+  </section>
+
+  <footer>
+    <p>
+      Research snapshot: September 2026. Contemporary evidence through 2026 is
+      prioritized. Where 2025 studies are used, they are identified explicitly
+      as earlier baseline evidence rather than presented as 2026 experiments.
+    </p>
+
+ 
+<div class="back-nav-bottom">
+  <a href="https://fluryjanis.github.io/frog1230.github.io/" class="back-nav">
+    &larr; Back to main page
+  </a>
+</div>
+ 
+
+  </footer>
+
+</article>
+
+</body>
+</html>
