@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>What Percentage of Software Is AI-Generated in 2026?</title>
+
+<meta
+ name="description"
+ content="What percentage of software is AI-generated in 2026? Research from JetBrains, GitLab, Google, Microsoft Research, Anthropic, GitHub, and Stack Overflow shows how much code AI is producing and why there is no single global percentage."
+/>
+
+  <link
+    rel="canonical"
+    href="https://fluryjanis.github.io/frog1230.github.io/blog/What-Percentage-of-Software-Is-AI-Generated-in-2026.html"
+  />
+
+<meta
+ property="og:title"
+ content="What Percentage of Software Is AI-Generated in 2026?"
+/>
+
+<meta
+ property="og:description"
+ content="How much software is actually being produced with AI in 2026? Here's what current research can—and cannot—tell us."
+/>
+
+  <meta property="og:type" content="article" />
+
+  <style>
+    .back-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .back-nav:hover {
+      color: var(--strong);
+      text-decoration: none;
+    }
+
+    .back-nav-bottom {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    :root {
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --text: #1d232c;
+      --muted: #5f6975;
+      --border: #dfe4e9;
+      --accent: #315f8c;
+      --accent-soft: #edf4fa;
+      --strong: #16202a;
+      --warning-soft: #fff8e8;
+      --warning-border: #e8cf8a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.72;
+    }
+
+    .styled-article {
+      width: min(760px, calc(100% - 32px));
+      margin: 56px auto 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 48px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--strong);
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 5vw, 3.1rem);
+      letter-spacing: -0.035em;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin: 56px 0 18px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 28px 0 10px;
+    }
+
+    p {
+      margin: 0 0 20px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    a:hover {
+      color: var(--strong);
+    }
+
+    .lead {
+      font-size: 1.18rem;
+      line-height: 1.75;
+      border-left: 4px solid var(--strong);
+      padding-left: 20px;
+      margin: 28px 0 36px;
+      color: var(--strong);
+    }
+
+    strong {
+      color: var(--strong);
+    }
+
+    .citation {
+      font-size: 0.8em;
+      vertical-align: super;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 2px;
+    }
+
+    .thesis {
+      margin: 32px 0;
+      padding: 24px 26px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      font-size: 1.08rem;
+    }
+
+    .thesis p:last-child {
+      margin-bottom: 0;
+    }
+
+    .note {
+      margin: 28px 0;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fbfcfd;
+    }
+
+    .evidence-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .source-note {
+      font-size: 0.92rem;
+      color: var(--muted);
+      padding: 12px 16px;
+      border-left: 3px solid var(--border);
+      margin: 18px 0 26px;
+      background: #fafbfc;
+      border-radius: 0 6px 6px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 28px 0 34px;
+      font-size: 0.95rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--accent-soft);
+      color: var(--strong);
+      font-weight: 700;
+    }
+
+    ol,
+    ul {
+      margin: 0 0 24px 20px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    blockquote {
+      margin: 28px 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);
+      color: #3e4853;
+      font-size: 1.08rem;
+      background: var(--accent-soft);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .sources {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 2px solid var(--strong);
+    }
+
+    .sources li {
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 650px) {
+      .styled-article {
+        width: min(100% - 20px, 760px);
+        margin: 20px auto 40px;
+        padding: 28px 20px;
+        border-radius: 10px;
+      }
+
+      h2 {
+        margin-top: 44px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "What Percentage of Software Is AI-Generated in 2026?",
+    "description": "An evidence-based examination of how much software code is being generated or assisted by AI in 2026.",
+    "datePublished": "2026-09-17",
+    "dateModified": "2026-09-17",
+    "author": {
+      "@type": "Person",
+      "name": "Janis Flury"
+    }
+  }
+  </script>
+
+</head>
+
+<body>
+
+<article class="styled-article">
+
+<a
+href="https://fluryjanis.github.io/frog1230.github.io/"
+class="back-nav"
+
+>
+
+ 
+&larr; Back to main page
+ 
+
+  </a>
+
+  <header>
+    <h1>What Percentage of Software Is AI-Generated in 2026?</h1>
+
+ 
+<p class="lead">
+  AI coding tools and agents are now used by a large share of professional
+  developers, and some organizations have publicly reported that AI
+  produces a majority of newly written or committed code within their
+  organizations. But there is still no reliable worldwide measurement of
+  what percentage of <strong>all software</strong> is AI-generated.
+</p>
+ 
+
+  </header>
+
+  <p>
+    Researchers and companies are measuring narrower things instead:
+    AI-generated code, AI-assisted code, accepted suggestions, agent activity,
+    code changes inside particular companies, and developer adoption.
+    These measurements are useful, but they are not interchangeable.
+  </p>
+
+  <p>
+    This article examines the strongest available evidence as of
+    <strong>September 17, 2026</strong> and separates what is measured from
+    what remains unknown.
+  </p>
+
+  <div class="note">
+    <span class="evidence-label">Research Note</span>
+    <p>
+      The figures below come from surveys, company disclosures, research
+      studies, and platform telemetry. Each statistic is described together
+      with the population, period, or measurement it actually represents.
+      The figures should not be combined into one global estimate.
+    </p>
+  </div>
+
+  <h2>1. The Short Answer</h2>
+
+  <p>
+    <strong>
+      We do not currently know what percentage of all software in existence
+      is AI-generated in 2026.
+    </strong>
+  </p>
+
+  <p>
+    No global dataset tracks every line of software written by companies,
+    governments, open-source projects, students, hobbyists, and private
+    developers and records how each line was created.
+  </p>
+
+  <p>
+    What we can measure is much narrower. Several 2026 studies and company
+    reports show substantial AI involvement in new code production:
+  </p>
+
+  <ul>
+    <li>
+      GitLab reports <strong>34% AI-generated</strong>, 37% written from
+      scratch, and 29% copied from another source in its code-source
+      measurement.<sup><a class="citation" href="#source-gitlab-devsecops">[1]</a></sup>
+    </li>
+
+ 
+<li>
+  JetBrains reports an average of approximately
+  <strong>47% of developers' code as fully generated by AI agents</strong>,
+  with another roughly 38% written with some AI assistance.<sup><a class="citation" href="#source-jetbrains-agents">[2]</a></sup>
+</li>
+
+<li>
+  Google reported that <strong>75% of its new code</strong> was
+  AI-generated and approved by engineers in April 2026.<sup><a class="citation" href="#source-google">[3]</a></sup>
+</li>
+
+<li>
+  Stack Overflow found that <strong>59% of respondents were using AI
+  agents at work</strong> at some frequency in its April 2026 pulse survey.<sup><a class="citation" href="#source-stackoverflow-agents">[4]</a></sup>
+</li>
+
+<li>
+  Anthropic found that roughly <strong>56% of Claude Code sessions</strong>
+  involved writing, fixing, testing, or orchestrating code-related work.<sup><a class="citation" href="#source-anthropic">[5]</a></sup>
+</li>
+ 
+
+  </ul>
+
+  <p>
+    These are different measurements, not competing estimates of one global
+    percentage.
+  </p>
+
+  <p>
+    The strongest defensible conclusion is:
+    <strong>
+      AI is responsible for a substantial share of new code production in
+      several measured populations and organizations, while the AI share of
+      all software in existence remains unknown.
+    </strong>
+  </p>
+
+  <h2>2. Why There Is No One Universal Percentage</h2>
+
+  <p>
+    "AI-generated software" can refer to several different measurements.
+  </p>
+
+  <h3>AI-generated code</h3>
+
+  <p>
+    AI directly produces an implementation, such as a function, component,
+    test, or file change.
+  </p>
+
+  <h3>AI-assisted code</h3>
+
+  <p>
+    A developer writes code while receiving suggestions, corrections,
+    explanations, or partial implementations from AI.
+  </p>
+
+  <h3>AI-modified code</h3>
+
+  <p>
+    Code originally written by a person is later changed by an AI system,
+    such as during refactoring, debugging, migration, or rewriting.
+  </p>
+
+  <h3>AI-assisted development</h3>
+
+  <p>
+    AI can also help with planning, documentation, debugging, code review,
+    testing, research, or understanding an unfamiliar system without
+    necessarily contributing many lines to the final source code.
+  </p>
+
+  <p>
+    That is why a percentage of <strong>AI-generated code</strong> is not the
+    same thing as a percentage of <strong>software development performed by
+    AI</strong>.
+  </p>
+
+  <h2>3. How Much Code Do Developers Say AI Generates?</h2>
+
+  <p>
+    JetBrains' 2026 Developer Ecosystem Survey asked more than
+    <strong>15,000 professional developers worldwide</strong> in
+    May–July 2026 what percentage of the code they had produced for work the
+    previous month was fully generated by AI agents, AI-assisted, or fully
+    manual.<sup><a class="citation" href="#source-jetbrains-agents">[2]</a></sup>
+  </p>
+
+  <p>
+    Respondents selected percentage ranges, and JetBrains used each range's
+    midpoint to calculate averages. The resulting figures were approximately:
+  </p>
+
+  <ul>
+    <li><strong>47%</strong> fully generated by AI agents</li>
+    <li><strong>38%</strong> written with some AI assistance</li>
+    <li><strong>27%</strong> fully written manually</li>
+  </ul>
+
+  <p>
+    These figures should not be added together. JetBrains explains that the
+    separate midpoint calculations can produce totals above 100%, and the
+    results are self-reported estimates.
+  </p>
+
+  <p>
+    The survey also found that more than half of developers reported writing
+    less than 20% of their code manually, roughly one in five reported writing
+    zero code without AI assistance, and about 22% relied on agents for more
+    than 80% of their code.<sup><a class="citation" href="#source-jetbrains-agents">[2]</a></sup>
+  </p>
+
+  <p>
+    The overall picture is therefore one of widespread but uneven AI use:
+    developers are not all delegating the same amount of coding work to agents.
+  </p>
+
+  <div class="source-note">
+    <strong>Source:</strong>
+    <a href="https://blog.jetbrains.com/research/2026/08/how-much-code-do-developers-really-let-agents-write/">
+      JetBrains Research — How Much Code Do Developers Really Let Agents Write?
+    </a>
+  </div>
+
+  <h2>4. How Many Developers Use AI Coding Tools?</h2>
+
+  <p>
+    Adoption is easier to measure than the total percentage of AI-generated
+    software.
+  </p>
+
+  <p>
+    JetBrains' January 2026 AI Pulse survey, covering more than
+    <strong>10,000 professional developers worldwide</strong>, found that
+    <strong>90% regularly used at least one AI tool at work for coding and
+    development tasks</strong>, while <strong>74% had adopted specialized
+    developer AI tools</strong>.<sup><a class="citation" href="#source-jetbrains-tools">[6]</a></sup>
+  </p>
+
+  <p>
+    Its later May–July 2026 Developer Ecosystem Survey found that
+    <strong>90% of professional developers were using AI coding agents at work
+    at least weekly</strong>, with <strong>68% using them daily</strong>.<sup><a class="citation" href="#source-jetbrains-adoption">[7]</a></sup>
+  </p>
+
+  <p>
+    Adoption, however, does not tell us how much code AI produces. A developer
+    can use an AI tool every day while still writing most implementation code
+    manually.
+  </p>
+
+  <p>
+    <strong>
+      Adoption measures how widespread AI use is; code-share measurements
+      estimate how much code developers say AI produces.
+    </strong>
+  </p>
+
+  <h2>5. GitLab's 2026 Measurement of AI-Generated Code</h2>
+
+  <p>
+    GitLab's 2026 Global DevSecOps Report surveyed
+    <strong>3,266 DevSecOps professionals</strong>.<sup><a class="citation" href="#source-gitlab-devsecops">[1]</a></sup>
+  </p>
+
+  <p>
+    Its code-source measurement reports:
+  </p>
+
+  <ul>
+    <li><strong>34% AI-generated</strong></li>
+    <li><strong>37% written from scratch</strong></li>
+    <li><strong>29% copied from another source</strong></li>
+  </ul>
+
+  <p>
+    The categories total 100%, making this one of the more direct code-source
+    measurements available for 2026.
+  </p>
+
+  <p>
+    But the result describes the respondents and the code they work on; it is
+    not a census of all software produced worldwide. It also measures code
+    source rather than the percentage of complete applications that are
+    AI-generated.
+  </p>
+
+  <h2>6. Google Reports 75% of Its New Code Is AI-Generated</h2>
+
+  <p>
+    In April 2026, Google CEO Sundar Pichai said that
+    <strong>75% of all new code at Google was AI-generated and approved by
+    engineers</strong>.<sup><a class="citation" href="#source-google">[3]</a></sup>
+  </p>
+
+  <p>
+    Google said that figure had increased from <strong>50% the previous
+    fall</strong>.<sup><a class="citation" href="#source-google">[3]</a></sup>
+  </p>
+
+  <p>
+    This measures new code inside Google, not every line in its existing
+    codebases and not the software industry as a whole.
+  </p>
+
+  <p>
+    The engineer-approval language is also important: the reported figure is
+    not a claim that 75% of Google's software is produced autonomously.
+  </p>
+
+  <h2>7. AI Agents Are Common, but Full Autonomy Is Different</h2>
+
+  <p>
+    Stack Overflow's April 2026 pulse survey received responses from
+    <strong>1,100 developers and working professionals</strong>.<sup><a class="citation" href="#source-stackoverflow-agents">[4]</a></sup>
+  </p>
+
+  <p>
+    <strong>59% said they were using AI agents at work</strong> at some
+    frequency, compared with 31% in Stack Overflow's 2025 Developer Survey.<sup><a class="citation" href="#source-stackoverflow-agents">[4]</a></sup>
+  </p>
+
+  <p>
+    At the same time, <strong>63% rarely or never let agents run entirely on
+    autopilot</strong>. The survey also found that 60% blocked agents from
+    making unapproved system changes, while 68% preferred predictable
+    single-agent setups over more complicated multi-agent configurations.<sup><a class="citation" href="#source-stackoverflow-agents">[4]</a></sup>
+  </p>
+
+  <p>
+    These findings show why agent adoption should not be confused with full
+    autonomy. AI can be heavily integrated into development while humans
+    retain review and approval responsibilities.
+  </p>
+
+  <h2>8. What Happens During Real AI Coding Sessions?</h2>
+
+  <p>
+    Anthropic analyzed approximately
+    <strong>400,000 Claude Code sessions from about 235,000 people</strong>,
+    covering October 2025 through April 2026.<sup><a class="citation" href="#source-anthropic">[5]</a></sup>
+  </p>
+
+  <p>
+    About <strong>56% of sessions involved writing code, fixing code, testing
+    code, or orchestrating code-related work</strong>. The remaining sessions
+    involved activities such as operating software, planning, exploring
+    existing systems, analyzing data, or producing documents.<sup><a class="citation" href="#source-anthropic">[5]</a></sup>
+  </p>
+
+  <p>
+    This is a measure of <strong>session activity</strong>, not a percentage of
+    AI-generated source code.
+  </p>
+
+  <p>
+    Anthropic also found that people generally made most
+    <strong>planning decisions</strong> while Claude handled more
+    <strong>execution decisions</strong>, illustrating another distinction
+    between AI-assisted development and fully autonomous software engineering.<sup><a class="citation" href="#source-anthropic">[5]</a></sup>
+  </p>
+
+  <h2>9. Production-Scale Evidence From Microsoft Research</h2>
+
+  <p>
+    Microsoft Research analyzed sampled GitHub Copilot traces from June 2026
+    covering approximately:
+  </p>
+
+  <ul>
+    <li><strong>3.2 million users</strong></li>
+    <li><strong>13 million sessions</strong></li>
+    <li><strong>761 million LLM calls</strong></li>
+    <li><strong>95 trillion tokens</strong></li>
+  </ul>
+
+  <p>
+    This is telemetry from production use of a coding-agent system rather than
+    a developer opinion survey.<sup><a class="citation" href="#source-microsoft-production">[8]</a></sup>
+  </p>
+
+  <p>
+    The researchers studied the characteristics of agentic coding workloads;
+    they did <strong>not</strong> calculate what percentage of source code was
+    generated by AI.<sup><a class="citation" href="#source-microsoft-production">[8]</a></sup>
+  </p>
+
+  <p>
+    The scale of the dataset therefore demonstrates extensive AI-agent
+    activity, but cannot be converted into a statement such as
+    "X% of GitHub code is AI-generated."
+  </p>
+
+  <h2>10. How Much Control Are Developers Giving AI?</h2>
+
+  <p>
+    A Microsoft Research study published in July 2026 examined
+    <strong>448 professional developers at Microsoft</strong> and found that
+    acceptance of AI-generated work varied by task. Developers generally
+    accepted AI working under human oversight, with lower acceptance for some
+    design-oriented and human-facing tasks.<sup><a class="citation" href="#source-microsoft-autonomy">[9]</a></sup>
+  </p>
+
+  <p>
+    Another Microsoft Research study presented at the 2026 International
+    Conference on Software Engineering used paired interviews with
+    <strong>54 developers across 27 teams</strong> and found substantial
+    differences in how developers used generative AI tools.<sup><a class="citation" href="#source-microsoft-team">[10]</a></sup>
+  </p>
+
+  <p>
+    These studies do not measure AI-written code. They address a different
+    question: how much autonomy developers are willing to give AI during
+    software work.
+  </p>
+
+  <h2>11. How Companies Measure AI-Generated Code</h2>
+
+  <p>
+    GitHub's Copilot documentation illustrates why "AI-generated code" is not
+    a single platform metric.
+  </p>
+
+  <p>
+    GitHub separately tracks:
+  </p>
+
+  <ul>
+    <li>code suggestions and accepted suggestions</li>
+    <li>lines suggested and lines actually added</li>
+    <li>agent-initiated and user-initiated code changes</li>
+    <li>pull-request activity</li>
+  </ul>
+
+  <p>
+    GitHub defines an agent-initiated code change as lines automatically added
+    to or deleted from the codebase by an agent on behalf of a user. It
+    separately records user-initiated changes made through completions, chat,
+    and other Copilot interactions.<sup><a class="citation" href="#source-github-metrics">[11]</a></sup>
+  </p>
+
+  <p>
+    The distinction matters because a displayed suggestion, an accepted
+    suggestion, and an agent-made repository change are different events.
+  </p>
+
+  <h2>12. Why Attribution Is Becoming a Problem</h2>
+
+  <p>
+    GitLab's 2026 AI Accountability Report surveyed
+    <strong>1,528 DevSecOps professionals and technology buyers across six
+    countries</strong>.<sup><a class="citation" href="#source-gitlab-accountability">[12]</a></sup>
+  </p>
+
+  <p>
+    <strong>43% said their organizations could not reliably distinguish
+    AI-generated code from human-written code in their own codebases.</strong>
+    Another 39% cited systems that do not track code origin as a barrier to
+    control and traceability.<sup><a class="citation" href="#source-gitlab-accountability">[12]</a></sup>
+  </p>
+
+  <p>
+    GitLab also reported that <strong>85% of respondents agreed AI had shifted
+    the bottleneck from writing code to reviewing and validating it</strong>.<sup><a class="citation" href="#source-gitlab-accountability">[12]</a></sup>
+  </p>
+
+  <p>
+    Together, these findings highlight two measurement problems: organizations
+    may not know the origin of all existing code, and code generation is only
+    one part of the surrounding engineering workflow.
+  </p>
+
+  <h2>13. What About Open-Source Software?</h2>
+
+  <p>
+    Microsoft Research's March 2026 study examined self-admitted use of
+    generative AI in open-source projects.<sup><a class="citation" href="#source-microsoft-open-source">[13]</a></sup>
+  </p>
+
+  <p>
+    The researchers mined GitHub for signs of ChatGPT and GitHub Copilot use in
+    commits, issues, and pull requests, then manually coded the evidence into a
+    taxonomy covering <strong>64 AI-use tasks</strong> grouped into seven
+    categories.<sup><a class="citation" href="#source-microsoft-open-source">[13]</a></sup>
+  </p>
+
+  <p>
+    The study shows that AI contributions can leave traces in software
+    artifacts beyond simple code-generation counters.
+  </p>
+
+  <p>
+    It still cannot establish the percentage of all software worldwide that is
+    AI-generated because public repositories represent only part of software
+    development and substantial commercial and internal code remains private.
+  </p>
+
+  <h2>14. Why AI-Generated Code Is Easier to Measure Than AI-Generated Software</h2>
+
+  <p>
+    Imagine an application has one million lines of existing code.
+    Developers add another 100,000 lines during 2026, and AI generates 70,000
+    of those lines.
+  </p>
+
+  <p>
+    AI generated approximately <strong>70% of the new code</strong>, but the
+    AI-generated share of the entire codebase would be much smaller because
+    most of the code predates that work.
+  </p>
+
+  <p>
+    Real software is more complicated still: old code is modified, rewritten,
+    deleted, copied, generated, reviewed, and regenerated over time.
+  </p>
+
+  <p>
+    That creates at least three distinct questions:
+  </p>
+
+  <ol>
+    <li>
+      What percentage of <strong>new code</strong> is generated by AI?
+    </li>
+
+ 
+<li>
+  What percentage of an organization's <strong>current codebase</strong>
+  originated from AI?
+</li>
+
+<li>
+  What percentage of the <strong>overall software-development work</strong>
+  is performed with AI assistance?
+</li>
+ 
+
+  </ol>
+
+  <p>
+    A number answering the first question cannot simply be used as the answer
+    to the second or third.
+  </p>
+
+  <h2>15. AI-Generated Code Is Not the Same as AI-Generated Software</h2>
+
+  <p>
+    Software development includes much more than writing source code:
+    requirements, design, architecture, testing, debugging, security,
+    deployment, monitoring, maintenance, incident response, and product
+    decisions.
+  </p>
+
+  <p>
+    AI can contribute to several of these activities without those
+    contributions appearing as AI-generated source code.
+  </p>
+
+  <p>
+    Microsoft Research's April 2026 study of
+    <strong>860 Microsoft developers</strong> examined where developers wanted
+    AI support beyond traditional coding assistance. The researchers found
+    demand for AI to absorb surrounding assembly work while maintaining
+    boundaries around higher-level human responsibilities.<sup><a class="citation" href="#source-microsoft-copilot-beyond">[14]</a></sup>
+  </p>
+
+  <p>
+    This reinforces the distinction between <strong>code production</strong>
+    and <strong>software engineering as a whole</strong>.
+  </p>
+
+  <h2>16. Historical Context: How the Measurements Have Changed</h2>
+
+  <p>
+    Historical comparisons are useful, but these figures do not form a single
+    continuous time series. The sources measure different things, populations,
+    and periods.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th>Source</th>
+        <th>What was measured</th>
+        <th>Reported result</th>
+      </tr>
+    </thead>
+
+ 
+<tbody>
+  <tr>
+    <td>June 2022</td>
+    <td>GitHub</td>
+    <td>
+      Developers' code files generated by GitHub Copilot
+    </td>
+    <td>
+      More than 27% on average
+    </td>
+  </tr>
+
+  <tr>
+    <td>February 2023</td>
+    <td>GitHub</td>
+    <td>
+      Developers' code built using GitHub Copilot across programming
+      languages
+    </td>
+    <td>
+      About 46% on average
+    </td>
+  </tr>
+
+  <tr>
+    <td>Fall 2025</td>
+    <td>Google</td>
+    <td>
+      New code at Google
+    </td>
+    <td>
+      50%
+    </td>
+  </tr>
+
+  <tr>
+    <td>April 2026</td>
+    <td>Google</td>
+    <td>
+      New code at Google
+    </td>
+    <td>
+      75%, AI-generated and approved by engineers
+    </td>
+  </tr>
+
+  <tr>
+    <td>2025 Developer Survey → April 2026 Pulse Survey</td>
+    <td>Stack Overflow</td>
+    <td>
+      Developers and working professionals using AI agents at work
+    </td>
+    <td>
+      31% → 59%
+    </td>
+  </tr>
+
+  <tr>
+    <td>2026</td>
+    <td>GitLab</td>
+    <td>
+      Reported code-source split
+    </td>
+    <td>
+      34% AI-generated
+    </td>
+  </tr>
+
+  <tr>
+    <td>May–July 2026</td>
+    <td>JetBrains</td>
+    <td>
+      Professional developers' reported code production
+    </td>
+    <td>
+      ~47% fully agent-generated average
+    </td>
+  </tr>
+</tbody>
+ 
+
+  </table>
+
+  <p>
+    The figures provide historical context, but they should not be combined
+    into a single growth curve.
+  </p>
+
+  <h2>17. What We Can Actually Estimate for 2026</h2>
+
+  <h3>We can measure AI-generated code inside specific populations</h3>
+
+  <p>
+    JetBrains and GitLab provide survey-based estimates of how much code
+    developers report AI generating or assisting with.
+  </p>
+
+  <h3>We can measure new-code production inside companies</h3>
+
+  <p>
+    Google reported that 75% of its new code was AI-generated and approved by
+    engineers in April 2026.
+  </p>
+
+  <h3>We can measure AI-agent activity at very large scale</h3>
+
+  <p>
+    Microsoft Research's Copilot analysis measured millions of users and
+    millions of coding-agent sessions.
+  </p>
+
+  <h3>We can measure how AI is used during software work</h3>
+
+  <p>
+    Anthropic's Claude Code analysis provides evidence about the kinds of
+    activities agents are performing.
+  </p>
+
+  <h3>We cannot measure all software globally</h3>
+
+  <p>
+    No trustworthy dataset identified in the research reviewed here covers
+    every private codebase, open-source project, internal tool, application,
+    embedded system, government system, student project, and legacy system.
+  </p>
+
+  <h2>18. What the Numbers Do Not Tell Us</h2>
+
+  <h3>They do not tell us whether AI-written code is good</h3>
+
+  <p>
+    The percentage of generated code says nothing by itself about reliability,
+    security, maintainability, or correctness.
+  </p>
+
+  <h3>They do not tell us how much human work disappeared</h3>
+
+  <p>
+    A high percentage of AI-generated code does not by itself tell us how much
+    developer work was eliminated or shifted elsewhere in the workflow.
+  </p>
+
+  <p>
+    GitLab reported that <strong>85% of respondents agreed AI had shifted the
+    bottleneck from writing code to reviewing and validating it</strong>.<sup><a class="citation" href="#source-gitlab-accountability">[12]</a></sup>
+  </p>
+
+  <h3>They do not tell us how much of a software product was created by AI</h3>
+
+  <p>
+    A code-generation statistic usually refers to a particular time period or
+    set of changes. It does not automatically describe the full history of a
+    software product.
+  </p>
+
+  <h3>They do not tell us how much AI contributed to decisions</h3>
+
+  <p>
+    Planning, architecture, debugging, research, review, and other activities
+    can involve AI without appearing as AI-generated source code.
+  </p>
+
+  <h2>19. Are Companies Measuring This?</h2>
+
+  <p>
+    Increasingly, yes.
+  </p>
+
+  <p>
+    GitHub exposes separate Copilot metrics for generated output, accepted
+    suggestions, lines added, agent-initiated changes, pull requests, and
+    other forms of activity. GitLab is researching AI-code governance and
+    provenance, while Google has published a direct internal measurement for
+    new code.<sup><a class="citation" href="#source-github-metrics">[11]</a></sup>
+  </p>
+
+  <p>
+    At the same time, GitLab found that <strong>43% of respondents could not
+    reliably distinguish AI-generated code from human-written code</strong> in
+    their own codebases.<sup><a class="citation" href="#source-gitlab-accountability">[12]</a></sup>
+  </p>
+
+  <p>
+    That means even organizations using detailed tooling may not have a
+    complete historical record of where every line originated.
+  </p>
+
+  <h2>20. The Most Accurate Answer for 2026</h2>
+
+  <p>
+    So what percentage of software is AI-generated in 2026?
+  </p>
+
+  <p>
+    The answer depends on which software and which measurement you mean.
+  </p>
+
+  <p>
+    <strong>
+      For all software in existence worldwide: unknown.
+    </strong>
+  </p>
+
+  <p>
+    No credible source currently provides a global percentage for the AI
+    authorship of every existing software codebase.
+  </p>
+
+  <p>
+    <strong>
+      For newly produced code: the available 2026 evidence shows that AI is
+      responsible for a substantial share in several measured populations and
+      organizations, with some reporting majority-AI production.
+    </strong>
+  </p>
+
+  <p>
+    The strongest 2026 measurements include:
+  </p>
+
+  <ul>
+    <li>
+      <strong>34%</strong> AI-generated in GitLab's code-source measurement
+    </li>
+
+ 
+<li>
+  approximately <strong>47%</strong> fully agent-generated in JetBrains'
+  self-reported developer code-production averages
+</li>
+
+<li>
+  <strong>over 60%</strong> of the code committed to Braze's main
+  repositories was reported by its CTO as written with AI
+</li>
+
+<li>
+  <strong>75%</strong> of new code reported as AI-generated at Google
+</li>
+ 
+
+  </ul>
+
+  <p>
+    These are not four estimates of one global percentage. They describe
+    different populations, workflows, companies, and methodologies.
+  </p>
+
+  <div class="source-note">
+    <strong>Braze source:</strong>
+    <a href="https://stackoverflow.blog/2026/05/13/rethinking-engineering-for-the-agentic-area/">
+      Stack Overflow — How Braze's CTO is rethinking engineering for the agentic era
+    </a>
+  </div>
+
+  <h2>21. What We Know, What We Can Estimate, and What Remains Unknown</h2>
+
+  <h3>What we know</h3>
+
+  <ul>
+    <li>
+      AI coding tools and agents are used by a large share of professional
+      developers.
+    </li>
+
+ 
+<li>
+  AI-generated code represents a substantial share of newly produced code
+  in several 2026 measurements.
+</li>
+
+<li>
+  Some companies have publicly reported that AI generates a majority of new
+  or committed code within their organizations.
+</li>
+
+<li>
+  Human review and decision-making remain important parts of many
+  professional workflows.
+</li>
+ 
+
+  </ul>
+
+  <h3>What we can estimate</h3>
+
+  <ul>
+    <li>
+      How much AI-generated code developers report producing.
+    </li>
+
+ 
+<li>
+  How much new code is generated by AI inside companies that disclose
+  internal measurements.
+</li>
+
+<li>
+  How common AI coding agents are.
+</li>
+
+<li>
+  How developers use AI during different parts of software development.
+</li>
+ 
+
+  </ul>
+
+  <h3>What remains unknown</h3>
+
+  <ul>
+    <li>
+      The percentage of all software in existence that is AI-generated.
+    </li>
+
+ 
+<li>
+  The exact percentage of all newly created software worldwide that is
+  AI-generated.
+</li>
+
+<li>
+  A universal authorship standard for code that is repeatedly generated,
+  edited, copied, and refactored by both people and AI.
+</li>
+
+<li>
+  The percentage of the overall software-development process that is
+  performed by AI rather than humans.
+</li>
+ 
+
+  </ul>
+
+  <h2>22. Conclusion</h2>
+
+  <p>
+    In 2026, AI is a substantial part of modern software development.
+    Surveys, company disclosures, and large-scale telemetry all show
+    significant AI involvement in coding work.
+  </p>
+
+  <p>
+    But the evidence does <strong>not</strong> justify assigning one percentage
+    to all software.
+  </p>
+
+  <p>
+    JetBrains measures developers' reported code production. GitLab measures
+    reported code-source shares. Google measures its own new code. GitHub
+    measures Copilot activity through several separate metrics. Anthropic and
+    Microsoft Research measure AI coding activity at large scale.
+  </p>
+
+  <blockquote>
+    <p>
+      <strong>
+        AI is generating a substantial share of newly produced software code
+        in several measured populations and organizations in 2026, and some
+        organizations report that AI generates most of their new code. But
+        nobody currently has a reliable percentage for how much of all
+        software is AI-generated.
+      </strong>
+    </p>
+  </blockquote>
+
+  <p>
+    "75% of new code at Google is AI-generated" is a specific company-reported
+    measurement. "75% of software is AI-generated" would be a different claim,
+    and the available evidence does not support it.
+  </p>
+
+  <p>
+    The most useful way to think about AI-generated software in 2026 is
+    therefore as a set of measurable layers: how much developers use AI, how
+    much code AI produces, how much of that output is accepted or changed,
+    how much new code companies generate with AI, and how much of the broader
+    engineering process AI touches.
+  </p>
+
+  <p>
+    <strong>
+      We can measure parts of that picture increasingly well. The global
+      percentage of all software that is AI-generated remains unknown.
+    </strong>
+  </p>
+
+  <section class="sources" id="sources">
+    <h2>Sources</h2>
+
+ 
+<ol>
+  <li id="source-gitlab-devsecops">
+    <strong>GitLab</strong>.
+    <em>The Intelligent Software Development Era — 2026 Global DevSecOps Report.</em>
+    2026.
+    <a href="https://about.gitlab.com/resources/developer-survey/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-jetbrains-agents">
+    <strong>JetBrains Research</strong>.
+    <em>How Much Code Do Developers Really Let Agents Write?</em>
+    August 2026.
+    <a href="https://blog.jetbrains.com/research/2026/08/how-much-code-do-developers-really-let-agents-write/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-google">
+    <strong>Google</strong>.
+    <em>Sundar Pichai shares news from Google Cloud Next 2026.</em>
+    April 2026.
+    <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-stackoverflow-agents">
+    <strong>Stack Overflow</strong>.
+    <em>Agents on a leash: Agentic AI remains mostly monitored at work.</em>
+    May 27, 2026.
+    <a href="https://stackoverflow.blog/2026/05/27/agents-on-a-leash-agentic-ai-remains-mostly-monitored-at-work/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-anthropic">
+    <strong>Anthropic</strong>.
+    <em>Agentic coding and persistent returns to expertise.</em>
+    June 16, 2026.
+    <a href="https://www.anthropic.com/research/claude-code-expertise">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-jetbrains-tools">
+    <strong>JetBrains Research</strong>.
+    <em>Which AI Coding Tools Do Developers Actually Use at Work?</em>
+    April 2026.
+    <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-jetbrains-adoption">
+    <strong>JetBrains Research</strong>.
+    <em>AI Coding Agents: Adoption Trends.</em>
+    August 2026.
+    <a href="https://blog.jetbrains.com/research/2026/08/ai-coding-agent-adoption-2026/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-microsoft-production">
+    <strong>Microsoft Research</strong>.
+    <em>Agentic Coding in the Wild: Characterizing GitHub Copilot at Production Scale.</em>
+    2026.
+    <a href="https://www.microsoft.com/en-us/research/publication/agentic-coding-in-the-wild-characterizing-github-copilot-at-production-scale/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-microsoft-autonomy">
+    <strong>Microsoft Research</strong>.
+    <em>You Shall Not Pass! Where and Why Developers Draw the Line on AI Autonomy.</em>
+    July 2026.
+    <a href="https://www.microsoft.com/en-us/research/publication/you-shall-not-pass-where-and-why-developers-draw-the-line-on-ai-autonomy/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-microsoft-team">
+    <strong>Microsoft Research</strong>.
+    <em>Maybe We Need Some More Examples: Individual and Team Drivers of Developer GenAI Tool Use.</em>
+    2026.
+    <a href="https://www.microsoft.com/en-us/research/publication/maybe-we-need-some-more-examples-individual-and-team-drivers-of-developer-genai-tool-use/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-github-metrics">
+    <strong>GitHub Docs</strong>.
+    <em>Data available in Copilot usage metrics.</em>
+    2026.
+    <a href="https://docs.github.com/en/copilot/reference/copilot-usage-metrics/copilot-usage-metrics">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-gitlab-accountability">
+    <strong>GitLab</strong>.
+    <em>The 2026 AI Accountability Report.</em>
+    2026.
+    <a href="https://about.gitlab.com/resources/ai-accountability-survey-2026/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-microsoft-open-source">
+    <strong>Microsoft Research</strong>.
+    <em>Developers and generative AI: A study of self-admitted usage in open source projects.</em>
+    March 2026.
+    <a href="https://www.microsoft.com/en-us/research/publication/developers-and-generative-ai-a-study-of-self-admitted-usage-in-open-source-projects/">
+      Original source
+    </a>.
+  </li>
+
+  <li id="source-microsoft-copilot-beyond">
+    <strong>Microsoft Research</strong>.
+    <em>To Copilot and Beyond: 22 AI Systems Developers Want Built.</em>
+    April 2026.
+    <a href="https://www.microsoft.com/en-us/research/publication/to-copilot-and-beyond-22-ai-systems-developers-want-built/">
+      Original source
+    </a>.
+  </li>
+
+  <li>
+    <strong>Stack Overflow</strong>.
+    <em>How Braze's CTO is rethinking engineering for the agentic era.</em>
+    May 13, 2026.
+    <a href="https://stackoverflow.blog/2026/05/13/rethinking-engineering-for-the-agentic-area/">
+      Original source
+    </a>.
+  </li>
+
+  <li>
+    <strong>GitHub</strong>.
+    <em>Improved accuracy and coverage in Copilot usage metrics reports.</em>
+    July 2, 2026.
+    <a href="https://github.blog/changelog/2026-07-02-improved-accuracy-and-coverage-in-copilot-usage-metrics-reports/">
+      Original source
+    </a>.
+  </li>
+
+  <li>
+    <strong>GitHub</strong>.
+    <em>GitHub Copilot now has a better AI model and new capabilities.</em>
+    February 21, 2023.
+    <a href="https://github.blog/ai-and-ml/github-copilot/github-copilot-now-has-a-better-ai-model-and-new-capabilities/">
+      Original source
+    </a>.
+  </li>
+</ol>
+
+<p>
+  <strong>Publication note:</strong>
+  This article reflects publicly available evidence as of
+  September 17, 2026. Full-year 2026 data is not yet available for every
+  survey or research program, so measurements covering only part of 2026
+  are labeled by their actual collection period.
+</p>
+ 
+
+  </section>
+
+  <footer>
+    <p>
+      Research snapshot: September 17, 2026.
+    </p>
+
+ 
+<div class="back-nav-bottom">
+  <a
+    href="https://fluryjanis.github.io/frog1230.github.io/"
+    class="back-nav"
+  >
+    &larr; Back to main page
+  </a>
+</div>
+ 
+
+  </footer>
+
+</article>
+
+</body>
+</html>
