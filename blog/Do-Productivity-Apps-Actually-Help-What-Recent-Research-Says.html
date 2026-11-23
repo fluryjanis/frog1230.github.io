@@ -83,6 +83,53 @@
       padding: 48px;
     }
 
+    .margin-video {
+      width: min(300px, 100%);
+      margin: 28px auto 36px;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .margin-video-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f1419;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (min-width: 1320px) {
+      .margin-video {
+        position: fixed;
+        top: 56px;
+        left: calc(50% + 404px);
+        width: 230px;
+        margin: 0;
+        z-index: 10;
+      }
+    }
+
     h1,
     h2,
     h3 {
@@ -300,6 +347,19 @@
       they so often leave us feeling just as behind?</strong>
     </p>
   </header>
+
+  <aside class="margin-video" aria-label="Companion short video">
+    <span class="margin-video-label">Watch the Short</span>
+    <div class="video-frame">
+      <iframe
+        src="https://www.youtube.com/embed/YDgtFryIomQ"
+        title="Do Productivity Apps Actually Help? (YouTube Short)"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </aside>
 
   <h2>Why New Apps Stop Working After Week One</h2>
 
